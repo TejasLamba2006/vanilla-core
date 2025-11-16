@@ -5,3 +5,4 @@ target/
 *.swp
 other-plugins/
 .vscode/
+.github/
