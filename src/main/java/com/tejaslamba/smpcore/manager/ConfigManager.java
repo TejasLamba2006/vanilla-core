@@ -67,17 +67,16 @@ public class ConfigManager {
         defaults.put("messages.reload", "§aConfiguration reloaded successfully!");
 
         String[] features = {
-                "ban-mace", "ban-anchors", "ban-crystals", "ban-pearls", "ban-netherite",
+                "ban-anchors", "ban-crystals", "ban-pearls",
                 "combat-tag", "anti-restock", "anti-elytra-combat", "anti-naked-killing",
                 "anti-afk-killing", "one-player-sleep", "infinite-restock", "pvp-toggle",
                 "first-join-kit", "spectator-on-death", "ban-tipped-arrows", "prevent-bed-bombing",
-                "restrict-tnt-minecart", "prevent-villager-killing", "dimension-nether",
-                "dimension-end", "breach-swap-ban", "invisibility-qol", "item-limiter"
+                "restrict-tnt-minecart", "prevent-villager-killing",
+                "breach-swap-ban", "invisibility-qol", "item-limiter"
         };
 
         for (String feature : features) {
-            boolean defaultEnabled = feature.equals("pvp-toggle") || feature.equals("dimension-nether")
-                    || feature.equals("dimension-end");
+            boolean defaultEnabled = feature.equals("pvp-toggle");
             defaults.put("features." + feature + ".enabled", defaultEnabled);
         }
 
@@ -109,6 +108,31 @@ public class ConfigManager {
         defaults.put("features.enchantment-replacement.caps.feather_falling", 3);
         defaults.put("features.enchantment-replacement.caps.power", 4);
         defaults.put("features.enchantment-replacement.caps.unbreaking", 2);
+
+        defaults.put("features.mace-limiter.enabled", false);
+        defaults.put("features.mace-limiter.mace-crafted", false);
+        defaults.put("features.mace-limiter.broadcast-enabled", true);
+        defaults.put("features.mace-limiter.broadcast-message",
+                "§6{player} §ehas crafted the only Mace on the server!");
+
+        defaults.put("features.dimension-lock-end.enabled", false);
+        defaults.put("features.dimension-lock-end.locked", false);
+        defaults.put("features.dimension-lock-end.locked-message", "§cThe End is currently locked!");
+
+        defaults.put("features.dimension-lock-nether.enabled", false);
+        defaults.put("features.dimension-lock-nether.locked", false);
+        defaults.put("features.dimension-lock-nether.locked-message", "§cThe Nether is currently locked!");
+
+        defaults.put("features.netherite-disabler.enabled", false);
+        defaults.put("features.netherite-disabler.disabled-items.sword", true);
+        defaults.put("features.netherite-disabler.disabled-items.axe", true);
+        defaults.put("features.netherite-disabler.disabled-items.pickaxe", true);
+        defaults.put("features.netherite-disabler.disabled-items.shovel", true);
+        defaults.put("features.netherite-disabler.disabled-items.hoe", true);
+        defaults.put("features.netherite-disabler.disabled-items.helmet", true);
+        defaults.put("features.netherite-disabler.disabled-items.chestplate", true);
+        defaults.put("features.netherite-disabler.disabled-items.leggings", true);
+        defaults.put("features.netherite-disabler.disabled-items.boots", true);
 
         return defaults;
     }

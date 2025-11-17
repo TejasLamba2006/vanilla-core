@@ -1,8 +1,12 @@
 package com.tejaslamba.smpcore.manager;
 
+import com.tejaslamba.smpcore.Main;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.tejaslamba.smpcore.commands.SmpCommand;
+import com.tejaslamba.smpcore.command.MaceCommand;
+import com.tejaslamba.smpcore.command.NetheriteCommand;
+import com.tejaslamba.smpcore.command.DimensionCommand;
 
 public class CommandManager {
 
@@ -14,6 +18,8 @@ public class CommandManager {
 
     public void registerDefaults() {
         registerCommand("smp", new SmpCommand());
+
+        registerCommand("nether", new DimensionCommand((Main) plugin, "nether"));
     }
 
     public void registerCommand(String name, org.bukkit.command.CommandExecutor executor) {

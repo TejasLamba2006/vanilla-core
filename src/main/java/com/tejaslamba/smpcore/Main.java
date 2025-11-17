@@ -55,6 +55,7 @@ public class Main extends JavaPlugin {
                 this);
         getServer().getPluginManager().registerEvents(new com.tejaslamba.smpcore.listener.ChatInputListener(this),
                 this);
+        getServer().getPluginManager().registerEvents(new com.tejaslamba.smpcore.command.NetheriteCommand(this), this);
 
         getLogger().info("SMP Core has been enabled!");
     }

@@ -6,8 +6,14 @@ softdepend: [ProtocolLib]
 commands:
   smp:
     description: SMP core command
-    usage: /smp [menu|reload|enchant]
+    usage: /smp [menu|reload|enchant|mace|netherite]
     aliases: [smpcore]
+  end:
+    description: End dimension lock commands
+    usage: /end [open|close|status]
+  nether:
+    description: Nether dimension lock commands
+    usage: /nether [open|close|status]
 permissions:
   smpcore.reload:
     description: Reload plugin configuration
@@ -18,3 +24,30 @@ permissions:
   smpcore.enchant:
     description: Manage enchantment limits
     default: op
+  smpcore.mace:
+    description: Use mace commands
+    default: op
+  smpcore.mace.reset:
+    description: Reset mace limiter
+    default: op
+  smpcore.dimension.end:
+    description: Manage end dimension lock
+    default: op
+  smpcore.dimension.nether:
+    description: Manage nether dimension lock
+    default: op
+  smpcore.dimension.bypass:
+    description: Bypass all dimension locks
+    default: op
+  smpcore.dimension.bypass.end:
+    description: Bypass end dimension lock
+    default: false
+  smpcore.dimension.bypass.nether:
+    description: Bypass nether dimension lock
+    default: false
+  smpcore.netherite:
+    description: Manage netherite disabler
+    default: op
+  smpcore.netherite.craft.*:
+    description: Bypass netherite crafting restrictions
+    default: false

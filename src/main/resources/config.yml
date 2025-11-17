@@ -9,15 +9,11 @@ messages:
   reload: "§aConfiguration reloaded successfully!"
 
 features:
-  ban-mace:
-    enabled: false
   ban-anchors:
     enabled: false
   ban-crystals:
     enabled: false
   ban-pearls:
-    enabled: false
-  ban-netherite:
     enabled: false
   combat-tag:
     enabled: false
@@ -47,10 +43,6 @@ features:
     enabled: false
   prevent-villager-killing:
     enabled: false
-  dimension-nether:
-    enabled: true
-  dimension-end:
-    enabled: true
   breach-swap-ban:
     enabled: false
   invisibility-qol:
@@ -88,3 +80,28 @@ features:
       feather_falling: 3
       power: 4
       unbreaking: 2
+  mace-limiter:
+    enabled: false
+    mace-crafted: false
+    broadcast-enabled: true
+    broadcast-message: "§6{player} §ehas crafted the only Mace on the server!"
+  dimension-lock-end:
+    enabled: false
+    locked: false
+    locked-message: "§cThe End is currently locked!"
+  dimension-lock-nether:
+    enabled: false
+    locked: false
+    locked-message: "§cThe Nether is currently locked!"
+  netherite-disabler:
+    enabled: false
+    disabled-items:
+      sword: true
+      axe: true
+      pickaxe: true
+      shovel: true
+      hoe: true
+      helmet: true
+      chestplate: true
+      leggings: true
+      boots: true
