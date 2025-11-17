@@ -6,32 +6,7 @@ plugin:
   verbose: true
 
 messages:
-  welcome: "§aWelcome to the server!"
   reload: "§aConfiguration reloaded successfully!"
-
-combat:
-  tag-duration: 15000
-
-bans:
-  enchantments:
-    enabled: false
-    list:
-      - PROTECTION
-      - SHARPNESS
-  effects:
-    enabled: false
-    list:
-      - INVISIBILITY
-      - SPEED
-      - STRENGTH
-
-enchantment-limits:
-  protection:
-    enabled: false
-    max-level: 4
-  sharpness:
-    enabled: false
-    max-level: 5
 
 features:
   ban-mace:
@@ -82,3 +57,24 @@ features:
     enabled: false
   item-limiter:
     enabled: false
+  custom-anvil-caps:
+    enabled: false
+    block-enchanting-table: true
+    block-anvil: true
+    keep-only-best-protection: true
+    caps:
+      sharpness: 4
+      protection: 3
+      fire_protection: 3
+      blast_protection: 3
+      projectile_protection: 3
+      feather_falling: 3
+      power: 4
+      unbreaking: 2
+  enchantment-replacement:
+    enabled: false
+    scan-on-join: true
+    scan-on-inventory-open: true
+    scan-on-villager-trade: true
+    scan-on-pickup: false
+    scan-on-craft: true
