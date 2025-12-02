@@ -19,6 +19,9 @@
 - [ ] Shield Mechanics
   - [ ] Mace stun shield on hit
   - [ ] Configurable shield disable duration
+- [ ] Damage Caps
+  - [ ] Mace damage cap
+  - [ ] Explosion damage cap
 
 ## Bans & Restrictions
 
@@ -33,9 +36,9 @@
   - [ ] Bed bombing prevention
   - [ ] TNT minecart restriction
   - [ ] Ban killing villagers
-- [ ] Dimension Management
-  - [ ] Toggle Nether access
-  - [ ] Toggle End access
+- [x] Dimension Management
+  - [x] Toggle Nether access
+  - [x] Toggle End access
 
 ## Custom Mechanics
 
@@ -56,9 +59,9 @@
 - [ ] Custom Shulker Box Recipes
   - [ ] Recipe definitions
   - [ ] Recipe registration
-- [ ] Invisibility QOL
-  - [ ] Anonymous player names when invisible
-  - [ ] Hidden death messages for invisible killers
+- [x] Invisibility QOL (Invisible Kills)
+  - [x] Anonymous player names when invisible
+  - [x] Hidden death messages for invisible killers
 
 ## Server Management
 
@@ -75,10 +78,11 @@
 - [ ] Player Protection
   - [ ] Anti-naked killing (no armor check)
   - [ ] Anti-AFK killing
-- [ ] Quality of Life
-  - [ ] One player sleep
-  - [ ] Infinite restock toggle
+- [x] Quality of Life
+  - [x] One player sleep
+  - [x] Infinite restock toggle
   - [ ] First join kit system
+  - [ ] Stop item despawning
 - [ ] Doomsday Features
   - [ ] Spectator mode on death toggle
   - [ ] Death event handling
@@ -96,10 +100,13 @@
 
 ## Quality of Life Features
 
-- [ ] Item Limiter System
-  - [ ] Configurable item limits
-  - [ ] Per-item type limits
-  - [ ] Excess item handling
+- [x] Item Limiter System
+  - [x] Configurable item limits
+  - [x] Per-item type limits
+  - [x] Excess item handling (drop with pickup delay)
+  - [x] Check method (on-hit / on-move)
+- [x] Item Explosion Immunity
+  - [x] Protect dropped items from explosions
 - [ ] Custom Recipes
   - [ ] Recipe config system
   - [ ] Recipe registration
@@ -144,6 +151,10 @@
   - [ ] SMP start state
   - [ ] Grace period tracking
   - [ ] Event scheduling
+- [x] FeatureManager
+  - [x] Dynamic feature loading
+  - [x] Feature toggle system
+  - [x] Feature reload support
 
 ## Configuration Files
 
@@ -152,6 +163,7 @@
   - [x] Combat settings
   - [x] Cooldown values
   - [x] Ban lists
+  - [x] Comprehensive comments
 - [ ] rituals.yml
   - [ ] Ritual definitions
   - [ ] Particle configurations
@@ -177,7 +189,16 @@
   - [ ] Join events (first kit)
   - [ ] Quit events (cleanup)
   - [ ] Death events (spectator)
-  - [ ] Bed use (one player sleep)
+- [x] InfiniteRestockListener
+  - [x] Unlimited villager trades
+  - [x] Price normalization
+- [x] InvisibleKillsListener
+  - [x] Hidden killer name in death messages
+- [x] ItemExplosionImmunityListener
+  - [x] Protect items from explosions
+- [x] ItemLimiterListener
+  - [x] Item quantity enforcement
+  - [x] Excess item dropping
 - [ ] RitualListener
   - [ ] Ritual trigger detection
   - [ ] Ritual progression
@@ -189,9 +210,18 @@
   - [ ] Naked killing prevention
   - [ ] AFK killing prevention
   - [ ] Villager killing prevention
-- [ ] DimensionListener
-  - [ ] Portal usage blocking
-  - [ ] Dimension teleport cancellation
+- [x] DimensionListener
+  - [x] Portal usage blocking
+  - [x] Dimension teleport cancellation
+
+## GUI System
+
+- [x] Main Menu
+  - [x] Feature toggle buttons
+  - [x] Pagination support (28 items per page)
+  - [x] Dynamic slot layout
+- [x] Feature-specific GUIs
+  - [x] Mace Limiter settings GUI
 
 ## Database/Storage
 
@@ -216,22 +246,22 @@
   - [ ] Combat system load testing
   - [ ] Cooldown system stress testing
   - [ ] Memory leak checks
-- [ ] Documentation
-  - [ ] Config comments
+- [x] Documentation
+  - [x] Config comments
   - [ ] Command usage
   - [ ] Permission list
   - [ ] Feature descriptions
 
 ## Build & Release
 
-- [ ] Maven Configuration
-  - [ ] Proper shading
-  - [ ] Resource filtering
-  - [ ] Version management
-- [ ] plugin.yml
-  - [ ] All commands registered
-  - [ ] All permissions defined
-  - [ ] Dependency declarations
+- [x] Maven Configuration
+  - [x] Proper shading
+  - [x] Resource filtering
+  - [x] Version management
+- [x] plugin.yml
+  - [x] All commands registered
+  - [x] All permissions defined
+  - [x] Dependency declarations
 - [ ] Final Testing
   - [ ] All features functional
   - [ ] No console errors
