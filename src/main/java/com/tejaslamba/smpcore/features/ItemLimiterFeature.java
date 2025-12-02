@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +62,7 @@ public class ItemLimiterFeature extends BaseFeature {
     }
 
     public Map<Material, Integer> getItemLimits() {
-        return itemLimits;
+        return Collections.unmodifiableMap(itemLimits);
     }
 
     public int getLimit(Material material) {

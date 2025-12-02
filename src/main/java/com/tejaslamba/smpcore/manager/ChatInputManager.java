@@ -1,13 +1,13 @@
 package com.tejaslamba.smpcore.manager;
 
 import org.bukkit.entity.Player;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ChatInputManager {
 
-    private final Map<UUID, ChatInputHandler> awaitingInput = new HashMap<>();
+    private final Map<UUID, ChatInputHandler> awaitingInput = new ConcurrentHashMap<>();
 
     public void requestInput(Player player, ChatInputHandler handler) {
         awaitingInput.put(player.getUniqueId(), handler);

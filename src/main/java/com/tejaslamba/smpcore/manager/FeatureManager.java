@@ -15,6 +15,8 @@ public class FeatureManager {
 
     private final Main plugin;
     private final Map<String, Feature> features = new LinkedHashMap<>();
+    private final Map<String, Feature> featuresByConfigPath = new HashMap<>();
+    private final Map<Class<?>, Feature> featuresByClass = new HashMap<>();
 
     public FeatureManager(Main plugin) {
         this.plugin = plugin;
@@ -22,7 +24,9 @@ public class FeatureManager {
 
     public void loadFeatures() {
         features.clear();
-        boolean verbose = plugin.getConfigManager().get().getBoolean("plugin.verbose", false);
+        featuresByConfigPath.clear();
+        featuresByClass.clear();
+        boolean verbose = plugin.isVerbose();
 
         try {
             String packageName = "com.tejaslamba.smpcore.features";
@@ -39,6 +43,8 @@ public class FeatureManager {
                     try {
                         Feature feature = (Feature) clazz.getDeclaredConstructor().newInstance();
                         features.put(feature.getName(), feature);
+                        featuresByConfigPath.put(feature.getConfigPath(), feature);
+                        featuresByClass.put(clazz, feature);
                         feature.onEnable(plugin);
                         plugin.getLogger().info("Loaded feature: " + feature.getName());
 
@@ -75,6 +81,8 @@ public class FeatureManager {
             feature.onDisable();
         }
         features.clear();
+        featuresByConfigPath.clear();
+        featuresByClass.clear();
     }
 
     public Collection<Feature> getFeatures() {
@@ -87,12 +95,11 @@ public class FeatureManager {
 
     @SuppressWarnings("unchecked")
     public <T extends Feature> T getFeature(Class<T> featureClass) {
-        for (Feature feature : features.values()) {
-            if (featureClass.isInstance(feature)) {
-                return (T) feature;
-            }
-        }
-        return null;
+        return (T) featuresByClass.get(featureClass);
+    }
+
+    public Feature getFeatureByConfigPath(String configPath) {
+        return featuresByConfigPath.get(configPath);
     }
 
     public List<ItemStack> getMenuItems() {

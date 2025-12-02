@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class ChatInputListener implements Listener {
 
@@ -25,6 +26,11 @@ public class ChatInputListener implements Listener {
             plugin.getServer().getScheduler().runTask(plugin,
                     () -> plugin.getChatInputManager().handleInput(player, message));
         }
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        plugin.getChatInputManager().cancelInput(event.getPlayer());
     }
 
 }

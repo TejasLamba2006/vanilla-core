@@ -14,17 +14,35 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ItemLimiterListener implements Listener {
 
     private final Main plugin;
+    private final Map<UUID, Long> checkCooldowns = new ConcurrentHashMap<>();
+    private static final long CHECK_COOLDOWN_MS = 500;
 
     public ItemLimiterListener(Main plugin) {
         this.plugin = plugin;
     }
 
+    private boolean isOnCooldown(Player player) {
+        long now = System.currentTimeMillis();
+        Long lastCheck = checkCooldowns.get(player.getUniqueId());
+        if (lastCheck != null && now - lastCheck < CHECK_COOLDOWN_MS) {
+            return true;
+        }
+        checkCooldowns.put(player.getUniqueId(), now);
+        return false;
+    }
+
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerMove(PlayerMoveEvent event) {
+        if (event.getTo() == null) {
+            return;
+        }
+
         if (event.getFrom().getBlockX() == event.getTo().getBlockX()
                 && event.getFrom().getBlockY() == event.getTo().getBlockY()
                 && event.getFrom().getBlockZ() == event.getTo().getBlockZ()) {
@@ -38,6 +56,10 @@ public class ItemLimiterListener implements Listener {
         }
 
         if (!feature.getCheckMethod().equalsIgnoreCase("on-move")) {
+            return;
+        }
+
+        if (isOnCooldown(event.getPlayer())) {
             return;
         }
 
@@ -97,14 +119,14 @@ public class ItemLimiterListener implements Listener {
     private int countMaterial(PlayerInventory inv, Material material) {
         int total = 0;
 
-        for (ItemStack item : inv.getContents()) {
+        for (ItemStack item : inv.getStorageContents()) {
             if (item != null && item.getType() == material) {
                 total += item.getAmount();
             }
         }
 
         ItemStack offhand = inv.getItemInOffHand();
-        if (offhand.getType() == material) {
+        if (offhand != null && offhand.getType() == material) {
             total += offhand.getAmount();
         }
 

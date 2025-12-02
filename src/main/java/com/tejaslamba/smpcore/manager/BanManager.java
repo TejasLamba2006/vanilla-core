@@ -4,6 +4,7 @@ import com.tejaslamba.smpcore.Main;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.potion.PotionEffectType;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -103,15 +104,15 @@ public class BanManager {
     }
 
     public Set<Material> getBannedItems() {
-        return new HashSet<>(bannedItems);
+        return Collections.unmodifiableSet(bannedItems);
     }
 
     public Set<Enchantment> getBannedEnchantments() {
-        return new HashSet<>(bannedEnchantments);
+        return Collections.unmodifiableSet(bannedEnchantments);
     }
 
     public Set<PotionEffectType> getBannedEffects() {
-        return new HashSet<>(bannedEffects);
+        return Collections.unmodifiableSet(bannedEffects);
     }
 
 }

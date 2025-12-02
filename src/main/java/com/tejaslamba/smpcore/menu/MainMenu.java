@@ -153,17 +153,17 @@ public class MainMenu extends BaseMenu {
                         String configPath = line.replace("§8Config: §7", "").replaceAll("§.", "");
                         String featureConfigPath = configPath.replace(".enabled", "");
 
-                        plugin.getFeatureManager().getFeatures().forEach(feature -> {
-                            if (feature.getConfigPath().equals(featureConfigPath)) {
-                                if (isRightClick) {
-                                    feature.onRightClick(player);
-                                } else {
-                                    feature.onLeftClick(player);
-                                }
-                                refresh(player);
-                                setupItems();
+                        com.tejaslamba.smpcore.feature.Feature feature = plugin.getFeatureManager()
+                                .getFeatureByConfigPath(featureConfigPath);
+                        if (feature != null) {
+                            if (isRightClick) {
+                                feature.onRightClick(player);
+                            } else {
+                                feature.onLeftClick(player);
                             }
-                        });
+                            refresh(player);
+                            setupItems();
+                        }
                         return;
                     }
                 }
