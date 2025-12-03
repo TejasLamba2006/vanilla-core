@@ -9,7 +9,7 @@ import java.util.Map;
 public class ConfigManager {
 
     private final JavaPlugin plugin;
-    private static final int CURRENT_CONFIG_VERSION = 1;
+    private static final int CURRENT_CONFIG_VERSION = 2;
 
     public ConfigManager(JavaPlugin plugin) {
         this.plugin = plugin;
@@ -127,6 +127,26 @@ public class ConfigManager {
         defaults.put("features.netherite-disabler.disabled-items.chestplate", true);
         defaults.put("features.netherite-disabler.disabled-items.leggings", true);
         defaults.put("features.netherite-disabler.disabled-items.boots", true);
+
+        defaults.put("features.invisible-kills.enabled", false);
+        defaults.put("features.invisible-kills.death-message", "{victim} was killed by §k?????????");
+
+        defaults.put("features.item-explosion-immunity.enabled", false);
+
+        defaults.put("features.infinite-restock.enabled", false);
+
+        defaults.put("features.item-limiter.enabled", false);
+        defaults.put("features.item-limiter.check-method", "on-hit");
+        defaults.put("features.item-limiter.limits.golden_apple", 4);
+        defaults.put("features.item-limiter.limits.enchanted_golden_apple", 1);
+        defaults.put("features.item-limiter.limits.totem_of_undying", 1);
+        defaults.put("features.item-limiter.limits.end_crystal", 2);
+        defaults.put("features.item-limiter.limits.ender_pearl", 8);
+
+        defaults.put("features.one-player-sleep.enabled", false);
+
+        defaults.put("bans.items.enabled", false);
+        defaults.put("bans.effects.enabled", false);
 
         return defaults;
     }

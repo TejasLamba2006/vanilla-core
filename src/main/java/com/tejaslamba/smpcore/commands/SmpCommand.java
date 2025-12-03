@@ -70,7 +70,6 @@ public class SmpCommand implements CommandExecutor, TabCompleter {
             }
             Main.getInstance().getConfigManager().load();
             Main.getInstance().getBanManager().load();
-            Main.getInstance().getCombatManager().load();
             Main.getInstance().getMenuConfigManager().load();
             sender.sendMessage("§a[SMP] Configuration reloaded successfully!");
             return true;

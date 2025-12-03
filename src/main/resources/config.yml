@@ -6,7 +6,7 @@
 # ============================================
 
 # Do not change the config-version unless instructed or config would reset.
-config-version: 1
+config-version: 2
 
 # ============================================
 # Plugin Settings
@@ -211,3 +211,35 @@ features:
   # Uses the playersSleepingPercentage gamerule.
   one-player-sleep:
     enabled: false
+
+# ============================================
+# Bans
+# ============================================
+# Ban specific items, enchantments, or potion effects.
+# Banned items are removed/blocked from use.
+bans:
+  # ------------------------------------------
+  # Item Bans
+  # ------------------------------------------
+  # Ban specific items entirely.
+  items:
+    enabled: false
+    # List of material names to ban (lowercase with underscores)
+    # See: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+    list:
+      - mace
+      - respawn_anchor
+      - end_crystal
+
+  # ------------------------------------------
+  # Effect Bans
+  # ------------------------------------------
+  # Ban specific potion effects.
+  # Banned effects are cancelled when applied.
+  effects:
+    enabled: false
+    # List of effect names to ban (lowercase with underscores)
+    # See: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html
+    list:
+      - invisibility
+      - strength

@@ -7,10 +7,10 @@ import com.tejaslamba.smpcore.manager.MenuManager;
 import com.tejaslamba.smpcore.manager.MenuConfigManager;
 import com.tejaslamba.smpcore.manager.BanManager;
 import com.tejaslamba.smpcore.manager.CooldownManager;
-import com.tejaslamba.smpcore.manager.CombatManager;
 import com.tejaslamba.smpcore.manager.ChatInputManager;
 import com.tejaslamba.smpcore.manager.FeatureManager;
 import com.tejaslamba.smpcore.listener.ItemBanListener;
+import com.tejaslamba.smpcore.listener.EffectBanListener;
 
 public class Main extends JavaPlugin {
 
@@ -21,7 +21,6 @@ public class Main extends JavaPlugin {
     private MenuConfigManager menuConfigManager;
     private BanManager banManager;
     private CooldownManager cooldownManager;
-    private CombatManager combatManager;
     private ChatInputManager chatInputManager;
     private FeatureManager featureManager;
     private ItemBanListener sharedItemBanListener;
@@ -38,8 +37,6 @@ public class Main extends JavaPlugin {
         banManager = new BanManager(this);
         banManager.load();
         cooldownManager = new CooldownManager(this);
-        combatManager = new CombatManager(this);
-        combatManager.load();
         chatInputManager = new ChatInputManager();
         sharedItemBanListener = new ItemBanListener(this);
         featureManager = new FeatureManager(this);
@@ -52,6 +49,8 @@ public class Main extends JavaPlugin {
                 this);
         getServer().getPluginManager().registerEvents(new com.tejaslamba.smpcore.listener.ChatInputListener(this),
                 this);
+        getServer().getPluginManager().registerEvents(new EffectBanListener(this), this);
+        getServer().getPluginManager().registerEvents(sharedItemBanListener, this);
 
         getLogger().info("SMP Core has been enabled!");
     }
@@ -63,9 +62,6 @@ public class Main extends JavaPlugin {
         }
         if (cooldownManager != null) {
             cooldownManager.shutdown();
-        }
-        if (combatManager != null) {
-            combatManager.shutdown();
         }
         if (menuManager != null) {
             menuManager.shutdown();
@@ -107,10 +103,6 @@ public class Main extends JavaPlugin {
 
     public CooldownManager getCooldownManager() {
         return cooldownManager;
-    }
-
-    public CombatManager getCombatManager() {
-        return combatManager;
     }
 
     public ChatInputManager getChatInputManager() {

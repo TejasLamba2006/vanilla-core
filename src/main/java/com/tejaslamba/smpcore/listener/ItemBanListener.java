@@ -33,6 +33,10 @@ public class ItemBanListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
+        if (!plugin.getConfigManager().get().getBoolean("bans.items.enabled", false)) {
+            return;
+        }
+
         ItemStack item = event.getItem();
         if (item == null || item.getType() == Material.AIR) {
             return;
@@ -49,11 +53,14 @@ public class ItemBanListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onEntityDamage(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player)) {
+        if (!plugin.getConfigManager().get().getBoolean("bans.items.enabled", false)) {
             return;
         }
 
-        Player player = (Player) event.getDamager();
+        if (!(event.getDamager() instanceof Player player)) {
+            return;
+        }
+
         ItemStack item = player.getInventory().getItemInMainHand();
 
         if (item.getType() == Material.AIR) {
@@ -64,19 +71,17 @@ public class ItemBanListener implements Listener {
             event.setCancelled(true);
             player.getInventory().remove(item);
             player.updateInventory();
-            player.sendMessage(plugin.getConfigManager().get().getString("plugin.prefix", "")
-                    + " §cThis item is banned!");
+            sendBanMessage(player);
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onItemPickup(EntityPickupItemEvent event) {
         if (!plugin.getConfigManager().get().getBoolean("bans.items.enabled", false)) {
-
             return;
         }
 
-        if (!(event.getEntity() instanceof Player)) {
+        if (!(event.getEntity() instanceof Player player)) {
             return;
         }
 
@@ -85,14 +90,17 @@ public class ItemBanListener implements Listener {
         if (plugin.getBanManager().isItemBanned(itemType)) {
             event.setCancelled(true);
             event.getItem().remove();
-            Player player = (Player) event.getEntity();
             sendBanMessage(player);
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onInventoryClick(InventoryClickEvent event) {
-        if (!(event.getWhoClicked() instanceof Player)) {
+        if (!plugin.getConfigManager().get().getBoolean("bans.items.enabled", false)) {
+            return;
+        }
+
+        if (!(event.getWhoClicked() instanceof Player player)) {
             return;
         }
 
@@ -103,7 +111,6 @@ public class ItemBanListener implements Listener {
 
         if (plugin.getBanManager().isItemBanned(item.getType())) {
             event.setCancelled(true);
-            Player player = (Player) event.getWhoClicked();
             player.getInventory().remove(item);
             player.updateInventory();
             sendBanMessage(player);
@@ -112,6 +119,10 @@ public class ItemBanListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onItemHeld(PlayerItemHeldEvent event) {
+        if (!plugin.getConfigManager().get().getBoolean("bans.items.enabled", false)) {
+            return;
+        }
+
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItem(event.getNewSlot());
 
