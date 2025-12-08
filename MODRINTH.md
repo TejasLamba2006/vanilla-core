@@ -1,10 +1,10 @@
-# SMP Core
+**SMP Core**
 
 A comprehensive **all-in-one SMP plugin** for PvP balance, custom mechanics, and server management.
 
 ---
 
-## ✨ What is SMP Core?
+**What is SMP Core?**
 
 SMP Core is designed to give server owners full control over their SMP experience. Whether you want to balance PvP, limit overpowered items, or add quality-of-life features - this plugin has you covered.
 
@@ -12,7 +12,7 @@ SMP Core is designed to give server owners full control over their SMP experienc
 
 ---
 
-## ⚔️ Combat & PvP Balance
+**Combat & PvP Balance**
 
 | Feature | Description |
 |---------|-------------|
@@ -22,7 +22,7 @@ SMP Core is designed to give server owners full control over their SMP experienc
 
 ---
 
-## 📖 Enchantment Control
+**Enchantment Control**
 
 | Feature | Description |
 |---------|-------------|
@@ -33,7 +33,7 @@ SMP Core is designed to give server owners full control over their SMP experienc
 
 ---
 
-## 🚫 Item & Material Bans
+**Item & Material Bans**
 
 - Ban **Maces, Anchors, Crystals, Pearls, Netherite**
 - Ban specific **Potion Effects**
@@ -41,7 +41,7 @@ SMP Core is designed to give server owners full control over their SMP experienc
 
 ---
 
-## 🌍 Dimension Control
+**Dimension Control**
 
 - **Nether Lock** - Toggle Nether access
 - **End Lock** - Toggle End access
@@ -49,7 +49,7 @@ SMP Core is designed to give server owners full control over their SMP experienc
 
 ---
 
-## ⚙️ Custom Mechanics
+**Custom Mechanics**
 
 | Feature | Description |
 |---------|-------------|
@@ -60,7 +60,7 @@ SMP Core is designed to give server owners full control over their SMP experienc
 
 ---
 
-## 🖥️ Easy Configuration
+**Easy Configuration**
 
 - **GUI Menu** - `/smp` opens an interactive settings menu
 - **Left-click** to toggle features on/off
@@ -70,7 +70,7 @@ SMP Core is designed to give server owners full control over their SMP experienc
 
 ---
 
-## 📋 Commands
+**Commands**
 
 ```
 /smp                    - Open settings menu
@@ -82,14 +82,7 @@ SMP Core is designed to give server owners full control over their SMP experienc
 
 ---
 
-## 🔧 Requirements
-
-- **Paper/Spigot 1.21.1+**
-- **Java 21+**
-
----
-
-## 📥 Quick Start
+**Quick Start**
 
 1. Drop the jar in your `plugins` folder
 2. Restart server
@@ -98,17 +91,9 @@ SMP Core is designed to give server owners full control over their SMP experienc
 
 ---
 
-## 💡 Why SMP Core?
+**Why SMP Core?**
 
-✅ **All-in-one** - No need for multiple plugins  
-✅ **Lightweight** - No unnecessary dependencies  
-✅ **Configurable** - Every feature is toggleable  
-✅ **Performance** - Optimized with caching and cooldowns  
-✅ **Modern** - Built for 1.21.1+ with Java 21  
-
----
-
-## 🔗 Links
-
-- [GitHub](https://github.com/TejasLamba2006/smp-core)
-- [Issues](https://github.com/TejasLamba2006/smp-core/issues)
+- **All-in-one** - No need for multiple plugins  
+- **Lightweight** - No unnecessary dependencies  
+- **Configurable** - Every feature is toggleable  
+- **Performance** - Optimized with caching and cooldowns  
