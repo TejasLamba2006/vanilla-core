@@ -30,7 +30,7 @@ public class FeatureManager {
 
         try {
             String packageName = "com.tejaslamba.smpcore.features";
-            Class[] featureClasses = getClasses(packageName);
+            Class<?>[] featureClasses = getClasses(packageName);
 
             if (verbose) {
                 plugin.getLogger().info("[VERBOSE] Scanning for features in package: " + packageName);
@@ -113,12 +113,12 @@ public class FeatureManager {
         return items;
     }
 
-    private Class[] getClasses(String packageName) throws Exception {
+    private Class<?>[] getClasses(String packageName) throws Exception {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         String path = packageName.replace('.', '/');
         File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
 
-        List<Class> classes = new ArrayList<>();
+        List<Class<?>> classes = new ArrayList<>();
 
         if (jarFile.isFile()) {
             try (JarFile jar = new JarFile(jarFile)) {
@@ -131,6 +131,7 @@ public class FeatureManager {
                         try {
                             classes.add(Class.forName(className));
                         } catch (ClassNotFoundException | NoClassDefFoundError ignored) {
+                            // Skip classes that can't be loaded
                         }
                     }
                 }
@@ -147,6 +148,7 @@ public class FeatureManager {
                             try {
                                 classes.add(Class.forName(className));
                             } catch (ClassNotFoundException | NoClassDefFoundError ignored) {
+                                // Skip classes that can't be loaded
                             }
                         }
                     }
@@ -154,6 +156,6 @@ public class FeatureManager {
             }
         }
 
-        return classes.toArray(new Class[0]);
+        return classes.toArray(new Class<?>[0]);
     }
 }

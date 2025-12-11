@@ -36,7 +36,7 @@ public class Main extends JavaPlugin {
         menuConfigManager.load();
         banManager = new BanManager(this);
         banManager.load();
-        cooldownManager = new CooldownManager(this);
+        cooldownManager = new CooldownManager();
         chatInputManager = new ChatInputManager();
         sharedItemBanListener = new ItemBanListener(this);
         featureManager = new FeatureManager(this);

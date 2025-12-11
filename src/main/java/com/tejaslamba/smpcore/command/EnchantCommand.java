@@ -250,8 +250,6 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        boolean verbose = plugin.getConfigManager().get().getBoolean("plugin.verbose", false);
-
         if (plugin.getFeatureManager().getFeatures().stream()
                 .anyMatch(f -> f.getConfigPath().equals("features.enchantment-replacement") && f.isEnabled())) {
 

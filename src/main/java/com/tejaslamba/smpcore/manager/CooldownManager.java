@@ -1,6 +1,5 @@
 package com.tejaslamba.smpcore.manager;
 
-import com.tejaslamba.smpcore.Main;
 import org.bukkit.entity.Player;
 import java.util.Map;
 import java.util.UUID;
@@ -8,11 +7,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CooldownManager {
 
-    private final Main plugin;
     private final Map<String, Map<UUID, Long>> cooldowns = new ConcurrentHashMap<>();
 
-    public CooldownManager(Main plugin) {
-        this.plugin = plugin;
+    public CooldownManager() {
+        // Default constructor
     }
 
     public void setCooldown(Player player, String type, long durationMillis) {

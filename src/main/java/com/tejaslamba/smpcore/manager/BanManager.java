@@ -7,7 +7,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
 
+@SuppressWarnings("deprecation")
 public class BanManager {
 
     private final Main plugin;
@@ -38,10 +40,10 @@ public class BanManager {
                 if (material != null) {
                     bannedItems.add(material);
                 } else {
-                    plugin.getLogger().warning("Invalid banned item: " + itemName);
+                    plugin.getLogger().log(Level.WARNING, "Invalid banned item: {0}", itemName);
                 }
             } catch (Exception e) {
-                plugin.getLogger().warning("Invalid banned item: " + itemName);
+                plugin.getLogger().log(Level.WARNING, "Invalid banned item: {0}", itemName);
             }
         }
     }

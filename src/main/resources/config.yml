@@ -212,6 +212,31 @@ features:
   one-player-sleep:
     enabled: false
 
+  # ------------------------------------------
+  # Mob Spawning Manager
+  # ------------------------------------------
+  # Disable specific mob types from spawning naturally.
+  # Use the GUI (/smp menu) to toggle individual mobs.
+  # Allowed spawn reasons will bypass mob blocking.
+  mob-spawning:
+    enabled: false
+    # Disabled mobs are stored here automatically
+    # Format: mob_type: true/false
+    disabled-mobs: {}
+    # Spawn reasons that bypass mob blocking (even disabled mobs can spawn via these)
+    # Available spawn reasons:
+    # NATURAL, JOCKEY, SPAWNER, TRIAL_SPAWNER, EGG, SPAWNER_EGG, LIGHTNING,
+    # BUILD_SNOWMAN, BUILD_IRONGOLEM, BUILD_WITHER, VILLAGE_DEFENSE, VILLAGE_INVASION,
+    # BREEDING, SLIME_SPLIT, REINFORCEMENTS, NETHER_PORTAL, DISPENSE_EGG,
+    # INFECTION, CURED, OCELOT_BABY, SILVERFISH_BLOCK, MOUNT, TRAP, ENDER_PEARL,
+    # SHOULDER_ENTITY, DROWNED, SHEARED, EXPLOSION, RAID, PATROL, BEEHIVE,
+    # PIGLIN_ZOMBIFIED, SPELL, FROZEN, METAMORPHOSIS, DUPLICATION, COMMAND,
+    # ENCHANTMENT, POTION_EFFECT, CUSTOM, DEFAULT
+    allowed-spawn-reasons:
+      - SPAWNER_EGG
+      - CUSTOM
+      - COMMAND
+
 # ============================================
 # Bans
 # ============================================

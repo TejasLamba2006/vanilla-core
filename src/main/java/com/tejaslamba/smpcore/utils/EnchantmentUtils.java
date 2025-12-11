@@ -9,7 +9,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EnchantmentUtils {
+@SuppressWarnings("deprecation")
+public final class EnchantmentUtils {
+
+    private EnchantmentUtils() {
+        // Utility class - no instantiation
+    }
 
     public static Enchantment parseEnchantment(String input) {
         if (input == null || input.isEmpty()) {

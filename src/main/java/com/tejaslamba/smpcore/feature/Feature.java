@@ -1,7 +1,6 @@
 package com.tejaslamba.smpcore.feature;
 
 import com.tejaslamba.smpcore.Main;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;

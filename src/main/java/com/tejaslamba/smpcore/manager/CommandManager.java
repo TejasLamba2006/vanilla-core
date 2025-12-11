@@ -4,8 +4,6 @@ import com.tejaslamba.smpcore.Main;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.tejaslamba.smpcore.commands.SmpCommand;
-import com.tejaslamba.smpcore.command.MaceCommand;
-import com.tejaslamba.smpcore.command.NetheriteCommand;
 import com.tejaslamba.smpcore.command.DimensionCommand;
 
 public class CommandManager {
