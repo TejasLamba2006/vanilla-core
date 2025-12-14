@@ -32,23 +32,39 @@ public class SmpCommand implements CommandExecutor, TabCompleter {
                 sender.sendMessage("§c[SMP] Menu can only be opened by a player");
                 return true;
             }
+            if (!p.hasPermission("smpcore.menu")) {
+                p.sendMessage("§c[SMP] You don't have permission to open the settings menu!");
+                return true;
+            }
             Main.getInstance().getMenuManager().openMainMenu(p);
             return true;
         }
 
         if (args[0].equalsIgnoreCase("enchant")) {
+            if (!sender.hasPermission("smpcore.enchant")) {
+                sender.sendMessage("§c[SMP] You don't have permission to use enchant commands!");
+                return true;
+            }
             String[] enchantArgs = new String[args.length - 1];
             System.arraycopy(args, 1, enchantArgs, 0, args.length - 1);
             return enchantCommand.onCommand(sender, command, label, enchantArgs);
         }
 
         if (args[0].equalsIgnoreCase("mace")) {
+            if (!sender.hasPermission("smpcore.mace")) {
+                sender.sendMessage("§c[SMP] You don't have permission to use mace commands!");
+                return true;
+            }
             String[] maceArgs = new String[args.length - 1];
             System.arraycopy(args, 1, maceArgs, 0, args.length - 1);
             return maceCommand.onCommand(sender, command, label, maceArgs);
         }
 
         if (args[0].equalsIgnoreCase("netherite")) {
+            if (!sender.hasPermission("smpcore.netherite")) {
+                sender.sendMessage("§c[SMP] You don't have permission to use netherite commands!");
+                return true;
+            }
             String[] netheriteArgs = new String[args.length - 1];
             System.arraycopy(args, 1, netheriteArgs, 0, args.length - 1);
             return netheriteCommand.onCommand(sender, command, label, netheriteArgs);
@@ -57,6 +73,10 @@ public class SmpCommand implements CommandExecutor, TabCompleter {
         if (args[0].equalsIgnoreCase("menu")) {
             if (!(sender instanceof Player p)) {
                 sender.sendMessage("§c[SMP] Menu can only be opened by a player");
+                return true;
+            }
+            if (!p.hasPermission("smpcore.menu")) {
+                p.sendMessage("§c[SMP] You don't have permission to open the settings menu!");
                 return true;
             }
             Main.getInstance().getMenuManager().openMainMenu(p);
@@ -83,29 +103,39 @@ public class SmpCommand implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
             List<String> completions = new ArrayList<>();
-            completions.add("menu");
-            completions.add("enchant");
-            completions.add("mace");
-            completions.add("netherite");
+            if (sender.hasPermission("smpcore.menu")) {
+                completions.add("menu");
+            }
+            if (sender.hasPermission("smpcore.enchant")) {
+                completions.add("enchant");
+            }
+            if (sender.hasPermission("smpcore.mace")) {
+                completions.add("mace");
+            }
+            if (sender.hasPermission("smpcore.netherite")) {
+                completions.add("netherite");
+            }
             if (sender.hasPermission("smpcore.reload")) {
                 completions.add("reload");
             }
-            return completions;
+            return completions.stream()
+                    .filter(s -> s.toLowerCase().startsWith(args[0].toLowerCase()))
+                    .toList();
         }
 
-        if (args.length >= 2 && args[0].equalsIgnoreCase("enchant")) {
+        if (args.length >= 2 && args[0].equalsIgnoreCase("enchant") && sender.hasPermission("smpcore.enchant")) {
             String[] enchantArgs = new String[args.length - 1];
             System.arraycopy(args, 1, enchantArgs, 0, args.length - 1);
             return enchantCommand.onTabComplete(sender, command, alias, enchantArgs);
         }
 
-        if (args.length >= 2 && args[0].equalsIgnoreCase("mace")) {
+        if (args.length >= 2 && args[0].equalsIgnoreCase("mace") && sender.hasPermission("smpcore.mace")) {
             String[] maceArgs = new String[args.length - 1];
             System.arraycopy(args, 1, maceArgs, 0, args.length - 1);
             return maceCommand.onTabComplete(sender, command, alias, maceArgs);
         }
 
-        if (args.length >= 2 && args[0].equalsIgnoreCase("netherite")) {
+        if (args.length >= 2 && args[0].equalsIgnoreCase("netherite") && sender.hasPermission("smpcore.netherite")) {
             String[] netheriteArgs = new String[args.length - 1];
             System.arraycopy(args, 1, netheriteArgs, 0, args.length - 1);
             return netheriteCommand.onTabComplete(sender, command, alias, netheriteArgs);
