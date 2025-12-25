@@ -6,7 +6,9 @@ import com.tejaslamba.smpcore.features.MobSpawningFeature;
 import com.tejaslamba.smpcore.features.NetheriteDisablerFeature;
 import com.tejaslamba.smpcore.features.InfiniteRestockFeature;
 import com.tejaslamba.smpcore.menu.MainMenu;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -65,6 +67,18 @@ public class MenuClickListener implements Listener {
         if (title.equals(NetheriteDisablerFeature.GUI_TITLE)) {
             event.setCancelled(true);
             handleNetheriteGUI(event, player);
+            return;
+        }
+
+        if (title.equals(MobSpawningFeature.WORLD_SELECT_GUI_TITLE)) {
+            event.setCancelled(true);
+            handleWorldSelectGUI(event, player);
+            return;
+        }
+
+        if (title.equals(MobSpawningFeature.SETTINGS_GUI_TITLE)) {
+            event.setCancelled(true);
+            handleMobSpawningSettingsGUI(event, player);
             return;
         }
 
@@ -264,21 +278,22 @@ public class MenuClickListener implements Listener {
             return true;
         }
 
+        String selectedWorld = feature.getPlayerSelectedWorld(player);
+
         if (clickedType == Material.OAK_DOOR) {
-            plugin.getServer().getScheduler().runTask(plugin, () -> {
-                MainMenu mainMenu = new MainMenu(plugin);
-                mainMenu.open(player);
-            });
+            plugin.getServer().getScheduler().runTask(plugin, () -> feature.openWorldSelectGUI(player));
             return true;
         }
 
         if (slot == 45 && clickedType == Material.ARROW) {
-            plugin.getServer().getScheduler().runTask(plugin, () -> feature.openMobGUI(player, currentPage - 1));
+            plugin.getServer().getScheduler().runTask(plugin, 
+                    () -> feature.openMobGUI(player, currentPage - 1, selectedWorld));
             return true;
         }
 
         if (slot == 53 && clickedType == Material.ARROW) {
-            plugin.getServer().getScheduler().runTask(plugin, () -> feature.openMobGUI(player, currentPage + 1));
+            plugin.getServer().getScheduler().runTask(plugin, 
+                    () -> feature.openMobGUI(player, currentPage + 1, selectedWorld));
             return true;
         }
 
@@ -292,27 +307,124 @@ public class MenuClickListener implements Listener {
 
     private void handleMobSpawningToggle(Player player, MobSpawningFeature feature,
             Material clickedType, int slot, int currentPage) {
+        String selectedWorld = feature.getPlayerSelectedWorld(player);
+        
         if (slot == 47 && clickedType == Material.LIME_DYE) {
-            feature.setAllDisabled(false);
+            feature.setAllDisabled(false, selectedWorld);
             plugin.getMessageManager().sendPrefixed(player, "mob-spawning.enabled-all");
-            plugin.getServer().getScheduler().runTask(plugin, () -> feature.openMobGUI(player, currentPage));
+            plugin.getServer().getScheduler().runTask(plugin, 
+                    () -> feature.openMobGUI(player, currentPage, selectedWorld));
             return;
         }
 
         if (slot == 51 && clickedType == Material.RED_DYE) {
-            feature.setAllDisabled(true);
+            feature.setAllDisabled(true, selectedWorld);
             plugin.getMessageManager().sendPrefixed(player, "mob-spawning.disabled-all");
-            plugin.getServer().getScheduler().runTask(plugin, () -> feature.openMobGUI(player, currentPage));
+            plugin.getServer().getScheduler().runTask(plugin, 
+                    () -> feature.openMobGUI(player, currentPage, selectedWorld));
             return;
         }
 
-        if (slot < 45 && clickedType.name().endsWith("_SPAWN_EGG")) {
+        if (slot < 45) {
             EntityType entityType = feature.getEntityTypeAtSlot(currentPage, slot);
             if (entityType != null) {
-                boolean newState = !feature.isDisabled(entityType);
-                feature.setDisabled(entityType, newState);
-                plugin.getServer().getScheduler().runTask(plugin, () -> feature.openMobGUI(player, currentPage));
+                boolean newState = !feature.isDisabled(entityType, selectedWorld);
+                feature.setDisabled(entityType, newState, selectedWorld);
+                plugin.getServer().getScheduler().runTask(plugin, 
+                        () -> feature.openMobGUI(player, currentPage, selectedWorld));
             }
+        }
+    }
+
+    private void handleWorldSelectGUI(InventoryClickEvent event, Player player) {
+        if (event.getCurrentItem() == null) {
+            return;
+        }
+
+        MobSpawningFeature feature = (MobSpawningFeature) plugin.getFeatureManager()
+                .getFeature("Mob Spawning");
+        if (feature == null || !feature.isEnabled()) {
+            player.closeInventory();
+            plugin.getMessageManager().sendPrefixed(player, "mob-spawning.feature-disabled");
+            return;
+        }
+
+        Material clickedType = event.getCurrentItem().getType();
+        int slot = event.getRawSlot();
+        int inventorySize = event.getInventory().getSize();
+
+        if (clickedType == Material.BARRIER) {
+            player.closeInventory();
+            return;
+        }
+
+        if (clickedType == Material.COMPARATOR && slot == inventorySize - 9) {
+            plugin.getServer().getScheduler().runTask(plugin, () -> feature.openGlobalSettingsGUI(player));
+            return;
+        }
+
+        if (clickedType == Material.NETHER_STAR && slot == inventorySize - 5) {
+            plugin.getServer().getScheduler().runTask(plugin, () -> feature.openMobGUI(player, 0, null));
+            return;
+        }
+
+        if (clickedType == Material.GRASS_BLOCK || clickedType == Material.NETHERRACK 
+                || clickedType == Material.END_STONE || clickedType == Material.STONE) {
+            String worldName = event.getCurrentItem().getItemMeta() != null 
+                    ? event.getCurrentItem().getItemMeta().getDisplayName().substring(2) 
+                    : null;
+            if (worldName != null) {
+                World world = Bukkit.getWorld(worldName);
+                if (world != null) {
+                    plugin.getServer().getScheduler().runTask(plugin, 
+                            () -> feature.openMobGUI(player, 0, worldName));
+                }
+            }
+        }
+    }
+
+    private void handleMobSpawningSettingsGUI(InventoryClickEvent event, Player player) {
+        if (event.getCurrentItem() == null) {
+            return;
+        }
+
+        MobSpawningFeature feature = (MobSpawningFeature) plugin.getFeatureManager()
+                .getFeature("Mob Spawning");
+        if (feature == null || !feature.isEnabled()) {
+            player.closeInventory();
+            plugin.getMessageManager().sendPrefixed(player, "mob-spawning.feature-disabled");
+            return;
+        }
+
+        int slot = event.getRawSlot();
+        Material clickedType = event.getCurrentItem().getType();
+
+        if (clickedType == Material.OAK_DOOR) {
+            plugin.getServer().getScheduler().runTask(plugin, () -> feature.openWorldSelectGUI(player));
+            return;
+        }
+
+        if (slot == 11) {
+            boolean newState = !feature.isChunkCleanupEnabled();
+            feature.setChunkCleanupEnabled(newState);
+            if (newState) {
+                plugin.getMessageManager().sendPrefixed(player, "mob-spawning.chunk-cleanup-enabled");
+            } else {
+                plugin.getMessageManager().sendPrefixed(player, "mob-spawning.chunk-cleanup-disabled");
+            }
+            plugin.getServer().getScheduler().runTask(plugin, () -> feature.openGlobalSettingsGUI(player));
+            return;
+        }
+
+        if (slot == 15) {
+            boolean newState = !feature.isWorldGuardBypass();
+            feature.setWorldGuardBypass(newState);
+            if (newState) {
+                plugin.getMessageManager().sendPrefixed(player, "mob-spawning.worldguard-bypass-enabled");
+            } else {
+                plugin.getMessageManager().sendPrefixed(player, "mob-spawning.worldguard-bypass-disabled");
+            }
+            plugin.getServer().getScheduler().runTask(plugin, () -> feature.openGlobalSettingsGUI(player));
         }
     }
 
@@ -338,7 +450,9 @@ public class MenuClickListener implements Listener {
         }
 
         if (clickedType == Material.OAK_DOOR) {
-            plugin.getServer().getScheduler().runTask(plugin, () -> feature.openMobGUI(player, 0));
+            String selectedWorld = feature.getPlayerSelectedWorld(player);
+            plugin.getServer().getScheduler().runTask(plugin, 
+                    () -> feature.openMobGUI(player, 0, selectedWorld));
             return;
         }
 

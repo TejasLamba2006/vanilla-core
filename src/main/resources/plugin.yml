@@ -2,7 +2,7 @@ name: smp-core
 main: com.tejaslamba.smpcore.Main
 version: 1.1.0
 api-version: 1.21
-softdepend: [ProtocolLib]
+softdepend: [WorldGuard]
 commands:
   smp:
     description: SMP core command

@@ -259,11 +259,12 @@ features:
   # Disable specific mob types from spawning naturally.
   # Use the GUI (/smp menu) to toggle individual mobs.
   # Allowed spawn reasons will bypass mob blocking.
+  # Supports per-world configuration.
   mob-spawning:
     enabled: false
-    # Disabled mobs are stored here automatically
-    # Format: mob_type: true/false
-    disabled-mobs: {}
+    # Per-world disabled mobs configuration
+    # Format: worlds.<world_name>.disabled-mobs.<mob_type>: true/false
+    worlds: {}
     # Spawn reasons that bypass mob blocking (even disabled mobs can spawn via these)
     # Available spawn reasons:
     # NATURAL, JOCKEY, SPAWNER, TRIAL_SPAWNER, EGG, SPAWNER_EGG, LIGHTNING,
@@ -277,6 +278,12 @@ features:
       - SPAWNER_EGG
       - CUSTOM
       - COMMAND
+    # Remove disabled mobs when chunks load (WARNING: Destructive - removes existing mobs!)
+    # Useful for cleaning up after enabling mob blocking.
+    chunk-cleanup-enabled: false
+    # When enabled, mobs in WorldGuard protected regions can spawn even if disabled.
+    # Requires WorldGuard plugin to be installed.
+    worldguard-bypass: true
 # ============================================
 # Note: Item bans can be done via Item Limiter
 # by setting an item's limit to 0

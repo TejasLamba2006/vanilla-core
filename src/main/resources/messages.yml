@@ -67,6 +67,10 @@ mob-spawning:
   feature-disabled: "&cMob Spawning Manager is disabled! Enable it first."
   enabled-all: "&7Enabled spawning for all mobs!"
   disabled-all: "&7Disabled spawning for all mobs!"
+  chunk-cleanup-enabled: "&aChunk cleanup enabled! Disabled mobs will be removed from chunks."
+  chunk-cleanup-disabled: "&7Chunk cleanup disabled."
+  worldguard-bypass-enabled: "&aWorldGuard bypass enabled! Mobs in protected regions can spawn."
+  worldguard-bypass-disabled: "&7WorldGuard bypass disabled."
 
 # Infinite Restock
 infinite-restock:

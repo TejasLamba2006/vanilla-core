@@ -5,6 +5,7 @@ import com.tejaslamba.smpcore.feature.BaseFeature;
 import com.tejaslamba.smpcore.listener.MobSpawningListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -20,17 +21,21 @@ public class MobSpawningFeature extends BaseFeature {
 
     public static final String GUI_TITLE = "§8Mob Spawning Manager";
     public static final String SPAWN_REASONS_GUI_TITLE = "§8Spawn Reasons Config";
+    public static final String WORLD_SELECT_GUI_TITLE = "§8Select World";
+    public static final String SETTINGS_GUI_TITLE = "§8Mob Spawning Settings";
     private static final int[] CONTENT_SLOTS = calculateContentSlots();
-    private static final String CONFIG_PATH_PREFIX = "features.mob-spawning.disabled-mobs.";
-    private static final String VERBOSE_CONFIG = "plugin.verbose";
+    private static final String CONFIG_PATH_PREFIX = "features.mob-spawning.worlds.";
     private static final String VERBOSE_PREFIX = "[VERBOSE] Mob Spawning - ";
-    private static final String SPAWN_EGG_SUFFIX = "_SPAWN_EGG";
 
-    private final Map<EntityType, Boolean> disabledMobs = new EnumMap<>(EntityType.class);
+    private final Map<String, Map<EntityType, Boolean>> worldDisabledMobs = new HashMap<>();
     private final Set<CreatureSpawnEvent.SpawnReason> allowedSpawnReasons = new HashSet<>();
     private final Map<UUID, Integer> playerPages = new HashMap<>();
+    private final Map<UUID, String> playerSelectedWorld = new HashMap<>();
     private final List<EntityType> spawnableEntities = new ArrayList<>();
     private final List<CreatureSpawnEvent.SpawnReason> allSpawnReasons = new ArrayList<>();
+    
+    private boolean chunkCleanupEnabled = false;
+    private boolean worldGuardBypass = true;
     private MobSpawningListener listener;
 
     public MobSpawningFeature() {
@@ -54,19 +59,32 @@ public class MobSpawningFeature extends BaseFeature {
 
     private void loadSpawnableEntities() {
         spawnableEntities.clear();
+        
         for (Material material : Material.values()) {
-            if (material.name().endsWith(SPAWN_EGG_SUFFIX)) {
+            if (material.name().endsWith("_SPAWN_EGG")) {
                 EntityType entityType = getEntityTypeFromSpawnEgg(material);
                 if (entityType != null && entityType != EntityType.UNKNOWN) {
                     spawnableEntities.add(entityType);
                 }
             }
         }
+        
+        addNonSpawnEggEntity(EntityType.IRON_GOLEM);
+        addNonSpawnEggEntity(EntityType.SNOW_GOLEM);
+        addNonSpawnEggEntity(EntityType.WITHER);
+        addNonSpawnEggEntity(EntityType.ENDER_DRAGON);
+        
         spawnableEntities.sort(Comparator.comparing(Enum::name));
     }
 
+    private void addNonSpawnEggEntity(EntityType entityType) {
+        if (!spawnableEntities.contains(entityType)) {
+            spawnableEntities.add(entityType);
+        }
+    }
+
     private EntityType getEntityTypeFromSpawnEgg(Material spawnEgg) {
-        String name = spawnEgg.name().replace(SPAWN_EGG_SUFFIX, "");
+        String name = spawnEgg.name().replace("_SPAWN_EGG", "");
         try {
             return EntityType.valueOf(name);
         } catch (IllegalArgumentException e) {
@@ -74,12 +92,18 @@ public class MobSpawningFeature extends BaseFeature {
         }
     }
 
-    private Material getSpawnEggFromEntityType(EntityType entityType) {
-        String materialName = entityType.name() + SPAWN_EGG_SUFFIX;
+    private Material getDisplayMaterialForEntity(EntityType entityType) {
+        String materialName = entityType.name() + "_SPAWN_EGG";
         try {
             return Material.valueOf(materialName);
         } catch (IllegalArgumentException e) {
-            return null;
+            return switch (entityType) {
+                case IRON_GOLEM -> Material.IRON_BLOCK;
+                case SNOW_GOLEM -> Material.CARVED_PUMPKIN;
+                case WITHER -> Material.WITHER_SKELETON_SKULL;
+                case ENDER_DRAGON -> Material.DRAGON_HEAD;
+                default -> Material.BARRIER;
+            };
         }
     }
 
@@ -87,27 +111,43 @@ public class MobSpawningFeature extends BaseFeature {
     public void onEnable(Main plugin) {
         listener = new MobSpawningListener(plugin, this);
         super.onEnable(plugin);
-        loadDisabledMobs();
+        
+        chunkCleanupEnabled = plugin.getConfigManager().get()
+                .getBoolean("features.mob-spawning.chunk-cleanup-enabled", false);
+        worldGuardBypass = plugin.getConfigManager().get()
+                .getBoolean("features.mob-spawning.worldguard-bypass", true);
+        
+        initializeWorldData();
+        loadAllWorldDisabledMobs();
         loadAllowedSpawnReasons();
 
-        boolean verbose = plugin.getConfigManager().get().getBoolean(VERBOSE_CONFIG, false);
-        if (verbose) {
-            long disabledCount = disabledMobs.values().stream().filter(b -> b).count();
-            String msg1 = String.format("%sLoaded %d/%d mobs as disabled",
-                    VERBOSE_PREFIX, disabledCount, spawnableEntities.size());
-            plugin.getLogger().info(msg1);
-            String msg2 = String.format("%sLoaded %d allowed spawn reasons",
-                    VERBOSE_PREFIX, allowedSpawnReasons.size());
-            plugin.getLogger().info(msg2);
+        if (plugin.isVerbose()) {
+            int totalDisabled = worldDisabledMobs.values().stream()
+                    .mapToInt(map -> (int) map.values().stream().filter(b -> b).count())
+                    .sum();
+            plugin.getLogger().info(VERBOSE_PREFIX + "Loaded " + totalDisabled + " disabled mobs across " 
+                    + worldDisabledMobs.size() + " worlds");
+            plugin.getLogger().info(VERBOSE_PREFIX + "Loaded " + allowedSpawnReasons.size() + " allowed spawn reasons");
+            plugin.getLogger().info(VERBOSE_PREFIX + "Chunk cleanup: " + (chunkCleanupEnabled ? "enabled" : "disabled"));
+            plugin.getLogger().info(VERBOSE_PREFIX + "WorldGuard bypass: " + (worldGuardBypass ? "enabled" : "disabled"));
+        }
+    }
+
+    private void initializeWorldData() {
+        for (World world : Bukkit.getWorlds()) {
+            if (!worldDisabledMobs.containsKey(world.getName())) {
+                worldDisabledMobs.put(world.getName(), new EnumMap<>(EntityType.class));
+            }
         }
     }
 
     @Override
     public void onDisable() {
         super.onDisable();
-        saveDisabledMobs();
+        saveAllWorldDisabledMobs();
         saveAllowedSpawnReasons();
         playerPages.clear();
+        playerSelectedWorld.clear();
     }
 
     @Override
@@ -151,46 +191,126 @@ public class MobSpawningFeature extends BaseFeature {
             player.sendMessage("§cMob Spawning Manager is disabled! Enable it first.");
             return;
         }
-        openMobGUI(player, 0);
+        openWorldSelectGUI(player);
     }
 
-    public void openMobGUI(Player player, int page) {
+    public void openWorldSelectGUI(Player player) {
+        List<World> worlds = Bukkit.getWorlds();
+        int size = Math.min(54, ((worlds.size() + 8) / 9 + 1) * 9);
+        size = Math.max(27, size);
+        Inventory gui = Bukkit.createInventory(null, size, WORLD_SELECT_GUI_TITLE);
+
+        int slot = 0;
+        for (World world : worlds) {
+            if (slot >= size - 9) break;
+            
+            Material material = switch (world.getEnvironment()) {
+                case NORMAL -> Material.GRASS_BLOCK;
+                case NETHER -> Material.NETHERRACK;
+                case THE_END -> Material.END_STONE;
+                default -> Material.STONE;
+            };
+
+            ItemStack worldItem = new ItemStack(material);
+            ItemMeta meta = worldItem.getItemMeta();
+            if (meta != null) {
+                meta.setDisplayName("§a" + world.getName());
+                List<String> lore = new ArrayList<>();
+                lore.add("");
+                lore.add("§7Environment: §e" + world.getEnvironment().name());
+                Map<EntityType, Boolean> worldMobs = worldDisabledMobs.get(world.getName());
+                long disabledCount = worldMobs != null ? 
+                        worldMobs.values().stream().filter(b -> b).count() : 0;
+                lore.add("§7Disabled Mobs: §e" + disabledCount);
+                lore.add("");
+                lore.add("§eClick to manage!");
+                meta.setLore(lore);
+                worldItem.setItemMeta(meta);
+            }
+            gui.setItem(slot++, worldItem);
+        }
+
+        ItemStack allWorlds = new ItemStack(Material.NETHER_STAR);
+        ItemMeta allMeta = allWorlds.getItemMeta();
+        if (allMeta != null) {
+            allMeta.setDisplayName("§6★ All Worlds");
+            List<String> lore = new ArrayList<>();
+            lore.add("");
+            lore.add("§7Manage mob spawning for");
+            lore.add("§7ALL worlds at once.");
+            lore.add("");
+            lore.add("§eClick to manage!");
+            allMeta.setLore(lore);
+            allWorlds.setItemMeta(allMeta);
+        }
+        gui.setItem(size - 5, allWorlds);
+
+        ItemStack closeItem = new ItemStack(Material.BARRIER);
+        ItemMeta closeMeta = closeItem.getItemMeta();
+        if (closeMeta != null) {
+            closeMeta.setDisplayName("§cClose");
+            closeItem.setItemMeta(closeMeta);
+        }
+        gui.setItem(size - 1, closeItem);
+
+        ItemStack settingsItem = new ItemStack(Material.COMPARATOR);
+        ItemMeta settingsMeta = settingsItem.getItemMeta();
+        if (settingsMeta != null) {
+            settingsMeta.setDisplayName("§6Global Settings");
+            List<String> lore = new ArrayList<>();
+            lore.add("");
+            lore.add("§7Chunk Cleanup: " + (chunkCleanupEnabled ? "§aEnabled" : "§cDisabled"));
+            lore.add("§7WorldGuard Bypass: " + (worldGuardBypass ? "§aEnabled" : "§cDisabled"));
+            lore.add("");
+            lore.add("§eClick to configure!");
+            settingsMeta.setLore(lore);
+            settingsItem.setItemMeta(settingsMeta);
+        }
+        gui.setItem(size - 9, settingsItem);
+
+        player.openInventory(gui);
+    }
+
+    public void openMobGUI(Player player, int page, String worldName) {
         int totalPages = getTotalPages();
         page = Math.clamp(page, 0, totalPages - 1);
         playerPages.put(player.getUniqueId(), page);
+        playerSelectedWorld.put(player.getUniqueId(), worldName);
 
-        Inventory gui = Bukkit.createInventory(null, 54, GUI_TITLE + " §7(Page " + (page + 1) + "/" + totalPages + ")");
+        String titleWorld = worldName == null ? "All Worlds" : worldName;
+        Inventory gui = Bukkit.createInventory(null, 54, 
+                GUI_TITLE + " §7[" + titleWorld + "] (" + (page + 1) + "/" + totalPages + ")");
 
-        populateMobItems(gui, page);
+        populateMobItems(gui, page, worldName);
         addMobGUINavigationButtons(gui, page, totalPages);
 
         player.openInventory(gui);
     }
 
-    private void populateMobItems(Inventory gui, int page) {
+    private void populateMobItems(Inventory gui, int page, String worldName) {
         int startIndex = page * CONTENT_SLOTS.length;
         int slotIndex = 0;
 
         for (int i = startIndex; i < spawnableEntities.size() && slotIndex < CONTENT_SLOTS.length; i++) {
             EntityType entityType = spawnableEntities.get(i);
-            Material spawnEgg = getSpawnEggFromEntityType(entityType);
+            Material displayMaterial = getDisplayMaterialForEntity(entityType);
 
-            if (spawnEgg != null) {
-                gui.setItem(CONTENT_SLOTS[slotIndex], createMobItem(entityType, spawnEgg));
+            if (displayMaterial != null) {
+                gui.setItem(CONTENT_SLOTS[slotIndex], createMobItem(entityType, displayMaterial, worldName));
                 slotIndex++;
             }
         }
     }
 
-    private ItemStack createMobItem(EntityType entityType, Material spawnEgg) {
-        boolean isDisabled = isDisabled(entityType);
-        ItemStack item = new ItemStack(spawnEgg);
+    private ItemStack createMobItem(EntityType entityType, Material displayMaterial, String worldName) {
+        boolean isDisabled = isDisabled(entityType, worldName);
+        ItemStack item = new ItemStack(displayMaterial);
         ItemMeta meta = item.getItemMeta();
 
         if (meta != null) {
             String mobName = formatEntityName(entityType);
             meta.setDisplayName((isDisabled ? "§c" : "§a") + mobName);
-            meta.setLore(createMobItemLore(isDisabled));
+            meta.setLore(createMobItemLore(isDisabled, entityType));
             meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
             item.setItemMeta(meta);
         }
@@ -198,7 +318,7 @@ public class MobSpawningFeature extends BaseFeature {
         return item;
     }
 
-    private List<String> createMobItemLore(boolean isDisabled) {
+    private List<String> createMobItemLore(boolean isDisabled, EntityType entityType) {
         List<String> lore = new ArrayList<>();
         lore.add("");
         if (isDisabled) {
@@ -206,9 +326,24 @@ public class MobSpawningFeature extends BaseFeature {
         } else {
             lore.add("§aSpawning: §2Enabled");
         }
+        
+        if (!hasSpawnEgg(entityType)) {
+            lore.add("");
+            lore.add("§7§o(No spawn egg - special mob)");
+        }
+        
         lore.add("");
         lore.add("§eClick to toggle!");
         return lore;
+    }
+
+    private boolean hasSpawnEgg(EntityType entityType) {
+        try {
+            Material.valueOf(entityType.name() + "_SPAWN_EGG");
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
     private void addMobGUINavigationButtons(Inventory gui, int page, int totalPages) {
@@ -222,7 +357,7 @@ public class MobSpawningFeature extends BaseFeature {
                     "§7Page §e" + (page + 2) + "§7/§e" + totalPages));
         }
 
-        gui.setItem(49, createSimpleButton(Material.OAK_DOOR, "§eBack to Main Menu"));
+        gui.setItem(49, createSimpleButton(Material.OAK_DOOR, "§eBack to World Select"));
         gui.setItem(50, createSimpleButton(Material.BARRIER, "§cClose"));
         gui.setItem(47, createButtonWithLore(Material.LIME_DYE, "§aEnable All Mobs",
                 "§7Click to enable spawning", "§7for all mob types."));
@@ -274,59 +409,109 @@ public class MobSpawningFeature extends BaseFeature {
         return formatted.toString().trim();
     }
 
-    private void loadDisabledMobs() {
-        disabledMobs.clear();
-        for (EntityType entityType : spawnableEntities) {
-            String configKey = CONFIG_PATH_PREFIX + entityType.name().toLowerCase();
-            boolean isDisabled = plugin.getConfigManager().get().getBoolean(configKey, false);
-            disabledMobs.put(entityType, isDisabled);
+    private void loadAllWorldDisabledMobs() {
+        worldDisabledMobs.clear();
+        
+        for (World world : Bukkit.getWorlds()) {
+            Map<EntityType, Boolean> worldMobs = new EnumMap<>(EntityType.class);
+            String worldConfigPath = CONFIG_PATH_PREFIX + world.getName() + ".disabled-mobs.";
+            
+            for (EntityType entityType : spawnableEntities) {
+                String configKey = worldConfigPath + entityType.name().toLowerCase();
+                boolean isDisabled = plugin.getConfigManager().get().getBoolean(configKey, false);
+                worldMobs.put(entityType, isDisabled);
+            }
+            
+            worldDisabledMobs.put(world.getName(), worldMobs);
         }
     }
 
-    private void saveDisabledMobs() {
-        for (Map.Entry<EntityType, Boolean> entry : disabledMobs.entrySet()) {
-            String configKey = CONFIG_PATH_PREFIX + entry.getKey().name().toLowerCase();
-            plugin.getConfigManager().get().set(configKey, entry.getValue());
+    private void saveAllWorldDisabledMobs() {
+        for (Map.Entry<String, Map<EntityType, Boolean>> worldEntry : worldDisabledMobs.entrySet()) {
+            String worldConfigPath = CONFIG_PATH_PREFIX + worldEntry.getKey() + ".disabled-mobs.";
+            
+            for (Map.Entry<EntityType, Boolean> mobEntry : worldEntry.getValue().entrySet()) {
+                String configKey = worldConfigPath + mobEntry.getKey().name().toLowerCase();
+                plugin.getConfigManager().get().set(configKey, mobEntry.getValue());
+            }
         }
         plugin.getConfigManager().save();
     }
 
-    public boolean isDisabled(EntityType entityType) {
-        return disabledMobs.getOrDefault(entityType, false);
+    public boolean isDisabled(EntityType entityType, String worldName) {
+        if (worldName == null) {
+            return worldDisabledMobs.values().stream()
+                    .anyMatch(map -> map.getOrDefault(entityType, false));
+        }
+        Map<EntityType, Boolean> worldMobs = worldDisabledMobs.get(worldName);
+        return worldMobs != null && worldMobs.getOrDefault(entityType, false);
     }
 
-    public void setDisabled(EntityType entityType, boolean disabled) {
-        disabledMobs.put(entityType, disabled);
-        String configKey = CONFIG_PATH_PREFIX + entityType.name().toLowerCase();
+    public boolean isDisabledInWorld(EntityType entityType, World world) {
+        Map<EntityType, Boolean> worldMobs = worldDisabledMobs.get(world.getName());
+        return worldMobs != null && worldMobs.getOrDefault(entityType, false);
+    }
+
+    public void setDisabled(EntityType entityType, boolean disabled, String worldName) {
+        if (worldName == null) {
+            for (String world : worldDisabledMobs.keySet()) {
+                setDisabledForWorld(entityType, disabled, world);
+            }
+        } else {
+            setDisabledForWorld(entityType, disabled, worldName);
+        }
+        
+        if (plugin.isVerbose()) {
+            String worldDisplay = worldName == null ? "all worlds" : worldName;
+            plugin.getLogger().info(VERBOSE_PREFIX + entityType.name() + " state changed: disabled=" 
+                    + disabled + " in " + worldDisplay);
+        }
+    }
+
+    private void setDisabledForWorld(EntityType entityType, boolean disabled, String worldName) {
+        Map<EntityType, Boolean> worldMobs = worldDisabledMobs.computeIfAbsent(worldName, 
+                k -> new EnumMap<>(EntityType.class));
+        worldMobs.put(entityType, disabled);
+        
+        String configKey = CONFIG_PATH_PREFIX + worldName + ".disabled-mobs." + entityType.name().toLowerCase();
         plugin.getConfigManager().get().set(configKey, disabled);
         plugin.getConfigManager().save();
+    }
 
-        boolean verbose = plugin.getConfigManager().get().getBoolean(VERBOSE_CONFIG, false);
-        if (verbose) {
-            String msg = String.format("%s%s state changed: disabled=%s",
-                    VERBOSE_PREFIX, entityType.name(), disabled);
-            plugin.getLogger().info(msg);
+    public void setAllDisabled(boolean disabled, String worldName) {
+        if (worldName == null) {
+            for (String world : worldDisabledMobs.keySet()) {
+                setAllDisabledForWorld(disabled, world);
+            }
+        } else {
+            setAllDisabledForWorld(disabled, worldName);
+        }
+        
+        if (plugin.isVerbose()) {
+            String worldDisplay = worldName == null ? "all worlds" : worldName;
+            plugin.getLogger().info(VERBOSE_PREFIX + "All mobs set to disabled=" + disabled + " in " + worldDisplay);
         }
     }
 
-    public void setAllDisabled(boolean disabled) {
+    private void setAllDisabledForWorld(boolean disabled, String worldName) {
+        Map<EntityType, Boolean> worldMobs = worldDisabledMobs.computeIfAbsent(worldName, 
+                k -> new EnumMap<>(EntityType.class));
+        String worldConfigPath = CONFIG_PATH_PREFIX + worldName + ".disabled-mobs.";
+        
         for (EntityType entityType : spawnableEntities) {
-            disabledMobs.put(entityType, disabled);
-            String configKey = CONFIG_PATH_PREFIX + entityType.name().toLowerCase();
+            worldMobs.put(entityType, disabled);
+            String configKey = worldConfigPath + entityType.name().toLowerCase();
             plugin.getConfigManager().get().set(configKey, disabled);
         }
         plugin.getConfigManager().save();
-
-        boolean verbose = plugin.getConfigManager().get().getBoolean(VERBOSE_CONFIG, false);
-        if (verbose) {
-            String msg = String.format("%sAll mobs set to disabled=%s",
-                    VERBOSE_PREFIX, disabled);
-            plugin.getLogger().info(msg);
-        }
     }
 
     public int getPlayerPage(Player player) {
         return playerPages.getOrDefault(player.getUniqueId(), 0);
+    }
+
+    public String getPlayerSelectedWorld(Player player) {
+        return playerSelectedWorld.get(player.getUniqueId());
     }
 
     public List<EntityType> getSpawnableEntities() {
@@ -347,7 +532,12 @@ public class MobSpawningFeature extends BaseFeature {
     @Override
     public void reload() {
         super.reload();
-        loadDisabledMobs();
+        chunkCleanupEnabled = plugin.getConfigManager().get()
+                .getBoolean("features.mob-spawning.chunk-cleanup-enabled", false);
+        worldGuardBypass = plugin.getConfigManager().get()
+                .getBoolean("features.mob-spawning.worldguard-bypass", true);
+        initializeWorldData();
+        loadAllWorldDisabledMobs();
         loadAllowedSpawnReasons();
     }
 
@@ -361,7 +551,6 @@ public class MobSpawningFeature extends BaseFeature {
                         .valueOf(reasonName.toUpperCase());
                 allowedSpawnReasons.add(reason);
             } catch (IllegalArgumentException ignored) {
-                // Skip invalid spawn reason names from config
             }
         }
     }
@@ -387,11 +576,9 @@ public class MobSpawningFeature extends BaseFeature {
         }
         saveAllowedSpawnReasons();
 
-        boolean verbose = plugin.getConfigManager().get().getBoolean(VERBOSE_CONFIG, false);
-        if (verbose) {
-            String msg = String.format("%sSpawn reason %s state changed: allowed=%s",
-                    VERBOSE_PREFIX, reason.name(), allowed);
-            plugin.getLogger().info(msg);
+        if (plugin.isVerbose()) {
+            plugin.getLogger().info(VERBOSE_PREFIX + "Spawn reason " + reason.name() 
+                    + " state changed: allowed=" + allowed);
         }
     }
 
@@ -511,5 +698,87 @@ public class MobSpawningFeature extends BaseFeature {
             return allSpawnReasons.get(slot);
         }
         return null;
+    }
+
+    public boolean isChunkCleanupEnabled() {
+        return chunkCleanupEnabled;
+    }
+
+    public void setChunkCleanupEnabled(boolean enabled) {
+        this.chunkCleanupEnabled = enabled;
+        plugin.getConfigManager().get().set("features.mob-spawning.chunk-cleanup-enabled", enabled);
+        plugin.getConfigManager().save();
+        
+        if (plugin.isVerbose()) {
+            plugin.getLogger().info(VERBOSE_PREFIX + "Chunk cleanup " + (enabled ? "enabled" : "disabled"));
+        }
+    }
+
+    public boolean isWorldGuardBypass() {
+        return worldGuardBypass;
+    }
+
+    public void setWorldGuardBypass(boolean enabled) {
+        this.worldGuardBypass = enabled;
+        plugin.getConfigManager().get().set("features.mob-spawning.worldguard-bypass", enabled);
+        plugin.getConfigManager().save();
+        
+        if (plugin.isVerbose()) {
+            plugin.getLogger().info(VERBOSE_PREFIX + "WorldGuard bypass " + (enabled ? "enabled" : "disabled"));
+        }
+    }
+
+    public void openGlobalSettingsGUI(Player player) {
+        Inventory gui = Bukkit.createInventory(null, 27, SETTINGS_GUI_TITLE);
+
+        ItemStack chunkCleanup = new ItemStack(chunkCleanupEnabled ? 
+                Material.LIME_STAINED_GLASS_PANE : Material.RED_STAINED_GLASS_PANE);
+        ItemMeta chunkMeta = chunkCleanup.getItemMeta();
+        if (chunkMeta != null) {
+            chunkMeta.setDisplayName("§6Chunk Cleanup");
+            List<String> lore = new ArrayList<>();
+            lore.add("");
+            lore.add("§7Status: " + (chunkCleanupEnabled ? "§aEnabled" : "§cDisabled"));
+            lore.add("");
+            lore.add("§7When enabled, removes disabled");
+            lore.add("§7mobs from chunks when they load.");
+            lore.add("");
+            lore.add("§c⚠ Warning: This is destructive!");
+            lore.add("§cExisting mobs will be deleted.");
+            lore.add("");
+            lore.add("§eClick to toggle!");
+            chunkMeta.setLore(lore);
+            chunkCleanup.setItemMeta(chunkMeta);
+        }
+        gui.setItem(11, chunkCleanup);
+
+        ItemStack worldGuardItem = new ItemStack(worldGuardBypass ? 
+                Material.LIME_STAINED_GLASS_PANE : Material.RED_STAINED_GLASS_PANE);
+        ItemMeta wgMeta = worldGuardItem.getItemMeta();
+        if (wgMeta != null) {
+            wgMeta.setDisplayName("§6WorldGuard Bypass");
+            List<String> lore = new ArrayList<>();
+            lore.add("");
+            lore.add("§7Status: " + (worldGuardBypass ? "§aEnabled" : "§cDisabled"));
+            lore.add("");
+            lore.add("§7When enabled, mobs in WorldGuard");
+            lore.add("§7regions with mob-spawning flag");
+            lore.add("§7will bypass SMP Core blocking.");
+            lore.add("");
+            lore.add("§eClick to toggle!");
+            wgMeta.setLore(lore);
+            worldGuardItem.setItemMeta(wgMeta);
+        }
+        gui.setItem(15, worldGuardItem);
+
+        ItemStack backButton = new ItemStack(Material.OAK_DOOR);
+        ItemMeta backMeta = backButton.getItemMeta();
+        if (backMeta != null) {
+            backMeta.setDisplayName("§eBack to World Select");
+            backButton.setItemMeta(backMeta);
+        }
+        gui.setItem(22, backButton);
+
+        player.openInventory(gui);
     }
 }

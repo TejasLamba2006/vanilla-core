@@ -40,7 +40,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Real-time Item Enforcement**: Continuous background task checks player inventories
 - **Pickup Prevention**: Prevents picking up items that would exceed limits
 - **Inventory Click Prevention**: Blocks taking items from containers if it exceeds limits
-- **Mob Spawning Feature**: Control mob spawning with configurable mob type blacklist
+- **Mob Spawning Feature Enhancements**:
+  - **Per-world configuration**: Disable mobs in specific worlds only
+  - **World Selection GUI**: New GUI to select which world to configure
+  - **Non-spawn-egg entities**: Support for Iron Golem, Snow Golem, Wither, Ender Dragon
+  - **Global Settings GUI**: Configure chunk cleanup and WorldGuard bypass
+  - **Chunk Cleanup**: Optionally remove disabled mobs when chunks load (WARNING: Destructive!)
+  - **WorldGuard Integration**: Optional bypass for mobs in WorldGuard protected regions
 - **Mace Limiter GUI**: New settings GUI accessible via right-click in main menu
   - Increase/decrease max maces with click and shift-click
   - Reset craft count button
@@ -77,6 +83,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Infinite Restock Rewrite**: Ported from InstantRestock with persistence
   - Back up original trade limits in PDC and restore on uninstall
   - Apply on interact, merchant open, and trade acquisition
+- **Mob Spawning GUI**: Main GUI now shows per-world mob configuration
+  - Back button returns to world select instead of main menu
+- **Dependencies**: Removed unused ProtocolLib soft-dependency, added WorldGuard soft-dependency
 
 ### Removed
 
@@ -86,6 +95,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Item Bans Feature**: Removed separate item ban system (use Item Limiter with limit=0 instead)
 - **Effect Bans Feature**: Removed potion effect ban system (to be reimplemented later)
 - **BanManager**: Removed as item/effect bans are now handled by Item Limiter
+- **ProtocolLib Dependency**: Removed unused soft-dependency on ProtocolLib
 
 ### Fixed
 

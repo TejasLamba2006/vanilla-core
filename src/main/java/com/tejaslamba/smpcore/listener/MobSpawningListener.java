@@ -2,20 +2,29 @@ package com.tejaslamba.smpcore.listener;
 
 import com.tejaslamba.smpcore.Main;
 import com.tejaslamba.smpcore.features.MobSpawningFeature;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
 
 public class MobSpawningListener implements Listener {
 
+    private static final String VERBOSE_PREFIX = "[VERBOSE] Mob Spawning - ";
+    
     private final Main plugin;
     private final MobSpawningFeature feature;
+    private final WorldGuardHook worldGuardHook;
 
     public MobSpawningListener(Main plugin, MobSpawningFeature feature) {
         this.plugin = plugin;
         this.feature = feature;
+        this.worldGuardHook = new WorldGuardHook(plugin);
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -25,19 +34,129 @@ public class MobSpawningListener implements Listener {
         }
 
         EntityType entityType = event.getEntityType();
+        World world = event.getLocation().getWorld();
 
-        if (feature.isDisabled(entityType)) {
-            CreatureSpawnEvent.SpawnReason reason = event.getSpawnReason();
+        if (!feature.isDisabledInWorld(entityType, world)) {
+            return;
+        }
 
-            if (feature.isSpawnReasonAllowed(reason)) {
-                return;
+        CreatureSpawnEvent.SpawnReason reason = event.getSpawnReason();
+
+        if (feature.isSpawnReasonAllowed(reason)) {
+            return;
+        }
+
+        if (feature.isWorldGuardBypass() && worldGuardHook.isInProtectedRegion(event.getLocation())) {
+            if (plugin.isVerbose()) {
+                plugin.getLogger().info(VERBOSE_PREFIX + "Allowed spawn of " + entityType.name()
+                        + " in WorldGuard protected region");
+            }
+            return;
+        }
+
+        event.setCancelled(true);
+
+        if (plugin.isVerbose()) {
+            plugin.getLogger().info(VERBOSE_PREFIX + "Blocked spawn of " + entityType.name()
+                    + " in world " + world.getName() + " (reason: " + reason.name() + ")");
+        }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onChunkLoad(ChunkLoadEvent event) {
+        if (!feature.isEnabled() || !feature.isChunkCleanupEnabled()) {
+            return;
+        }
+
+        World world = event.getWorld();
+        
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            int removedCount = 0;
+            for (Entity entity : event.getChunk().getEntities()) {
+                if (entity instanceof LivingEntity && shouldRemoveEntity(entity, world)) {
+                    entity.remove();
+                    removedCount++;
+                }
+            }
+            
+            if (removedCount > 0 && plugin.isVerbose()) {
+                plugin.getLogger().info(VERBOSE_PREFIX + "Chunk cleanup removed " + removedCount 
+                        + " disabled mobs from chunk at " + event.getChunk().getX() + ", " 
+                        + event.getChunk().getZ() + " in world " + world.getName());
+            }
+        }, 1L);
+    }
+
+    private boolean shouldRemoveEntity(Entity entity, World world) {
+        EntityType entityType = entity.getType();
+        
+        if (!feature.isDisabledInWorld(entityType, world)) {
+            return false;
+        }
+
+        if (feature.isWorldGuardBypass() && worldGuardHook.isInProtectedRegion(entity.getLocation())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private static class WorldGuardHook {
+        
+        private final Main plugin;
+        private final boolean worldGuardAvailable;
+        private Object worldGuard;
+
+        public WorldGuardHook(Main plugin) {
+            this.plugin = plugin;
+            this.worldGuardAvailable = Bukkit.getPluginManager().getPlugin("WorldGuard") != null;
+            
+            if (worldGuardAvailable) {
+                try {
+                    Class<?> worldGuardClass = Class.forName("com.sk89q.worldguard.WorldGuard");
+                    worldGuard = worldGuardClass.getMethod("getInstance").invoke(null);
+                    plugin.getLogger().info("WorldGuard integration enabled for Mob Spawning");
+                } catch (Exception e) {
+                    plugin.getLogger().warning("Failed to hook into WorldGuard: " + e.getMessage());
+                }
+            }
+        }
+
+        public boolean isInProtectedRegion(org.bukkit.Location location) {
+            if (!worldGuardAvailable || worldGuard == null) {
+                return false;
             }
 
-            event.setCancelled(true);
+            try {
+                Class<?> bukkitAdapterClass = Class.forName("com.sk89q.worldedit.bukkit.BukkitAdapter");
+                Object weLocation = bukkitAdapterClass.getMethod("adapt", org.bukkit.Location.class)
+                        .invoke(null, location);
+                Object weWorld = bukkitAdapterClass.getMethod("adapt", World.class)
+                        .invoke(null, location.getWorld());
 
-            if (plugin.isVerbose()) {
-                plugin.getLogger().info("[VERBOSE] Mob Spawning - Blocked spawn of " + entityType.name()
-                        + " (reason: " + reason.name() + ")");
+                Object platform = worldGuard.getClass().getMethod("getPlatform").invoke(worldGuard);
+                Object regionContainer = platform.getClass().getMethod("getRegionContainer").invoke(platform);
+                Object regionManager = regionContainer.getClass()
+                        .getMethod("get", Class.forName("com.sk89q.worldedit.world.World"))
+                        .invoke(regionContainer, weWorld);
+
+                if (regionManager == null) {
+                    return false;
+                }
+
+                Object applicableRegions = regionManager.getClass()
+                        .getMethod("getApplicableRegions", Class.forName("com.sk89q.worldedit.math.BlockVector3"))
+                        .invoke(regionManager, weLocation.getClass().getMethod("toVector")
+                                .invoke(weLocation).getClass().getMethod("toBlockPoint")
+                                .invoke(weLocation.getClass().getMethod("toVector").invoke(weLocation)));
+
+                int size = (int) applicableRegions.getClass().getMethod("size").invoke(applicableRegions);
+                return size > 0;
+            } catch (Exception e) {
+                if (plugin.isVerbose()) {
+                    plugin.getLogger().warning("WorldGuard region check failed: " + e.getMessage());
+                }
+                return false;
             }
         }
     }
