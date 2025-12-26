@@ -83,7 +83,7 @@ public class MobSpawningListener implements Listener {
             if (!event.getChunk().isLoaded()) {
                 return;
             }
-            
+
             int removedCount = 0;
             for (Entity entity : event.getChunk().getEntities()) {
                 if (entity instanceof LivingEntity && shouldRemoveEntity(entity, world)) {
@@ -148,8 +148,8 @@ public class MobSpawningListener implements Listener {
                 }
                 var mainHand = equipment.getItemInMainHand();
                 var offHand = equipment.getItemInOffHand();
-                if ((mainHand != null && !mainHand.getType().isAir()) || 
-                    (offHand != null && !offHand.getType().isAir())) {
+                if ((mainHand != null && !mainHand.getType().isAir()) ||
+                        (offHand != null && !offHand.getType().isAir())) {
                     return true;
                 }
             }
@@ -187,7 +187,7 @@ public class MobSpawningListener implements Listener {
             try {
                 Class<?> bukkitAdapterClass = Class.forName("com.sk89q.worldedit.bukkit.BukkitAdapter");
                 Class<?> blockVector3Class = Class.forName("com.sk89q.worldedit.math.BlockVector3");
-                
+
                 Object weWorld = bukkitAdapterClass.getMethod("adapt", World.class)
                         .invoke(null, location.getWorld());
 
@@ -212,7 +212,7 @@ public class MobSpawningListener implements Listener {
                 return size > 0;
             } catch (Exception e) {
                 if (plugin.isVerbose()) {
-                    plugin.getLogger().warning("WorldGuard region check failed: " + e.getClass().getSimpleName() 
+                    plugin.getLogger().warning("WorldGuard region check failed: " + e.getClass().getSimpleName()
                             + " - " + e.getMessage());
                 }
                 return false;
