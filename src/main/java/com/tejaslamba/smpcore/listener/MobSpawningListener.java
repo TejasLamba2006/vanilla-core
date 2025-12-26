@@ -7,15 +7,19 @@ import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Tameable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
+import org.bukkit.persistence.PersistentDataType;
 
 public class MobSpawningListener implements Listener {
 
     private static final String VERBOSE_PREFIX = "[VERBOSE] Mob Spawning - ";
+    private static final long CHUNK_CLEANUP_DELAY = 5L;
 
     private final Main plugin;
     private final MobSpawningFeature feature;
@@ -62,6 +66,11 @@ public class MobSpawningListener implements Listener {
         }
     }
 
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        feature.cleanupPlayer(event.getPlayer().getUniqueId());
+    }
+
     @EventHandler(priority = EventPriority.MONITOR)
     public void onChunkLoad(ChunkLoadEvent event) {
         if (!feature.isEnabled() || !feature.isChunkCleanupEnabled()) {
@@ -71,6 +80,10 @@ public class MobSpawningListener implements Listener {
         World world = event.getWorld();
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            if (!event.getChunk().isLoaded()) {
+                return;
+            }
+            
             int removedCount = 0;
             for (Entity entity : event.getChunk().getEntities()) {
                 if (entity instanceof LivingEntity && shouldRemoveEntity(entity, world)) {
@@ -84,7 +97,7 @@ public class MobSpawningListener implements Listener {
                         + " disabled mobs from chunk at " + event.getChunk().getX() + ", "
                         + event.getChunk().getZ() + " in world " + world.getName());
             }
-        }, 1L);
+        }, CHUNK_CLEANUP_DELAY);
     }
 
     private boolean shouldRemoveEntity(Entity entity, World world) {
@@ -94,11 +107,55 @@ public class MobSpawningListener implements Listener {
             return false;
         }
 
+        if (isProtectedEntity(entity)) {
+            return false;
+        }
+
         if (feature.isWorldGuardBypass() && worldGuardHook.isInProtectedRegion(entity.getLocation())) {
             return false;
         }
 
         return true;
+    }
+
+    private boolean isProtectedEntity(Entity entity) {
+        if (entity.getCustomName() != null) {
+            return true;
+        }
+
+        if (entity instanceof Tameable tameable && tameable.isTamed()) {
+            return true;
+        }
+
+        if (entity.isPersistent()) {
+            return true;
+        }
+
+        if (!entity.getPersistentDataContainer().isEmpty()) {
+            return true;
+        }
+
+        if (entity instanceof LivingEntity livingEntity) {
+            if (livingEntity.isLeashed()) {
+                return true;
+            }
+            var equipment = livingEntity.getEquipment();
+            if (equipment != null) {
+                for (var item : equipment.getArmorContents()) {
+                    if (item != null && !item.getType().isAir()) {
+                        return true;
+                    }
+                }
+                var mainHand = equipment.getItemInMainHand();
+                var offHand = equipment.getItemInOffHand();
+                if ((mainHand != null && !mainHand.getType().isAir()) || 
+                    (offHand != null && !offHand.getType().isAir())) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private static class WorldGuardHook {
@@ -129,10 +186,13 @@ public class MobSpawningListener implements Listener {
 
             try {
                 Class<?> bukkitAdapterClass = Class.forName("com.sk89q.worldedit.bukkit.BukkitAdapter");
-                Object weLocation = bukkitAdapterClass.getMethod("adapt", org.bukkit.Location.class)
-                        .invoke(null, location);
+                Class<?> blockVector3Class = Class.forName("com.sk89q.worldedit.math.BlockVector3");
+                
                 Object weWorld = bukkitAdapterClass.getMethod("adapt", World.class)
                         .invoke(null, location.getWorld());
+
+                Object blockVector = blockVector3Class.getMethod("at", int.class, int.class, int.class)
+                        .invoke(null, location.getBlockX(), location.getBlockY(), location.getBlockZ());
 
                 Object platform = worldGuard.getClass().getMethod("getPlatform").invoke(worldGuard);
                 Object regionContainer = platform.getClass().getMethod("getRegionContainer").invoke(platform);
@@ -145,16 +205,15 @@ public class MobSpawningListener implements Listener {
                 }
 
                 Object applicableRegions = regionManager.getClass()
-                        .getMethod("getApplicableRegions", Class.forName("com.sk89q.worldedit.math.BlockVector3"))
-                        .invoke(regionManager, weLocation.getClass().getMethod("toVector")
-                                .invoke(weLocation).getClass().getMethod("toBlockPoint")
-                                .invoke(weLocation.getClass().getMethod("toVector").invoke(weLocation)));
+                        .getMethod("getApplicableRegions", blockVector3Class)
+                        .invoke(regionManager, blockVector);
 
                 int size = (int) applicableRegions.getClass().getMethod("size").invoke(applicableRegions);
                 return size > 0;
             } catch (Exception e) {
                 if (plugin.isVerbose()) {
-                    plugin.getLogger().warning("WorldGuard region check failed: " + e.getMessage());
+                    plugin.getLogger().warning("WorldGuard region check failed: " + e.getClass().getSimpleName() 
+                            + " - " + e.getMessage());
                 }
                 return false;
             }

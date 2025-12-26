@@ -516,6 +516,11 @@ public class MobSpawningFeature extends BaseFeature {
         return playerSelectedWorld.get(player.getUniqueId());
     }
 
+    public void cleanupPlayer(UUID playerId) {
+        playerPages.remove(playerId);
+        playerSelectedWorld.remove(playerId);
+    }
+
     public List<EntityType> getSpawnableEntities() {
         return new ArrayList<>(spawnableEntities);
     }
@@ -763,8 +768,8 @@ public class MobSpawningFeature extends BaseFeature {
             lore.add("");
             lore.add("§7Status: " + (worldGuardBypass ? "§aEnabled" : "§cDisabled"));
             lore.add("");
-            lore.add("§7When enabled, mobs in WorldGuard");
-            lore.add("§7regions with mob-spawning flag");
+            lore.add("§7When enabled, mobs in any");
+            lore.add("§7WorldGuard protected region");
             lore.add("§7will bypass SMP Core blocking.");
             lore.add("");
             lore.add("§eClick to toggle!");
