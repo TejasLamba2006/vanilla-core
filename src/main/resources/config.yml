@@ -265,7 +265,7 @@ features:
     # Per-world disabled mobs configuration
     # Format: worlds.<world_name>.disabled-mobs.<mob_type>: true/false
     worlds: {}
-    # Spawn reasons that bypass mob blocking (even disabled mobs can spawn via these)
+    # Spawn reasons that bypass mob spawning restrictions (even disabled mobs can spawn via these)
     # Available spawn reasons:
     # NATURAL, JOCKEY, SPAWNER, TRIAL_SPAWNER, EGG, SPAWNER_EGG, LIGHTNING,
     # BUILD_SNOWMAN, BUILD_IRONGOLEM, BUILD_WITHER, VILLAGE_DEFENSE, VILLAGE_INVASION,

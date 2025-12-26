@@ -14,7 +14,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
-import org.bukkit.persistence.PersistentDataType;
 
 public class MobSpawningListener implements Listener {
 
@@ -80,6 +79,10 @@ public class MobSpawningListener implements Listener {
         World world = event.getWorld();
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            if (!plugin.isEnabled() || !feature.isEnabled() || !feature.isChunkCleanupEnabled()) {
+                return;
+            }
+
             if (!event.getChunk().isLoaded()) {
                 return;
             }
@@ -164,6 +167,15 @@ public class MobSpawningListener implements Listener {
         private final boolean worldGuardAvailable;
         private Object worldGuard;
 
+        private java.lang.reflect.Method adaptWorldMethod;
+        private java.lang.reflect.Method blockVectorAtMethod;
+        private java.lang.reflect.Method getPlatformMethod;
+        private java.lang.reflect.Method getRegionContainerMethod;
+        private java.lang.reflect.Method getRegionManagerMethod;
+        private java.lang.reflect.Method getApplicableRegionsMethod;
+        private java.lang.reflect.Method sizeMethod;
+        private Class<?> blockVector3Class;
+
         public WorldGuardHook(Main plugin) {
             this.plugin = plugin;
             this.worldGuardAvailable = Bukkit.getPluginManager().getPlugin("WorldGuard") != null;
@@ -172,9 +184,25 @@ public class MobSpawningListener implements Listener {
                 try {
                     Class<?> worldGuardClass = Class.forName("com.sk89q.worldguard.WorldGuard");
                     worldGuard = worldGuardClass.getMethod("getInstance").invoke(null);
+
+                    Class<?> bukkitAdapterClass = Class.forName("com.sk89q.worldedit.bukkit.BukkitAdapter");
+                    blockVector3Class = Class.forName("com.sk89q.worldedit.math.BlockVector3");
+                    Class<?> weWorldClass = Class.forName("com.sk89q.worldedit.world.World");
+
+                    adaptWorldMethod = bukkitAdapterClass.getMethod("adapt", World.class);
+                    blockVectorAtMethod = blockVector3Class.getMethod("at", int.class, int.class, int.class);
+                    getPlatformMethod = worldGuard.getClass().getMethod("getPlatform");
+
+                    Object platform = getPlatformMethod.invoke(worldGuard);
+                    getRegionContainerMethod = platform.getClass().getMethod("getRegionContainer");
+
+                    Object regionContainer = getRegionContainerMethod.invoke(platform);
+                    getRegionManagerMethod = regionContainer.getClass().getMethod("get", weWorldClass);
+
                     plugin.getLogger().info("WorldGuard integration enabled for Mob Spawning");
                 } catch (Exception e) {
                     plugin.getLogger().warning("Failed to hook into WorldGuard: " + e.getMessage());
+                    worldGuard = null;
                 }
             }
         }
@@ -185,30 +213,30 @@ public class MobSpawningListener implements Listener {
             }
 
             try {
-                Class<?> bukkitAdapterClass = Class.forName("com.sk89q.worldedit.bukkit.BukkitAdapter");
-                Class<?> blockVector3Class = Class.forName("com.sk89q.worldedit.math.BlockVector3");
+                Object weWorld = adaptWorldMethod.invoke(null, location.getWorld());
+                Object blockVector = blockVectorAtMethod.invoke(null,
+                        location.getBlockX(), location.getBlockY(), location.getBlockZ());
 
-                Object weWorld = bukkitAdapterClass.getMethod("adapt", World.class)
-                        .invoke(null, location.getWorld());
-
-                Object blockVector = blockVector3Class.getMethod("at", int.class, int.class, int.class)
-                        .invoke(null, location.getBlockX(), location.getBlockY(), location.getBlockZ());
-
-                Object platform = worldGuard.getClass().getMethod("getPlatform").invoke(worldGuard);
-                Object regionContainer = platform.getClass().getMethod("getRegionContainer").invoke(platform);
-                Object regionManager = regionContainer.getClass()
-                        .getMethod("get", Class.forName("com.sk89q.worldedit.world.World"))
-                        .invoke(regionContainer, weWorld);
+                Object platform = getPlatformMethod.invoke(worldGuard);
+                Object regionContainer = getRegionContainerMethod.invoke(platform);
+                Object regionManager = getRegionManagerMethod.invoke(regionContainer, weWorld);
 
                 if (regionManager == null) {
                     return false;
                 }
 
-                Object applicableRegions = regionManager.getClass()
-                        .getMethod("getApplicableRegions", blockVector3Class)
-                        .invoke(regionManager, blockVector);
+                if (getApplicableRegionsMethod == null) {
+                    getApplicableRegionsMethod = regionManager.getClass()
+                            .getMethod("getApplicableRegions", blockVector3Class);
+                }
 
-                int size = (int) applicableRegions.getClass().getMethod("size").invoke(applicableRegions);
+                Object applicableRegions = getApplicableRegionsMethod.invoke(regionManager, blockVector);
+
+                if (sizeMethod == null) {
+                    sizeMethod = applicableRegions.getClass().getMethod("size");
+                }
+
+                int size = (int) sizeMethod.invoke(applicableRegions);
                 return size > 0;
             } catch (Exception e) {
                 if (plugin.isVerbose()) {

@@ -768,9 +768,9 @@ public class MobSpawningFeature extends BaseFeature {
             lore.add("");
             lore.add("§7Status: " + (worldGuardBypass ? "§aEnabled" : "§cDisabled"));
             lore.add("");
-            lore.add("§7When enabled, mobs in any");
-            lore.add("§7WorldGuard protected region");
-            lore.add("§7will bypass SMP Core blocking.");
+            lore.add("§7When enabled, mobs can spawn");
+            lore.add("§7in WorldGuard protected regions");
+            lore.add("§7even if disabled in that world.");
             lore.add("");
             lore.add("§eClick to toggle!");
             wgMeta.setLore(lore);

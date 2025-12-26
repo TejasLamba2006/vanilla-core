@@ -378,6 +378,8 @@ public class MenuClickListener implements Listener {
                 if (world != null) {
                     plugin.getServer().getScheduler().runTask(plugin,
                             () -> feature.openMobGUI(player, 0, worldName));
+                } else if (plugin.isVerbose()) {
+                    plugin.getLogger().warning("World '" + worldName + "' no longer exists, ignoring selection");
                 }
             }
         }
@@ -425,6 +427,7 @@ public class MenuClickListener implements Listener {
                 plugin.getMessageManager().sendPrefixed(player, "mob-spawning.worldguard-bypass-disabled");
             }
             plugin.getServer().getScheduler().runTask(plugin, () -> feature.openGlobalSettingsGUI(player));
+            return;
         }
     }
 
