@@ -1,6 +1,9 @@
 **SMP Core**
-
-A comprehensive **all-in-one SMP plugin** for PvP balance, custom mechanics, and server management.
+<center>
+A comprehensive <b>all-in-one SMP plugin</b> for PvP balance, custom mechanics, and server management.
+  
+![features](https://cdn.modrinth.com/data/cached_images/97e9b2b36d52ea26bad209b15d71b9c289e8e320.jpeg)
+</center>
 
 ---
 
