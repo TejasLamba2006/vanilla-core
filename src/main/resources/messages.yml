@@ -62,9 +62,9 @@ dimension-lock:
 netherite-disabler:
   feature-disabled: "&cNetherite Disabler is disabled! Enable it first."
 
-# Mob Spawning
-mob-spawning:
-  feature-disabled: "&cMob Spawning Manager is disabled! Enable it first."
+# Mob Manager
+mob-manager:
+  feature-disabled: "&cMob Manager is disabled! Enable it first."
   enabled-all: "&7Enabled spawning for all mobs!"
   disabled-all: "&7Disabled spawning for all mobs!"
   chunk-cleanup-enabled: "&aChunk cleanup enabled! Disabled mobs will be removed from chunks."

@@ -1,7 +1,7 @@
 package com.tejaslamba.smpcore.listener;
 
 import com.tejaslamba.smpcore.Main;
-import com.tejaslamba.smpcore.features.MobSpawningFeature;
+import com.tejaslamba.smpcore.features.MobManagerFeature;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -15,16 +15,16 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 
-public class MobSpawningListener implements Listener {
+public class MobManagerListener implements Listener {
 
-    private static final String VERBOSE_PREFIX = "[VERBOSE] Mob Spawning - ";
+    private static final String VERBOSE_PREFIX = "[VERBOSE] Mob Manager - ";
     private static final long CHUNK_CLEANUP_DELAY = 5L;
 
     private final Main plugin;
-    private final MobSpawningFeature feature;
+    private final MobManagerFeature feature;
     private final WorldGuardHook worldGuardHook;
 
-    public MobSpawningListener(Main plugin, MobSpawningFeature feature) {
+    public MobManagerListener(Main plugin, MobManagerFeature feature) {
         this.plugin = plugin;
         this.feature = feature;
         this.worldGuardHook = new WorldGuardHook(plugin);
@@ -199,7 +199,7 @@ public class MobSpawningListener implements Listener {
                     Object regionContainer = getRegionContainerMethod.invoke(platform);
                     getRegionManagerMethod = regionContainer.getClass().getMethod("get", weWorldClass);
 
-                    plugin.getLogger().info("WorldGuard integration enabled for Mob Spawning");
+                    plugin.getLogger().info("WorldGuard integration enabled for Mob Manager");
                 } catch (Exception e) {
                     plugin.getLogger().warning("Failed to hook into WorldGuard: " + e.getMessage());
                     worldGuard = null;

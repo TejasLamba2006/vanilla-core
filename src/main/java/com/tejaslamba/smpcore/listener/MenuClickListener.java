@@ -2,7 +2,7 @@ package com.tejaslamba.smpcore.listener;
 
 import com.tejaslamba.smpcore.Main;
 import com.tejaslamba.smpcore.features.ItemLimiterFeature;
-import com.tejaslamba.smpcore.features.MobSpawningFeature;
+import com.tejaslamba.smpcore.features.MobManagerFeature;
 import com.tejaslamba.smpcore.features.NetheriteDisablerFeature;
 import com.tejaslamba.smpcore.features.InfiniteRestockFeature;
 import com.tejaslamba.smpcore.menu.MainMenu;
@@ -70,25 +70,25 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        if (title.equals(MobSpawningFeature.WORLD_SELECT_GUI_TITLE)) {
+        if (title.equals(MobManagerFeature.WORLD_SELECT_GUI_TITLE)) {
             event.setCancelled(true);
             handleWorldSelectGUI(event, player);
             return;
         }
 
-        if (title.equals(MobSpawningFeature.SETTINGS_GUI_TITLE)) {
+        if (title.equals(MobManagerFeature.SETTINGS_GUI_TITLE)) {
             event.setCancelled(true);
-            handleMobSpawningSettingsGUI(event, player);
+            handleMobManagerSettingsGUI(event, player);
             return;
         }
 
-        if (title.startsWith(MobSpawningFeature.GUI_TITLE)) {
+        if (title.startsWith(MobManagerFeature.GUI_TITLE)) {
             event.setCancelled(true);
-            handleMobSpawningGUI(event, player);
+            handleMobManagerGUI(event, player);
             return;
         }
 
-        if (title.equals(MobSpawningFeature.SPAWN_REASONS_GUI_TITLE)) {
+        if (title.equals(MobManagerFeature.SPAWN_REASONS_GUI_TITLE)) {
             event.setCancelled(true);
             handleSpawnReasonsGUI(event, player);
             return;
@@ -247,16 +247,16 @@ public class MenuClickListener implements Listener {
         }
     }
 
-    private void handleMobSpawningGUI(InventoryClickEvent event, Player player) {
+    private void handleMobManagerGUI(InventoryClickEvent event, Player player) {
         if (event.getCurrentItem() == null) {
             return;
         }
 
-        MobSpawningFeature feature = (MobSpawningFeature) plugin.getFeatureManager()
-                .getFeature("Mob Spawning");
+        MobManagerFeature feature = (MobManagerFeature) plugin.getFeatureManager()
+                .getFeature("Mob Manager");
         if (feature == null || !feature.isEnabled()) {
             player.closeInventory();
-            plugin.getMessageManager().sendPrefixed(player, "mob-spawning.feature-disabled");
+            plugin.getMessageManager().sendPrefixed(player, "mob-manager.feature-disabled");
             return;
         }
 
@@ -264,14 +264,14 @@ public class MenuClickListener implements Listener {
         int slot = event.getRawSlot();
         int currentPage = feature.getPlayerPage(player);
 
-        if (handleMobSpawningNavigation(player, feature, clickedType, slot, currentPage)) {
+        if (handleMobManagerNavigation(player, feature, clickedType, slot, currentPage)) {
             return;
         }
 
-        handleMobSpawningToggle(player, feature, clickedType, slot, currentPage);
+        handleMobManagerToggle(player, feature, clickedType, slot, currentPage);
     }
 
-    private boolean handleMobSpawningNavigation(Player player, MobSpawningFeature feature,
+    private boolean handleMobManagerNavigation(Player player, MobManagerFeature feature,
             Material clickedType, int slot, int currentPage) {
         if (clickedType == Material.BARRIER) {
             player.closeInventory();
@@ -305,13 +305,13 @@ public class MenuClickListener implements Listener {
         return false;
     }
 
-    private void handleMobSpawningToggle(Player player, MobSpawningFeature feature,
+    private void handleMobManagerToggle(Player player, MobManagerFeature feature,
             Material clickedType, int slot, int currentPage) {
         String selectedWorld = feature.getPlayerSelectedWorld(player);
 
         if (slot == 47 && clickedType == Material.LIME_DYE) {
             feature.setAllDisabled(false, selectedWorld);
-            plugin.getMessageManager().sendPrefixed(player, "mob-spawning.enabled-all");
+            plugin.getMessageManager().sendPrefixed(player, "mob-manager.enabled-all");
             plugin.getServer().getScheduler().runTask(plugin,
                     () -> feature.openMobGUI(player, currentPage, selectedWorld));
             return;
@@ -319,7 +319,7 @@ public class MenuClickListener implements Listener {
 
         if (slot == 51 && clickedType == Material.RED_DYE) {
             feature.setAllDisabled(true, selectedWorld);
-            plugin.getMessageManager().sendPrefixed(player, "mob-spawning.disabled-all");
+            plugin.getMessageManager().sendPrefixed(player, "mob-manager.disabled-all");
             plugin.getServer().getScheduler().runTask(plugin,
                     () -> feature.openMobGUI(player, currentPage, selectedWorld));
             return;
@@ -341,11 +341,11 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        MobSpawningFeature feature = (MobSpawningFeature) plugin.getFeatureManager()
-                .getFeature("Mob Spawning");
+        MobManagerFeature feature = (MobManagerFeature) plugin.getFeatureManager()
+                .getFeature("Mob Manager");
         if (feature == null || !feature.isEnabled()) {
             player.closeInventory();
-            plugin.getMessageManager().sendPrefixed(player, "mob-spawning.feature-disabled");
+            plugin.getMessageManager().sendPrefixed(player, "mob-manager.feature-disabled");
             return;
         }
 
@@ -385,16 +385,16 @@ public class MenuClickListener implements Listener {
         }
     }
 
-    private void handleMobSpawningSettingsGUI(InventoryClickEvent event, Player player) {
+    private void handleMobManagerSettingsGUI(InventoryClickEvent event, Player player) {
         if (event.getCurrentItem() == null) {
             return;
         }
 
-        MobSpawningFeature feature = (MobSpawningFeature) plugin.getFeatureManager()
-                .getFeature("Mob Spawning");
+        MobManagerFeature feature = (MobManagerFeature) plugin.getFeatureManager()
+                .getFeature("Mob Manager");
         if (feature == null || !feature.isEnabled()) {
             player.closeInventory();
-            plugin.getMessageManager().sendPrefixed(player, "mob-spawning.feature-disabled");
+            plugin.getMessageManager().sendPrefixed(player, "mob-manager.feature-disabled");
             return;
         }
 
@@ -410,9 +410,9 @@ public class MenuClickListener implements Listener {
             boolean newState = !feature.isChunkCleanupEnabled();
             feature.setChunkCleanupEnabled(newState);
             if (newState) {
-                plugin.getMessageManager().sendPrefixed(player, "mob-spawning.chunk-cleanup-enabled");
+                plugin.getMessageManager().sendPrefixed(player, "mob-manager.chunk-cleanup-enabled");
             } else {
-                plugin.getMessageManager().sendPrefixed(player, "mob-spawning.chunk-cleanup-disabled");
+                plugin.getMessageManager().sendPrefixed(player, "mob-manager.chunk-cleanup-disabled");
             }
             plugin.getServer().getScheduler().runTask(plugin, () -> feature.openGlobalSettingsGUI(player));
             return;
@@ -422,9 +422,9 @@ public class MenuClickListener implements Listener {
             boolean newState = !feature.isWorldGuardBypass();
             feature.setWorldGuardBypass(newState);
             if (newState) {
-                plugin.getMessageManager().sendPrefixed(player, "mob-spawning.worldguard-bypass-enabled");
+                plugin.getMessageManager().sendPrefixed(player, "mob-manager.worldguard-bypass-enabled");
             } else {
-                plugin.getMessageManager().sendPrefixed(player, "mob-spawning.worldguard-bypass-disabled");
+                plugin.getMessageManager().sendPrefixed(player, "mob-manager.worldguard-bypass-disabled");
             }
             plugin.getServer().getScheduler().runTask(plugin, () -> feature.openGlobalSettingsGUI(player));
             return;
@@ -436,11 +436,11 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        MobSpawningFeature feature = (MobSpawningFeature) plugin.getFeatureManager()
-                .getFeature("Mob Spawning");
+        MobManagerFeature feature = (MobManagerFeature) plugin.getFeatureManager()
+                .getFeature("Mob Manager");
         if (feature == null || !feature.isEnabled()) {
             player.closeInventory();
-            plugin.getMessageManager().sendPrefixed(player, "mob-spawning.feature-disabled");
+            plugin.getMessageManager().sendPrefixed(player, "mob-manager.feature-disabled");
             return;
         }
 

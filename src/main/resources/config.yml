@@ -254,13 +254,13 @@ features:
     enabled: false
 
   # ------------------------------------------
-  # Mob Spawning Manager
+  # Mob Manager
   # ------------------------------------------
-  # Disable specific mob types from spawning naturally.
+  # Control which mob types can spawn naturally.
   # Use the GUI (/smp menu) to toggle individual mobs.
-  # Allowed spawn reasons will bypass mob blocking.
+  # Allowed spawn reasons will bypass mob restrictions.
   # Supports per-world configuration.
-  mob-spawning:
+  mob-manager:
     enabled: false
     # Per-world disabled mobs configuration
     # Format: worlds.<world_name>.disabled-mobs.<mob_type>: true/false

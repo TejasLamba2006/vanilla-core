@@ -2,7 +2,7 @@ package com.tejaslamba.smpcore.features;
 
 import com.tejaslamba.smpcore.Main;
 import com.tejaslamba.smpcore.feature.BaseFeature;
-import com.tejaslamba.smpcore.listener.MobSpawningListener;
+import com.tejaslamba.smpcore.listener.MobManagerListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -17,15 +17,15 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
-public class MobSpawningFeature extends BaseFeature {
+public class MobManagerFeature extends BaseFeature {
 
-    public static final String GUI_TITLE = "§8Mob Spawning Manager";
+    public static final String GUI_TITLE = "§8Mob Manager";
     public static final String SPAWN_REASONS_GUI_TITLE = "§8Spawn Reasons Config";
     public static final String WORLD_SELECT_GUI_TITLE = "§8Select World";
-    public static final String SETTINGS_GUI_TITLE = "§8Mob Spawning Settings";
+    public static final String SETTINGS_GUI_TITLE = "§8Mob Manager Settings";
     private static final int[] CONTENT_SLOTS = calculateContentSlots();
-    private static final String CONFIG_PATH_PREFIX = "features.mob-spawning.worlds.";
-    private static final String VERBOSE_PREFIX = "[VERBOSE] Mob Spawning - ";
+    private static final String CONFIG_PATH_PREFIX = "features.mob-manager.worlds.";
+    private static final String VERBOSE_PREFIX = "[VERBOSE] Mob Manager - ";
 
     private final Map<String, Map<EntityType, Boolean>> worldDisabledMobs = new HashMap<>();
     private final Set<CreatureSpawnEvent.SpawnReason> allowedSpawnReasons = new HashSet<>();
@@ -36,9 +36,9 @@ public class MobSpawningFeature extends BaseFeature {
 
     private boolean chunkCleanupEnabled = false;
     private boolean worldGuardBypass = true;
-    private MobSpawningListener listener;
+    private MobManagerListener listener;
 
-    public MobSpawningFeature() {
+    public MobManagerFeature() {
         loadSpawnableEntities();
         loadAllSpawnReasons();
     }
@@ -109,13 +109,13 @@ public class MobSpawningFeature extends BaseFeature {
 
     @Override
     public void onEnable(Main plugin) {
-        listener = new MobSpawningListener(plugin, this);
+        listener = new MobManagerListener(plugin, this);
         super.onEnable(plugin);
 
         chunkCleanupEnabled = plugin.getConfigManager().get()
-                .getBoolean("features.mob-spawning.chunk-cleanup-enabled", false);
+                .getBoolean("features.mob-manager.chunk-cleanup-enabled", false);
         worldGuardBypass = plugin.getConfigManager().get()
-                .getBoolean("features.mob-spawning.worldguard-bypass", true);
+                .getBoolean("features.mob-manager.worldguard-bypass", true);
 
         initializeWorldData();
         loadAllWorldDisabledMobs();
@@ -159,18 +159,18 @@ public class MobSpawningFeature extends BaseFeature {
 
     @Override
     public String getName() {
-        return "Mob Spawning";
+        return "Mob Manager";
     }
 
     @Override
     public String getConfigPath() {
-        return "features.mob-spawning";
+        return "features.mob-manager";
     }
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.ZOMBIE_SPAWN_EGG, "§6Mob Spawning Manager",
-                "§7Disable specific mob spawning");
+        return createMenuItem(Material.ZOMBIE_SPAWN_EGG, "§6Mob Manager",
+                "§7Control mob spawning per world");
     }
 
     @Override
@@ -190,7 +190,7 @@ public class MobSpawningFeature extends BaseFeature {
     @Override
     public void onRightClick(Player player) {
         if (!isEnabled()) {
-            player.sendMessage("§cMob Spawning Manager is disabled! Enable it first.");
+            player.sendMessage("§cMob Manager is disabled! Enable it first.");
             return;
         }
         openWorldSelectGUI(player);
@@ -540,9 +540,9 @@ public class MobSpawningFeature extends BaseFeature {
     public void reload() {
         super.reload();
         chunkCleanupEnabled = plugin.getConfigManager().get()
-                .getBoolean("features.mob-spawning.chunk-cleanup-enabled", false);
+                .getBoolean("features.mob-manager.chunk-cleanup-enabled", false);
         worldGuardBypass = plugin.getConfigManager().get()
-                .getBoolean("features.mob-spawning.worldguard-bypass", true);
+                .getBoolean("features.mob-manager.worldguard-bypass", true);
         initializeWorldData();
         loadAllWorldDisabledMobs();
         loadAllowedSpawnReasons();
@@ -551,7 +551,7 @@ public class MobSpawningFeature extends BaseFeature {
     private void loadAllowedSpawnReasons() {
         allowedSpawnReasons.clear();
         List<String> reasons = plugin.getConfigManager().get()
-                .getStringList("features.mob-spawning.allowed-spawn-reasons");
+                .getStringList("features.mob-manager.allowed-spawn-reasons");
         for (String reasonName : reasons) {
             try {
                 CreatureSpawnEvent.SpawnReason reason = CreatureSpawnEvent.SpawnReason
@@ -567,7 +567,7 @@ public class MobSpawningFeature extends BaseFeature {
         for (CreatureSpawnEvent.SpawnReason reason : allowedSpawnReasons) {
             reasons.add(reason.name());
         }
-        plugin.getConfigManager().get().set("features.mob-spawning.allowed-spawn-reasons", reasons);
+        plugin.getConfigManager().get().set("features.mob-manager.allowed-spawn-reasons", reasons);
         plugin.getConfigManager().save();
     }
 
@@ -646,7 +646,7 @@ public class MobSpawningFeature extends BaseFeature {
         ItemStack backButton = new ItemStack(Material.OAK_DOOR);
         ItemMeta backMeta = backButton.getItemMeta();
         if (backMeta != null) {
-            backMeta.setDisplayName("§eBack to Mob Spawning");
+            backMeta.setDisplayName("§eBack to Mob Manager");
             backButton.setItemMeta(backMeta);
         }
         gui.setItem(49, backButton);
@@ -713,7 +713,7 @@ public class MobSpawningFeature extends BaseFeature {
 
     public void setChunkCleanupEnabled(boolean enabled) {
         this.chunkCleanupEnabled = enabled;
-        plugin.getConfigManager().get().set("features.mob-spawning.chunk-cleanup-enabled", enabled);
+        plugin.getConfigManager().get().set("features.mob-manager.chunk-cleanup-enabled", enabled);
         plugin.getConfigManager().save();
 
         if (plugin.isVerbose()) {
@@ -727,7 +727,7 @@ public class MobSpawningFeature extends BaseFeature {
 
     public void setWorldGuardBypass(boolean enabled) {
         this.worldGuardBypass = enabled;
-        plugin.getConfigManager().get().set("features.mob-spawning.worldguard-bypass", enabled);
+        plugin.getConfigManager().get().set("features.mob-manager.worldguard-bypass", enabled);
         plugin.getConfigManager().save();
 
         if (plugin.isVerbose()) {
