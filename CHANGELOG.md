@@ -40,7 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Real-time Item Enforcement**: Continuous background task checks player inventories
 - **Pickup Prevention**: Prevents picking up items that would exceed limits
 - **Inventory Click Prevention**: Blocks taking items from containers if it exceeds limits
-- **Mob Spawning Feature Enhancements**:
+- **Mob Manager Feature Enhancements**:
   - **Per-world configuration**: Disable mobs in specific worlds only
   - **World Selection GUI**: New GUI to select which world to configure
   - **Non-spawn-egg entities**: Support for Iron Golem, Snow Golem, Wither, Ender Dragon
@@ -83,8 +83,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Infinite Restock Rewrite**: Ported from InstantRestock with persistence
   - Back up original trade limits in PDC and restore on uninstall
   - Apply on interact, merchant open, and trade acquisition
-- **Mob Spawning GUI**: Main GUI now shows per-world mob configuration
+- **Mob Manager GUI**: Main GUI now shows per-world mob configuration
   - Back button returns to world select instead of main menu
+- **Mob Spawning → Mob Manager**: Renamed feature for clarity
 - **Dependencies**: Removed unused ProtocolLib soft-dependency, added WorldGuard soft-dependency
 
 ### Removed
