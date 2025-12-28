@@ -46,7 +46,7 @@ const config = {
                 title: 'SMP Core',
                 logo: {
                     alt: 'SMP Core Logo',
-                    src: 'img/logo.svg',
+                    src: 'img/logo.png',
                 },
                 items: [
                     {
