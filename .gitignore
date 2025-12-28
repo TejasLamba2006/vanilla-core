@@ -5,4 +5,5 @@ target/
 *.swp
 other-plugins/
 .vscode/
-.github/
+.github/agents
+.github/copilot-instructions.md
