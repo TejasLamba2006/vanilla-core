@@ -60,5 +60,5 @@ The wiki includes:
 ## Support
 
 - **Discord**: [Join for support](https://discord.gg/7fQPG4Grwt)
-- **Issues**: Use the Issues tab above
+- **Issues**: Use the Discord server for help and bug reports
 - **Donate**: [PayPal](https://paypal.me/tejaslamba)
