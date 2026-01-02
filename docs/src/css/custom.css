@@ -545,11 +545,55 @@ code {
 }
 .changelog-content {
   font-size: 0.9rem;
-  line-height: 1.6;
+  line-height: 1.7;
   color: rgba(255, 255, 255, 0.85);
   background: rgba(0, 0, 0, 0.2);
-  padding: 1rem;
+  padding: 1rem 1.25rem;
   border-radius: 8px;
   max-height: 400px;
   overflow-y: auto;
+}
+.changelog-content h2,
+.changelog-content h3,
+.changelog-content h4 {
+  margin: 0.75rem 0 0.5rem;
+  color: rgba(255, 255, 255, 0.95);
+}
+.changelog-content h2 {
+  font-size: 1.1rem;
+}
+.changelog-content h3 {
+  font-size: 1rem;
+}
+.changelog-content h4 {
+  font-size: 0.95rem;
+  color: #10b981;
+}
+.changelog-content ul {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+}
+.changelog-content li {
+  margin: 0.25rem 0;
+}
+.changelog-content code {
+  background: rgba(99, 102, 241, 0.2);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+.changelog-content strong {
+  color: rgba(255, 255, 255, 0.95);
+}
+.changelog-link {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: var(--primary-400) !important;
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 200ms ease;
+}
+.changelog-link:hover {
+  opacity: 1;
+  text-decoration: underline;
 }

@@ -1,7 +1,25 @@
 import React, { useState, useEffect } from 'react';
 
 const PROJECT_ID = 'GH4H8ndx';
+const PROJECT_SLUG = 'smpcore';
 const API_BASE = 'https://api.modrinth.com/v2';
+const MODRINTH_BASE = 'https://modrinth.com/plugin';
+const WIKI_DOWNLOADS = 'https://smpcore.tejaslamba.com/docs/downloads';
+
+function parseMarkdown(text) {
+    if (!text) return '';
+    return text
+        .replace(/^### (.+)$/gm, '<h4>$1</h4>')
+        .replace(/^## (.+)$/gm, '<h3>$1</h3>')
+        .replace(/^# (.+)$/gm, '<h2>$1</h2>')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/`(.+?)`/g, '<code>$1</code>')
+        .replace(/^- (.+)$/gm, '<li>$1</li>')
+        .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+        .replace(/\n\n/g, '</p><p>')
+        .replace(/\n/g, '<br/>');
+}
 
 export function ModrinthStats() {
     const [stats, setStats] = useState(null);
@@ -48,12 +66,12 @@ export function LatestVersion({ showDownloadButton = true }) {
                 if (data && data.length > 0) {
                     const latest = data[0];
                     setVersion({
+                        id: latest.id,
                         number: latest.version_number,
                         name: latest.name,
                         date: new Date(latest.date_published).toLocaleDateString(),
                         downloads: latest.downloads,
                         gameVersions: latest.game_versions,
-                        downloadUrl: latest.files[0]?.url,
                         filename: latest.files[0]?.filename,
                         size: latest.files[0]?.size
                     });
@@ -79,6 +97,8 @@ export function LatestVersion({ showDownloadButton = true }) {
         return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
     };
 
+    const versionPageUrl = `${MODRINTH_BASE}/${PROJECT_SLUG}/version/${version.id}`;
+
     return (
         <div className="version-card">
             <div className="version-header">
@@ -90,14 +110,14 @@ export function LatestVersion({ showDownloadButton = true }) {
                 <p><strong>Size:</strong> {formatSize(version.size)}</p>
                 <p><strong>Downloads:</strong> {version.downloads.toLocaleString()}</p>
             </div>
-            {showDownloadButton && version.downloadUrl && (
+            {showDownloadButton && (
                 <a
-                    href={version.downloadUrl}
+                    href={versionPageUrl}
                     className="download-button"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Download {version.filename}
+                    Download on Modrinth
                 </a>
             )}
         </div>
@@ -116,13 +136,13 @@ export function VersionHistory() {
             .then(data => {
                 if (data && data.length > 0) {
                     setVersions(data.map(v => ({
+                        id: v.id,
                         number: v.version_number,
                         name: v.name,
                         date: new Date(v.date_published).toLocaleDateString(),
                         downloads: v.downloads,
                         type: v.version_type,
-                        gameVersions: v.game_versions,
-                        downloadUrl: v.files[0]?.url
+                        gameVersions: v.game_versions
                     })));
                 }
                 setLoading(false);
@@ -146,7 +166,7 @@ export function VersionHistory() {
             </thead>
             <tbody>
                 {versions.map((v, i) => (
-                    <tr key={v.number}>
+                    <tr key={v.id}>
                         <td>
                             <span className={`version-type ${v.type}`}>{v.number}</span>
                             {i === 0 && <span className="latest-badge">Latest</span>}
@@ -155,11 +175,13 @@ export function VersionHistory() {
                         <td>{v.gameVersions[0]} - {v.gameVersions[v.gameVersions.length - 1]}</td>
                         <td>{v.downloads.toLocaleString()}</td>
                         <td>
-                            {v.downloadUrl && (
-                                <a href={v.downloadUrl} target="_blank" rel="noopener noreferrer">
-                                    Download
-                                </a>
-                            )}
+                            <a 
+                                href={`${MODRINTH_BASE}/${PROJECT_SLUG}/version/${v.id}`} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                            >
+                                View on Modrinth
+                            </a>
                         </td>
                     </tr>
                 ))}
@@ -180,6 +202,7 @@ export function VersionChangelog() {
             .then(data => {
                 if (data && data.length > 0) {
                     setVersions(data.map(v => ({
+                        id: v.id,
                         number: v.version_number,
                         name: v.name,
                         date: new Date(v.date_published).toLocaleDateString(),
@@ -198,17 +221,24 @@ export function VersionChangelog() {
     return (
         <div className="changelog-list">
             {versions.map((v) => (
-                <div key={v.number} className="changelog-entry">
+                <div key={v.id} className="changelog-entry">
                     <div className="changelog-header">
                         <span className="version-badge">v{v.number}</span>
                         <span className="version-date">{v.date}</span>
                         <span className={`version-type-badge ${v.type}`}>{v.type}</span>
+                        <a 
+                            href={`${MODRINTH_BASE}/${PROJECT_SLUG}/version/${v.id}`}
+                            className="changelog-link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            View on Modrinth
+                        </a>
                     </div>
-                    <div className="changelog-content">
-                        <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit', margin: 0 }}>
-                            {v.changelog}
-                        </pre>
-                    </div>
+                    <div 
+                        className="changelog-content"
+                        dangerouslySetInnerHTML={{ __html: parseMarkdown(v.changelog) }}
+                    />
                 </div>
             ))}
         </div>
