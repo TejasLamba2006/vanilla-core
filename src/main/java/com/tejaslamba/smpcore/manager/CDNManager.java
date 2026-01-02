@@ -96,7 +96,7 @@ public class CDNManager {
     public CompletableFuture<Boolean> fetchMenuConfigAsync() {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                String version = latestVersion != null ? latestVersion : "1.1.0";
+                String version = latestVersion != null ? latestVersion : "1.2.0";
                 String menuUrl = CDN_BASE + "/config/" + version + "/menu.json";
                 String json = fetchUrl(menuUrl);
                 if (json == null)

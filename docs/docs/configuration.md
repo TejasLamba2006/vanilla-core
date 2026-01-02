@@ -232,6 +232,49 @@ features:
     send-on-join: true
     send-on-world-change: true
     worlds: {}
+
+  # ------------------------------------------
+  # Server Restart
+  # ------------------------------------------
+  server-restart:
+    enabled: false
+    countdown-time: 60
+    countdown-announcements:
+      - 300
+      - 120
+      - 60
+      - 30
+      - 10
+      - 5
+      - 4
+      - 3
+      - 2
+      - 1
+    notification-types:
+      - chat
+      - bossbar
+    bossbar-color: RED
+    timezone: ""
+    scheduled-restarts-enabled: false
+    scheduled-times:
+      - "04:00:00"
+    execute-pre-commands: true
+    pre-restart-commands:
+      - "save-all"
+    sound:
+      enabled: true
+      sound: "BLOCK_NOTE_BLOCK_PLING"
+      volume: 1.0
+      pitch: 1.0
+    messages:
+      countdown-message: "§c⚠ Server restarting in §e{time} §cseconds!"
+      actionbar-message: "§cRestarting in {time}s"
+      bossbar-message: "§cServer Restart: {time}s"
+      title-message: "§c⚠ Server Restart"
+      subtitle-message: "§e{time} seconds remaining"
+      restart-now-message: "§c⚠ Server restart initiated by {player}!"
+      restart-done-message: "§c⚠ Server is restarting now!"
+      cancelled-message: "§a✔ Server restart has been cancelled."
 ```
 
 ## Feature Quick Reference
@@ -249,6 +292,7 @@ features:
 | [Invisible Kills](/docs/features/invisible-kills) | `invisible-kills` | Hide killer name when invisible |
 | [Item Explosion Immunity](/docs/features/item-explosion-immunity) | `item-explosion-immunity` | Protect items from explosions |
 | [Minimap Control](/docs/features/minimap-control) | `minimap-control` | Control minimap mod features |
+| [Server Restart](/docs/features/server-restart) | `server-restart` | Scheduled restarts with countdown |
 
 ## Color Codes
 

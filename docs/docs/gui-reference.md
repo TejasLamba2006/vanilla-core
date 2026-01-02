@@ -52,6 +52,7 @@ The first two rows contain features related to items and combat balance:
 | 2 | Invisible Kills | Potion of Invisibility |
 | 3 | Item Explosion Immunity | TNT |
 | 4 | Minimap Control | Map |
+| 5 | Server Restart | Clock |
 
 ### Bottom Row: Utility Buttons
 

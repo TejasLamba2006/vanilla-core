@@ -1,0 +1,453 @@
+{
+    "version": "1.2.0",
+    "source": "minecraft-wiki",
+    "lastUpdated": "2026-01-02",
+    "categories": [
+        {
+            "id": "damage",
+            "name": "Damage",
+            "description": "Enchantments that increase damage"
+        },
+        {
+            "id": "protection",
+            "name": "Protection",
+            "description": "Enchantments that reduce damage"
+        },
+        {
+            "id": "tool",
+            "name": "Tool",
+            "description": "Tool efficiency enchantments"
+        },
+        {
+            "id": "bow",
+            "name": "Bow/Crossbow",
+            "description": "Ranged weapon enchantments"
+        },
+        {
+            "id": "trident",
+            "name": "Trident",
+            "description": "Trident specific enchantments"
+        },
+        {
+            "id": "mace",
+            "name": "Mace",
+            "description": "Mace specific enchantments (1.21+)"
+        },
+        {
+            "id": "utility",
+            "name": "Utility",
+            "description": "General utility enchantments"
+        },
+        {
+            "id": "curse",
+            "name": "Curse",
+            "description": "Negative enchantments"
+        }
+    ],
+    "enchantments": [
+        {
+            "id": "sharpness",
+            "name": "Sharpness",
+            "maxLevel": 5,
+            "category": "damage",
+            "applicable": [
+                "sword",
+                "axe"
+            ]
+        },
+        {
+            "id": "smite",
+            "name": "Smite",
+            "maxLevel": 5,
+            "category": "damage",
+            "applicable": [
+                "sword",
+                "axe"
+            ]
+        },
+        {
+            "id": "bane_of_arthropods",
+            "name": "Bane of Arthropods",
+            "maxLevel": 5,
+            "category": "damage",
+            "applicable": [
+                "sword",
+                "axe"
+            ]
+        },
+        {
+            "id": "knockback",
+            "name": "Knockback",
+            "maxLevel": 2,
+            "category": "damage",
+            "applicable": [
+                "sword"
+            ]
+        },
+        {
+            "id": "fire_aspect",
+            "name": "Fire Aspect",
+            "maxLevel": 2,
+            "category": "damage",
+            "applicable": [
+                "sword"
+            ]
+        },
+        {
+            "id": "sweeping_edge",
+            "name": "Sweeping Edge",
+            "maxLevel": 3,
+            "category": "damage",
+            "applicable": [
+                "sword"
+            ]
+        },
+        {
+            "id": "protection",
+            "name": "Protection",
+            "maxLevel": 4,
+            "category": "protection",
+            "applicable": [
+                "armor"
+            ]
+        },
+        {
+            "id": "fire_protection",
+            "name": "Fire Protection",
+            "maxLevel": 4,
+            "category": "protection",
+            "applicable": [
+                "armor"
+            ]
+        },
+        {
+            "id": "blast_protection",
+            "name": "Blast Protection",
+            "maxLevel": 4,
+            "category": "protection",
+            "applicable": [
+                "armor"
+            ]
+        },
+        {
+            "id": "projectile_protection",
+            "name": "Projectile Protection",
+            "maxLevel": 4,
+            "category": "protection",
+            "applicable": [
+                "armor"
+            ]
+        },
+        {
+            "id": "feather_falling",
+            "name": "Feather Falling",
+            "maxLevel": 4,
+            "category": "protection",
+            "applicable": [
+                "boots"
+            ]
+        },
+        {
+            "id": "thorns",
+            "name": "Thorns",
+            "maxLevel": 3,
+            "category": "protection",
+            "applicable": [
+                "armor"
+            ]
+        },
+        {
+            "id": "respiration",
+            "name": "Respiration",
+            "maxLevel": 3,
+            "category": "protection",
+            "applicable": [
+                "helmet"
+            ]
+        },
+        {
+            "id": "aqua_affinity",
+            "name": "Aqua Affinity",
+            "maxLevel": 1,
+            "category": "protection",
+            "applicable": [
+                "helmet"
+            ]
+        },
+        {
+            "id": "efficiency",
+            "name": "Efficiency",
+            "maxLevel": 5,
+            "category": "tool",
+            "applicable": [
+                "tool"
+            ]
+        },
+        {
+            "id": "silk_touch",
+            "name": "Silk Touch",
+            "maxLevel": 1,
+            "category": "tool",
+            "applicable": [
+                "tool"
+            ]
+        },
+        {
+            "id": "fortune",
+            "name": "Fortune",
+            "maxLevel": 3,
+            "category": "tool",
+            "applicable": [
+                "tool"
+            ]
+        },
+        {
+            "id": "power",
+            "name": "Power",
+            "maxLevel": 5,
+            "category": "bow",
+            "applicable": [
+                "bow"
+            ]
+        },
+        {
+            "id": "punch",
+            "name": "Punch",
+            "maxLevel": 2,
+            "category": "bow",
+            "applicable": [
+                "bow"
+            ]
+        },
+        {
+            "id": "flame",
+            "name": "Flame",
+            "maxLevel": 1,
+            "category": "bow",
+            "applicable": [
+                "bow"
+            ]
+        },
+        {
+            "id": "infinity",
+            "name": "Infinity",
+            "maxLevel": 1,
+            "category": "bow",
+            "applicable": [
+                "bow"
+            ]
+        },
+        {
+            "id": "multishot",
+            "name": "Multishot",
+            "maxLevel": 1,
+            "category": "bow",
+            "applicable": [
+                "crossbow"
+            ]
+        },
+        {
+            "id": "quick_charge",
+            "name": "Quick Charge",
+            "maxLevel": 3,
+            "category": "bow",
+            "applicable": [
+                "crossbow"
+            ]
+        },
+        {
+            "id": "piercing",
+            "name": "Piercing",
+            "maxLevel": 4,
+            "category": "bow",
+            "applicable": [
+                "crossbow"
+            ]
+        },
+        {
+            "id": "loyalty",
+            "name": "Loyalty",
+            "maxLevel": 3,
+            "category": "trident",
+            "applicable": [
+                "trident"
+            ]
+        },
+        {
+            "id": "impaling",
+            "name": "Impaling",
+            "maxLevel": 5,
+            "category": "trident",
+            "applicable": [
+                "trident"
+            ]
+        },
+        {
+            "id": "riptide",
+            "name": "Riptide",
+            "maxLevel": 3,
+            "category": "trident",
+            "applicable": [
+                "trident"
+            ]
+        },
+        {
+            "id": "channeling",
+            "name": "Channeling",
+            "maxLevel": 1,
+            "category": "trident",
+            "applicable": [
+                "trident"
+            ]
+        },
+        {
+            "id": "density",
+            "name": "Density",
+            "maxLevel": 5,
+            "category": "mace",
+            "applicable": [
+                "mace"
+            ],
+            "minVersion": "1.21"
+        },
+        {
+            "id": "breach",
+            "name": "Breach",
+            "maxLevel": 4,
+            "category": "mace",
+            "applicable": [
+                "mace"
+            ],
+            "minVersion": "1.21"
+        },
+        {
+            "id": "wind_burst",
+            "name": "Wind Burst",
+            "maxLevel": 3,
+            "category": "mace",
+            "applicable": [
+                "mace"
+            ],
+            "minVersion": "1.21"
+        },
+        {
+            "id": "unbreaking",
+            "name": "Unbreaking",
+            "maxLevel": 3,
+            "category": "utility",
+            "applicable": [
+                "all"
+            ]
+        },
+        {
+            "id": "mending",
+            "name": "Mending",
+            "maxLevel": 1,
+            "category": "utility",
+            "applicable": [
+                "all"
+            ]
+        },
+        {
+            "id": "looting",
+            "name": "Looting",
+            "maxLevel": 3,
+            "category": "utility",
+            "applicable": [
+                "sword"
+            ]
+        },
+        {
+            "id": "luck_of_the_sea",
+            "name": "Luck of the Sea",
+            "maxLevel": 3,
+            "category": "utility",
+            "applicable": [
+                "fishing_rod"
+            ]
+        },
+        {
+            "id": "lure",
+            "name": "Lure",
+            "maxLevel": 3,
+            "category": "utility",
+            "applicable": [
+                "fishing_rod"
+            ]
+        },
+        {
+            "id": "depth_strider",
+            "name": "Depth Strider",
+            "maxLevel": 3,
+            "category": "utility",
+            "applicable": [
+                "boots"
+            ]
+        },
+        {
+            "id": "frost_walker",
+            "name": "Frost Walker",
+            "maxLevel": 2,
+            "category": "utility",
+            "applicable": [
+                "boots"
+            ]
+        },
+        {
+            "id": "soul_speed",
+            "name": "Soul Speed",
+            "maxLevel": 3,
+            "category": "utility",
+            "applicable": [
+                "boots"
+            ]
+        },
+        {
+            "id": "swift_sneak",
+            "name": "Swift Sneak",
+            "maxLevel": 3,
+            "category": "utility",
+            "applicable": [
+                "leggings"
+            ]
+        },
+        {
+            "id": "binding_curse",
+            "name": "Curse of Binding",
+            "maxLevel": 1,
+            "category": "curse",
+            "applicable": [
+                "armor"
+            ]
+        },
+        {
+            "id": "vanishing_curse",
+            "name": "Curse of Vanishing",
+            "maxLevel": 1,
+            "category": "curse",
+            "applicable": [
+                "all"
+            ]
+        }
+    ],
+    "recommendedLimits": {
+        "balanced-pvp": {
+            "sharpness": 3,
+            "protection": 3,
+            "fire_protection": 3,
+            "blast_protection": 3,
+            "projectile_protection": 3,
+            "power": 3,
+            "punch": 1,
+            "knockback": 1,
+            "thorns": 0,
+            "density": 3,
+            "breach": 2
+        },
+        "hardcore": {
+            "sharpness": 2,
+            "protection": 2,
+            "power": 2
+        }
+    }
+}
