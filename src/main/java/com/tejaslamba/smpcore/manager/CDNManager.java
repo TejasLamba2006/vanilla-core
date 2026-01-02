@@ -32,6 +32,13 @@ public class CDNManager {
     private String documentationUrl;
     private Set<String> disabledFeatures;
     private boolean maintenanceMode;
+    private String disabledMessage;
+    private String maintenanceMessage;
+    private boolean updateNotificationEnabled;
+    private String updateNotificationPermission;
+    private String updateNotificationTitle;
+    private String updateNotificationMessage;
+    private String updateNotificationActionMessage;
     private long lastFetch;
 
     public CDNManager(Main plugin) {
@@ -40,6 +47,13 @@ public class CDNManager {
         this.cache = new ConcurrentHashMap<>();
         this.disabledFeatures = new HashSet<>();
         this.maintenanceMode = false;
+        this.disabledMessage = "This feature has been temporarily disabled by the plugin author.";
+        this.maintenanceMessage = "SMP Core is currently in maintenance mode. Please try again later.";
+        this.updateNotificationEnabled = true;
+        this.updateNotificationPermission = "smpcore.admin";
+        this.updateNotificationTitle = "SMP Core Update";
+        this.updateNotificationMessage = "A new version is available! Current: {current}, Latest: {latest}";
+        this.updateNotificationActionMessage = "Visit {url} to download";
         this.lastFetch = 0;
     }
 
@@ -103,11 +117,39 @@ public class CDNManager {
 
                     maintenanceMode = featureControl.has("maintenanceMode")
                             && featureControl.get("maintenanceMode").getAsBoolean();
+
+                    if (featureControl.has("disabledMessage")) {
+                        disabledMessage = featureControl.get("disabledMessage").getAsString();
+                    }
+                    if (featureControl.has("maintenanceMessage")) {
+                        maintenanceMessage = featureControl.get("maintenanceMessage").getAsString();
+                    }
+                }
+
+                if (menuConfig.has("updateNotification")) {
+                    JsonObject updateNotif = menuConfig.getAsJsonObject("updateNotification");
+
+                    if (updateNotif.has("enabled")) {
+                        updateNotificationEnabled = updateNotif.get("enabled").getAsBoolean();
+                    }
+                    if (updateNotif.has("permission")) {
+                        updateNotificationPermission = updateNotif.get("permission").getAsString();
+                    }
+                    if (updateNotif.has("title")) {
+                        updateNotificationTitle = updateNotif.get("title").getAsString();
+                    }
+                    if (updateNotif.has("message")) {
+                        updateNotificationMessage = updateNotif.get("message").getAsString();
+                    }
+                    if (updateNotif.has("actionMessage")) {
+                        updateNotificationActionMessage = updateNotif.get("actionMessage").getAsString();
+                    }
                 }
 
                 if (plugin.isVerbose()) {
                     plugin.getLogger().info("[VERBOSE] Menu config fetched. Disabled features: " + disabledFeatures);
                     plugin.getLogger().info("[VERBOSE] Maintenance mode: " + maintenanceMode);
+                    plugin.getLogger().info("[VERBOSE] Update notifications enabled: " + updateNotificationEnabled);
                 }
 
                 return true;
@@ -188,6 +230,34 @@ public class CDNManager {
 
     public boolean isMaintenanceMode() {
         return maintenanceMode;
+    }
+
+    public String getDisabledMessage() {
+        return disabledMessage;
+    }
+
+    public String getMaintenanceMessage() {
+        return maintenanceMessage;
+    }
+
+    public boolean isUpdateNotificationEnabled() {
+        return updateNotificationEnabled;
+    }
+
+    public String getUpdateNotificationPermission() {
+        return updateNotificationPermission;
+    }
+
+    public String getUpdateNotificationTitle() {
+        return updateNotificationTitle;
+    }
+
+    public String getUpdateNotificationMessage() {
+        return updateNotificationMessage;
+    }
+
+    public String getUpdateNotificationActionMessage() {
+        return updateNotificationActionMessage;
     }
 
     private int compareVersions(String v1, String v2) {

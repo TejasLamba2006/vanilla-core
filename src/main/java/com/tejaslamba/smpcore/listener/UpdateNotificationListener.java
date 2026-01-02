@@ -30,10 +30,6 @@ public class UpdateNotificationListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        if (!player.hasPermission("smpcore.admin") && !player.isOp()) {
-            return;
-        }
-
         plugin.getServer().getScheduler().runTaskLaterAsynchronously(plugin, () -> {
             CDNManager cdnManager = plugin.getCDNManager();
             if (cdnManager == null)
@@ -45,18 +41,24 @@ public class UpdateNotificationListener implements Listener {
                 if (!player.isOnline())
                     return;
 
-                if (cdnManager.isUpdateAvailable() && !notifiedPlayers.contains(player.getUniqueId())) {
+                String permission = cdnManager.getUpdateNotificationPermission();
+                if (!player.hasPermission(permission) && !player.isOp()) {
+                    return;
+                }
+
+                if (cdnManager.isUpdateNotificationEnabled() && cdnManager.isUpdateAvailable()
+                        && !notifiedPlayers.contains(player.getUniqueId())) {
                     sendUpdateNotification(player, cdnManager);
                     notifiedPlayers.add(player.getUniqueId());
                 }
 
                 Set<String> disabledFeatures = cdnManager.getDisabledFeatures();
                 if (!disabledFeatures.isEmpty()) {
-                    sendDisabledFeaturesWarning(player, disabledFeatures);
+                    sendDisabledFeaturesWarning(player, disabledFeatures, cdnManager);
                 }
 
                 if (cdnManager.isMaintenanceMode()) {
-                    sendMaintenanceWarning(player);
+                    sendMaintenanceWarning(player, cdnManager);
                 }
             });
         }, 60L);
@@ -65,12 +67,18 @@ public class UpdateNotificationListener implements Listener {
     private void sendUpdateNotification(Player player, CDNManager cdnManager) {
         String currentVersion = cdnManager.getCurrentVersion();
         String latestVersion = cdnManager.getLatestVersion();
+        String title = cdnManager.getUpdateNotificationTitle();
+        String message = cdnManager.getUpdateNotificationMessage()
+                .replace("{current}", currentVersion)
+                .replace("{latest}", latestVersion);
+        String actionMessage = cdnManager.getUpdateNotificationActionMessage()
+                .replace("{url}", "https://modrinth.com/plugin/smpcore");
 
         player.sendMessage("");
         player.sendMessage("§8§l§m                                              ");
-        player.sendMessage("§6§l  SMP Core §7- §eUpdate Available!");
+        player.sendMessage("§6§l  " + title + " §7- §eUpdate Available!");
         player.sendMessage("");
-        player.sendMessage("§7  Current: §c" + currentVersion + " §7→ Latest: §a" + latestVersion);
+        player.sendMessage("§7  " + message);
         player.sendMessage("");
 
         TextComponent downloadMsg = new TextComponent("  ");
@@ -91,17 +99,19 @@ public class UpdateNotificationListener implements Listener {
         player.sendMessage("");
     }
 
-    private void sendDisabledFeaturesWarning(Player player, Set<String> disabledFeatures) {
+    private void sendDisabledFeaturesWarning(Player player, Set<String> disabledFeatures, CDNManager cdnManager) {
+        String disabledMessage = cdnManager.getDisabledMessage();
         player.sendMessage("§c§l[SMP Core] §eWarning: §7Some features have been remotely disabled:");
         for (String feature : disabledFeatures) {
             player.sendMessage("§7  - §c" + feature);
         }
-        player.sendMessage("§7This may be due to a critical bug. Check documentation for details.");
+        player.sendMessage("§7" + disabledMessage);
     }
 
-    private void sendMaintenanceWarning(Player player) {
+    private void sendMaintenanceWarning(Player player, CDNManager cdnManager) {
+        String maintenanceMessage = cdnManager.getMaintenanceMessage();
         player.sendMessage("§c§l[SMP Core] §eWarning: §7Plugin is in maintenance mode.");
-        player.sendMessage("§7Some features may be limited. Check documentation for updates.");
+        player.sendMessage("§7" + maintenanceMessage);
     }
 
     public void clearNotifiedPlayer(UUID uuid) {

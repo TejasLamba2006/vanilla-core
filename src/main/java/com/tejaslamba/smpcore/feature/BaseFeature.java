@@ -107,8 +107,20 @@ public abstract class BaseFeature implements Feature {
 
     protected void toggleDefault(Player player) {
         if (isRemotelyDisabled()) {
-            player.sendMessage("§c[SMP Core] §7This feature has been remotely disabled due to a critical issue.");
-            player.sendMessage("§c[SMP Core] §7Please update the plugin or check the documentation for details.");
+            String message = "This feature has been remotely disabled.";
+            if (plugin.getCDNManager() != null) {
+                message = plugin.getCDNManager().getDisabledMessage();
+            }
+            player.sendMessage("§c[SMP Core] §7" + message);
+            return;
+        }
+
+        if (plugin.getFeatureManager().isMaintenanceMode()) {
+            String message = "Plugin is in maintenance mode.";
+            if (plugin.getCDNManager() != null) {
+                message = plugin.getCDNManager().getMaintenanceMessage();
+            }
+            player.sendMessage("§c[SMP Core] §7" + message);
             return;
         }
 
