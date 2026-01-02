@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Main Menu Redesign**: Improved GUI layout with quick links and donation support
+  - Discord link with custom skull head (bottom row, slot 46)
+  - Wiki/Documentation link with custom skull head (bottom row, slot 47)
+  - Modrinth link with custom skull head (bottom row, slot 48)
+  - Close Menu button (bottom row, slot 49)
+  - Donate button with PayPal link (bottom row, slot 50)
+  - "More Features Coming Soon" item shown after feature list when space available
+  - Donate item shown after coming soon when space available
 - **CDN Integration (Plugin-Side)**: Server-side CDN integration for remote management
   - `CDNManager`: Fetches manifest and feature config from CDN with 5-minute cache
   - `UpdateNotificationListener`: Notifies admins/ops on join when updates available

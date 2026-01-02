@@ -88,7 +88,8 @@ public class UpdateNotificationListener implements Listener {
 
         TextComponent changelogBtn = new TextComponent(" §e§l[CHANGELOG]");
         changelogBtn.setClickEvent(
-                new ClickEvent(ClickEvent.Action.OPEN_URL, cdnManager.getDocumentationUrl() + "/changelog"));
+                new ClickEvent(ClickEvent.Action.OPEN_URL,
+                        cdnManager.getDocumentationUrl().replace("docs", "changelog")));
         changelogBtn.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Click to view changelog")));
 
         downloadMsg.addExtra(downloadBtn);
