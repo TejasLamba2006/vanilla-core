@@ -103,11 +103,19 @@ const config = {
                                 label: 'Modrinth',
                                 href: 'https://modrinth.com/plugin/smpcore',
                             },
+                            {
+                                label: 'Downloads Page',
+                                to: '/docs/downloads',
+                            },
                         ],
                     },
                     {
-                        title: 'Support',
+                        title: 'Legal',
                         items: [
+                            {
+                                label: 'License',
+                                to: '/docs/license',
+                            },
                             {
                                 label: 'Donate via PayPal',
                                 href: 'https://paypal.me/tejaslamba',
@@ -115,7 +123,7 @@ const config = {
                         ],
                     },
                 ],
-                copyright: `Copyright © ${new Date().getFullYear()} SMP Core. By Tejas Lamba`,
+                copyright: `Copyright ${new Date().getFullYear()} SMP Core by Tejas Lamba. Licensed under custom terms.`,
             },
             prism: {
                 theme: prismThemes.github,

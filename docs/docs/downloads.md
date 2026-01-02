@@ -2,11 +2,11 @@
 sidebar_position: 2
 ---
 
-import { LatestVersion, VersionHistory, ModrinthStats } from '@site/src/components/ModrinthVersions';
+import { LatestVersion, VersionHistory, ModrinthStats, VersionChangelog } from '@site/src/components/ModrinthVersions';
 
 # Downloads
 
-Download SMP Core directly from this page or from [Modrinth](https://modrinth.com/plugin/smpcore).
+Download SMP Core directly from this page or grab it from [Modrinth](https://modrinth.com/plugin/smpcore).
 
 <ModrinthStats />
 
@@ -14,24 +14,30 @@ Download SMP Core directly from this page or from [Modrinth](https://modrinth.co
 
 <LatestVersion />
 
-:::tip Direct from Modrinth
-All downloads are fetched directly from the Modrinth API, ensuring you always get the official release.
+:::tip Straight from Modrinth
+Downloads here come directly from the Modrinth API, so you're always getting the official release.
 :::
 
 ## Version History
 
 <VersionHistory />
 
-## Alternative Download
+## Changelog
 
-You can also download SMP Core directly from:
+Full changelogs for each version, pulled from Modrinth:
 
-- **[Modrinth](https://modrinth.com/plugin/smpcore)** - Official release page
+<VersionChangelog />
+
+## Other Download Options
+
+You can also get SMP Core from:
+
+- **[Modrinth](https://modrinth.com/plugin/smpcore)** - Main release page
 - **[GitHub Releases](https://github.com/TejasLamba2006/smp-core/releases)** - Source code and releases
 
 ## Requirements
 
-Before installing, ensure your server meets these requirements:
+Make sure your server meets these requirements before installing:
 
 | Requirement | Minimum Version |
 |-------------|-----------------|
@@ -40,5 +46,5 @@ Before installing, ensure your server meets these requirements:
 | Java | 21+ |
 
 :::warning Java Version
-SMP Core requires **Java 21** or newer. Most modern Minecraft 1.21+ servers already use Java 21.
+SMP Core needs **Java 21** or newer. If you're running Minecraft 1.21+, you probably already have it.
 :::

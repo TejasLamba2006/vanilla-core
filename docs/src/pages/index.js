@@ -7,6 +7,7 @@ import styles from './index.module.css';
 
 import { GiCrossedSwords, GiAnvil, GiMapleLeaf, GiSkeletonKey } from 'react-icons/gi';
 import { MdOutlineInventory2, MdOutlineSettings } from 'react-icons/md';
+import { LatestVersion, ModrinthStats } from '../components/ModrinthVersions';
 
 const features = [
     {
@@ -74,18 +75,19 @@ function HomepageHeader() {
                     {siteConfig.title}
                 </Heading>
                 <p className="hero__subtitle">{siteConfig.tagline}</p>
+                <ModrinthStats />
                 <div className={styles.heroRow}>
                     <div className={styles.heroLeft}>
                         <div className={styles.buttons}>
                             <Link
                                 className="button button--secondary button--lg"
                                 to="/docs">
-                                Get Started →
+                                Get Started
                             </Link>
                             <Link
                                 className="button button--outline button--lg margin-left--md"
                                 style={{ color: 'white', borderColor: 'white' }}
-                                href="https://modrinth.com/plugin/smp-core">
+                                href="https://modrinth.com/plugin/smpcore">
                                 Download on Modrinth
                             </Link>
                         </div>
@@ -135,15 +137,8 @@ export default function Home() {
                                 </ul>
                             </div>
                             <div className="col col--6">
-                                <Heading as="h2">Quick Install</Heading>
-                                <pre style={{ padding: '1.5rem', borderRadius: '8px', fontSize: '0.9rem' }}>
-                                    {`# 1. Download from Modrinth
-# 2. Drop into your plugins folder
-# 3. Restart your server
-# 4. Use /smp to configure
-
-# That's it! No dependencies needed.`}
-                                </pre>
+                                <Heading as="h2">Latest Release</Heading>
+                                <LatestVersion />
                             </div>
                         </div>
                     </div>

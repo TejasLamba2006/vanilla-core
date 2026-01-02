@@ -497,3 +497,59 @@ code {
   font-weight: 700;
   text-transform: uppercase;
 }
+
+/* -----------------------
+   Changelog Components
+   ----------------------- */
+.changelog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.changelog-entry {
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.08),
+    rgba(76, 29, 149, 0.04)
+  );
+  border: 1px solid rgba(99, 102, 241, 0.12);
+  border-radius: 12px;
+  padding: 1.25rem;
+  animation: fadeInUp 400ms ease both;
+}
+.changelog-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+.version-type-badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.version-type-badge.release {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+.version-type-badge.beta {
+  background: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+}
+.version-type-badge.alpha {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+.changelog-content {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 8px;
+  max-height: 400px;
+  overflow-y: auto;
+}

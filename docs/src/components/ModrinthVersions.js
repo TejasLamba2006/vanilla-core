@@ -28,14 +28,14 @@ export function ModrinthStats() {
 
     return (
         <div className="modrinth-stats">
-            <span className="stat">📥 {stats.downloads.toLocaleString()} downloads</span>
-            <span className="stat">❤️ {stats.followers} followers</span>
-            <span className="stat">🔄 Updated {stats.updated}</span>
+            <span className="stat">{stats.downloads.toLocaleString()} downloads</span>
+            <span className="stat">{stats.followers} followers</span>
+            <span className="stat">Updated {stats.updated}</span>
         </div>
     );
 }
 
-export function LatestVersion() {
+export function LatestVersion({ showDownloadButton = true }) {
     const [version, setVersion] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -90,14 +90,14 @@ export function LatestVersion() {
                 <p><strong>Size:</strong> {formatSize(version.size)}</p>
                 <p><strong>Downloads:</strong> {version.downloads.toLocaleString()}</p>
             </div>
-            {version.downloadUrl && (
+            {showDownloadButton && version.downloadUrl && (
                 <a
                     href={version.downloadUrl}
                     className="download-button"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    ⬇️ Download {version.filename}
+                    Download {version.filename}
                 </a>
             )}
         </div>
@@ -157,7 +157,7 @@ export function VersionHistory() {
                         <td>
                             {v.downloadUrl && (
                                 <a href={v.downloadUrl} target="_blank" rel="noopener noreferrer">
-                                    ⬇️
+                                    Download
                                 </a>
                             )}
                         </td>
@@ -168,4 +168,51 @@ export function VersionHistory() {
     );
 }
 
-export default { ModrinthStats, LatestVersion, VersionHistory };
+export function VersionChangelog() {
+    const [versions, setVersions] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch(`${API_BASE}/project/${PROJECT_ID}/version`, {
+            headers: { 'User-Agent': 'TejasLamba2006/smp-core-docs' }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.length > 0) {
+                    setVersions(data.map(v => ({
+                        number: v.version_number,
+                        name: v.name,
+                        date: new Date(v.date_published).toLocaleDateString(),
+                        changelog: v.changelog || 'No changelog provided.',
+                        type: v.version_type
+                    })));
+                }
+                setLoading(false);
+            })
+            .catch(() => setLoading(false));
+    }, []);
+
+    if (loading) return <p>Loading changelog...</p>;
+    if (versions.length === 0) return null;
+
+    return (
+        <div className="changelog-list">
+            {versions.map((v) => (
+                <div key={v.number} className="changelog-entry">
+                    <div className="changelog-header">
+                        <span className="version-badge">v{v.number}</span>
+                        <span className="version-date">{v.date}</span>
+                        <span className={`version-type-badge ${v.type}`}>{v.type}</span>
+                    </div>
+                    <div className="changelog-content">
+                        <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit', margin: 0 }}>
+                            {v.changelog}
+                        </pre>
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+export default { ModrinthStats, LatestVersion, VersionHistory, VersionChangelog };
