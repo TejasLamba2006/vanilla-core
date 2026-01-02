@@ -108,6 +108,7 @@ public class SmpCommand implements CommandExecutor, TabCompleter {
             Main.getInstance().getConfigManager().load();
             Main.getInstance().getMessageManager().reload();
             Main.getInstance().getMenuConfigManager().load();
+            Main.getInstance().refreshVerbose();
             msg().sendPrefixed(sender, "commands.reload.success");
             return true;
         }

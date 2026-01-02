@@ -76,6 +76,20 @@ public class FeatureManager {
         }
     }
 
+    public boolean isFeatureRemotelyDisabled(String featureId) {
+        CDNManager cdnManager = plugin.getCDNManager();
+        if (cdnManager == null)
+            return false;
+        return cdnManager.isFeatureDisabled(featureId);
+    }
+
+    public boolean isMaintenanceMode() {
+        CDNManager cdnManager = plugin.getCDNManager();
+        if (cdnManager == null)
+            return false;
+        return cdnManager.isMaintenanceMode();
+    }
+
     public void disableAll() {
         for (Feature feature : features.values()) {
             feature.onDisable();

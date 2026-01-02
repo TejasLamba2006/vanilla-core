@@ -266,12 +266,16 @@ public class MaceLimiterFeature extends BaseFeature {
             ShapedRecipe maceRecipe = new ShapedRecipe(
                     new org.bukkit.NamespacedKey(plugin, "mace_recipe"),
                     new ItemStack(Material.MACE));
-            maceRecipe.shape(" B ", " R ", " R ");
-            maceRecipe.setIngredient('B', Material.BREEZE_ROD);
-            maceRecipe.setIngredient('R', Material.HEAVY_CORE);
+            maceRecipe.shape(" B ", " R ");
+            maceRecipe.setIngredient('R', Material.BREEZE_ROD);
+            maceRecipe.setIngredient('B', Material.HEAVY_CORE);
 
             try {
                 Bukkit.addRecipe(maceRecipe);
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    p.discoverRecipe(new org.bukkit.NamespacedKey(plugin, "mace_recipe"));
+                }
+
                 if (plugin.isVerbose()) {
                     plugin.getLogger().info("[VERBOSE] Mace Limiter - Mace recipe restored");
                 }

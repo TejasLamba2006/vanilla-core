@@ -70,7 +70,24 @@ public abstract class BaseFeature implements Feature {
 
     @Override
     public boolean isEnabled() {
+        if (isRemotelyDisabled()) {
+            return false;
+        }
         return enabled;
+    }
+
+    public boolean isRemotelyDisabled() {
+        if (plugin == null)
+            return false;
+        return plugin.getFeatureManager().isFeatureRemotelyDisabled(getFeatureId());
+    }
+
+    public boolean isLocallyEnabled() {
+        return enabled;
+    }
+
+    protected String getFeatureId() {
+        return getConfigPath().replace("features.", "").replace("-", "_");
     }
 
     @Override
@@ -89,6 +106,12 @@ public abstract class BaseFeature implements Feature {
     }
 
     protected void toggleDefault(Player player) {
+        if (isRemotelyDisabled()) {
+            player.sendMessage("§c[SMP Core] §7This feature has been remotely disabled due to a critical issue.");
+            player.sendMessage("§c[SMP Core] §7Please update the plugin or check the documentation for details.");
+            return;
+        }
+
         boolean current = plugin.getConfigManager().get().getBoolean(getConfigPath() + ".enabled", false);
 
         if (plugin.isVerbose()) {
@@ -109,7 +132,12 @@ public abstract class BaseFeature implements Feature {
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "§aEnabled" : "§cDisabled");
+        if (isRemotelyDisabled()) {
+            lore.add("§c§lREMOTELY DISABLED");
+            lore.add("§7(Critical issue detected)");
+        } else {
+            lore.add(enabled ? "§aEnabled" : "§cDisabled");
+        }
         lore.add("§eLeft Click: Toggle");
         lore.add("§eRight Click: Toggle");
         return lore;
@@ -121,10 +149,13 @@ public abstract class BaseFeature implements Feature {
     }
 
     protected ItemStack createMenuItem(Material material, String name, String... customLore) {
-        ItemStack item = new ItemStack(material);
+        Material displayMaterial = isRemotelyDisabled() ? Material.BARRIER : material;
+        String displayName = isRemotelyDisabled() ? "§c§m" + stripColor(name) + " §c[DISABLED]" : name;
+
+        ItemStack item = new ItemStack(displayMaterial);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName(name);
+            meta.setDisplayName(displayName);
             List<String> loreList = new ArrayList<>();
 
             for (String line : customLore) {
@@ -143,5 +174,9 @@ public abstract class BaseFeature implements Feature {
             item.setItemMeta(meta);
         }
         return item;
+    }
+
+    private String stripColor(String text) {
+        return text.replaceAll("§[0-9a-fk-or]", "");
     }
 }

@@ -1,6 +1,7 @@
 package com.tejaslamba.smpcore.menu;
 
 import com.tejaslamba.smpcore.Main;
+import com.tejaslamba.smpcore.manager.CDNManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -54,6 +55,11 @@ public class MainMenu extends BaseMenu {
             itemIndex++;
         }
 
+        CDNManager cdnManager = plugin.getCDNManager();
+        if (cdnManager != null && cdnManager.isUpdateAvailable()) {
+            inventory.setItem(4, createUpdateIndicator(cdnManager));
+        }
+
         if (totalPages > 1) {
             if (currentPage > 0) {
                 inventory.setItem(45, createNavItem(Material.ARROW, "§a« Previous Page", currentPage, totalPages));
@@ -67,6 +73,26 @@ public class MainMenu extends BaseMenu {
         } else {
             inventory.setItem(49, createMenuItem(Material.OAK_DOOR, "§c§lClose Menu", "§7Close this menu"));
         }
+    }
+
+    private ItemStack createUpdateIndicator(CDNManager cdnManager) {
+        ItemStack item = new ItemStack(Material.NETHER_STAR);
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            meta.setDisplayName("§a§lUpdate Available!");
+            List<String> lore = new ArrayList<>();
+            lore.add("");
+            lore.add("§7Current: §c" + cdnManager.getCurrentVersion());
+            lore.add("§7Latest: §a" + cdnManager.getLatestVersion());
+            lore.add("");
+            lore.add("§eClick to open download page");
+            lore.add("");
+            lore.add("§7Config Builder:");
+            lore.add("§b" + cdnManager.getConfigBuilderUrl());
+            meta.setLore(lore);
+            item.setItemMeta(meta);
+        }
+        return item;
     }
 
     private ItemStack createNavItem(Material material, String name, int targetPage, int totalPages) {
@@ -126,6 +152,17 @@ public class MainMenu extends BaseMenu {
 
         List<ItemStack> items = plugin.getFeatureManager().getMenuItems();
         int totalPages = getTotalPages(items.size());
+
+        if (slot == 4) {
+            ItemStack item = event.getCurrentItem();
+            if (item != null && item.getType() == Material.NETHER_STAR) {
+                player.closeInventory();
+                player.sendMessage("§6§l[SMP Core] §7Download: §bhttps://modrinth.com/plugin/smpcore");
+                player.sendMessage(
+                        "§6§l[SMP Core] §7Config Builder: §b" + plugin.getCDNManager().getConfigBuilderUrl());
+                return;
+            }
+        }
 
         if (slot == 45 && currentPage > 0) {
             currentPage--;

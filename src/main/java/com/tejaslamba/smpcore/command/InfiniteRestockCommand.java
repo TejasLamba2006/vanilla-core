@@ -38,7 +38,6 @@ public class InfiniteRestockCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        // Default: open GUI
         feature.openRestockGUI(p);
         return true;
     }
