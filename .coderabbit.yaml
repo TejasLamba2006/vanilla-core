@@ -1,10 +1,17 @@
 # CodeRabbit Configuration for SMP Core
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 
 # Language configuration
 language: java
 
+# Early access features
+early_access: true
+
 # Review settings
 reviews:
+  # Profile setting
+  profile: assertive
+
   # Request changes for critical issues
   request_changes_workflow: true
 
@@ -21,111 +28,136 @@ reviews:
     base_branches:
       - main
 
+  # Path-based instructions
+  path_instructions:
+    - path: "src/main/java/**/*.java"
+      instructions: |
+        CRITICAL PROJECT RULES:
+        - NO COMMENTS in production code (code must be self-documenting)
+        - Clean, descriptive method and variable names required
+        - Features MUST be modular and toggleable via config
+        - Package structure: com.tejaslamba.smpcore.[feature].[type]
+        - Proper error handling and null checks required
+        - Check for memory leaks (proper cleanup on player quit)
+        - Thread-safety where needed (ConcurrentHashMap for concurrent access)
+        - Early returns in event listeners for performance
+
+    - path: "src/main/resources/config.yml"
+      instructions: |
+        - All new features MUST have enabled: false by default
+        - Config options must be well-documented in comments
+        - Update config-version if structure changes
+        - Consistent indentation and structure
+
+    - path: "docs/**/*.md"
+      instructions: |
+        - Documentation must be clear and accurate
+        - All features must be properly documented
+        - Examples must be correct and tested
+        - Verify all links are working
+
+    - path: "CHANGELOG.md"
+      instructions: |
+        - Follow Keep a Changelog format strictly
+        - All changes must be documented
+        - NO hallucinated features - verify against actual code
+        - Correct version numbers
+
+  # Labeling instructions
+  labeling_instructions:
+    - label: "bug"
+      instructions: "Apply when fixing a defect or error in existing functionality"
+    - label: "feature"
+      instructions: "Apply when adding new functionality or capabilities"
+    - label: "documentation"
+      instructions: "Apply when only changing documentation files"
+    - label: "performance"
+      instructions: "Apply when optimizing code performance"
+    - label: "security"
+      instructions: "Apply when addressing security vulnerabilities"
+    - label: "breaking-change"
+      instructions: "Apply when changes break backwards compatibility"
+
+  # Tools configuration
+  tools:
+    # Disable non-Java tools
+    ruff:
+      enabled: false
+    shellcheck:
+      enabled: false
+    biome:
+      enabled: false
+    hadolint:
+      enabled: false
+    swiftlint:
+      enabled: false
+    golangci-lint:
+      enabled: false
+    pylint:
+      enabled: false
+    flake8:
+      enabled: false
+    rubocop:
+      enabled: false
+    phpstan:
+      enabled: false
+    phpmd:
+      enabled: false
+    phpcs:
+      enabled: false
+    eslint:
+      enabled: false
+    oxc:
+      enabled: false
+
+    # Enable relevant tools
+    yamllint:
+      enabled: true
+    markdownlint:
+      enabled: true
+    pmd:
+      enabled: true
+    gitleaks:
+      enabled: true
+    actionlint:
+      enabled: true
+    github-checks:
+      enabled: true
+      timeout_ms: 90000
+
+  # Path filters
+  path_filters:
+    - "!target/**"
+    - "!*.class"
+    - "!*.jar"
+    - "!dependency-reduced-pom.xml"
+    - "!proguard*"
+    - "!docs/build/**"
+    - "!docs/node_modules/**"
+    - "!.vscode/**"
+    - "!.git/**"
+
 # Chat settings
 chat:
   auto_reply: true
-
-# Path-based instructions
-path_instructions:
-  - path: "src/main/java/**/*.java"
-    instructions: |
-      - Ensure no comments in production code (code should be self-documenting)
-      - Verify clean, descriptive method and variable names
-      - Check that features are modular and can be enabled/disabled
-      - Ensure proper package structure: com.tejaslamba.smpcore.[feature].[type]
-      - Verify proper error handling and null checks
-      - Check for memory leaks (proper cleanup on player quit)
-      - Ensure thread-safety where needed (ConcurrentHashMap for concurrent access)
-      - Verify early returns in event listeners for performance
-
-  - path: "src/main/resources/config.yml"
-    instructions: |
-      - Ensure all new features have enabled: false by default
-      - Verify config options are well-documented in comments
-      - Check that config-version is updated if structure changes
-      - Ensure consistent indentation and structure
-
-  - path: "docs/**/*.md"
-    instructions: |
-      - Verify documentation is clear and accurate
-      - Check that all features are properly documented
-      - Ensure examples are correct and tested
-      - Verify links are working
-
-  - path: "CHANGELOG.md"
-    instructions: |
-      - Follow Keep a Changelog format
-      - Ensure all changes are documented
-      - Verify no hallucinated features are listed
-      - Check that version numbers are correct
-
-# Review profile
-tone_instructions: |
-  - Be constructive and helpful
-  - Focus on code quality, performance, and maintainability
-  - Highlight security concerns if any
-  - Suggest improvements for better patterns
-  - Be specific with examples
+  art: true
 
 # Knowledge base
 knowledge_base:
   learnings:
     scope: global
-
-  # Project-specific rules
-  custom_rules:
-    - name: "No Comments Rule"
-      description: "Production Java code should not contain comments. Code should be self-documenting with clear names."
-      severity: error
-      pattern: "//.*|/\\*.*\\*/"
-      paths: ["src/main/java/**/*.java"]
-
-    - name: "Feature Toggle Required"
-      description: "All features must be toggleable via config.yml"
-      severity: warning
-
-    - name: "Manager Pattern"
-      description: "Follow manager pattern for feature domains"
-      severity: info
-
-    - name: "Config-Driven"
-      description: "Features should be config-driven with proper defaults"
-      severity: warning
-
-# Ignore patterns
-ignore:
-  - "target/**"
-  - "*.class"
-  - "*.jar"
-  - "dependency-reduced-pom.xml"
-  - "proguard*"
-  - "docs/build/**"
-  - "docs/node_modules/**"
-  - ".vscode/**"
-  - ".git/**"
-
-# Early access features
-early_access: true
-
-# Enable all tools
-tools:
-  ruff:
-    enabled: false
-  shellcheck:
-    enabled: false
-  biome:
-    enabled: false
-  hadolint:
-    enabled: false
-  swiftlint:
-    enabled: false
-  golangci-lint:
-    enabled: false
-  yamllint:
+  code_guidelines:
     enabled: true
-  markdownlint:
-    enabled: true
-    config:
-      MD013: false # Line length
-      MD033: false # Inline HTML
-      MD041: false # First line heading
+    filePatterns:
+      - ".github/copilot-instructions.md"
+      - "CONTRIBUTING.md"
+  pull_requests:
+    scope: auto
+  issues:
+    scope: auto
+
+# Tone instructions
+tone_instructions: |
+  Be constructive and helpful. Focus on code quality, performance, and maintainability. 
+  Highlight security concerns. Suggest improvements with specific examples. 
+  Enforce the NO COMMENTS rule strictly for Java files.
