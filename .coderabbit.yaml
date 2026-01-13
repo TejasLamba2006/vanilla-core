@@ -1,36 +1,40 @@
-# CodeRabbit Configuration for SMP Core
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
-
-# Language configuration
-language: java
-
-# Early access features
+language: en
+tone_instructions: |
+  Be constructive and helpful. Focus on code quality, performance, and maintainability. 
+  Highlight security concerns. Suggest improvements with specific examples. 
+  Enforce the NO COMMENTS rule strictly for Java files.
 early_access: true
-
-# Review settings
 reviews:
-  # Profile setting
   profile: assertive
-
-  # Request changes for critical issues
   request_changes_workflow: true
-
-  # High-level settings
-  high_level_summary: true
-  poem: false
-  review_status: true
   collapse_walkthrough: false
-
-  # Auto-review settings
-  auto_review:
-    enabled: true
-    drafts: false
-    base_branches:
-      - main
-
-  # Path-based instructions
+  labeling_instructions:
+    - label: bug
+      instructions: Apply when fixing a defect or error in existing functionality
+    - label: feature
+      instructions: Apply when adding new functionality or capabilities
+    - label: documentation
+      instructions: Apply when only changing documentation files
+    - label: performance
+      instructions: Apply when optimizing code performance
+    - label: security
+      instructions: Apply when addressing security vulnerabilities
+    - label: breaking-change
+      instructions: Apply when changes break backwards compatibility
+  poem: false
+  path_filters:
+    - '!target/**'
+    - '!*.class'
+    - '!*.jar'
+    - '!dependency-reduced-pom.xml'
+    - '!proguard*'
+    - '!docs/build/**'
+    - '!docs/node_modules/**'
+    - '!.vscode/**'
+    - '!.git/**'
   path_instructions:
-    - path: "src/main/java/**/*.java"
+    - path: src/main/java/**/*.java
       instructions: |
         CRITICAL PROJECT RULES:
         - NO COMMENTS in production code (code must be self-documenting)
@@ -41,49 +45,31 @@ reviews:
         - Check for memory leaks (proper cleanup on player quit)
         - Thread-safety where needed (ConcurrentHashMap for concurrent access)
         - Early returns in event listeners for performance
-
-    - path: "src/main/resources/config.yml"
+    - path: src/main/resources/config.yml
       instructions: |
         - All new features MUST have enabled: false by default
         - Config options must be well-documented in comments
         - Update config-version if structure changes
         - Consistent indentation and structure
-
-    - path: "docs/**/*.md"
+    - path: docs/**/*.md
       instructions: |
         - Documentation must be clear and accurate
         - All features must be properly documented
         - Examples must be correct and tested
         - Verify all links are working
-
-    - path: "CHANGELOG.md"
+    - path: CHANGELOG.md
       instructions: |
         - Follow Keep a Changelog format strictly
         - All changes must be documented
         - NO hallucinated features - verify against actual code
         - Correct version numbers
-
-  # Labeling instructions
-  labeling_instructions:
-    - label: "bug"
-      instructions: "Apply when fixing a defect or error in existing functionality"
-    - label: "feature"
-      instructions: "Apply when adding new functionality or capabilities"
-    - label: "documentation"
-      instructions: "Apply when only changing documentation files"
-    - label: "performance"
-      instructions: "Apply when optimizing code performance"
-    - label: "security"
-      instructions: "Apply when addressing security vulnerabilities"
-    - label: "breaking-change"
-      instructions: "Apply when changes break backwards compatibility"
-
-  # Tools configuration
+  auto_review:
+    base_branches:
+      - main
   tools:
-    # Disable non-Java tools
-    ruff:
-      enabled: false
     shellcheck:
+      enabled: false
+    ruff:
       enabled: false
     biome:
       enabled: false
@@ -91,73 +77,31 @@ reviews:
       enabled: false
     swiftlint:
       enabled: false
-    golangci-lint:
-      enabled: false
-    pylint:
-      enabled: false
-    flake8:
-      enabled: false
-    rubocop:
-      enabled: false
     phpstan:
       enabled: false
     phpmd:
       enabled: false
     phpcs:
       enabled: false
+    golangci-lint:
+      enabled: false
     eslint:
+      enabled: false
+    flake8:
+      enabled: false
+    rubocop:
+      enabled: false
+    pylint:
       enabled: false
     oxc:
       enabled: false
-
-    # Enable relevant tools
-    yamllint:
-      enabled: true
-    markdownlint:
-      enabled: true
-    pmd:
-      enabled: true
-    gitleaks:
-      enabled: true
-    actionlint:
-      enabled: true
-    github-checks:
-      enabled: true
-      timeout_ms: 90000
-
-  # Path filters
-  path_filters:
-    - "!target/**"
-    - "!*.class"
-    - "!*.jar"
-    - "!dependency-reduced-pom.xml"
-    - "!proguard*"
-    - "!docs/build/**"
-    - "!docs/node_modules/**"
-    - "!.vscode/**"
-    - "!.git/**"
-
-# Chat settings
-chat:
-  auto_reply: true
-  art: true
-
-# Knowledge base
 knowledge_base:
+  code_guidelines:
+    filePatterns:
+      - .github/copilot-instructions.md
+      - CONTRIBUTING.md
   learnings:
     scope: global
-  code_guidelines:
-    enabled: true
-    filePatterns:
-      - ".github/copilot-instructions.md"
-      - "CONTRIBUTING.md"
-  pull_requests:
-    scope: auto
-  issues:
-    scope: auto
-
-# Tone instructions
-tone_instructions: |
-  Be constructive and helpful. Focus on code quality, performance, and maintainability. 
-  Highlight security concerns. Suggest improvements with specific examples. 
-  Enforce the NO COMMENTS rule strictly for Java files.
+issue_enrichment:
+  labeling:
+    auto_apply_labels: true
