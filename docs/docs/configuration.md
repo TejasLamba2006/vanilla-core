@@ -325,11 +325,11 @@ Use `§` followed by a code for colors in messages:
 After editing `config.yml`, apply changes with:
 
 ```bash
-/smp reload
+/vanilla reload
 ```
 
 :::tip
-Most settings take effect immediately after reload. The GUI (`/smp`) is recommended for most configuration changes as it validates and saves settings automatically.
+Most settings take effect immediately after reload. The GUI (`/vanilla`) is recommended for most configuration changes as it validates and saves settings automatically.
 :::
 
 ## Backup Recommendations
@@ -352,7 +352,7 @@ cp plugins/Vanilla Core/config.yml plugins/Vanilla Core/config.yml.backup
 
 ### Changes not taking effect
 
-1. Run `/smp reload` after editing
+1. Run `/vanilla reload` after editing
 2. Check you edited the correct file (not a backup)
 3. Use the GUI for most changes - it handles validation automatically
 

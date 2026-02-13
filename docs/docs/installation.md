@@ -34,7 +34,7 @@ The output should show version 21 or higher.
 
 Download the latest version of Vanilla Core from one of these sources:
 
-- [Modrinth](<https://modrinth.com/plugin/Vanilla> Core) (Recommended)
+- [Modrinth](https://modrinth.com/plugin/vanillacorewastaken) (Recommended)
 
 Download the JAR file for the latest version.
 
@@ -73,7 +73,7 @@ Start your server normally. During startup, watch for these console messages:
 Once the server is running, verify the installation:
 
 1. Run `/plugins` and confirm Vanilla Core appears in green
-2. Run `/smp` to open the configuration GUI
+2. Run `/vanilla` to open the configuration GUI
 3. Check the console for any error messages
 
 ## First-Time Configuration
@@ -100,7 +100,7 @@ You can configure Vanilla Core in two ways:
 
 **Method 1: In-Game GUI (Recommended for beginners)**
 
-Run `/smp` to open the configuration GUI. This provides a visual interface for toggling features and adjusting settings.
+Run `/vanilla` to open the configuration GUI. This provides a visual interface for toggling features and adjusting settings.
 
 <!-- Add screenshot here: first-time-config.png -->
 
@@ -108,7 +108,7 @@ Run `/smp` to open the configuration GUI. This provides a visual interface for t
 
 Edit `plugins/Vanilla Core/config.yml` directly. This is faster for bulk changes and allows for comments and version control.
 
-After editing config files, run `/smp reload` to apply changes.
+After editing config files, run `/vanilla reload` to apply changes.
 
 ## Installing Optional Dependencies
 
@@ -173,25 +173,25 @@ Major version updates (like 1.x to 2.x) may include breaking changes. Always rea
 
 ### Commands Don't Work
 
-**Symptom:** `/smp` returns "Unknown command"
+**Symptom:** `/vanilla` returns "Unknown command"
 
 **Solutions:**
 
 1. Verify the plugin loaded: `/plugins`
-2. Check permissions: You need `vanillacore.admin` for `/smp`
+2. Check permissions: You need `vanillacore.admin` for `/vanilla`
 3. If you're OP, commands should work automatically
 4. Check for conflicting plugins that might intercept the command
 
 ### GUI Doesn't Open
 
-**Symptom:** `/smp` runs but no GUI appears
+**Symptom:** `/vanilla` runs but no GUI appears
 
 **Solutions:**
 
 1. Check console for inventory-related errors
 2. Verify you're not in spectator mode
 3. Check if another plugin is blocking inventory opens
-4. Try running `/smp reload` first
+4. Try running `/vanilla reload` first
 
 ### Configuration Not Saving
 

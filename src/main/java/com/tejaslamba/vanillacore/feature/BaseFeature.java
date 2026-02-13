@@ -138,7 +138,8 @@ public abstract class BaseFeature implements Feature {
         reload();
 
         String displayName = plugin.getMenuConfigManager().getDisplayNameForConfig(getConfigPath() + ".enabled");
-        player.sendMessage("§6[SMP] §7Toggled " + displayName + " §7to §" + (!current ? "aEnabled" : "cDisabled"));
+        player.sendMessage(
+                "§6[Vanilla Core] §7Toggled " + displayName + " §7to §" + (!current ? "aEnabled" : "cDisabled"));
     }
 
     @Override

@@ -22,7 +22,7 @@ Yes! Vanilla Core is completely free and open source.
 
 ### Where can I download it?
 
-- [Modrinth](<https://modrinth.com/plugin/Vanilla> Core) (Recommended)
+- [Modrinth](https://modrinth.com/plugin/vanillacorewastaken) (Recommended)
 
 ---
 
@@ -128,14 +128,14 @@ Using LuckPerms:
 ### Commands say "Unknown command"
 
 1. Check plugin is loaded: `/plugins`
-2. Ensure correct command: `/smp` not `/vanillacore`
+2. Ensure correct command: `/vanilla` not `/vanillacore`
 3. Check permissions
 
 ### GUI is empty or broken
 
 1. Update to latest version
 2. Check console for errors
-3. Try `/smp reload`
+3. Try `/vanilla reload`
 4. Delete config and regenerate
 
 ### Features reset after restart

@@ -39,7 +39,7 @@ public class Main extends JavaPlugin {
 
         migrateDataFolderIfNeeded();
 
-        int bStatsId = 28654;
+        int bStatsId = 29512;
         new Metrics(this, bStatsId);
 
         configManager = new ConfigManager(this);
@@ -101,26 +101,28 @@ public class Main extends JavaPlugin {
             Path sourceRoot = oldDataFolder.toPath();
             Path targetRoot = newDataFolder.toPath();
 
-            Files.walk(sourceRoot).forEach(sourcePath -> {
-                try {
-                    Path relative = sourceRoot.relativize(sourcePath);
-                    Path targetPath = targetRoot.resolve(relative);
+            try (var paths = Files.walk(sourceRoot)) {
+                paths.forEach(sourcePath -> {
+                    try {
+                        Path relative = sourceRoot.relativize(sourcePath);
+                        Path targetPath = targetRoot.resolve(relative);
 
-                    if (Files.isDirectory(sourcePath)) {
-                        Files.createDirectories(targetPath);
-                        return;
+                        if (Files.isDirectory(sourcePath)) {
+                            Files.createDirectories(targetPath);
+                            return;
+                        }
+
+                        if (Files.exists(targetPath)) {
+                            return;
+                        }
+
+                        Files.createDirectories(targetPath.getParent());
+                        Files.copy(sourcePath, targetPath);
+                    } catch (IOException e) {
+                        getLogger().warning("Failed migrating file: " + sourcePath + " (" + e.getMessage() + ")");
                     }
-
-                    if (Files.exists(targetPath)) {
-                        return;
-                    }
-
-                    Files.createDirectories(targetPath.getParent());
-                    Files.copy(sourcePath, targetPath);
-                } catch (IOException e) {
-                    getLogger().warning("Failed migrating file: " + sourcePath + " (" + e.getMessage() + ")");
-                }
-            });
+                });
+            }
 
             getLogger().info("Migrated data folder from " + oldDataFolder.getName() + " to " + newDataFolder.getName());
         } catch (IOException e) {

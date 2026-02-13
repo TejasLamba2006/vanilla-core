@@ -36,7 +36,7 @@ public class NetheriteCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("vanillacore.netherite")) {
-            sender.sendMessage(plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r")
+            sender.sendMessage(plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r")
                     + " §cYou don't have permission to use this command!");
             return true;
         }
@@ -91,7 +91,7 @@ public class NetheriteCommand implements CommandExecutor, TabCompleter {
                     + (shouldDisable ? "disabled" : "enabled") + " " + material.name());
         }
 
-        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r");
+        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
         String displayItem = item.substring(0, 1).toUpperCase() + item.substring(1);
         sender.sendMessage(prefix + " " + (shouldDisable ? "§cDisabled" : "§aEnabled") + " §fNetherite " + displayItem);
 
@@ -118,9 +118,9 @@ public class NetheriteCommand implements CommandExecutor, TabCompleter {
 
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§6§l=== Netherite Commands ===");
-        sender.sendMessage("§e/smp netherite gui §7- Open netherite manager GUI");
-        sender.sendMessage("§e/smp netherite disable <item> §7- Disable netherite item");
-        sender.sendMessage("§e/smp netherite enable <item> §7- Enable netherite item");
+        sender.sendMessage("§e/vanilla netherite gui §7- Open netherite manager GUI");
+        sender.sendMessage("§e/vanilla netherite disable <item> §7- Disable netherite item");
+        sender.sendMessage("§e/vanilla netherite enable <item> §7- Enable netherite item");
     }
 
     @Override

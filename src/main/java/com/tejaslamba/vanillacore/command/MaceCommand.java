@@ -27,7 +27,7 @@ public class MaceCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("vanillacore.mace")) {
-            sender.sendMessage(plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r")
+            sender.sendMessage(plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r")
                     + " §cYou don't have permission to use this command!");
             return true;
         }
@@ -76,14 +76,14 @@ public class MaceCommand implements CommandExecutor, TabCompleter {
             meta.setLore(lore);
             item.setItemMeta(meta);
 
-            String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r");
+            String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
             sender.sendMessage(prefix + " §cRemoved mace limiter whitelist from item");
         } else {
             lore.add(WHITELIST_LORE);
             meta.setLore(lore);
             item.setItemMeta(meta);
 
-            String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r");
+            String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
             sender.sendMessage(prefix + " §aWhitelisted mace from limiter");
         }
 
@@ -109,7 +109,7 @@ public class MaceCommand implements CommandExecutor, TabCompleter {
             plugin.getLogger().info("[VERBOSE] Mace Command - " + sender.getName() + " reset the mace limiter");
         }
 
-        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r");
+        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
         sender.sendMessage(prefix + " §aReset mace craft count! Maces can now be crafted again.");
 
         return true;

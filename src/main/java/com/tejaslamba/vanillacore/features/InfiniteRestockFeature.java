@@ -99,9 +99,9 @@ public class InfiniteRestockFeature extends BaseFeature {
     public void onLeftClick(Player player) {
         toggleDefault(player);
         if (enabled) {
-            player.sendMessage("§a[SMP] §7Infinite Restock enabled");
+            player.sendMessage("§a[Vanilla Core] §7Infinite Restock enabled");
         } else {
-            player.sendMessage("§c[SMP] §7Infinite Restock disabled");
+            player.sendMessage("§c[Vanilla Core] §7Infinite Restock disabled");
         }
     }
 

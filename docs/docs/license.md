@@ -14,8 +14,8 @@ This project is now **fully open source**! You can:
 :::info Official Downloads
 **Download the plugin from official sources:**
 
-- **[Modrinth](<https://modrinth.com/plugin/Vanilla> Core)** - Recommended
-- **[GitHub Releases](https://github.com/TejasLamba2006/smp-core/releases)** - Direct from source
+- **[Modrinth](https://modrinth.com/plugin/vanillacorewastaken)** - Recommended
+- **[GitHub Releases](https://github.com/TejasLamba2006/vanilla-core/releases)** - Direct from source
 
 While you can build from source, we recommend using official builds for stability and automatic updates.
 :::

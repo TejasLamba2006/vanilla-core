@@ -26,7 +26,7 @@ public class DimensionCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("vanillacore.dimension." + dimension)) {
-            sender.sendMessage(plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r")
+            sender.sendMessage(plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r")
                     + " §cYou don't have permission to use this command!");
             return true;
         }
@@ -40,7 +40,7 @@ public class DimensionCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r");
+        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
         String dimensionName = dimension.substring(0, 1).toUpperCase() + dimension.substring(1);
 
         if (args.length == 0) {

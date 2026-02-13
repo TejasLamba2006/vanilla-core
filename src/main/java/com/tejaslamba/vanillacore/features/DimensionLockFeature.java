@@ -81,7 +81,7 @@ public abstract class DimensionLockFeature extends BaseFeature {
         plugin.getConfigManager().save();
 
         String dimensionName = dimension.substring(0, 1).toUpperCase() + dimension.substring(1);
-        player.sendMessage("§6[SMP] §7The " + dimensionName + " is now " + (enabled ? "§cLocked" : "§aOpen"));
+        player.sendMessage("§6[Vanilla Core] §7The " + dimensionName + " is now " + (enabled ? "§cLocked" : "§aOpen"));
 
         if (plugin.isVerbose()) {
             plugin.getLogger().info("[VERBOSE] Dimension Lock (" + dimension + ") - " + player.getName()

@@ -15,7 +15,7 @@ public class CommandManager {
     }
 
     public void registerDefaults() {
-        registerCommand("smp", new SmpCommand());
+        registerCommand("vanilla", new SmpCommand());
 
         registerCommand("nether", new DimensionCommand((Main) plugin, "nether"));
         registerCommand("end", new DimensionCommand((Main) plugin, "end"));

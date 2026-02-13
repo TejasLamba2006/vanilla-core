@@ -30,7 +30,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("vanillacore.enchant")) {
-            sender.sendMessage(plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r")
+            sender.sendMessage(plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r")
                     + " §cYou don't have permission to use this command!");
             return true;
         }
@@ -65,7 +65,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
 
     private boolean handleLimit(CommandSender sender, String[] args) {
         if (args.length < 3 || args.length > 4) {
-            sender.sendMessage("§cUsage: /smp enchant limit <enchant> <maxLevel> [anvil|replacement|both]");
+            sender.sendMessage("§cUsage: /vanilla enchant limit <enchant> <maxLevel> [anvil|replacement|both]");
             return true;
         }
 
@@ -94,7 +94,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
         }
 
         String enchantKey = enchant.getKey().getKey();
-        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r");
+        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
 
         if (option.equals("anvil") || option.equals("both")) {
             plugin.getConfigManager().get().set("features.custom-anvil-caps.caps." + enchantKey, maxLevel);
@@ -117,7 +117,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
 
     private boolean handleUnlimit(CommandSender sender, String[] args) {
         if (args.length < 2 || args.length > 3) {
-            sender.sendMessage("§cUsage: /smp enchant unlimit <enchant> [anvil|replacement|both]");
+            sender.sendMessage("§cUsage: /vanilla enchant unlimit <enchant> [anvil|replacement|both]");
             return true;
         }
 
@@ -163,7 +163,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
         }
         plugin.getConfigManager().save();
 
-        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r");
+        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
         String optionText = option.equals("both") ? "both anvil & replacement" : option;
         sender.sendMessage(prefix + " §aRemoved limit for: §f" + enchantKey + " §7(" + optionText + ")");
 
@@ -207,7 +207,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
 
     private boolean handleBlock(CommandSender sender, String[] args) {
         if (args.length < 2 || args.length > 3) {
-            sender.sendMessage("§cUsage: /smp enchant block <enchant> [anvil|replacement|both]");
+            sender.sendMessage("§cUsage: /vanilla enchant block <enchant> [anvil|replacement|both]");
             return true;
         }
 
@@ -233,7 +233,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
         }
         plugin.getConfigManager().save();
 
-        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r");
+        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
         String optionText = option.equals("both") ? "both anvil & replacement" : option;
         sender.sendMessage(prefix + " §aBlocked enchantment: §f" + enchantKey + " §7(" + optionText + ")");
 
@@ -276,7 +276,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
                 }
             }
 
-            String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r");
+            String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
             sender.sendMessage(prefix + " §aScanned §e" + scanned + " §aitems, modified §e" + modified);
         } else {
             sender.sendMessage("§cEnchantment Replacement feature is not enabled!");
@@ -305,14 +305,14 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
             meta.setLore(lore);
             item.setItemMeta(meta);
 
-            String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r");
+            String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
             sender.sendMessage(prefix + " §cRemoved enchantment scan whitelist from item");
         } else {
             lore.add(WHITELIST_LORE);
             meta.setLore(lore);
             item.setItemMeta(meta);
 
-            String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r");
+            String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
             sender.sendMessage(prefix + " §aWhitelisted item from enchantment scans");
         }
 
@@ -335,13 +335,13 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
 
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§6§l=== Enchantment Commands ===");
-        sender.sendMessage("§e/smp enchant limit <enchant> <maxLevel> [option] §7- Set enchantment limit");
-        sender.sendMessage("§e/smp enchant unlimit <enchant> [option] §7- Remove enchantment limit");
-        sender.sendMessage("§e/smp enchant list §7- Show all limits");
-        sender.sendMessage("§e/smp enchant block <enchant> [option] §7- Block enchantment completely");
-        sender.sendMessage("§e/smp enchant unblock <enchant> [option] §7- Unblock enchantment");
-        sender.sendMessage("§e/smp enchant scan §7- Manually scan your inventory");
-        sender.sendMessage("§e/smp enchant whitelist §7- Toggle whitelist on held item");
+        sender.sendMessage("§e/vanilla enchant limit <enchant> <maxLevel> [option] §7- Set enchantment limit");
+        sender.sendMessage("§e/vanilla enchant unlimit <enchant> [option] §7- Remove enchantment limit");
+        sender.sendMessage("§e/vanilla enchant list §7- Show all limits");
+        sender.sendMessage("§e/vanilla enchant block <enchant> [option] §7- Block enchantment completely");
+        sender.sendMessage("§e/vanilla enchant unblock <enchant> [option] §7- Unblock enchantment");
+        sender.sendMessage("§e/vanilla enchant scan §7- Manually scan your inventory");
+        sender.sendMessage("§e/vanilla enchant whitelist §7- Toggle whitelist on held item");
         sender.sendMessage("§7Options: §fانvil §7| §freplacement §7| §fboth §7(default)");
     }
 

@@ -8,17 +8,17 @@ This page documents all commands available in Vanilla Core.
 
 ## Main Commands
 
-The `/smp` command is the primary entry point for plugin management.
+The `/vanilla` command is the primary entry point for plugin management.
 
 | Command | Description | Permission |
 |---------|-------------|------------|
-| `/smp` | Opens the main configuration GUI | `vanillacore.admin` |
-| `/smp reload` | Reloads all configuration files from disk | `vanillacore.reload` |
-| `/smp help` | Displays help information and available commands | `vanillacore.admin` |
+| `/vanilla` | Opens the main configuration GUI | `vanillacore.admin` |
+| `/vanilla reload` | Reloads all configuration files from disk | `vanillacore.reload` |
+| `/vanilla help` | Displays help information and available commands | `vanillacore.admin` |
 
 ### Reload Behavior
 
-When you run `/smp reload`:
+When you run `/vanilla reload`:
 
 1. All configuration files are re-read from disk
 2. Feature settings are updated immediately
@@ -136,7 +136,7 @@ When setting up a new SMP, you might run these commands:
 ### Quick Config Reload After Manual Edits
 
 ```
-/smp reload
+/vanilla reload
 ```
 
 ## Tab Completion

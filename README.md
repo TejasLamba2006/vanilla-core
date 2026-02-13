@@ -1,12 +1,12 @@
 # Vanilla Core
 
-[![Build Status](https://github.com/TejasLamba2006/smp-core/actions/workflows/build.yml/badge.svg)](https://github.com/TejasLamba2006/smp-core/actions/workflows/build.yml)
-[![CodeQL](https://github.com/TejasLamba2006/smp-core/actions/workflows/codeql.yml/badge.svg)](https://github.com/TejasLamba2006/smp-core/actions/workflows/codeql.yml)
+[![Build Status](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/build.yml/badge.svg)](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/build.yml)
+[![CodeQL](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/codeql.yml/badge.svg)](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/codeql.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Modrinth](https://img.shields.io/modrinth/dt/GH4H8ndx?logo=modrinth&label=downloads)](https://modrinth.com/plugin/vanillacorewastaken)
-[![Discord](https://img.shields.io/discord/YOUR_DISCORD_ID?logo=discord&label=discord)](https://discord.gg/7fQPG4Grwt)
+[![Discord](https://img.shields.io/discord/1260632399245856801?logo=discord&label=discord)](https://discord.gg/7fQPG4Grwt)
 
-A comprehensive Minecraft plugin for SMP servers focused on **PvP balance**, **custom mechanics**, and **server management**. Built for Paper/Spigot 1.21.1+.
+A comprehensive Minecraft plugin for Vanilla servers focused on **PvP balance**, **custom mechanics**, and **server management**. Built for Paper/Spigot 1.21.1+.
 
 <!-- ![Vanilla Core Feature List](features.png) -->
 
@@ -47,7 +47,7 @@ A comprehensive Minecraft plugin for SMP servers focused on **PvP balance**, **c
 
 ### 🖥️ GUI System
 
-- **Main Menu** - `/smp` opens a paginated GUI showing all features
+- **Main Menu** - `/vanilla` opens a paginated GUI showing all features
 - **Dynamic Feature Items** - Toggle features with left-click, configure with right-click
 - **Menu Pagination** - Automatically handles many features across multiple pages
 
@@ -57,22 +57,22 @@ A comprehensive Minecraft plugin for SMP servers focused on **PvP balance**, **c
 
 | Command | Description | Permission |
 |---------|-------------|------------|
-| `/smp` | Opens the main settings menu | - |
-| `/smp menu` | Opens the main settings menu | - |
-| `/smp reload` | Reloads all configurations | `vanillacore.reload` |
-| `/smp enchant <sub>` | Enchantment management | `vanillacore.enchant` |
-| `/smp mace <sub>` | Mace limiter commands | `vanillacore.mace` |
-| `/smp netherite <sub>` | Netherite disabler commands | `vanillacore.netherite` |
+| `/vanilla` | Opens the main settings menu | - |
+| `/vanilla menu` | Opens the main settings menu | - |
+| `/vanilla reload` | Reloads all configurations | `vanillacore.reload` |
+| `/vanilla enchant <sub>` | Enchantment management | `vanillacore.enchant` |
+| `/vanilla mace <sub>` | Mace limiter commands | `vanillacore.mace` |
+| `/vanilla netherite <sub>` | Netherite disabler commands | `vanillacore.netherite` |
 
 ### Enchantment Subcommands
 
-- `/smp enchant limit <enchant> <level> [anvil|replacement|both]`
-- `/smp enchant unlimit <enchant> [anvil|replacement|both]`
-- `/smp enchant block <enchant> [anvil|replacement|both]`
-- `/smp enchant unblock <enchant> [anvil|replacement|both]`
-- `/smp enchant list` - Show all configured limits
-- `/smp enchant scan` - Manually scan your inventory
-- `/smp enchant whitelist` - Toggle whitelist on held item
+- `/vanilla enchant limit <enchant> <level> [anvil|replacement|both]`
+- `/vanilla enchant unlimit <enchant> [anvil|replacement|both]`
+- `/vanilla enchant block <enchant> [anvil|replacement|both]`
+- `/vanilla enchant unblock <enchant> [anvil|replacement|both]`
+- `/vanilla enchant list` - Show all configured limits
+- `/vanilla enchant scan` - Manually scan your inventory
+- `/vanilla enchant whitelist` - Toggle whitelist on held item
 
 ---
 
@@ -84,14 +84,14 @@ A comprehensive Minecraft plugin for SMP servers focused on **PvP balance**, **c
 2. Place the JAR in your server's `plugins` folder
 3. Restart or reload your server
 4. Configure features in your plugin folder `config.yml`
-5. Use `/smp reload` to apply changes or `/smp` to use the GUI
+5. Use `/vanilla reload` to apply changes or `/vanilla` to use the GUI
 
 ### For Developers
 
 ```bash
 # Clone the repository
-git clone https://github.com/TejasLamba2006/smp-core.git
-cd smp-core
+git clone https://github.com/TejasLamba2006/vanilla-core.git
+cd vanilla-core
 
 # Build with Maven
 mvn clean package
@@ -198,7 +198,7 @@ We welcome contributions! Here's how you can help:
 
 ```bash
 # Fork and clone the repository
-git clone https://github.com/YOUR_USERNAME/smp-core.git
+git clone https://github.com/YOUR_USERNAME/vanilla-core.git
 
 # Create a feature branch
 git checkout -b feature/amazing-feature

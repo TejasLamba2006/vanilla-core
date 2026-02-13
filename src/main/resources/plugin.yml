@@ -4,10 +4,10 @@ version: 1.2.1
 api-version: 1.21
 softdepend: [WorldGuard]
 commands:
-  smp:
+  vanilla:
     description: Vanilla Core command
-    usage: /smp [menu|reload|enchant|mace|netherite|infiniterestock]
-    aliases: [vpt]
+    usage: /vanilla [menu|reload|enchant|mace|netherite|infiniterestock]
+    aliases: [vc, vpt]
   end:
     description: End dimension lock commands
     usage: /end [open|close|status]

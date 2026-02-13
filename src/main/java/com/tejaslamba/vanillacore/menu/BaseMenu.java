@@ -92,7 +92,8 @@ public abstract class BaseMenu implements InventoryHolder {
         });
 
         String displayName = plugin.getMenuConfigManager().getDisplayNameForConfig(configPath);
-        player.sendMessage("§6[SMP] §7Toggled " + displayName + " §7to §" + (!current ? "aEnabled" : "cDisabled"));
+        player.sendMessage(
+                "§6[Vanilla Core] §7Toggled " + displayName + " §7to §" + (!current ? "aEnabled" : "cDisabled"));
     }
 
     protected void handleEnchantmentLimiter(Player player, String configPath, boolean isRightClick) {
@@ -107,16 +108,17 @@ public abstract class BaseMenu implements InventoryHolder {
             plugin.getConfigManager().save();
             plugin.getConfigManager().load();
             player.sendMessage(
-                    "§6[SMP] §7Toggled " + enchantType + " Limiter §7to §" + (!current ? "aEnabled" : "cDisabled"));
+                    "§6[Vanilla Core] §7Toggled " + enchantType + " Limiter §7to §"
+                            + (!current ? "aEnabled" : "cDisabled"));
             return;
         }
 
         player.closeInventory();
-        player.sendMessage("§6[SMP] §7Enter the max level for " + enchantType + " (1-10, or 'cancel'):");
+        player.sendMessage("§6[Vanilla Core] §7Enter the max level for " + enchantType + " (1-10, or 'cancel'):");
 
         Main.getInstance().getChatInputManager().requestInput(player, (p, input) -> {
             if (input.equalsIgnoreCase("cancel")) {
-                p.sendMessage("§6[SMP] §cCancelled.");
+                p.sendMessage("§6[Vanilla Core] §cCancelled.");
                 plugin.getMenuManager().openMainMenu(p);
                 return;
             }
@@ -124,7 +126,7 @@ public abstract class BaseMenu implements InventoryHolder {
             try {
                 int level = Integer.parseInt(input);
                 if (level < 1 || level > 10) {
-                    p.sendMessage("§6[SMP] §cInvalid level! Must be between 1-10.");
+                    p.sendMessage("§6[Vanilla Core] §cInvalid level! Must be between 1-10.");
                     plugin.getMenuManager().openMainMenu(p);
                     return;
                 }
@@ -135,10 +137,10 @@ public abstract class BaseMenu implements InventoryHolder {
                 plugin.getConfigManager().save();
                 plugin.getConfigManager().load();
 
-                p.sendMessage("§6[SMP] §a" + enchantType + " limited to level " + level);
+                p.sendMessage("§6[Vanilla Core] §a" + enchantType + " limited to level " + level);
                 plugin.getMenuManager().openMainMenu(p);
             } catch (NumberFormatException e) {
-                p.sendMessage("§6[SMP] §cInvalid number! Please enter a valid level.");
+                p.sendMessage("§6[Vanilla Core] §cInvalid number! Please enter a valid level.");
                 plugin.getMenuManager().openMainMenu(p);
             }
         });

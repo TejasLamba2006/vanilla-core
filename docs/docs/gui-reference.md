@@ -191,7 +191,7 @@ To cancel a chat input prompt without making changes:
 - Or wait 30 seconds for the prompt to expire
 
 :::tip Quick Return
-If you accidentally close the menu or cancel input, you can always run `/smp` again to return to the main menu.
+If you accidentally close the menu or cancel input, you can always run `/vanilla` again to return to the main menu.
 :::
 
 ## Settings Menu
@@ -211,7 +211,7 @@ Access global plugin settings by clicking the Settings button in the main menu.
 The Reload button in the main menu reloads all configuration files from disk. Use this after manually editing `config.yml`.
 
 :::danger Manual Edits
-If you make manual edits to `config.yml` while the server is running, those changes are not applied until you click Reload or run `/smp reload`. Changes made in the GUI overwrite manual edits if you don't reload first.
+If you make manual edits to `config.yml` while the server is running, those changes are not applied until you click Reload or run `/vanilla reload`. Changes made in the GUI overwrite manual edits if you don't reload first.
 :::
 
 ## Troubleshooting

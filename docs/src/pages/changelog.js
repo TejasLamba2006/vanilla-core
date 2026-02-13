@@ -4,7 +4,7 @@ import Link from '@docusaurus/Link';
 import styles from './changelog.module.css';
 
 const PROJECT_ID = 'GH4H8ndx';
-const PROJECT_SLUG = 'Vanilla Core';
+const PROJECT_SLUG = 'vanillacorewastaken';
 const API_BASE = 'https://api.modrinth.com/v2';
 
 function formatDate(dateString) {
@@ -39,7 +39,7 @@ function ChangelogPage() {
 
     useEffect(() => {
         fetch(`${API_BASE}/project/${PROJECT_ID}/version`, {
-            headers: { 'User-Agent': 'TejasLamba2006/Vanilla Core-docs' }
+            headers: { 'User-Agent': 'TejasLamba2006/vanilla-core-docs' }
         })
             .then(res => res.json())
             .then(data => {

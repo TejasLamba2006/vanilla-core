@@ -62,7 +62,7 @@ public class ConfigManager {
         Map<String, Object> defaults = new HashMap<>();
         defaults.put("config-version", CURRENT_CONFIG_VERSION);
         defaults.put("plugin.name", "Vanilla Core");
-        defaults.put("plugin.prefix", "§8[§6SMP§8]§r");
+        defaults.put("plugin.prefix", "§8[§6Vanilla Core§8]§r");
         defaults.put("plugin.verbose", false);
 
         String[] features = {
