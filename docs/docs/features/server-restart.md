@@ -167,7 +167,7 @@ The Server Restart feature integrates with the main menu and doesn't have standa
 
 | Permission | Description | Default |
 |------------|-------------|---------|
-| `smpcore.menu` | Access main menu (required for restart GUI) | `op` |
+| `vanillacore.menu` | Access main menu (required for restart GUI) | `op` |
 
 ## How It Works
 

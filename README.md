@@ -59,10 +59,10 @@ A comprehensive Minecraft plugin for SMP servers focused on **PvP balance**, **c
 |---------|-------------|------------|
 | `/smp` | Opens the main settings menu | - |
 | `/smp menu` | Opens the main settings menu | - |
-| `/smp reload` | Reloads all configurations | `smpcore.reload` |
-| `/smp enchant <sub>` | Enchantment management | `smpcore.enchant` |
-| `/smp mace <sub>` | Mace limiter commands | `smpcore.mace` |
-| `/smp netherite <sub>` | Netherite disabler commands | `smpcore.netherite` |
+| `/smp reload` | Reloads all configurations | `vanillacore.reload` |
+| `/smp enchant <sub>` | Enchantment management | `vanillacore.enchant` |
+| `/smp mace <sub>` | Mace limiter commands | `vanillacore.mace` |
+| `/smp netherite <sub>` | Netherite disabler commands | `vanillacore.netherite` |
 
 ### Enchantment Subcommands
 
@@ -222,7 +222,7 @@ Read the full [Contributing Guide](CONTRIBUTING.md) for detailed information.
 - **Bug Reports**: Use our [bug report template](.github/ISSUE_TEMPLATE/bug_report.yml)
 - **Feature Requests**: Use our [feature request template](.github/ISSUE_TEMPLATE/feature_request.yml)
 - **Discord**: Join our [Discord server](https://discord.gg/7fQPG4Grwt) for quick help
-- **Documentation**: Check the [full documentation](https://smpcore.tejaslamba.com)
+- **Documentation**: Check the [full documentation](https://vanillacore.tejaslamba.com)
 
 ---
 

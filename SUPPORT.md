@@ -6,15 +6,15 @@ Thank you for using Vanilla Core! Here are the ways you can get support:
 
 Before asking for help, please check our comprehensive documentation:
 
-**[smpcore.tejaslamba.com](https://smpcore.tejaslamba.com)**
+**[vanillacore.tejaslamba.com](https://vanillacore.tejaslamba.com)**
 
 The documentation includes:
 
-- [Installation Guide](https://smpcore.tejaslamba.com/docs/installation)
-- [All Features](https://smpcore.tejaslamba.com/docs/category/features)
-- [Commands & Permissions](https://smpcore.tejaslamba.com/docs/commands)
-- [Configuration Reference](https://smpcore.tejaslamba.com/docs/configuration)
-- [FAQ](https://smpcore.tejaslamba.com/docs/faq)
+- [Installation Guide](https://vanillacore.tejaslamba.com/docs/installation)
+- [All Features](https://vanillacore.tejaslamba.com/docs/category/features)
+- [Commands & Permissions](https://vanillacore.tejaslamba.com/docs/commands)
+- [Configuration Reference](https://vanillacore.tejaslamba.com/docs/configuration)
+- [FAQ](https://vanillacore.tejaslamba.com/docs/faq)
 
 ## 💬 Discord Community
 

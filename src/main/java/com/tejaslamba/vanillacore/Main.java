@@ -68,7 +68,7 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(updateNotificationListener, this);
 
         getLogger().info("Vanilla Core has been enabled!");
-        getLogger().info("Config Builder: https://smpcore.tejaslamba.com/config-builder");
+        getLogger().info("Config Builder: https://vanillacore.tejaslamba.com/config-builder");
     }
 
     private void migrateDataFolderIfNeeded() {
@@ -83,7 +83,7 @@ public class Main extends JavaPlugin {
             return;
         }
 
-        String[] oldFolderNames = { "smp-core", "SMP-Core", "SMPCore", "smpcore", "SMPcore" };
+        String[] oldFolderNames = { "smp-core", "SMP-Core", "vanillacore", "vanillacore", "vanillacore" };
         File oldDataFolder = null;
         for (String oldFolderName : oldFolderNames) {
             File candidate = new File(pluginsFolder, oldFolderName);

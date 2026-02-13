@@ -124,7 +124,7 @@ The GUI shows:
 
 | Command | Permission | Description |
 |---------|------------|-------------|
-| `/mace` | `smpcore.command.mace` | View current mace limit status |
+| `/mace` | `vanillacore.command.mace` | View current mace limit status |
 
 ## Recommended Settings
 

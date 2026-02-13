@@ -88,7 +88,7 @@ Everything is off by default. Just enable what you need.
 
 Vanilla Core is free to use. If it's helpful, consider [donating via PayPal](https://paypal.me/tejaslamba) to support development.
 
-Need help? [Join the Discord](https://discord.gg/7fQPG4Grwt?utm_source=smpcore.tejaslamba.com).
+Need help? [Join the Discord](https://discord.gg/7fQPG4Grwt?utm_source=vanillacore.tejaslamba.com).
 
 ---
 

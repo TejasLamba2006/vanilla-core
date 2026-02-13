@@ -1,7 +1,7 @@
 {
     "version": "1.2.1",
-    "configBuilderUrl": "https://smpcore.tejaslamba.com/config-builder",
-    "documentationUrl": "https://smpcore.tejaslamba.com/docs",
+    "configBuilderUrl": "https://vanillacore.tejaslamba.com/config-builder",
+    "documentationUrl": "https://vanillacore.tejaslamba.com/docs",
     "categories": [
         {
             "id": "combat",

@@ -14,7 +14,7 @@ To open the main configuration menu, run the following command:
 /smp
 ```
 
-**Required Permission:** `smpcore.admin`
+**Required Permission:** `vanillacore.admin`
 
 When you run this command, a chest-like inventory window opens displaying all available features as clickable items.
 
@@ -220,7 +220,7 @@ If you make manual edits to `config.yml` while the server is running, those chan
 
 If the menu doesn't open when you run `/smp`:
 
-1. Check that you have the `smpcore.admin` permission
+1. Check that you have the `vanillacore.admin` permission
 2. Verify the plugin is loaded with `/plugins`
 3. Check the console for error messages
 

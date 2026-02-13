@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CDNManager {
 
-    private static final String CDN_BASE = "https://smpcore.tejaslamba.com/cdn";
+    private static final String CDN_BASE = "https://vanillacore.tejaslamba.com/cdn";
     private static final String MANIFEST_URL = CDN_BASE + "/manifest.json";
     private static final int TIMEOUT_MS = 5000;
     private static final long CACHE_DURATION_MS = 5 * 60 * 1000;
@@ -50,7 +50,7 @@ public class CDNManager {
         this.disabledMessage = "This feature has been temporarily disabled by the plugin author.";
         this.maintenanceMessage = "Vanilla Core is currently in maintenance mode. Please try again later.";
         this.updateNotificationEnabled = true;
-        this.updateNotificationPermission = "smpcore.admin";
+        this.updateNotificationPermission = "vanillacore.admin";
         this.updateNotificationTitle = "Vanilla Core Update";
         this.updateNotificationMessage = "A new version is available! Current: {current}, Latest: {latest}";
         this.updateNotificationActionMessage = "Visit {url} to download";
@@ -79,9 +79,9 @@ public class CDNManager {
                 JsonObject manifest = JsonParser.parseString(json).getAsJsonObject();
                 latestVersion = manifest.has("latestVersion") ? manifest.get("latestVersion").getAsString() : null;
                 configBuilderUrl = manifest.has("configBuilderUrl") ? manifest.get("configBuilderUrl").getAsString()
-                        : "https://smpcore.tejaslamba.com/config-builder";
+                        : "https://vanillacore.tejaslamba.com/config-builder";
                 documentationUrl = manifest.has("documentationUrl") ? manifest.get("documentationUrl").getAsString()
-                        : "https://smpcore.tejaslamba.com/docs";
+                        : "https://vanillacore.tejaslamba.com/docs";
                 lastFetch = System.currentTimeMillis();
                 return true;
             } catch (Exception e) {
@@ -213,11 +213,11 @@ public class CDNManager {
     }
 
     public String getConfigBuilderUrl() {
-        return configBuilderUrl != null ? configBuilderUrl : "https://smpcore.tejaslamba.com/config-builder";
+        return configBuilderUrl != null ? configBuilderUrl : "https://vanillacore.tejaslamba.com/config-builder";
     }
 
     public String getDocumentationUrl() {
-        return documentationUrl != null ? documentationUrl : "https://smpcore.tejaslamba.com/docs";
+        return documentationUrl != null ? documentationUrl : "https://vanillacore.tejaslamba.com/docs";
     }
 
     public boolean isFeatureDisabled(String featureId) {

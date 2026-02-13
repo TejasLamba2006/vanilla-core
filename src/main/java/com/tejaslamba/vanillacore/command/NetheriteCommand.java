@@ -35,7 +35,7 @@ public class NetheriteCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission("smpcore.netherite")) {
+        if (!sender.hasPermission("vanillacore.netherite")) {
             sender.sendMessage(plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r")
                     + " §cYou don't have permission to use this command!");
             return true;

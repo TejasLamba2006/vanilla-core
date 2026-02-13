@@ -27,16 +27,16 @@ Everything is off by default. Turn on what you need, ignore the rest.
 
 **Full documentation, guides, and configuration details:**
 
-### **[smpcore.tejaslamba.com](https://smpcore.tejaslamba.com)**
+### **[vanillacore.tejaslamba.com](https://vanillacore.tejaslamba.com)**
 
 The wiki includes:
 
-- [Installation Guide](https://smpcore.tejaslamba.com/docs/installation)
-- [All Features](https://smpcore.tejaslamba.com/docs/category/features)
-- [Commands & Permissions](https://smpcore.tejaslamba.com/docs/commands)
-- [Configuration Reference](https://smpcore.tejaslamba.com/docs/configuration)
-- [GUI Reference](https://smpcore.tejaslamba.com/docs/gui-reference)
-- [FAQ](https://smpcore.tejaslamba.com/docs/faq)
+- [Installation Guide](https://vanillacore.tejaslamba.com/docs/installation)
+- [All Features](https://vanillacore.tejaslamba.com/docs/category/features)
+- [Commands & Permissions](https://vanillacore.tejaslamba.com/docs/commands)
+- [Configuration Reference](https://vanillacore.tejaslamba.com/docs/configuration)
+- [GUI Reference](https://vanillacore.tejaslamba.com/docs/gui-reference)
+- [FAQ](https://vanillacore.tejaslamba.com/docs/faq)
 
 ---
 
@@ -61,7 +61,7 @@ The wiki includes:
 ## Support
 
 - **Discord**: [Join for support](https://discord.gg/7fQPG4Grwt)
-- **Documentation**: [Full wiki and guides](https://smpcore.tejaslamba.com)
+- **Documentation**: [Full wiki and guides](https://vanillacore.tejaslamba.com)
 - **Issues**: [Report bugs on GitHub](https://github.com/TejasLamba2006/smp-core/issues)
 - **Contribute**: [Open source on GitHub](https://github.com/TejasLamba2006/smp-core)
 - **Donate**: [Support development](https://paypal.me/tejaslamba)

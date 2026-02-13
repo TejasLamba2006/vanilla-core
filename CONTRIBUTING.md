@@ -28,7 +28,7 @@ This project follows a simple code of conduct:
 Before creating a bug report:
 
 - Check the [existing issues](https://github.com/TejasLamba2006/smp-core/issues)
-- Check the [documentation](https://smpcore.tejaslamba.com)
+- Check the [documentation](https://vanillacore.tejaslamba.com)
 - Make sure you're using the latest version
 
 When reporting:
@@ -92,7 +92,7 @@ mvn clean package
 
 ```
 smp-core/
-├── src/main/java/com/tejaslamba/smpcore/
+├── src/main/java/com/tejaslamba/vanillacore/
 │   ├── Main.java                  # Plugin entry point
 │   ├── features/                  # Feature implementations
 │   ├── listener/                  # Event listeners
@@ -126,10 +126,10 @@ smp-core/
    ```
 
 3. **Package Structure**
-   - Follow: `com.tejaslamba.smpcore.[feature].[type]`
+   - Follow: `com.tejaslamba.vanillacore.[feature].[type]`
    - Examples:
-     - `com.tejaslamba.smpcore.combat.listener`
-     - `com.tejaslamba.smpcore.ritual.manager`
+     - `com.tejaslamba.vanillacore.combat.listener`
+     - `com.tejaslamba.vanillacore.ritual.manager`
 
 4. **Feature Modularity**
    - All features must be toggleable via config
@@ -275,7 +275,7 @@ When adding features:
 ## Questions?
 
 - Join our [Discord](https://discord.gg/7fQPG4Grwt)
-- Check the [documentation](https://smpcore.tejaslamba.com)
+- Check the [documentation](https://vanillacore.tejaslamba.com)
 - Open a [discussion](https://github.com/TejasLamba2006/smp-core/discussions)
 
 ---

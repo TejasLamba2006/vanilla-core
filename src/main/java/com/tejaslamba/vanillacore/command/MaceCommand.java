@@ -26,7 +26,7 @@ public class MaceCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission("smpcore.mace")) {
+        if (!sender.hasPermission("vanillacore.mace")) {
             sender.sendMessage(plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6SMP§8]§r")
                     + " §cYou don't have permission to use this command!");
             return true;
@@ -91,7 +91,7 @@ public class MaceCommand implements CommandExecutor, TabCompleter {
     }
 
     private boolean handleReset(CommandSender sender) {
-        if (!sender.hasPermission("smpcore.mace.reset")) {
+        if (!sender.hasPermission("vanillacore.mace.reset")) {
             sender.sendMessage("§cYou don't have permission to reset the mace limiter!");
             return true;
         }

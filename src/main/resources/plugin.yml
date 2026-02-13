@@ -15,42 +15,42 @@ commands:
     description: Nether dimension lock commands
     usage: /nether [open|close|status]
 permissions:
-  smpcore.reload:
+  vanillacore.reload:
     description: Reload plugin configuration
     default: op
-  smpcore.menu:
+  vanillacore.menu:
     description: Open settings menu
     default: op
-  smpcore.enchant:
+  vanillacore.enchant:
     description: Manage enchantment limits
     default: op
-  smpcore.mace:
+  vanillacore.mace:
     description: Use mace commands
     default: op
-  smpcore.mace.reset:
+  vanillacore.mace.reset:
     description: Reset mace limiter
     default: op
-  smpcore.dimension.end:
+  vanillacore.dimension.end:
     description: Manage end dimension lock
     default: op
-  smpcore.dimension.nether:
+  vanillacore.dimension.nether:
     description: Manage nether dimension lock
     default: op
-  smpcore.dimension.bypass:
+  vanillacore.dimension.bypass:
     description: Bypass all dimension locks
     default: op
-  smpcore.dimension.bypass.end:
+  vanillacore.dimension.bypass.end:
     description: Bypass end dimension lock
     default: false
-  smpcore.dimension.bypass.nether:
+  vanillacore.dimension.bypass.nether:
     description: Bypass nether dimension lock
     default: false
-  smpcore.netherite:
+  vanillacore.netherite:
     description: Manage netherite disabler
     default: op
-  smpcore.infiniterestock:
+  vanillacore.infiniterestock:
     description: Manage Infinite Restock feature and open GUI
     default: op
-  smpcore.netherite.craft.*:
+  vanillacore.netherite.craft.*:
     description: Bypass netherite crafting restrictions
     default: false

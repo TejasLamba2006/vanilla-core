@@ -178,7 +178,7 @@ Major version updates (like 1.x to 2.x) may include breaking changes. Always rea
 **Solutions:**
 
 1. Verify the plugin loaded: `/plugins`
-2. Check permissions: You need `smpcore.admin` for `/smp`
+2. Check permissions: You need `vanillacore.admin` for `/smp`
 3. If you're OP, commands should work automatically
 4. Check for conflicting plugins that might intercept the command
 

@@ -31,7 +31,7 @@ public class MainMenu extends BaseMenu {
     private static final String DONATE_TEXTURE = "http://textures.minecraft.net/texture/e36e94f6c34a35465fce4a90f2e25976389eb9709a12273574ff70fd4daa6852";
 
     private static final String DISCORD_URL = "https://discord.gg/7fQPG4Grwt";
-    private static final String WIKI_URL = "https://smpcore.tejaslamba.com";
+    private static final String WIKI_URL = "https://vanillacore.tejaslamba.com";
     private static final String MODRINTH_URL = "https://modrinth.com/plugin/vanillacorewastaken";
     private static final String PAYPAL_URL = "https://paypal.me/TejasLamba2006";
 

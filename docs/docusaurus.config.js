@@ -6,11 +6,11 @@ href: 'https://modrinth.com/plugin/Vanilla Core',
         tagline: 'The Ultimate SMP Management Plugin for Minecraft',
             favicon: 'img/logo.png',
 
-                url: 'https://smpcore.tejaslamba.com',
+                url: 'https://vanillacore.tejaslamba.com',
                     baseUrl: '/',
 
                         organizationName: 'TejasLamba2006',
-                            projectName: 'smpcore',
+                            projectName: 'vanillacore',
                                 trailingSlash: false,
 
                                     onBrokenLinks: 'throw',
@@ -40,7 +40,7 @@ presets: [
     themeConfig:
 /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 ({
-    image: 'img/smpcore-social-card.png',
+    image: 'img/vanillacore-social-card.png',
     navbar: {
         title: 'Vanilla Core',
         logo: {
@@ -60,7 +60,7 @@ presets: [
                 position: 'right',
             },
             {
-                href: 'https://discord.gg/7fQPG4Grwt?utm_source=smpcore.tejaslamba.com',
+                href: 'https://discord.gg/7fQPG4Grwt?utm_source=vanillacore.tejaslamba.com',
                 label: 'Discord',
                 position: 'right',
             },
@@ -95,7 +95,7 @@ presets: [
                 items: [
                     {
                         label: 'Discord',
-                        href: 'https://discord.gg/7fQPG4Grwt?utm_source=smpcore.tejaslamba.com',
+                        href: 'https://discord.gg/7fQPG4Grwt?utm_source=vanillacore.tejaslamba.com',
                     },
                 ],
             },
@@ -104,7 +104,7 @@ presets: [
                 items: [
                     {
                         label: 'Modrinth',
-                        href: 'https://modrinth.com/plugin/Vanilla Core',
+                        href: 'https://modrinth.com/plugin/vanillacorewastaken',
                     },
                     {
                         label: 'Downloads Page',

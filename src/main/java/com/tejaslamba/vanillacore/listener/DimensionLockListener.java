@@ -31,13 +31,13 @@ public class DimensionLockListener implements Listener {
                     + " is attempting to enter " + toEnvironment.name());
         }
 
-        boolean hasBypass = player.hasPermission("smpcore.dimension.bypass");
+        boolean hasBypass = player.hasPermission("vanillacore.dimension.bypass");
 
         if (toEnvironment == World.Environment.THE_END) {
             EndLockFeature endLock = plugin.getFeatureManager().getFeature(EndLockFeature.class);
 
             if (endLock != null && endLock.isLocked() && !hasBypass
-                    && !player.hasPermission("smpcore.dimension.bypass.end")) {
+                    && !player.hasPermission("vanillacore.dimension.bypass.end")) {
                 event.setCancelled(true);
                 String message = plugin.getConfigManager().get()
                         .getString("features.dimension-lock-end.locked-message", "§cThe End is currently locked!");
@@ -52,7 +52,7 @@ public class DimensionLockListener implements Listener {
             NetherLockFeature netherLock = plugin.getFeatureManager().getFeature(NetherLockFeature.class);
 
             if (netherLock != null && netherLock.isLocked() && !hasBypass
-                    && !player.hasPermission("smpcore.dimension.bypass.nether")) {
+                    && !player.hasPermission("vanillacore.dimension.bypass.nether")) {
                 event.setCancelled(true);
                 String message = plugin.getConfigManager().get()
                         .getString("features.dimension-lock-nether.locked-message",

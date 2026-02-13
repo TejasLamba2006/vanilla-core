@@ -92,7 +92,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Purple theme update
   - Removed all emoji icons for cleaner UI
 - **Config Builder URL Advertisement**: Added config builder URL to config.yml header
-  - Users directed to <https://smpcore.tejaslamba.com/config-builder>
+  - Users directed to <https://vanillacore.tejaslamba.com/config-builder>
 - **bStats Integration**: Server metrics tracking via bStats
   - Plugin ID: 28654
   - Automatic server count and usage tracking
@@ -137,7 +137,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Now manually adds only the mace recipe back
 - **Netherite Disabler Documentation**: Clarified that it only blocks smithing table
   - Added detailed config comments explaining behavior
-  - Notes about permission bypass (`smpcore.netherite.craft.<item>`)
+  - Notes about permission bypass (`vanillacore.netherite.craft.<item>`)
   - Recommendation to use Item Limiter for complete removal
 - **Enchantment Limiter Config Simplified**: Removed unused options
   - Removed: `block-enchanting-table`, `block-anvil`, `check-on-pickup`
@@ -209,7 +209,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Toggle price penalty removal (demand = 0)
   - Toggle applying to wandering traders
   - Uninstall mode to restore original trade limits
-  - Command: `/smp infiniterestock` opens the manager (permission `smpcore.infiniterestock`)
+  - Command: `/smp infiniterestock` opens the manager (permission `vanillacore.infiniterestock`)
 
 ### Changed
 
@@ -256,7 +256,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Mace Limiter**: Recipes are now properly restored when the feature is disabled
 - **Mace Limiter**: Recipes are now automatically disabled when the craft limit is reached
 - **Mace Limiter**: Adjusting max maces now properly updates recipe availability
-- **Commands**: Added permission checks to `/smp` command - menu now requires `smpcore.menu` permission
+- **Commands**: Added permission checks to `/smp` command - menu now requires `vanillacore.menu` permission
 - **Commands**: Tab completion now only shows subcommands the player has permission for
 - **Villager Trades**: Consistent application after trade clicks and profession upgrades
 

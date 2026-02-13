@@ -4,7 +4,7 @@ const PROJECT_ID = 'GH4H8ndx';
 const PROJECT_SLUG = 'Vanilla Core';
 const API_BASE = 'https://api.modrinth.com/v2';
 const MODRINTH_BASE = 'https://modrinth.com/plugin';
-const WIKI_DOWNLOADS = 'https://smpcore.tejaslamba.com/downloads';
+const WIKI_DOWNLOADS = 'https://vanillacore.tejaslamba.com/downloads';
 
 function parseMarkdown(text) {
     if (!text) return '';

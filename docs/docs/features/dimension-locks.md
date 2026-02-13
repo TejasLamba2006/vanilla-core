@@ -97,17 +97,17 @@ In the dimension lock menu:
 
 | Command | Description | Permission |
 |---------|-------------|------------|
-| `/nether` | Display current Nether lock status | `smpcore.nether` |
-| `/nether open` | Unlock the Nether | `smpcore.nether.open` |
-| `/nether close` | Lock the Nether | `smpcore.nether.close` |
+| `/nether` | Display current Nether lock status | `vanillacore.nether` |
+| `/nether open` | Unlock the Nether | `vanillacore.nether.open` |
+| `/nether close` | Lock the Nether | `vanillacore.nether.close` |
 
 ### End Commands
 
 | Command | Description | Permission |
 |---------|-------------|------------|
-| `/end` | Display current End lock status | `smpcore.end` |
-| `/end open` | Unlock the End | `smpcore.end.open` |
-| `/end close` | Lock the End | `smpcore.end.close` |
+| `/end` | Display current End lock status | `vanillacore.end` |
+| `/end open` | Unlock the End | `vanillacore.end.open` |
+| `/end close` | Lock the End | `vanillacore.end.close` |
 
 ## Bypass Permissions
 
@@ -115,8 +115,8 @@ Staff members may need to enter locked dimensions for testing or administration:
 
 | Permission | Description |
 |------------|-------------|
-| `smpcore.bypass.nether` | Enter the Nether even when locked |
-| `smpcore.bypass.end` | Enter the End even when locked |
+| `vanillacore.bypass.nether` | Enter the Nether even when locked |
+| `vanillacore.bypass.end` | Enter the End even when locked |
 
 ## Progression Strategies
 

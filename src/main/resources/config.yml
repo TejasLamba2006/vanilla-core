@@ -6,9 +6,9 @@
 # ============================================
 #
 # Need help configuring? Use our interactive Config Builder:
-# https://smpcore.tejaslamba.com/config-builder
+# https://vanillacore.tejaslamba.com/config-builder
 #
-# Full documentation: https://smpcore.tejaslamba.com/docs
+# Full documentation: https://vanillacore.tejaslamba.com/docs
 # ============================================
 
 # Do not change the config-version unless instructed or config would reset.
@@ -114,8 +114,8 @@ features:
   # process - it does NOT remove existing netherite items from
   # player inventories or prevent them from being used.
   #
-  # Players with permission: smpcore.netherite.craft.<item>
-  # (e.g., smpcore.netherite.craft.sword) can bypass the restriction.
+  # Players with permission: vanillacore.netherite.craft.<item>
+  # (e.g., vanillacore.netherite.craft.sword) can bypass the restriction.
   #
   # NOTE: This feature is intentionally limited to smithing table
   # blocking. For complete netherite item removal, use Item Limiter

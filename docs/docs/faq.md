@@ -109,7 +109,7 @@ Vanilla Core has a minimal memory footprint, typically under 10MB.
 Check for these common issues:
 
 1. Player has OP (OPs bypass by default)
-2. Player has `smpcore.bypass.*` permission
+2. Player has `vanillacore.bypass.*` permission
 3. Player has specific bypass permission
 4. Permission plugin misconfiguration
 
@@ -118,7 +118,7 @@ Check for these common issues:
 Using LuckPerms:
 
 ```
-/lp group staff permission set smpcore.bypass.* true
+/lp group staff permission set vanillacore.bypass.* true
 ```
 
 ---
@@ -128,7 +128,7 @@ Using LuckPerms:
 ### Commands say "Unknown command"
 
 1. Check plugin is loaded: `/plugins`
-2. Ensure correct command: `/smp` not `/smpcore`
+2. Ensure correct command: `/smp` not `/vanillacore`
 3. Check permissions
 
 ### GUI is empty or broken

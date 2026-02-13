@@ -64,7 +64,7 @@ When using Vanilla Core:
 
 ## Known Security Considerations
 
-- **OP Permissions**: Commands with `smpcore.reload` can modify server behavior
+- **OP Permissions**: Commands with `vanillacore.reload` can modify server behavior
 - **WorldGuard Integration**: Ensure WorldGuard permissions are properly configured
 - **Config Access**: Protect config files from unauthorized access
 

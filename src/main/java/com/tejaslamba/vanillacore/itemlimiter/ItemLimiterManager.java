@@ -105,7 +105,7 @@ public class ItemLimiterManager {
 
         taskId = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if (!player.hasPermission("smpcore.itemlimiter.bypass")) {
+                if (!player.hasPermission("vanillacore.itemlimiter.bypass")) {
                     checkAndEnforceLimits(player);
                 }
             }

@@ -24,15 +24,15 @@ reviews:
       instructions: Apply when changes break backwards compatibility
   poem: false
   path_filters:
-    - '!target/**'
-    - '!*.class'
-    - '!*.jar'
-    - '!dependency-reduced-pom.xml'
-    - '!proguard*'
-    - '!docs/build/**'
-    - '!docs/node_modules/**'
-    - '!.vscode/**'
-    - '!.git/**'
+    - "!target/**"
+    - "!*.class"
+    - "!*.jar"
+    - "!dependency-reduced-pom.xml"
+    - "!proguard*"
+    - "!docs/build/**"
+    - "!docs/node_modules/**"
+    - "!.vscode/**"
+    - "!.git/**"
   path_instructions:
     - path: src/main/java/**/*.java
       instructions: |
@@ -40,7 +40,7 @@ reviews:
         - NO COMMENTS in production code (code must be self-documenting)
         - Clean, descriptive method and variable names required
         - Features MUST be modular and toggleable via config
-        - Package structure: com.tejaslamba.smpcore.[feature].[type]
+        - Package structure: com.tejaslamba.vanillacore.[feature].[type]
         - Proper error handling and null checks required
         - Check for memory leaks (proper cleanup on player quit)
         - Thread-safety where needed (ConcurrentHashMap for concurrent access)
