@@ -7,6 +7,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-02-13
+
+### Changed
+
+- **🎨 Complete Rebrand: SMP Core → Vanilla Core**
+  - **Plugin renamed** from "SMP Core" to "Vanilla Core" across all systems
+  - **Command changed** from `/smp` to `/vanilla` (breaking change)
+    - New aliases: `vc`, `vpt` (old `smp` alias removed)
+    - All subcommands now use `/vanilla` prefix
+  - **Permission nodes** remain unchanged (`vanillacore.*`)
+  - **Documentation URLs updated**:
+    - Docs: <https://vanillacore.tejaslamba.com>
+    - Modrinth: <https://modrinth.com/plugin/vanillacorewastaken>
+    - GitHub: <https://github.com/TejasLamba2006/vanilla-core>
+  - **Automatic data migration**: Existing plugin data automatically migrated from old folder names
+    - Supports migration from: `smp-core`, `SMP-Core`, `SMPCore`
+    - New folder: `Vanilla Core`
+    - Migration runs automatically on first load after update
+  - **In-game branding**: All chat messages, GUIs, and prefixes updated
+    - Chat prefix: `§8[§6Vanilla Core§8]§r`
+    - Menu titles updated throughout
+    - Help messages and command usage updated
+  - **Configuration files**: All comments and examples updated to reflect new branding
+  - **Complete documentation rewrite**: 50+ files updated across docs site
+    - All feature guides updated
+    - Command reference updated
+    - Configuration guide updated
+    - GUI reference updated
+  - **Developer documentation**: Updated project instructions and video scripts
+
+### Added
+
+- **Backward compatibility**: Plugin automatically migrates old data folder on first run
+
+### Notes
+
+- **‼️ BREAKING CHANGE**: The main command has changed from `/smp` to `/vanilla`
+  - Users must update any scripts, command blocks, or documentation
+  - Server operators should announce this change to players
+  - Old `/smp` command will no longer work
+- **No data loss**: All existing configurations, limits, and settings are preserved
+- **Permission compatibility**: All permission nodes remain unchanged (`vanillacore.*`)
+
 ## [1.2.1] - 2026-01-13
 
 ### Changed
