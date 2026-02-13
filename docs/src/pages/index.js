@@ -204,7 +204,7 @@ function HomepageHeader() {
                                 <div className={styles.screenshotOverlay} />
                             </div>
                             <div className={styles.screenshotGlow} />
-                            <div className={styles.badgeVersion}>v1.2.1</div>
+                            <div className={styles.badgeVersion}>v1.3.0</div>
                             <div className={styles.badgeMc}>1.21.1+</div>
                         </div>
                     </div>
