@@ -80,7 +80,7 @@ locked-message: "§c§lACCESS DENIED! §7The Nether opens on §eJanuary 15th§7.
 
 ### Opening Dimension Lock Settings
 
-1. Run `/smp` to open the main menu
+1. Run `/vanilla` to open the main menu
 2. Click on "Nether Lock" or "End Lock"
 
 ### Toggling the Lock

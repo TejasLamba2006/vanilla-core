@@ -72,7 +72,7 @@ When an item is disabled:
 
 ## Using the GUI
 
-1. Run `/smp` to open the main menu
+1. Run `/vanilla` to open the main menu
 2. Click on the Netherite Disabler option
 3. Toggle individual items on/off
 4. Changes take effect immediately

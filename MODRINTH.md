@@ -44,7 +44,7 @@ The wiki includes:
 
 1. Drop in `plugins` folder
 2. Restart server
-3. Run `/smp` to open settings
+3. Run `/vanilla` to open settings
 4. Click to toggle features, right-click for settings
 
 ---

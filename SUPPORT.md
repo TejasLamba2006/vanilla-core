@@ -62,7 +62,7 @@ Want to contribute? We welcome:
 
 Please have the following information ready:
 
-1. **Vanilla Core Version**: Check with `/smp` command or in `plugin.yml`
+1. **Vanilla Core Version**: Check with `/vanilla` command or in `plugin.yml`
 2. **Server Software**: Paper/Spigot version
 3. **Java Version**: Usually shown in console on startup
 4. **Config File**: Relevant parts of your `config.yml`

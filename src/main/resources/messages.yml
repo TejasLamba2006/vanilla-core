@@ -12,7 +12,7 @@ general:
   reload: "&aConfiguration reloaded successfully!"
   no-permission: "&cYou don't have permission to do that!"
   player-only: "&cThis command can only be used by players!"
-  unknown-command: "&cUnknown subcommand. Usage: /smp [menu|reload|enchant|mace|netherite|infiniterestock]"
+  unknown-command: "&cUnknown subcommand. Usage: /vanilla [menu|reload|enchant|mace|netherite|infiniterestock]"
   cancelled: "&cCancelled."
   invalid-number: "&cPlease enter a valid number!"
 

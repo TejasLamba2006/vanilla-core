@@ -151,9 +151,9 @@ public class MaceCommand implements CommandExecutor, TabCompleter {
 
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§6§l=== Mace Commands ===");
-        sender.sendMessage("§e/smp mace whitelist §7- Toggle whitelist on held mace");
-        sender.sendMessage("§e/smp mace reset §7- Reset mace limiter (admin)");
-        sender.sendMessage("§e/smp mace status §7- Check mace limiter status");
+        sender.sendMessage("§e/vanilla mace whitelist §7- Toggle whitelist on held mace");
+        sender.sendMessage("§e/vanilla mace reset §7- Reset mace limiter (admin)");
+        sender.sendMessage("§e/vanilla mace status §7- Check mace limiter status");
     }
 
     @Override

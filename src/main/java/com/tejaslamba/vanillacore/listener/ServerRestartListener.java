@@ -37,7 +37,7 @@ public class ServerRestartListener implements Listener {
             if (feature.isRestartActive()) {
                 player.sendMessage("§c§l⚠ SERVER RESTART ACTIVE ⚠");
                 player.sendMessage("§7Time remaining: §c" + feature.getCountdownSeconds() + " seconds");
-                player.sendMessage("§7Use §e/smp menu §7→ §cServer Restart §7to cancel.");
+                player.sendMessage("§7Use §e/vanilla menu §7→ §cServer Restart §7to cancel.");
             }
         }, 60L);
     }

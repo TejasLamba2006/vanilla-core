@@ -524,7 +524,7 @@ ${generateYAML(generatedConfig)}`;
                                 <pre>{yamlOutput}</pre>
                             </div>
                             <div className={styles.outputTip}>
-                                <strong>Tip:</strong> Place this file in your server's <code>plugins/Vanilla Core/</code> folder, then run <code>/smp reload</code>
+                                <strong>Tip:</strong> Place this file in your server's <code>plugins/Vanilla Core/</code> folder, then run <code>/vanilla reload</code>
                             </div>
                         </div>
                     </div>

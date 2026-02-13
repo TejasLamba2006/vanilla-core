@@ -80,7 +80,7 @@ WorldGuard is **optional**. Mob Manager works perfectly without it. The WorldGua
 
 ## Using the GUI
 
-1. Run `/smp` to open the main menu
+1. Run `/vanilla` to open the main menu
 2. Click on Mob Manager
 3. **Left Click**: Toggle the feature on/off
 4. **Right Click**: Open the Mob Manager settings
@@ -222,7 +222,7 @@ When `chunk-cleanup-enabled: false`:
 1. Verify `enabled: true` in config
 2. Check the world name matches exactly (case-sensitive)
 3. Verify the mob type is spelled correctly (UPPERCASE)
-4. Run `/smp reload` after config changes
+4. Run `/vanilla reload` after config changes
 5. Check if the spawn reason is in `allowed-spawn-reasons`
 
 ### Spawners not working

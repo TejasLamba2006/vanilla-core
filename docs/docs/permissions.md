@@ -48,8 +48,8 @@ Giving players bypass permissions undermines your server's balance settings. A p
 
 | Permission | Description | Default |
 |------------|-------------|---------|
-| `vanillacore.command.smp` | Use the `/smp` command | OP |
-| `vanillacore.command.reload` | Use the `/smp reload` command | OP |
+| `vanillacore.command.smp` | Use the `/vanilla` command | OP |
+| `vanillacore.command.reload` | Use the `/vanilla reload` command | OP |
 
 ### Dimension Lock Commands
 

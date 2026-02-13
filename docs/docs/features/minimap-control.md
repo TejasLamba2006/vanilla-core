@@ -48,7 +48,7 @@ features:
 
 ## Using the GUI
 
-1. Run `/smp` to open the main menu
+1. Run `/vanilla` to open the main menu
 2. Click on Minimap Control
 3. **Left Click**: Toggle the feature on/off
 4. **Right Click**: Open settings menu

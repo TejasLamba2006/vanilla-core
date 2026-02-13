@@ -62,7 +62,7 @@ This uses the vanilla game mechanic introduced in Minecraft 1.17, ensuring full 
 
 ## Using the GUI
 
-1. Run `/smp` to open the main menu
+1. Run `/vanilla` to open the main menu
 2. Locate One Player Sleep in the feature list
 3. Left-click to toggle the feature on/off
 

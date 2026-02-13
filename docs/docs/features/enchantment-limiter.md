@@ -92,7 +92,7 @@ Use lowercase enchantment names with underscores (e.g., `fire_protection`, `swif
 
 ### Opening the Enchantment Limiter Menu
 
-1. Run `/smp` to open the main menu
+1. Run `/vanilla` to open the main menu
 2. Click on the Enchanted Book icon labeled "Enchantment Limiter"
 
 ### Understanding the Display

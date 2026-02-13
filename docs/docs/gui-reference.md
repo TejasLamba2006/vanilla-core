@@ -11,7 +11,7 @@ This page provides a complete guide to using the in-game configuration GUI. The 
 To open the main configuration menu, run the following command:
 
 ```
-/smp
+/vanilla
 ```
 
 **Required Permission:** `vanillacore.admin`
@@ -218,7 +218,7 @@ If you make manual edits to `config.yml` while the server is running, those chan
 
 ### Menu Not Opening
 
-If the menu doesn't open when you run `/smp`:
+If the menu doesn't open when you run `/vanilla`:
 
 1. Check that you have the `vanillacore.admin` permission
 2. Verify the plugin is loaded with `/plugins`
@@ -230,7 +230,7 @@ If some feature items are missing:
 
 1. The feature may be disabled in the config
 2. A required dependency (like WorldGuard) may be missing
-3. Try running `/smp reload` to refresh the menu
+3. Try running `/vanilla reload` to refresh the menu
 
 ### Changes Not Saving
 
