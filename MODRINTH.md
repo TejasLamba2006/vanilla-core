@@ -1,10 +1,10 @@
 # Vanilla Core
 
 <center>
-All-in-one **open source** plugin for SMP servers. PvP balance, item limits, mob control, and more.
+All-in-one **open-source** plugin for SMP servers. PvP balance, item limits, mob control, and more.
 </center>
 
-> **🎉 This is an open source project!** View the source code, contribute, or report issues on [GitHub](https://github.com/TejasLamba2006/vanilla-core).
+> **🎉 This is an open-source project!** View the source code, contribute, or report issues on [GitHub](https://github.com/TejasLamba2006/vanilla-core).
 
 ---
 

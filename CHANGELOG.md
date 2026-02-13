@@ -13,10 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **🎨 Complete Rebrand: SMP Core → Vanilla Core**
   - **Plugin renamed** from "SMP Core" to "Vanilla Core" across all systems
-  - **Command changed** from `/smp` to `/vanilla` (breaking change)
+  - **Command changed** from `/smp` to `/vanilla` (**‼️ BREAKING CHANGE**)
     - New aliases: `vc`, `vpt` (old `smp` alias removed)
     - All subcommands now use `/vanilla` prefix
-  - **Permission nodes** remain unchanged (`vanillacore.*`)
+    - **Users must update**: Scripts, command blocks, and documentation
+    - **Server operators**: Announce this change to players
+    - **Old `/smp` command will no longer work**
+  - **Permission nodes** remain unchanged (`vanillacore.*`) for backward compatibility
   - **Documentation URLs updated**:
     - Docs: <https://vanillacore.tejaslamba.com>
     - Modrinth: <https://modrinth.com/plugin/vanillacorewastaken>
@@ -25,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Supports migration from: `smp-core`, `SMP-Core`, `SMPCore`
     - New folder: `Vanilla Core`
     - Migration runs automatically on first load after update
+    - **No data loss**: All existing configurations, limits, and settings are preserved
   - **In-game branding**: All chat messages, GUIs, and prefixes updated
     - Chat prefix: `§8[§6Vanilla Core§8]§r`
     - Menu titles updated throughout
@@ -40,15 +44,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Backward compatibility**: Plugin automatically migrates old data folder on first run
-
-### Notes
-
-- **‼️ BREAKING CHANGE**: The main command has changed from `/smp` to `/vanilla`
-  - Users must update any scripts, command blocks, or documentation
-  - Server operators should announce this change to players
-  - Old `/smp` command will no longer work
-- **No data loss**: All existing configurations, limits, and settings are preserved
-- **Permission compatibility**: All permission nodes remain unchanged (`vanillacore.*`)
 
 ## [1.2.1] - 2026-01-13
 
@@ -394,7 +389,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Release Date | Highlights |
 |---------|--------------|------------|
+| 1.3.0 | 2026-02-13 | Complete Rebrand: SMP Core → Vanilla Core, Data Migration |
 | 1.2.1 | 2026-01-13 | Open Source Migration, MIT License, CI/CD Workflows |
 | 1.2.0 | 2026-01-02 | Server Restart, Main Menu Redesign, CDN Integration |
 | 1.1.0 | 2024-12-27 | GUI overhaul, Mob Manager, Infinite Restock, Item Limiter rewrite |
 | 1.0.0 | 2024-12-01 | Initial release |
+
+---
+
+[Unreleased]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.2.1...v1.3.0
+[1.2.1]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/TejasLamba2006/vanilla-core/releases/tag/v1.0.0

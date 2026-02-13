@@ -11,7 +11,7 @@ const DEFAULT_CONFIG = {
     'config-version': 2,
     plugin: {
         name: 'Vanilla Core',
-        prefix: '§8[§6SMP§8]§r',
+        prefix: '§8[§6Vanilla Core§8]§r',
         verbose: false
     }
 };

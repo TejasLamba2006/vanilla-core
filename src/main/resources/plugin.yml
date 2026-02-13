@@ -15,6 +15,20 @@ commands:
     description: Nether dimension lock commands
     usage: /nether [open|close|status]
 permissions:
+  vanillacore.admin:
+    description: Full access to all Vanilla Core features and GUI
+    default: op
+    children:
+      vanillacore.reload: true
+      vanillacore.menu: true
+      vanillacore.enchant: true
+      vanillacore.mace: true
+      vanillacore.mace.reset: true
+      vanillacore.dimension.end: true
+      vanillacore.dimension.nether: true
+      vanillacore.dimension.bypass: true
+      vanillacore.netherite: true
+      vanillacore.infiniterestock: true
   vanillacore.reload:
     description: Reload plugin configuration
     default: op
