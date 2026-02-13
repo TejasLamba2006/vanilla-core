@@ -1,5 +1,5 @@
 name: Feature Request
-description: Suggest a new feature or improvement for SMP Core
+description: Suggest a new feature or improvement for Vanilla Core
 title: "[FEATURE] "
 labels: ["enhancement", "needs-review"]
 body:
@@ -84,5 +84,5 @@ body:
       options:
         - label: I have checked for duplicate feature requests
           required: true
-        - label: This feature aligns with SMP Core's purpose (SMP server management)
+        - label: This feature aligns with Vanilla Core's purpose (SMP server management)
           required: true

@@ -1,5 +1,5 @@
 name: Bug Report
-description: Report a bug or issue with SMP Core
+description: Report a bug or issue with Vanilla Core
 title: "[BUG] "
 labels: ["bug", "needs-triage"]
 body:
@@ -11,8 +11,8 @@ body:
   - type: input
     id: plugin-version
     attributes:
-      label: SMP Core Version
-      description: What version of SMP Core are you using?
+      label: Vanilla Core Version
+      description: What version of Vanilla Core are you using?
       placeholder: e.g., 1.1.0
     validations:
       required: true
@@ -106,7 +106,7 @@ body:
     attributes:
       label: Checklist
       options:
-        - label: I am using the latest version of SMP Core
+        - label: I am using the latest version of Vanilla Core
           required: true
         - label: I have checked for duplicate issues
           required: true

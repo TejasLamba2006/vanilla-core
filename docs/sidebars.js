@@ -11,7 +11,7 @@ const sidebars = {
             link: {
                 type: 'generated-index',
                 title: 'Features',
-                description: 'All SMP Core features explained in detail.',
+                description: 'All Vanilla Core features explained in detail.',
                 slug: '/category/features',
             },
             items: [

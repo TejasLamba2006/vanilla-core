@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.tejaslamba.smpcore</groupId>
-    <artifactId>smp-core</artifactId>
-    <version>1.2.1</version>
+    <groupId>com.tejaslamba.vanillacore</groupId>
+    <artifactId>vanilla-core</artifactId>
+    <version>1.3.0</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -68,7 +68,7 @@
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>com.tejaslamba.smpcore.metrics</shadedPattern>
+                            <shadedPattern>com.tejaslamba.vanillacore.metrics</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -90,7 +90,7 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Built-By>SMP Core Team</Built-By>
+                            <Built-By>Vanilla Core</Built-By>
                         </manifestEntries>
                     </archive>
                 </configuration>

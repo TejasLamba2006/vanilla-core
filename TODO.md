@@ -1,4 +1,4 @@
-# SMP Core - Feature Implementation Checklist
+# Vanilla Core - Feature Implementation Checklist
 
 ## Core Features (Must Implement)
 
@@ -77,7 +77,7 @@
 ### Server Management
 
 - [ ] SMP Start Command
-  - [ ] /smp start command
+  - [ ] /vanilla start command
   - [ ] Grace period system
   - [ ] Scheduled start time
   - [ ] Pre-start countdown

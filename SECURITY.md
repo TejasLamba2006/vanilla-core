@@ -13,11 +13,11 @@ We release patches for security vulnerabilities for the following versions:
 
 **Please do not report security vulnerabilities through public GitHub issues.**
 
-If you discover a security vulnerability in SMP Core, please report it privately:
+If you discover a security vulnerability in Vanilla Core, please report it privately:
 
 ### Preferred Method: Security Advisory
 
-1. Go to the [Security Advisory page](https://github.com/TejasLamba2006/smp-core/security/advisories)
+1. Go to the [Security Advisory page](https://github.com/TejasLamba2006/vanilla-core/security/advisories)
 2. Click "Report a vulnerability"
 3. Fill out the form with details about the vulnerability
 
@@ -54,7 +54,7 @@ Please include the following information:
 
 ## Security Best Practices for Users
 
-When using SMP Core:
+When using Vanilla Core:
 
 1. **Keep Updated**: Always use the latest version
 2. **Review Permissions**: Carefully configure command permissions
@@ -64,10 +64,10 @@ When using SMP Core:
 
 ## Known Security Considerations
 
-- **OP Permissions**: Commands with `smpcore.reload` can modify server behavior
+- **OP Permissions**: Commands with `vanillacore.reload` can modify server behavior
 - **WorldGuard Integration**: Ensure WorldGuard permissions are properly configured
 - **Config Access**: Protect config files from unauthorized access
 
 ---
 
-Thank you for helping keep SMP Core and its users safe!
+Thank you for helping keep Vanilla Core and its users safe!

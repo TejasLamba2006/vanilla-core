@@ -43,7 +43,7 @@ When enabled, ALL dropped item entities are protected from explosion damage. The
 
 ## Using the GUI
 
-1. Run `/smp` to open the main menu
+1. Run `/vanilla` to open the main menu
 2. Click on Item Explosion Immunity (TNT icon)
 3. **Left Click**: Toggle the feature on/off
 4. **Right Click**: View information about the feature
@@ -134,7 +134,7 @@ If players use TNT for mining:
 ### Items still being destroyed
 
 1. Verify `enabled: true` in config
-2. Run `/smp reload` after config changes
+2. Run `/vanilla reload` after config changes
 3. Check for other plugins that may override entity damage
 
 ### Items being destroyed by fire after explosion

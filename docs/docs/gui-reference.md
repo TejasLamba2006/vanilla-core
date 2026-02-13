@@ -4,17 +4,17 @@ sidebar_position: 11
 
 # GUI Reference
 
-This page provides a complete guide to using the in-game configuration GUI. The GUI allows you to manage all SMP Core features without editing configuration files.
+This page provides a complete guide to using the in-game configuration GUI. The GUI allows you to manage all Vanilla Core features without editing configuration files.
 
 ## Opening the Main Menu
 
 To open the main configuration menu, run the following command:
 
 ```
-/smp
+/vanilla
 ```
 
-**Required Permission:** `smpcore.admin`
+**Required Permission:** `vanillacore.admin`
 
 When you run this command, a chest-like inventory window opens displaying all available features as clickable items.
 
@@ -191,7 +191,7 @@ To cancel a chat input prompt without making changes:
 - Or wait 30 seconds for the prompt to expire
 
 :::tip Quick Return
-If you accidentally close the menu or cancel input, you can always run `/smp` again to return to the main menu.
+If you accidentally close the menu or cancel input, you can always run `/vanilla` again to return to the main menu.
 :::
 
 ## Settings Menu
@@ -211,16 +211,16 @@ Access global plugin settings by clicking the Settings button in the main menu.
 The Reload button in the main menu reloads all configuration files from disk. Use this after manually editing `config.yml`.
 
 :::danger Manual Edits
-If you make manual edits to `config.yml` while the server is running, those changes are not applied until you click Reload or run `/smp reload`. Changes made in the GUI overwrite manual edits if you don't reload first.
+If you make manual edits to `config.yml` while the server is running, those changes are not applied until you click Reload or run `/vanilla reload`. Changes made in the GUI overwrite manual edits if you don't reload first.
 :::
 
 ## Troubleshooting
 
 ### Menu Not Opening
 
-If the menu doesn't open when you run `/smp`:
+If the menu doesn't open when you run `/vanilla`:
 
-1. Check that you have the `smpcore.admin` permission
+1. Check that you have the `vanillacore.admin` permission
 2. Verify the plugin is loaded with `/plugins`
 3. Check the console for error messages
 
@@ -230,7 +230,7 @@ If some feature items are missing:
 
 1. The feature may be disabled in the config
 2. A required dependency (like WorldGuard) may be missing
-3. Try running `/smp reload` to refresh the menu
+3. Try running `/vanilla reload` to refresh the menu
 
 ### Changes Not Saving
 

@@ -109,7 +109,7 @@ When a mace is crafted, all players see a title announcement:
 
 ## Using the GUI
 
-1. Run `/smp` to open the main menu
+1. Run `/vanilla` to open the main menu
 2. Click on the Mace icon to access Mace Limiter settings
 3. Left-click to toggle the feature on/off
 4. Right-click to view current status and adjust settings
@@ -124,7 +124,7 @@ The GUI shows:
 
 | Command | Permission | Description |
 |---------|------------|-------------|
-| `/mace` | `smpcore.command.mace` | View current mace limit status |
+| `/mace` | `vanillacore.command.mace` | View current mace limit status |
 
 ## Recommended Settings
 
@@ -165,7 +165,7 @@ To reset the mace count (for a new season or event):
 
 1. Open `config.yml`
 2. Set `maces-crafted: 0`
-3. Run `/smp reload`
+3. Run `/vanilla reload`
 
 The crafting recipe will be re-enabled and players can craft maces again up to the limit.
 

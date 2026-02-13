@@ -4,25 +4,25 @@ sidebar_position: 12
 
 # FAQ
 
-Frequently asked questions about SMP Core.
+Frequently asked questions about Vanilla Core.
 
 ## General
 
-### What versions does SMP Core support?
+### What versions does Vanilla Core support?
 
-SMP Core supports **Paper/Spigot 1.21.1+** with **Java 21+**.
+Vanilla Core supports **Paper/Spigot 1.21.1+** with **Java 21+**.
 
 ### Does it work with Spigot?
 
 Yes, but **Paper is recommended** for better performance and more features.
 
-### Is SMP Core free?
+### Is Vanilla Core free?
 
-Yes! SMP Core is completely free and open source.
+Yes! Vanilla Core is completely free and open source.
 
 ### Where can I download it?
 
-- [Modrinth](https://modrinth.com/plugin/smp-core) (Recommended)
+- [Modrinth](https://modrinth.com/plugin/vanillacorewastaken) (Recommended)
 
 ---
 
@@ -42,7 +42,7 @@ Check the following:
 The config is generated on first run. Ensure:
 
 1. The plugin loaded successfully
-2. Check `plugins/SMP-Core/` folder
+2. Check `plugins/Vanilla Core/` folder
 3. Look for console errors during startup
 
 ### How do I update?
@@ -69,7 +69,7 @@ Yes! Every feature can be individually enabled/disabled.
 
 ### Does it conflict with other plugins?
 
-SMP Core is designed to be compatible with most plugins. Known compatible plugins:
+Vanilla Core is designed to be compatible with most plugins. Known compatible plugins:
 
 - EssentialsX
 - LuckPerms
@@ -81,7 +81,7 @@ If you find conflicts, please report them on GitHub.
 
 ### Can I suggest new features?
 
-Absolutely! Open an issue on [GitHub](https://github.com/TejasLamba2006/smp-core/issues) with your suggestion.
+Absolutely! Open an issue on [GitHub](https://github.com/TejasLamba2006/vanilla-core/issues) with your suggestion.
 
 ---
 
@@ -89,7 +89,7 @@ Absolutely! Open an issue on [GitHub](https://github.com/TejasLamba2006/smp-core
 
 ### Will this lag my server?
 
-No! SMP Core is optimized for performance:
+No! Vanilla Core is optimized for performance:
 
 - Event listeners use early returns
 - Cooldowns prevent spam checks
@@ -98,7 +98,7 @@ No! SMP Core is optimized for performance:
 
 ### How much RAM does it use?
 
-SMP Core has a minimal memory footprint, typically under 10MB.
+Vanilla Core has a minimal memory footprint, typically under 10MB.
 
 ---
 
@@ -109,7 +109,7 @@ SMP Core has a minimal memory footprint, typically under 10MB.
 Check for these common issues:
 
 1. Player has OP (OPs bypass by default)
-2. Player has `smpcore.bypass.*` permission
+2. Player has `vanillacore.bypass.*` permission
 3. Player has specific bypass permission
 4. Permission plugin misconfiguration
 
@@ -118,7 +118,7 @@ Check for these common issues:
 Using LuckPerms:
 
 ```
-/lp group staff permission set smpcore.bypass.* true
+/lp group staff permission set vanillacore.bypass.* true
 ```
 
 ---
@@ -128,14 +128,14 @@ Using LuckPerms:
 ### Commands say "Unknown command"
 
 1. Check plugin is loaded: `/plugins`
-2. Ensure correct command: `/smp` not `/smpcore`
+2. Ensure correct command: `/vanilla` not `/vanillacore`
 3. Check permissions
 
 ### GUI is empty or broken
 
 1. Update to latest version
 2. Check console for errors
-3. Try `/smp reload`
+3. Try `/vanilla reload`
 4. Delete config and regenerate
 
 ### Features reset after restart
@@ -148,9 +148,9 @@ Using LuckPerms:
 
 ## Development
 
-### Is SMP Core open source?
+### Is Vanilla Core open source?
 
-Yes! View the source on [GitHub](https://github.com/TejasLamba2006/smp-core).
+Yes! View the source on [GitHub](https://github.com/TejasLamba2006/vanilla-core).
 
 ### Can I contribute?
 
@@ -174,5 +174,5 @@ Open an issue on [Discord server](https://discord.gg/7fQPG4Grwts) with:
 ## Still need help?
 
 - Check the [Documentation](/docs)
-- [Report an Issue on GitHub](https://github.com/TejasLamba2006/smp-core/issues)
+- [Report an Issue on GitHub](https://github.com/TejasLamba2006/vanilla-core/issues)
 - [Support Development via PayPal](https://paypal.me/tejaslamba) - Donors get priority support

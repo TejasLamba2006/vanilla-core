@@ -1,6 +1,6 @@
-# SMP Core Documentation
+# Vanilla Core Documentation
 
-This folder contains the documentation website for SMP Core, built with [Docusaurus](https://docusaurus.io/).
+This folder contains the documentation website for Vanilla Core, built with [Docusaurus](https://docusaurus.io/).
 
 ## Development
 

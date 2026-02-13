@@ -2,8 +2,8 @@
     "version": "1.1.0",
     "updateNotification": {
         "enabled": true,
-        "permission": "smpcore.admin",
-        "title": "SMP Core Update",
+        "permission": "vanillacore.admin",
+        "title": "Vanilla Core Update",
         "message": "A new configuration version is available! Current: {current}, Latest: {latest}",
         "actionMessage": "Visit {url} to see what's new"
     },
@@ -11,6 +11,6 @@
         "disabledFeatures": [],
         "disabledMessage": "This feature has been temporarily disabled by the plugin author.",
         "maintenanceMode": false,
-        "maintenanceMessage": "SMP Core is currently in maintenance mode. Please try again later."
+        "maintenanceMessage": "Vanilla Core is currently in maintenance mode. Please try again later."
     }
 }
