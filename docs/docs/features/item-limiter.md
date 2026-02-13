@@ -23,7 +23,7 @@ features:
   item-limiter:
     enabled: false
     notify-player: true
-    notify-message: "§c[SMP Core] §7Excess items removed: {item} x{amount} (limit: {limit})"
+    notify-message: "§c[Vanilla Core] §7Excess items removed: {item} x{amount} (limit: {limit})"
     drop-excess: true
     limits:
       GOLDEN_APPLE:
@@ -118,7 +118,7 @@ limits:
 
 ## Using the GUI
 
-1. Run `/smp` to open the main menu
+1. Run `/vanilla` to open the main menu
 2. Click on Item Limiter
 3. **Left Click**: Toggle the feature on/off
 4. **Right Click**: Open the Item Limiter settings menu
@@ -276,7 +276,7 @@ For a complete list, check the [Spigot Material Documentation](https://hub.spigo
 1. Check `enabled: true` in config
 2. Verify material name is correct (uppercase with underscores)
 3. Ensure limit entry has both `material` and `limit` fields
-4. Run `/smp reload` after config changes
+4. Run `/vanilla reload` after config changes
 
 ### Potion limits not working
 

@@ -53,7 +53,7 @@ Set either message to empty (`""`) to disable that message.
 
 ## How It Works
 
-When enabled, SMP Core modifies Minecraft's `playersSleepingPercentage` gamerule:
+When enabled, Vanilla Core modifies Minecraft's `playersSleepingPercentage` gamerule:
 
 - **Enabled**: Sets `playersSleepingPercentage` to `0` (only 1 player needed)
 - **Disabled**: Resets to `100` (all players must sleep)
@@ -62,7 +62,7 @@ This uses the vanilla game mechanic introduced in Minecraft 1.17, ensuring full 
 
 ## Using the GUI
 
-1. Run `/smp` to open the main menu
+1. Run `/vanilla` to open the main menu
 2. Locate One Player Sleep in the feature list
 3. Left-click to toggle the feature on/off
 
@@ -131,4 +131,4 @@ Using the `playersSleepingPercentage` gamerule provides several benefits:
 
 ## Integration with Other Features
 
-This is a standalone feature that works independently. No configuration needed with other SMP Core features.
+This is a standalone feature that works independently. No configuration needed with other Vanilla Core features.

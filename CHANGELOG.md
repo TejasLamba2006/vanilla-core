@@ -1,11 +1,49 @@
 # Changelog
 
-All notable changes to SMP Core will be documented in this file.
+All notable changes to Vanilla Core will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.3.0] - 2026-02-13
+
+### Changed
+
+- **🎨 Complete Rebrand: SMP Core → Vanilla Core**
+  - **Plugin renamed** from "SMP Core" to "Vanilla Core" across all systems
+  - **Command changed** from `/smp` to `/vanilla` (**‼️ BREAKING CHANGE**)
+    - New aliases: `vc`, `vpt` (old `smp` alias removed)
+    - All subcommands now use `/vanilla` prefix
+    - **Users must update**: Scripts, command blocks, and documentation
+    - **Server operators**: Announce this change to players
+    - **Old `/smp` command will no longer work**
+  - **Permission nodes** remain unchanged (`vanillacore.*`) for backward compatibility
+  - **Documentation URLs updated**:
+    - Docs: <https://vanillacore.tejaslamba.com>
+    - Modrinth: <https://modrinth.com/plugin/vanillacorewastaken>
+    - GitHub: <https://github.com/TejasLamba2006/vanilla-core>
+  - **Automatic data migration**: Existing plugin data automatically migrated from old folder names
+    - Supports migration from: `smp-core`, `SMP-Core`, `SMPCore`
+    - New folder: `Vanilla Core`
+    - Migration runs automatically on first load after update
+    - **No data loss**: All existing configurations, limits, and settings are preserved
+  - **In-game branding**: All chat messages, GUIs, and prefixes updated
+    - Chat prefix: `§8[§6Vanilla Core§8]§r`
+    - Menu titles updated throughout
+    - Help messages and command usage updated
+  - **Configuration files**: All comments and examples updated to reflect new branding
+  - **Complete documentation rewrite**: 50+ files updated across docs site
+    - All feature guides updated
+    - Command reference updated
+    - Configuration guide updated
+    - GUI reference updated
+  - **Developer documentation**: Updated project instructions and video scripts
+
+### Added
+
+- **Backward compatibility**: Plugin automatically migrates old data folder on first run
 
 ## [1.2.1] - 2026-01-13
 
@@ -92,7 +130,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Purple theme update
   - Removed all emoji icons for cleaner UI
 - **Config Builder URL Advertisement**: Added config builder URL to config.yml header
-  - Users directed to <https://smpcore.tejaslamba.com/config-builder>
+  - Users directed to <https://vanillacore.tejaslamba.com/config-builder>
 - **bStats Integration**: Server metrics tracking via bStats
   - Plugin ID: 28654
   - Automatic server count and usage tracking
@@ -137,7 +175,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Now manually adds only the mace recipe back
 - **Netherite Disabler Documentation**: Clarified that it only blocks smithing table
   - Added detailed config comments explaining behavior
-  - Notes about permission bypass (`smpcore.netherite.craft.<item>`)
+  - Notes about permission bypass (`vanillacore.netherite.craft.<item>`)
   - Recommendation to use Item Limiter for complete removal
 - **Enchantment Limiter Config Simplified**: Removed unused options
   - Removed: `block-enchanting-table`, `block-anvil`, `check-on-pickup`
@@ -209,7 +247,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Toggle price penalty removal (demand = 0)
   - Toggle applying to wandering traders
   - Uninstall mode to restore original trade limits
-  - Command: `/smp infiniterestock` opens the manager (permission `smpcore.infiniterestock`)
+  - Command: `/smp infiniterestock` opens the manager (permission `vanillacore.infiniterestock`)
 
 ### Changed
 
@@ -256,7 +294,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Mace Limiter**: Recipes are now properly restored when the feature is disabled
 - **Mace Limiter**: Recipes are now automatically disabled when the craft limit is reached
 - **Mace Limiter**: Adjusting max maces now properly updates recipe availability
-- **Commands**: Added permission checks to `/smp` command - menu now requires `smpcore.menu` permission
+- **Commands**: Added permission checks to `/smp` command - menu now requires `vanillacore.menu` permission
 - **Commands**: Tab completion now only shows subcommands the player has permission for
 - **Villager Trades**: Consistent application after trade clicks and profession upgrades
 
@@ -351,7 +389,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Release Date | Highlights |
 |---------|--------------|------------|
+| 1.3.0 | 2026-02-13 | Complete Rebrand: SMP Core → Vanilla Core, Data Migration |
 | 1.2.1 | 2026-01-13 | Open Source Migration, MIT License, CI/CD Workflows |
 | 1.2.0 | 2026-01-02 | Server Restart, Main Menu Redesign, CDN Integration |
 | 1.1.0 | 2024-12-27 | GUI overhaul, Mob Manager, Infinite Restock, Item Limiter rewrite |
 | 1.0.0 | 2024-12-01 | Initial release |
+
+---
+
+[Unreleased]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.2.1...v1.3.0
+[1.2.1]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/TejasLamba2006/vanilla-core/releases/tag/v1.0.0

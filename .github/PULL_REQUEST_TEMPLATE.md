@@ -34,7 +34,7 @@ Fixes #(issue number)
 
 - **Server**: (e.g., Paper 1.21.4)
 - **Java Version**: (e.g., Java 21)
-- **SMP Core Version**: (e.g., 1.1.0)
+- **Vanilla Core Version**: (e.g., 1.1.0)
 
 ### Test Cases
 <!-- Describe how you tested your changes -->

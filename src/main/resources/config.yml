@@ -1,14 +1,14 @@
 # ============================================
-# SMP Core Configuration
+# Vanilla Core Configuration
 # ============================================
 # A comprehensive SMP plugin for PvP balance,
 # custom mechanics, and server management.
 # ============================================
 #
 # Need help configuring? Use our interactive Config Builder:
-# https://smpcore.tejaslamba.com/config-builder
+# https://vanillacore.tejaslamba.com/config-builder
 #
-# Full documentation: https://smpcore.tejaslamba.com/docs
+# Full documentation: https://vanillacore.tejaslamba.com/docs
 # ============================================
 
 # Do not change the config-version unless instructed or config would reset.
@@ -18,8 +18,8 @@ config-version: 2
 # Plugin Settings
 # ============================================
 plugin:
-  name: "SMP Core"
-  prefix: "§8[§6SMP§8]§r"
+  name: "Vanilla Core"
+  prefix: "§8[§6Vanilla Core§8]§r"
   # Enable verbose logging for debugging (shows detailed info in console)
   verbose: false
 
@@ -33,7 +33,7 @@ features:
   # Limits enchantments on items by checking and modifying them
   # when players pick up, craft, or receive items.
   # Supports both vanilla and custom/modded enchantments.
-  # Configure via GUI (/smp menu -> Enchantment Limiter -> Right Click)
+  # Configure via GUI (/vanilla menu -> Enchantment Limiter -> Right Click)
   enchantment-limiter:
     enabled: false
     # Enchantment limits (key: max_level)
@@ -114,8 +114,8 @@ features:
   # process - it does NOT remove existing netherite items from
   # player inventories or prevent them from being used.
   #
-  # Players with permission: smpcore.netherite.craft.<item>
-  # (e.g., smpcore.netherite.craft.sword) can bypass the restriction.
+  # Players with permission: vanillacore.netherite.craft.<item>
+  # (e.g., vanillacore.netherite.craft.sword) can bypass the restriction.
   #
   # NOTE: This feature is intentionally limited to smithing table
   # blocking. For complete netherite item removal, use Item Limiter
@@ -159,7 +159,7 @@ features:
   # ------------------------------------------
   # Villagers will never run out of trades and prices
   # won't increase from demand. Trades reset immediately.
-  # Manage settings via GUI with /smp infiniterestock
+  # Manage settings via GUI with /vanilla infiniterestock
   infinite-restock:
     enabled: false
     # Maximum trades per villager (0 = unlimited)
@@ -182,14 +182,14 @@ features:
   # - Custom model data matching
   # - Display name matching
   # - Potion type matching
-  # Manage limits via GUI with /smp menu -> Item Limiter -> Right Click
+  # Manage limits via GUI with /vanilla menu -> Item Limiter -> Right Click
   item-limiter:
     enabled: false
     # Whether to notify the player when items are removed
     notify-player: true
     # Message shown when excess items are removed
     # Placeholders: {item} = item name, {amount} = amount removed, {limit} = configured limit
-    notify-message: "§c[SMP Core] §7Excess items removed: {item} x{amount} (limit: {limit})"
+    notify-message: "§c[Vanilla Core] §7Excess items removed: {item} x{amount} (limit: {limit})"
     # Whether to drop excess items at player's feet (true) or delete them (false)
     drop-excess: true
     # Item limits configuration
@@ -250,7 +250,7 @@ features:
   # Mob Manager
   # ------------------------------------------
   # Control which mob types can spawn naturally.
-  # Use the GUI (/smp menu) to toggle individual mobs.
+  # Use the GUI (/vanilla menu) to toggle individual mobs.
   # Allowed spawn reasons will bypass mob restrictions.
   # Supports per-world configuration.
   mob-manager:
@@ -314,7 +314,7 @@ features:
   # ------------------------------------------
   # Schedule automatic server restarts with countdown warnings.
   # Supports daily, weekly, and one-time scheduled restarts.
-  # Configure via GUI (/smp menu -> Server Restart -> Right Click)
+  # Configure via GUI (/vanilla menu -> Server Restart -> Right Click)
   server-restart:
     enabled: false
     # Default countdown time in seconds (used for scheduled restarts)

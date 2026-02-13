@@ -1,11 +1,11 @@
 # License
 
-SMP Core is licensed under the **MIT License**, a permissive open-source license that allows you to freely use, modify, and distribute the software.
+Vanilla Core is licensed under the **MIT License**, a permissive open-source license that allows you to freely use, modify, and distribute the software.
 
 :::tip Open Source
 This project is now **fully open source**! You can:
 
-- View the source code on [GitHub](https://github.com/TejasLamba2006/smp-core)
+- View the source code on [GitHub](https://github.com/TejasLamba2006/vanilla-core)
 - Fork and modify the code
 - Contribute improvements via pull requests
 - Use it in your own projects (with attribution)
@@ -14,8 +14,8 @@ This project is now **fully open source**! You can:
 :::info Official Downloads
 **Download the plugin from official sources:**
 
-- **[Modrinth](https://modrinth.com/plugin/smpcore)** - Recommended
-- **[GitHub Releases](https://github.com/TejasLamba2006/smp-core/releases)** - Direct from source
+- **[Modrinth](https://modrinth.com/plugin/vanillacorewastaken)** - Recommended
+- **[GitHub Releases](https://github.com/TejasLamba2006/vanilla-core/releases)** - Direct from source
 
 While you can build from source, we recommend using official builds for stability and automatic updates.
 :::
@@ -71,13 +71,13 @@ SOFTWARE.
 
 ## Contributing
 
-When you contribute to SMP Core:
+When you contribute to Vanilla Core:
 
 - Your contributions will be licensed under the MIT License
 - You retain copyright to your contributions
 - You agree that your contributions can be used under the MIT License
 
-See [CONTRIBUTING.md](https://github.com/TejasLamba2006/smp-core/blob/main/CONTRIBUTING.md) for details.
+See [CONTRIBUTING.md](https://github.com/TejasLamba2006/vanilla-core/blob/main/CONTRIBUTING.md) for details.
 
 ---
 
@@ -85,7 +85,7 @@ See [CONTRIBUTING.md](https://github.com/TejasLamba2006/smp-core/blob/main/CONTR
 
 For questions about the license:
 
-- Open an issue on [GitHub](https://github.com/TejasLamba2006/smp-core/issues)
+- Open an issue on [GitHub](https://github.com/TejasLamba2006/vanilla-core/issues)
 - Join our [Discord](https://discord.gg/7fQPG4Grwt)
 
 > **Note:** The MIT License is one of the most permissive and widely-used open source licenses. It's simple, well-understood, and business-friendly.

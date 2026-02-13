@@ -68,7 +68,7 @@ The `§k` magic text effect makes the question marks appear as rapidly changing 
 
 ## Using the GUI
 
-1. Run `/smp` to open the main menu
+1. Run `/vanilla` to open the main menu
 2. Click on Invisible Kills
 3. **Left Click**: Toggle the feature on/off
 4. **Right Click**: View current settings and death message format
@@ -151,7 +151,7 @@ Does NOT affect:
 
 1. Verify `enabled: true` in config
 2. Ensure killer actually has invisibility effect
-3. Run `/smp reload` after config changes
+3. Run `/vanilla reload` after config changes
 
 ### Placeholder not working
 

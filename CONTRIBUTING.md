@@ -1,6 +1,6 @@
-# Contributing to SMP Core
+# Contributing to Vanilla Core
 
-First off, thank you for considering contributing to SMP Core! It's people like you that make this plugin better for everyone.
+First off, thank you for considering contributing to Vanilla Core! It's people like you that make this plugin better for everyone.
 
 ## Table of Contents
 
@@ -27,8 +27,8 @@ This project follows a simple code of conduct:
 
 Before creating a bug report:
 
-- Check the [existing issues](https://github.com/TejasLamba2006/smp-core/issues)
-- Check the [documentation](https://smpcore.tejaslamba.com)
+- Check the [existing issues](https://github.com/TejasLamba2006/vanilla-core/issues)
+- Check the [documentation](https://vanillacore.tejaslamba.com)
 - Make sure you're using the latest version
 
 When reporting:
@@ -43,7 +43,7 @@ When reporting:
 
 Before suggesting a feature:
 
-- Check if it aligns with SMP Core's purpose (SMP server management)
+- Check if it aligns with Vanilla Core's purpose (SMP server management)
 - Check existing feature requests
 - Consider if it can be implemented modularly
 
@@ -79,8 +79,8 @@ We love pull requests! Here's how you can contribute:
 
 ```bash
 # Clone the repository
-git clone https://github.com/TejasLamba2006/smp-core.git
-cd smp-core
+git clone https://github.com/TejasLamba2006/vanilla-core.git
+cd vanilla-core
 
 # Build with Maven
 mvn clean package
@@ -91,8 +91,8 @@ mvn clean package
 ### Project Structure
 
 ```
-smp-core/
-├── src/main/java/com/tejaslamba/smpcore/
+vanilla-core/
+├── src/main/java/com/tejaslamba/vanillacore/
 │   ├── Main.java                  # Plugin entry point
 │   ├── features/                  # Feature implementations
 │   ├── listener/                  # Event listeners
@@ -126,10 +126,10 @@ smp-core/
    ```
 
 3. **Package Structure**
-   - Follow: `com.tejaslamba.smpcore.[feature].[type]`
+   - Follow: `com.tejaslamba.vanillacore.[feature].[type]`
    - Examples:
-     - `com.tejaslamba.smpcore.combat.listener`
-     - `com.tejaslamba.smpcore.ritual.manager`
+     - `com.tejaslamba.vanillacore.combat.listener`
+     - `com.tejaslamba.vanillacore.ritual.manager`
 
 4. **Feature Modularity**
    - All features must be toggleable via config
@@ -246,7 +246,7 @@ Before submitting:
    mvn clean package
    
    # Copy to test server
-   cp target/SMP-Core-*.jar /path/to/server/plugins/
+   cp target/vanilla-core-*.jar /path/to/server/plugins/
    
    # Start server and test
    ```
@@ -275,9 +275,9 @@ When adding features:
 ## Questions?
 
 - Join our [Discord](https://discord.gg/7fQPG4Grwt)
-- Check the [documentation](https://smpcore.tejaslamba.com)
-- Open a [discussion](https://github.com/TejasLamba2006/smp-core/discussions)
+- Check the [documentation](https://vanillacore.tejaslamba.com)
+- Open a [discussion](https://github.com/TejasLamba2006/vanilla-core/discussions)
 
 ---
 
-Thank you for contributing to SMP Core! 🎉
+Thank you for contributing to Vanilla Core! 🎉

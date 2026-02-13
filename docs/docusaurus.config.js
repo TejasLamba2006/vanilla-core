@@ -2,15 +2,15 @@ import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-    title: 'SMP Core',
+    title: 'Vanilla Core',
     tagline: 'The Ultimate SMP Management Plugin for Minecraft',
     favicon: 'img/logo.png',
 
-    url: 'https://smpcore.tejaslamba.com',
+    url: 'https://vanillacore.tejaslamba.com',
     baseUrl: '/',
 
     organizationName: 'TejasLamba2006',
-    projectName: 'smpcore',
+    projectName: 'vanilla-core',
     trailingSlash: false,
 
     onBrokenLinks: 'throw',
@@ -40,11 +40,11 @@ const config = {
     themeConfig:
         /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
-            image: 'img/smpcore-social-card.png',
+            image: 'img/logo.png',
             navbar: {
-                title: 'SMP Core',
+                title: 'Vanilla Core',
                 logo: {
-                    alt: 'SMP Core Logo',
+                    alt: 'Vanilla Core Logo',
                     src: 'img/logo.png',
                 },
                 items: [
@@ -55,12 +55,12 @@ const config = {
                         label: 'Documentation',
                     },
                     {
-                        href: 'https://modrinth.com/plugin/smpcore',
+                        href: 'https://modrinth.com/plugin/vanillacorewastaken',
                         label: 'Modrinth',
                         position: 'right',
                     },
                     {
-                        href: 'https://discord.gg/7fQPG4Grwt?utm_source=smpcore.tejaslamba.com',
+                        href: 'https://discord.gg/7fQPG4Grwt?utm_source=vanillacore.tejaslamba.com',
                         label: 'Discord',
                         position: 'right',
                     },
@@ -95,7 +95,7 @@ const config = {
                         items: [
                             {
                                 label: 'Discord',
-                                href: 'https://discord.gg/7fQPG4Grwt?utm_source=smpcore.tejaslamba.com',
+                                href: 'https://discord.gg/7fQPG4Grwt?utm_source=vanillacore.tejaslamba.com',
                             },
                         ],
                     },
@@ -104,7 +104,7 @@ const config = {
                         items: [
                             {
                                 label: 'Modrinth',
-                                href: 'https://modrinth.com/plugin/smpcore',
+                                href: 'https://modrinth.com/plugin/vanillacorewastaken',
                             },
                             {
                                 label: 'Downloads Page',
@@ -126,7 +126,7 @@ const config = {
                         ],
                     },
                 ],
-                copyright: `Copyright ${new Date().getFullYear()} SMP Core by Tejas Lamba. Licensed under custom terms.`,
+                copyright: `Copyright ${new Date().getFullYear()} Vanilla Core by Tejas Lamba. Licensed under the MIT License.`,
             },
             prism: {
                 theme: prismThemes.github,

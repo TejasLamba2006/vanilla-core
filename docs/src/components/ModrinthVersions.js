@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 const PROJECT_ID = 'GH4H8ndx';
-const PROJECT_SLUG = 'smpcore';
+const PROJECT_SLUG = 'vanillacorewastaken';
 const API_BASE = 'https://api.modrinth.com/v2';
 const MODRINTH_BASE = 'https://modrinth.com/plugin';
-const WIKI_DOWNLOADS = 'https://smpcore.tejaslamba.com/downloads';
+const WIKI_DOWNLOADS = 'https://vanillacore.tejaslamba.com/downloads';
 
 function parseMarkdown(text) {
     if (!text) return '';
@@ -33,7 +33,7 @@ export function ModrinthStats() {
 
     useEffect(() => {
         fetch(`${API_BASE}/project/${PROJECT_ID}`, {
-            headers: { 'User-Agent': 'TejasLamba2006/smp-core-docs' }
+            headers: { 'User-Agent': 'TejasLamba2006/vanilla-core-docs' }
         })
             .then(res => res.json())
             .then(data => {
@@ -86,7 +86,7 @@ export function LatestVersion({ showDownloadButton = true }) {
 
     useEffect(() => {
         fetch(`${API_BASE}/project/${PROJECT_ID}/version`, {
-            headers: { 'User-Agent': 'TejasLamba2006/smp-core-docs' }
+            headers: { 'User-Agent': 'TejasLamba2006/Vanilla Core-docs' }
         })
             .then(res => res.json())
             .then(data => {
@@ -157,7 +157,7 @@ export function VersionHistory() {
 
     useEffect(() => {
         fetch(`${API_BASE}/project/${PROJECT_ID}/version`, {
-            headers: { 'User-Agent': 'TejasLamba2006/smp-core-docs' }
+            headers: { 'User-Agent': 'TejasLamba2006/Vanilla Core-docs' }
         })
             .then(res => res.json())
             .then(data => {
@@ -223,7 +223,7 @@ export function VersionChangelog() {
 
     useEffect(() => {
         fetch(`${API_BASE}/project/${PROJECT_ID}/version`, {
-            headers: { 'User-Agent': 'TejasLamba2006/smp-core-docs' }
+            headers: { 'User-Agent': 'TejasLamba2006/Vanilla Core-docs' }
         })
             .then(res => res.json())
             .then(data => {
