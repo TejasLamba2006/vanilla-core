@@ -4,7 +4,7 @@ import Link from '@docusaurus/Link';
 import styles from './changelog.module.css';
 
 const PROJECT_ID = 'GH4H8ndx';
-const PROJECT_SLUG = 'Vanilla Core';
+const PROJECT_SLUG = 'vanillacorewastaken';
 const API_BASE = 'https://api.modrinth.com/v2';
 
 function formatDate(dateString) {
