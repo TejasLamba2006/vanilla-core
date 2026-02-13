@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.tejaslamba.vanillacore</groupId>
-    <artifactId>smp-core</artifactId>
+    <artifactId>vanilla-core</artifactId>
     <version>1.2.1</version>
 
     <properties>

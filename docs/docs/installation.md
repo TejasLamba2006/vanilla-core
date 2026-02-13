@@ -224,7 +224,7 @@ Vanilla Core is designed to be compatible with most plugins. However, conflicts 
 - Other item restriction plugins
 - Plugins that modify inventory events aggressively
 
-If you experience conflicts, please [report them on GitHub](https://github.com/TejasLamba2006/smp-core/issues).
+If you experience conflicts, please [report them on GitHub](https://github.com/TejasLamba2006/vanilla-core/issues).
 
 ---
 

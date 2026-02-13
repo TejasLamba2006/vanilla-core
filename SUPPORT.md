@@ -31,7 +31,7 @@ Join our Discord server for:
 
 Found a bug? Please report it on GitHub:
 
-1. Check [existing issues](https://github.com/TejasLamba2006/smp-core/issues) first
+1. Check [existing issues](https://github.com/TejasLamba2006/vanilla-core/issues) first
 2. Use our [bug report template](.github/ISSUE_TEMPLATE/bug_report.yml)
 3. Provide all requested information
 
@@ -39,7 +39,7 @@ Found a bug? Please report it on GitHub:
 
 Have an idea? We'd love to hear it:
 
-1. Check [existing feature requests](https://github.com/TejasLamba2006/smp-core/issues?q=is%3Aissue+label%3Aenhancement)
+1. Check [existing feature requests](https://github.com/TejasLamba2006/vanilla-core/issues?q=is%3Aissue+label%3Aenhancement)
 2. Use our [feature request template](.github/ISSUE_TEMPLATE/feature_request.yml)
 3. Explain your use case clearly
 

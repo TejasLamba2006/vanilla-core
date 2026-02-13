@@ -5,7 +5,7 @@ Vanilla Core is licensed under the **MIT License**, a permissive open-source lic
 :::tip Open Source
 This project is now **fully open source**! You can:
 
-- View the source code on [GitHub](https://github.com/TejasLamba2006/smp-core)
+- View the source code on [GitHub](https://github.com/TejasLamba2006/vanilla-core)
 - Fork and modify the code
 - Contribute improvements via pull requests
 - Use it in your own projects (with attribution)
@@ -77,7 +77,7 @@ When you contribute to Vanilla Core:
 - You retain copyright to your contributions
 - You agree that your contributions can be used under the MIT License
 
-See [CONTRIBUTING.md](https://github.com/TejasLamba2006/smp-core/blob/main/CONTRIBUTING.md) for details.
+See [CONTRIBUTING.md](https://github.com/TejasLamba2006/vanilla-core/blob/main/CONTRIBUTING.md) for details.
 
 ---
 
@@ -85,7 +85,7 @@ See [CONTRIBUTING.md](https://github.com/TejasLamba2006/smp-core/blob/main/CONTR
 
 For questions about the license:
 
-- Open an issue on [GitHub](https://github.com/TejasLamba2006/smp-core/issues)
+- Open an issue on [GitHub](https://github.com/TejasLamba2006/vanilla-core/issues)
 - Join our [Discord](https://discord.gg/7fQPG4Grwt)
 
 > **Note:** The MIT License is one of the most permissive and widely-used open source licenses. It's simple, well-understood, and business-friendly.

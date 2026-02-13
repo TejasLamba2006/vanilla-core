@@ -27,7 +27,7 @@ This project follows a simple code of conduct:
 
 Before creating a bug report:
 
-- Check the [existing issues](https://github.com/TejasLamba2006/smp-core/issues)
+- Check the [existing issues](https://github.com/TejasLamba2006/vanilla-core/issues)
 - Check the [documentation](https://vanillacore.tejaslamba.com)
 - Make sure you're using the latest version
 
@@ -79,8 +79,8 @@ We love pull requests! Here's how you can contribute:
 
 ```bash
 # Clone the repository
-git clone https://github.com/TejasLamba2006/smp-core.git
-cd smp-core
+git clone https://github.com/TejasLamba2006/vanilla-core.git
+cd vanilla-core
 
 # Build with Maven
 mvn clean package
@@ -91,7 +91,7 @@ mvn clean package
 ### Project Structure
 
 ```
-smp-core/
+vanilla-core/
 ├── src/main/java/com/tejaslamba/vanillacore/
 │   ├── Main.java                  # Plugin entry point
 │   ├── features/                  # Feature implementations
@@ -246,7 +246,7 @@ Before submitting:
    mvn clean package
    
    # Copy to test server
-   cp target/SMP-Core-*.jar /path/to/server/plugins/
+   cp target/vanilla-core-*.jar /path/to/server/plugins/
    
    # Start server and test
    ```
@@ -276,7 +276,7 @@ When adding features:
 
 - Join our [Discord](https://discord.gg/7fQPG4Grwt)
 - Check the [documentation](https://vanillacore.tejaslamba.com)
-- Open a [discussion](https://github.com/TejasLamba2006/smp-core/discussions)
+- Open a [discussion](https://github.com/TejasLamba2006/vanilla-core/discussions)
 
 ---
 

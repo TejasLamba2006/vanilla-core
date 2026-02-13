@@ -17,7 +17,7 @@ If you discover a security vulnerability in Vanilla Core, please report it priva
 
 ### Preferred Method: Security Advisory
 
-1. Go to the [Security Advisory page](https://github.com/TejasLamba2006/smp-core/security/advisories)
+1. Go to the [Security Advisory page](https://github.com/TejasLamba2006/vanilla-core/security/advisories)
 2. Click "Report a vulnerability"
 3. Fill out the form with details about the vulnerability
 

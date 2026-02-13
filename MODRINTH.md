@@ -4,7 +4,7 @@
 All-in-one **open source** plugin for SMP servers. PvP balance, item limits, mob control, and more.
 </center>
 
-> **🎉 This is an open source project!** View the source code, contribute, or report issues on [GitHub](https://github.com/TejasLamba2006/smp-core).
+> **🎉 This is an open source project!** View the source code, contribute, or report issues on [GitHub](https://github.com/TejasLamba2006/vanilla-core).
 
 ---
 
@@ -62,8 +62,8 @@ The wiki includes:
 
 - **Discord**: [Join for support](https://discord.gg/7fQPG4Grwt)
 - **Documentation**: [Full wiki and guides](https://vanillacore.tejaslamba.com)
-- **Issues**: [Report bugs on GitHub](https://github.com/TejasLamba2006/smp-core/issues)
-- **Contribute**: [Open source on GitHub](https://github.com/TejasLamba2006/smp-core)
+- **Issues**: [Report bugs on GitHub](https://github.com/TejasLamba2006/vanilla-core/issues)
+- **Contribute**: [Open source on GitHub](https://github.com/TejasLamba2006/vanilla-core)
 - **Donate**: [Support development](https://paypal.me/tejaslamba)
 
 ---
@@ -72,9 +72,9 @@ The wiki includes:
 
 This plugin is open source! You can:
 
-- View and contribute to the code on [GitHub](https://github.com/TejasLamba2006/smp-core)
+- View and contribute to the code on [GitHub](https://github.com/TejasLamba2006/vanilla-core)
 - Report bugs and request features
 - Submit pull requests
 - Help improve documentation
 
-**License**: MIT License (see [LICENSE](https://github.com/TejasLamba2006/smp-core/blob/main/LICENSE))
+**License**: MIT License (see [LICENSE](https://github.com/TejasLamba2006/vanilla-core/blob/main/LICENSE))

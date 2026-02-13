@@ -81,7 +81,7 @@ If you find conflicts, please report them on GitHub.
 
 ### Can I suggest new features?
 
-Absolutely! Open an issue on [GitHub](https://github.com/TejasLamba2006/smp-core/issues) with your suggestion.
+Absolutely! Open an issue on [GitHub](https://github.com/TejasLamba2006/vanilla-core/issues) with your suggestion.
 
 ---
 
@@ -150,7 +150,7 @@ Using LuckPerms:
 
 ### Is Vanilla Core open source?
 
-Yes! View the source on [GitHub](https://github.com/TejasLamba2006/smp-core).
+Yes! View the source on [GitHub](https://github.com/TejasLamba2006/vanilla-core).
 
 ### Can I contribute?
 
@@ -174,5 +174,5 @@ Open an issue on [Discord server](https://discord.gg/7fQPG4Grwts) with:
 ## Still need help?
 
 - Check the [Documentation](/docs)
-- [Report an Issue on GitHub](https://github.com/TejasLamba2006/smp-core/issues)
+- [Report an Issue on GitHub](https://github.com/TejasLamba2006/vanilla-core/issues)
 - [Support Development via PayPal](https://paypal.me/tejaslamba) - Donors get priority support
