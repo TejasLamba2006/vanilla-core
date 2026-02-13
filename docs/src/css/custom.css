@@ -1,4 +1,4 @@
-/* SMP Core — Modern Docs Theme (recreated)
+/* Vanilla Core — Modern Docs Theme (recreated)
    - Modern gradients, smooth animations, accessible focus states
    - Responsive, mobile-first where appropriate
    - Minimal sidebar visual polish (no layout overrides)
@@ -142,7 +142,9 @@ button:focus-visible {
   border-radius: var(--radius-md);
   padding: 1.5rem;
   box-shadow: var(--shadow-sm);
-  transition: transform 240ms ease, box-shadow 240ms ease;
+  transition:
+    transform 240ms ease,
+    box-shadow 240ms ease;
 }
 .feature-card:hover {
   transform: translateY(-8px);
@@ -173,7 +175,9 @@ button:focus-visible {
   padding: 0.6rem 1rem;
   font-weight: 700;
   box-shadow: 0 8px 24px rgba(99, 102, 241, 0.12);
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
 }
 .button:hover {
   transform: translateY(-4px);
@@ -228,8 +232,8 @@ pre {
   overflow: auto;
 }
 code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
-    monospace;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
 }
 
 /* -----------------------
@@ -266,7 +270,9 @@ code {
 .navbar-sidebar .menu__link {
   padding: 0.65rem 1rem;
   border-radius: 8px;
-  transition: background 180ms ease, transform 160ms ease;
+  transition:
+    background 180ms ease,
+    transform 160ms ease;
 }
 .navbar-sidebar .menu__link:hover {
   background: rgba(255, 255, 255, 0.02);
@@ -483,7 +489,9 @@ code {
   border-radius: 10px;
   font-weight: 700;
   text-decoration: none !important;
-  transition: transform 200ms ease, box-shadow 200ms ease;
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
 }
 .download-button:hover {
   transform: translateY(-3px);

@@ -1,6 +1,6 @@
 # Support
 
-Thank you for using SMP Core! Here are the ways you can get support:
+Thank you for using Vanilla Core! Here are the ways you can get support:
 
 ## 📚 Documentation
 
@@ -62,7 +62,7 @@ Want to contribute? We welcome:
 
 Please have the following information ready:
 
-1. **SMP Core Version**: Check with `/smp` command or in `plugin.yml`
+1. **Vanilla Core Version**: Check with `/smp` command or in `plugin.yml`
 2. **Server Software**: Paper/Spigot version
 3. **Java Version**: Usually shown in console on startup
 4. **Config File**: Relevant parts of your `config.yml`
@@ -71,7 +71,7 @@ Please have the following information ready:
 
 ## ❌ What We Don't Support
 
-- Server setup/hosting issues unrelated to SMP Core
+- Server setup/hosting issues unrelated to Vanilla Core
 - Custom modifications to the plugin
 - Other plugins (unless related to compatibility)
 - Cracked/offline mode servers
@@ -79,10 +79,10 @@ Please have the following information ready:
 
 ## 💖 Donate
 
-If you find SMP Core helpful, consider supporting development:
+If you find Vanilla Core helpful, consider supporting development:
 
 **[PayPal](https://paypal.me/tejaslamba)**
 
 ---
 
-Thank you for being part of the SMP Core community! 🎉
+Thank you for being part of the Vanilla Core community! 🎉

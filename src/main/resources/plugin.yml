@@ -1,13 +1,13 @@
-name: smp-core
-main: com.tejaslamba.smpcore.Main
+name: Vanilla Core
+main: com.tejaslamba.vanillacore.Main
 version: 1.2.1
 api-version: 1.21
 softdepend: [WorldGuard]
 commands:
   smp:
-    description: SMP core command
+    description: Vanilla Core command
     usage: /smp [menu|reload|enchant|mace|netherite|infiniterestock]
-    aliases: [smpcore]
+    aliases: [vpt]
   end:
     description: End dimension lock commands
     usage: /end [open|close|status]

@@ -72,7 +72,7 @@ public class UpdateNotificationListener implements Listener {
                 .replace("{current}", currentVersion)
                 .replace("{latest}", latestVersion);
         String actionMessage = cdnManager.getUpdateNotificationActionMessage()
-                .replace("{url}", "https://modrinth.com/plugin/smpcore");
+                .replace("{url}", "https://modrinth.com/plugin/vanillacorewastaken");
 
         player.sendMessage("");
         player.sendMessage("§8§l§m                                              ");
@@ -83,7 +83,7 @@ public class UpdateNotificationListener implements Listener {
 
         TextComponent downloadMsg = new TextComponent("  ");
         TextComponent downloadBtn = new TextComponent("§a§l[DOWNLOAD]");
-        downloadBtn.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://modrinth.com/plugin/smpcore"));
+        downloadBtn.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://modrinth.com/plugin/vanillacorewastaken"));
         downloadBtn.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Click to open Modrinth")));
 
         TextComponent changelogBtn = new TextComponent(" §e§l[CHANGELOG]");
@@ -102,7 +102,7 @@ public class UpdateNotificationListener implements Listener {
 
     private void sendDisabledFeaturesWarning(Player player, Set<String> disabledFeatures, CDNManager cdnManager) {
         String disabledMessage = cdnManager.getDisabledMessage();
-        player.sendMessage("§c§l[SMP Core] §eWarning: §7Some features have been remotely disabled:");
+        player.sendMessage("§c§l[Vanilla Core] §eWarning: §7Some features have been remotely disabled:");
         for (String feature : disabledFeatures) {
             player.sendMessage("§7  - §c" + feature);
         }
@@ -111,7 +111,7 @@ public class UpdateNotificationListener implements Listener {
 
     private void sendMaintenanceWarning(Player player, CDNManager cdnManager) {
         String maintenanceMessage = cdnManager.getMaintenanceMessage();
-        player.sendMessage("§c§l[SMP Core] §eWarning: §7Plugin is in maintenance mode.");
+        player.sendMessage("§c§l[Vanilla Core] §eWarning: §7Plugin is in maintenance mode.");
         player.sendMessage("§7" + maintenanceMessage);
     }
 

@@ -182,7 +182,7 @@
             "defaultConfig": {
                 "enabled": false,
                 "notify-player": true,
-                "notify-message": "[SMP Core] Excess items removed: {item} x{amount} (limit: {limit})",
+                "notify-message": "[Vanilla Core] Excess items removed: {item} x{amount} (limit: {limit})",
                 "drop-excess": true,
                 "limits": {
                     "GOLDEN_APPLE": {

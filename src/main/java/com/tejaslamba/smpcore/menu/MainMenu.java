@@ -32,7 +32,7 @@ public class MainMenu extends BaseMenu {
 
     private static final String DISCORD_URL = "https://discord.gg/7fQPG4Grwt";
     private static final String WIKI_URL = "https://smpcore.tejaslamba.com";
-    private static final String MODRINTH_URL = "https://modrinth.com/plugin/smpcore";
+    private static final String MODRINTH_URL = "https://modrinth.com/plugin/vanillacorewastaken";
     private static final String PAYPAL_URL = "https://paypal.me/TejasLamba2006";
 
     private int currentPage = 0;
@@ -53,7 +53,7 @@ public class MainMenu extends BaseMenu {
 
     @Override
     protected Inventory createInventory() {
-        return Bukkit.createInventory(this, 54, "§6§lSMP Core Settings");
+        return Bukkit.createInventory(this, 54, "§6§lVanilla Core Settings");
     }
 
     public void setupItems() {
@@ -137,7 +137,7 @@ public class MainMenu extends BaseMenu {
             List<String> lore = new ArrayList<>();
             lore.add("");
             lore.add("§7View the full documentation");
-            lore.add("§7for SMP Core plugin.");
+            lore.add("§7for Vanilla Core plugin.");
             lore.add("");
             lore.add("§7Features, commands, configs,");
             lore.add("§7permissions and more!");
@@ -176,7 +176,7 @@ public class MainMenu extends BaseMenu {
             List<String> lore = new ArrayList<>();
             lore.add("");
             lore.add("§7We're always working on new");
-            lore.add("§7features for SMP Core!");
+            lore.add("§7features for Vanilla Core!");
             lore.add("");
             lore.add("§7Have a suggestion? Join our");
             lore.add("§7Discord and let us know!");
@@ -195,7 +195,7 @@ public class MainMenu extends BaseMenu {
             meta.setDisplayName("§6§lDonate");
             List<String> lore = new ArrayList<>();
             lore.add("");
-            lore.add("§7Support SMP Core development!");
+            lore.add("§7Support Vanilla Core development!");
             lore.add("");
             lore.add("§7Your donations help us:");
             lore.add("§a• §7Add new features faster");
@@ -310,9 +310,9 @@ public class MainMenu extends BaseMenu {
             ItemStack item = event.getCurrentItem();
             if (item != null && item.getType() == Material.NETHER_STAR) {
                 player.closeInventory();
-                player.sendMessage("§6§l[SMP Core] §7Download: §bhttps://modrinth.com/plugin/smpcore");
+                player.sendMessage("§6§l[Vanilla Core] §7Download: §bhttps://modrinth.com/plugin/vanillacorewastaken");
                 player.sendMessage(
-                        "§6§l[SMP Core] §7Config Builder: §b" + plugin.getCDNManager().getConfigBuilderUrl());
+                        "§6§l[Vanilla Core] §7Config Builder: §b" + plugin.getCDNManager().getConfigBuilderUrl());
                 return;
             }
         }
@@ -331,7 +331,7 @@ public class MainMenu extends BaseMenu {
 
         if (slot == 47) {
             player.closeInventory();
-            player.sendMessage("§b§l[SMP Core] §7Discord: §b" + DISCORD_URL);
+            player.sendMessage("§b§l[Vanilla Core] §7Discord: §b" + DISCORD_URL);
             return;
         }
 
@@ -339,13 +339,13 @@ public class MainMenu extends BaseMenu {
             player.closeInventory();
             CDNManager cdnManager = plugin.getCDNManager();
             String wikiUrl = cdnManager != null ? cdnManager.getDocumentationUrl() : WIKI_URL;
-            player.sendMessage("§a§l[SMP Core] §7Wiki: §a" + wikiUrl);
+            player.sendMessage("§a§l[Vanilla Core] §7Wiki: §a" + wikiUrl);
             return;
         }
 
         if (slot == 49) {
             player.closeInventory();
-            player.sendMessage("§2§l[SMP Core] §7Modrinth: §2" + MODRINTH_URL);
+            player.sendMessage("§2§l[Vanilla Core] §7Modrinth: §2" + MODRINTH_URL);
             return;
         }
 
@@ -359,9 +359,9 @@ public class MainMenu extends BaseMenu {
                 item.getItemMeta() != null &&
                 "§6§lDonate".equals(item.getItemMeta().getDisplayName())) {
             player.closeInventory();
-            player.sendMessage("§6§l[SMP Core] §7Thank you for considering a donation!");
-            player.sendMessage("§6§l[SMP Core] §7PayPal: §e" + PAYPAL_URL);
-            player.sendMessage("§7Your support helps keep SMP Core free and updated! §c❤");
+            player.sendMessage("§6§l[Vanilla Core] §7Thank you for considering a donation!");
+            player.sendMessage("§6§l[Vanilla Core] §7PayPal: §e" + PAYPAL_URL);
+            player.sendMessage("§7Your support helps keep Vanilla Core free and updated! §c❤");
             return;
         }
 

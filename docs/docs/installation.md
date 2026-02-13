@@ -4,22 +4,22 @@ sidebar_position: 2
 
 # Installation
 
-This guide covers everything you need to install and configure SMP Core on your Minecraft server.
+This guide covers everything you need to install and configure Vanilla Core on your Minecraft server.
 
 ## Server Requirements
 
-Before installing SMP Core, verify your server meets these requirements:
+Before installing Vanilla Core, verify your server meets these requirements:
 
 | Component | Minimum | Recommended | Notes |
 |-----------|---------|-------------|-------|
 | Server Software | Spigot 1.21.1 | Paper 1.21.1+ | Paper provides better performance and additional API features |
 | Java Version | Java 21 | Java 21+ | Minecraft 1.21.1 requires Java 21 |
-| RAM | 2GB | 4GB+ | SMP Core itself uses minimal memory |
+| RAM | 2GB | 4GB+ | Vanilla Core itself uses minimal memory |
 | WorldGuard | 7.0 | 7.0.9+ | Optional - only needed for Mob Manager region features |
 | WorldEdit | 7.3 | 7.3+ | Required if using WorldGuard |
 
 :::danger Java Version Check
-SMP Core will not load on servers running Java versions older than 21. Before troubleshooting any issues, verify your Java version:
+Vanilla Core will not load on servers running Java versions older than 21. Before troubleshooting any issues, verify your Java version:
 
 ```bash
 java -version
@@ -32,11 +32,11 @@ The output should show version 21 or higher.
 
 ### Step 1: Download the Plugin
 
-Download the latest version of SMP Core from one of these sources:
+Download the latest version of Vanilla Core from one of these sources:
 
-- [Modrinth](https://modrinth.com/plugin/smp-core) (Recommended)
+- [Modrinth](<https://modrinth.com/plugin/Vanilla> Core) (Recommended)
 
-The file will be named `smp-core-X.X.X.jar` where X.X.X is the version number.
+Download the JAR file for the latest version.
 
 ### Step 2: Stop Your Server
 
@@ -47,13 +47,13 @@ Before adding new plugins, always stop your server properly:
 ```
 
 :::warning Never Hot-Load Plugins
-Do not use plugin managers to load SMP Core while the server is running. Always stop the server, add the plugin, then start again. Hot-loading can cause memory leaks and unexpected behavior.
+Do not use plugin managers to load Vanilla Core while the server is running. Always stop the server, add the plugin, then start again. Hot-loading can cause memory leaks and unexpected behavior.
 :::
 
 ### Step 3: Add the Plugin File
 
 1. Navigate to your server's `plugins` folder
-2. Copy `smp-core-X.X.X.jar` into the folder
+2. Copy the downloaded JAR into the folder
 3. Do not rename the file
 
 ### Step 4: Start Your Server
@@ -61,27 +61,27 @@ Do not use plugin managers to load SMP Core while the server is running. Always 
 Start your server normally. During startup, watch for these console messages:
 
 ```
-[SMP-Core] Loading SMP-Core vX.X.X
-[SMP-Core] Enabling SMP-Core vX.X.X
-[SMP-Core] Configuration loaded successfully
-[SMP-Core] Loaded 12 features
-[SMP-Core] SMP Core has been enabled!
+[Vanilla Core] Loading Vanilla Core vX.X.X
+[Vanilla Core] Enabling Vanilla Core vX.X.X
+[Vanilla Core] Configuration loaded successfully
+[Vanilla Core] Loaded 12 features
+[Vanilla Core] Vanilla Core has been enabled!
 ```
 
 ### Step 5: Verify Installation
 
 Once the server is running, verify the installation:
 
-1. Run `/plugins` and confirm SMP-Core appears in green
+1. Run `/plugins` and confirm Vanilla Core appears in green
 2. Run `/smp` to open the configuration GUI
 3. Check the console for any error messages
 
 ## First-Time Configuration
 
-On first run, SMP Core creates these files in `plugins/SMP-Core/`:
+On first run, Vanilla Core creates these files in `plugins/Vanilla Core/`:
 
 ```
-plugins/SMP-Core/
+plugins/Vanilla Core/
 ├── config.yml      # Main configuration file
 ├── data/           # Feature-specific data storage
 │   ├── item-limits.yml
@@ -96,7 +96,7 @@ By default, all features are loaded but most are disabled. This allows you to en
 
 ### Configuration Methods
 
-You can configure SMP Core in two ways:
+You can configure Vanilla Core in two ways:
 
 **Method 1: In-Game GUI (Recommended for beginners)**
 
@@ -106,7 +106,7 @@ Run `/smp` to open the configuration GUI. This provides a visual interface for t
 
 **Method 2: Configuration Files**
 
-Edit `plugins/SMP-Core/config.yml` directly. This is faster for bulk changes and allows for comments and version control.
+Edit `plugins/Vanilla Core/config.yml` directly. This is faster for bulk changes and allows for comments and version control.
 
 After editing config files, run `/smp reload` to apply changes.
 
@@ -125,12 +125,12 @@ If you want to use region-based mob spawning control:
 The Mob Manager feature works without WorldGuard, but you can only control global mob spawning. Region-specific controls require WorldGuard.
 :::
 
-## Updating SMP Core
+## Updating Vanilla Core
 
 When a new version is released:
 
 1. Stop your server with `/stop`
-2. Delete the old `smp-core-X.X.X.jar` file from `plugins/`
+2. Delete the old plugin JAR from `plugins/`
 3. Add the new version's JAR file
 4. Start your server
 
@@ -149,7 +149,7 @@ Major version updates (like 1.x to 2.x) may include breaking changes. Always rea
 
 ### Plugin Doesn't Load
 
-**Symptom:** SMP-Core doesn't appear in `/plugins` or appears in red
+**Symptom:** Vanilla Core doesn't appear in `/plugins` or appears in red
 
 **Solutions:**
 
@@ -161,7 +161,7 @@ Major version updates (like 1.x to 2.x) may include breaking changes. Always rea
 
 ### Console Shows Errors on Startup
 
-**Symptom:** Red error messages mentioning SMP-Core during startup
+**Symptom:** Red error messages mentioning Vanilla Core during startup
 
 **Solutions:**
 
@@ -200,7 +200,7 @@ Major version updates (like 1.x to 2.x) may include breaking changes. Always rea
 **Solutions:**
 
 1. Stop the server properly with `/stop` (don't kill the process)
-2. Check file permissions on `plugins/SMP-Core/`
+2. Check file permissions on `plugins/Vanilla Core/`
 3. Verify disk space is available
 4. Look for write errors in the console during shutdown
 
@@ -218,7 +218,7 @@ Major version updates (like 1.x to 2.x) may include breaking changes. Always rea
 
 ### Known Plugin Conflicts
 
-SMP Core is designed to be compatible with most plugins. However, conflicts may occur with:
+Vanilla Core is designed to be compatible with most plugins. However, conflicts may occur with:
 
 - Other enchantment limiting plugins
 - Other item restriction plugins

@@ -4,14 +4,14 @@ sidebar_position: 4
 
 # Permissions
 
-SMP Core uses a hierarchical permission system. All permissions default to OP only, meaning regular players cannot access any features without explicit permission grants.
+Vanilla Core uses a hierarchical permission system. All permissions default to OP only, meaning regular players cannot access any features without explicit permission grants.
 
 ## Permission Defaults
 
-By default, SMP Core uses these permission levels:
+By default, Vanilla Core uses these permission levels:
 
 - **OP Players** - Full access to all commands and bypass permissions
-- **Regular Players** - No access to any SMP Core commands or bypasses
+- **Regular Players** - No access to any Vanilla Core commands or bypasses
 
 To change this behavior, use a permissions plugin like LuckPerms.
 
@@ -21,7 +21,7 @@ These permissions control access to the main plugin functions:
 
 | Permission | Description | Default |
 |------------|-------------|---------|
-| `smpcore.admin` | Full access to all SMP Core features and GUI | OP |
+| `smpcore.admin` | Full access to all Vanilla Core features and GUI | OP |
 | `smpcore.reload` | Ability to reload configuration files | OP |
 | `smpcore.gui` | Ability to open the main configuration GUI | OP |
 
@@ -86,7 +86,7 @@ Wildcard permissions grant all child permissions in a category:
 
 | Permission | Grants |
 |------------|--------|
-| `smpcore.*` | All SMP Core permissions |
+| `smpcore.*` | All Vanilla Core permissions |
 | `smpcore.bypass.*` | All bypass permissions |
 | `smpcore.nether.*` | All Nether-related permissions |
 | `smpcore.end.*` | All End-related permissions |
@@ -97,7 +97,7 @@ Wildcard permissions grant all child permissions in a category:
 
 ### Full Staff Access
 
-Give staff members complete access to manage SMP Core:
+Give staff members complete access to manage Vanilla Core:
 
 ```
 /lp group staff permission set smpcore.admin true

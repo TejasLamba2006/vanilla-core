@@ -4,14 +4,14 @@ sidebar_position: 10
 
 # Configuration
 
-Complete configuration reference for SMP Core.
+Complete configuration reference for Vanilla Core.
 
 ## Config File Location
 
 The main configuration file is located at:
 
 ```
-plugins/SMP-Core/config.yml
+plugins/Vanilla Core/config.yml
 ```
 
 All plugin settings are stored in this single file. The file is automatically created with default values on first server start.
@@ -29,14 +29,14 @@ The configuration is organized into logical sections:
 
 ```yaml
 plugin:
-  name: "SMP Core"
+  name: "Vanilla Core"
   prefix: "§8[§6SMP§8]§r"
   verbose: false
 ```
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `name` | string | "SMP Core" | Plugin display name |
+| `name` | string | "Vanilla Core" | Plugin display name |
 | `prefix` | string | "§8[§6SMP§8]§r" | Prefix for chat messages |
 | `verbose` | boolean | false | Enable verbose logging for debugging |
 
@@ -61,12 +61,12 @@ Below is the complete default configuration with all options:
 
 ```yaml
 # ============================================
-# SMP Core Configuration
+# Vanilla Core Configuration
 # ============================================
 config-version: 2
 
 plugin:
-  name: "SMP Core"
+  name: "Vanilla Core"
   prefix: "§8[§6SMP§8]§r"
   verbose: false
 
@@ -171,7 +171,7 @@ features:
   item-limiter:
     enabled: false
     notify-player: true
-    notify-message: "§c[SMP Core] §7Excess items removed: {item} x{amount} (limit: {limit})"
+    notify-message: "§c[Vanilla Core] §7Excess items removed: {item} x{amount} (limit: {limit})"
     drop-excess: true
     limits:
       GOLDEN_APPLE:
@@ -339,7 +339,7 @@ Before making significant changes:
 ### Manual Backup
 
 ```bash
-cp plugins/SMP-Core/config.yml plugins/SMP-Core/config.yml.backup
+cp plugins/Vanilla Core/config.yml plugins/Vanilla Core/config.yml.backup
 ```
 
 ## Troubleshooting Config Issues

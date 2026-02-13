@@ -1,6 +1,6 @@
-# Contributing to SMP Core
+# Contributing to Vanilla Core
 
-First off, thank you for considering contributing to SMP Core! It's people like you that make this plugin better for everyone.
+First off, thank you for considering contributing to Vanilla Core! It's people like you that make this plugin better for everyone.
 
 ## Table of Contents
 
@@ -43,7 +43,7 @@ When reporting:
 
 Before suggesting a feature:
 
-- Check if it aligns with SMP Core's purpose (SMP server management)
+- Check if it aligns with Vanilla Core's purpose (SMP server management)
 - Check existing feature requests
 - Consider if it can be implemented modularly
 
@@ -280,4 +280,4 @@ When adding features:
 
 ---
 
-Thank you for contributing to SMP Core! 🎉
+Thank you for contributing to Vanilla Core! 🎉

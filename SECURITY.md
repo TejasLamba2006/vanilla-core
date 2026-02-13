@@ -13,7 +13,7 @@ We release patches for security vulnerabilities for the following versions:
 
 **Please do not report security vulnerabilities through public GitHub issues.**
 
-If you discover a security vulnerability in SMP Core, please report it privately:
+If you discover a security vulnerability in Vanilla Core, please report it privately:
 
 ### Preferred Method: Security Advisory
 
@@ -54,7 +54,7 @@ Please include the following information:
 
 ## Security Best Practices for Users
 
-When using SMP Core:
+When using Vanilla Core:
 
 1. **Keep Updated**: Always use the latest version
 2. **Review Permissions**: Carefully configure command permissions
@@ -70,4 +70,4 @@ When using SMP Core:
 
 ---
 
-Thank you for helping keep SMP Core and its users safe!
+Thank you for helping keep Vanilla Core and its users safe!

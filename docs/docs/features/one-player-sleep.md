@@ -53,7 +53,7 @@ Set either message to empty (`""`) to disable that message.
 
 ## How It Works
 
-When enabled, SMP Core modifies Minecraft's `playersSleepingPercentage` gamerule:
+When enabled, Vanilla Core modifies Minecraft's `playersSleepingPercentage` gamerule:
 
 - **Enabled**: Sets `playersSleepingPercentage` to `0` (only 1 player needed)
 - **Disabled**: Resets to `100` (all players must sleep)
@@ -131,4 +131,4 @@ Using the `playersSleepingPercentage` gamerule provides several benefits:
 
 ## Integration with Other Features
 
-This is a standalone feature that works independently. No configuration needed with other SMP Core features.
+This is a standalone feature that works independently. No configuration needed with other Vanilla Core features.

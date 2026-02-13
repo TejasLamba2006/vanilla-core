@@ -1,14 +1,14 @@
-# SMP Core
+# Vanilla Core
 
 [![Build Status](https://github.com/TejasLamba2006/smp-core/actions/workflows/build.yml/badge.svg)](https://github.com/TejasLamba2006/smp-core/actions/workflows/build.yml)
 [![CodeQL](https://github.com/TejasLamba2006/smp-core/actions/workflows/codeql.yml/badge.svg)](https://github.com/TejasLamba2006/smp-core/actions/workflows/codeql.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Modrinth](https://img.shields.io/modrinth/dt/GH4H8ndx?logo=modrinth&label=downloads)](https://modrinth.com/plugin/smpcore)
+[![Modrinth](https://img.shields.io/modrinth/dt/GH4H8ndx?logo=modrinth&label=downloads)](https://modrinth.com/plugin/vanillacorewastaken)
 [![Discord](https://img.shields.io/discord/YOUR_DISCORD_ID?logo=discord&label=discord)](https://discord.gg/7fQPG4Grwt)
 
 A comprehensive Minecraft plugin for SMP servers focused on **PvP balance**, **custom mechanics**, and **server management**. Built for Paper/Spigot 1.21.1+.
 
-<!-- ![SMP Core Feature List](features.png) -->
+<!-- ![Vanilla Core Feature List](features.png) -->
 
 > **🎉 Open Source!** This project is now open source. We welcome contributions from the community!
 
@@ -80,10 +80,10 @@ A comprehensive Minecraft plugin for SMP servers focused on **PvP balance**, **c
 
 ### For Server Owners
 
-1. Download from [Modrinth](https://modrinth.com/plugin/smpcore)
-2. Place `SMP-Core.jar` in your server's `plugins` folder
+1. Download from [Modrinth](https://modrinth.com/plugin/vanillacorewastaken)
+2. Place the JAR in your server's `plugins` folder
 3. Restart or reload your server
-4. Configure features in `plugins/SMP-Core/config.yml`
+4. Configure features in your plugin folder `config.yml`
 5. Use `/smp reload` to apply changes or `/smp` to use the GUI
 
 ### For Developers

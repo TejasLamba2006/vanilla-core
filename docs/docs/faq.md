@@ -4,25 +4,25 @@ sidebar_position: 12
 
 # FAQ
 
-Frequently asked questions about SMP Core.
+Frequently asked questions about Vanilla Core.
 
 ## General
 
-### What versions does SMP Core support?
+### What versions does Vanilla Core support?
 
-SMP Core supports **Paper/Spigot 1.21.1+** with **Java 21+**.
+Vanilla Core supports **Paper/Spigot 1.21.1+** with **Java 21+**.
 
 ### Does it work with Spigot?
 
 Yes, but **Paper is recommended** for better performance and more features.
 
-### Is SMP Core free?
+### Is Vanilla Core free?
 
-Yes! SMP Core is completely free and open source.
+Yes! Vanilla Core is completely free and open source.
 
 ### Where can I download it?
 
-- [Modrinth](https://modrinth.com/plugin/smp-core) (Recommended)
+- [Modrinth](<https://modrinth.com/plugin/Vanilla> Core) (Recommended)
 
 ---
 
@@ -42,7 +42,7 @@ Check the following:
 The config is generated on first run. Ensure:
 
 1. The plugin loaded successfully
-2. Check `plugins/SMP-Core/` folder
+2. Check `plugins/Vanilla Core/` folder
 3. Look for console errors during startup
 
 ### How do I update?
@@ -69,7 +69,7 @@ Yes! Every feature can be individually enabled/disabled.
 
 ### Does it conflict with other plugins?
 
-SMP Core is designed to be compatible with most plugins. Known compatible plugins:
+Vanilla Core is designed to be compatible with most plugins. Known compatible plugins:
 
 - EssentialsX
 - LuckPerms
@@ -89,7 +89,7 @@ Absolutely! Open an issue on [GitHub](https://github.com/TejasLamba2006/smp-core
 
 ### Will this lag my server?
 
-No! SMP Core is optimized for performance:
+No! Vanilla Core is optimized for performance:
 
 - Event listeners use early returns
 - Cooldowns prevent spam checks
@@ -98,7 +98,7 @@ No! SMP Core is optimized for performance:
 
 ### How much RAM does it use?
 
-SMP Core has a minimal memory footprint, typically under 10MB.
+Vanilla Core has a minimal memory footprint, typically under 10MB.
 
 ---
 
@@ -148,7 +148,7 @@ Using LuckPerms:
 
 ## Development
 
-### Is SMP Core open source?
+### Is Vanilla Core open source?
 
 Yes! View the source on [GitHub](https://github.com/TejasLamba2006/smp-core).
 

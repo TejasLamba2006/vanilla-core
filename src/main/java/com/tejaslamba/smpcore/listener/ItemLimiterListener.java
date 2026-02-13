@@ -58,7 +58,7 @@ public class ItemLimiterListener implements Listener {
 
         if (limit == 0) {
             event.setCancelled(true);
-            manager.sendCooldownMessage(player, "§c[SMP Core] §7This item is completely banned");
+            manager.sendCooldownMessage(player, "§c[Vanilla Core] §7This item is completely banned");
             return;
         }
 
@@ -71,7 +71,7 @@ public class ItemLimiterListener implements Listener {
             if (canPickup <= 0) {
                 event.setCancelled(true);
                 manager.sendCooldownMessage(player,
-                        "§c[SMP Core] §7You have reached the limit of " + limit + " for this item");
+                        "§c[Vanilla Core] §7You have reached the limit of " + limit + " for this item");
             } else if (canPickup < pickedUpItem.getAmount()) {
                 event.setCancelled(true);
 
@@ -93,7 +93,7 @@ public class ItemLimiterListener implements Listener {
                     event.getItem().setItemStack(originalItem);
                 }
 
-                manager.sendCooldownMessage(player, "§e[SMP Core] §7You can only pick up " + canPickup
+                manager.sendCooldownMessage(player, "§e[Vanilla Core] §7You can only pick up " + canPickup
                         + " more of this item (limit: " + limit + ")");
             }
         }
@@ -145,7 +145,7 @@ public class ItemLimiterListener implements Listener {
 
         if (limit == 0) {
             event.setCancelled(true);
-            manager.sendCooldownMessage(player, "§c[SMP Core] §7This item is completely banned");
+            manager.sendCooldownMessage(player, "§c[Vanilla Core] §7This item is completely banned");
             return;
         }
 
@@ -155,14 +155,14 @@ public class ItemLimiterListener implements Listener {
             if (currentCount + clickedItem.getAmount() > limit) {
                 event.setCancelled(true);
                 manager.sendCooldownMessage(player,
-                        "§c[SMP Core] §7This would exceed your limit of " + limit + " for this item");
+                        "§c[Vanilla Core] §7This would exceed your limit of " + limit + " for this item");
             }
         } else {
             int amountToAdd = event.isLeftClick() ? clickedItem.getAmount() : (clickedItem.getAmount() + 1) / 2;
             if (currentCount + amountToAdd > limit) {
                 event.setCancelled(true);
                 manager.sendCooldownMessage(player,
-                        "§c[SMP Core] §7This would exceed your limit of " + limit + " for this item");
+                        "§c[Vanilla Core] §7This would exceed your limit of " + limit + " for this item");
             }
         }
     }

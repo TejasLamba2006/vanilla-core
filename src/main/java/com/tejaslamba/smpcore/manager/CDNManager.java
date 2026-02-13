@@ -48,10 +48,10 @@ public class CDNManager {
         this.disabledFeatures = new HashSet<>();
         this.maintenanceMode = false;
         this.disabledMessage = "This feature has been temporarily disabled by the plugin author.";
-        this.maintenanceMessage = "SMP Core is currently in maintenance mode. Please try again later.";
+        this.maintenanceMessage = "Vanilla Core is currently in maintenance mode. Please try again later.";
         this.updateNotificationEnabled = true;
         this.updateNotificationPermission = "smpcore.admin";
-        this.updateNotificationTitle = "SMP Core Update";
+        this.updateNotificationTitle = "Vanilla Core Update";
         this.updateNotificationMessage = "A new version is available! Current: {current}, Latest: {latest}";
         this.updateNotificationActionMessage = "Visit {url} to download";
         this.lastFetch = 0;
@@ -169,7 +169,7 @@ public class CDNManager {
             conn.setRequestMethod("GET");
             conn.setConnectTimeout(TIMEOUT_MS);
             conn.setReadTimeout(TIMEOUT_MS);
-            conn.setRequestProperty("User-Agent", "SMPCore/" + plugin.getDescription().getVersion());
+            conn.setRequestProperty("User-Agent", "Vanilla Core/" + plugin.getDescription().getVersion());
 
             if (conn.getResponseCode() != 200) {
                 return null;

@@ -40,7 +40,7 @@
         <configuration>
           <archive>
             <manifestEntries>
-              <Built-By>SMP Core Team</Built-By>
+              <Built-By>Vanilla Core</Built-By>
             </manifestEntries>
           </archive>
         </configuration>

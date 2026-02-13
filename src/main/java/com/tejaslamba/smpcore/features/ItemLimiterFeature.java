@@ -437,15 +437,15 @@ public class ItemLimiterFeature extends BaseFeature {
                     int limitToUse = session.banMode ? 0 : session.limit;
                     manager.addItemLimit(session.item, limitToUse);
                     if (session.banMode) {
-                        player.sendMessage("§a[SMP Core] §7Item banned successfully!");
+                        player.sendMessage("§a[Vanilla Core] §7Item banned successfully!");
                     } else {
-                        player.sendMessage("§a[SMP Core] §7Item limit added successfully!");
+                        player.sendMessage("§a[Vanilla Core] §7Item limit added successfully!");
                     }
                     player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
                     sessions.remove(player.getUniqueId());
                     player.closeInventory();
                 } else {
-                    player.sendMessage("§c[SMP Core] §7Please set an item first!");
+                    player.sendMessage("§c[Vanilla Core] §7Please set an item first!");
                     player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0F, 1.0F);
                 }
             }
@@ -467,9 +467,9 @@ public class ItemLimiterFeature extends BaseFeature {
             keepSession.put(player.getUniqueId(), true);
             openAddItemGui(player);
             if (session.banMode) {
-                player.sendMessage("§a[SMP Core] §7Item placed! Click confirm to ban it.");
+                player.sendMessage("§a[Vanilla Core] §7Item placed! Click confirm to ban it.");
             } else {
-                player.sendMessage("§a[SMP Core] §7Item placed! Now set the limit amount.");
+                player.sendMessage("§a[Vanilla Core] §7Item placed! Now set the limit amount.");
             }
             player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 0.5F, 1.0F);
         } else if (currentItem != null && currentItem.getType() != Material.AIR
@@ -480,7 +480,7 @@ public class ItemLimiterFeature extends BaseFeature {
                 session.item = null;
                 keepSession.put(player.getUniqueId(), true);
                 openAddItemGui(player);
-                player.sendMessage("§e[SMP Core] §7Item removed.");
+                player.sendMessage("§e[Vanilla Core] §7Item removed.");
                 player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 0.5F, 1.0F);
             }
         } else {
@@ -512,7 +512,7 @@ public class ItemLimiterFeature extends BaseFeature {
 
         if (isShiftClick && isLeftClick) {
             manager.removeItemLimit(key);
-            player.sendMessage("§c[SMP Core] §7Item limit removed!");
+            player.sendMessage("§c[Vanilla Core] §7Item limit removed!");
             player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
             openViewLimits(player);
         } else if (isLeftClick) {
@@ -546,7 +546,7 @@ public class ItemLimiterFeature extends BaseFeature {
 
         if (isShiftClick && isLeftClick) {
             manager.removeItemLimit(key);
-            player.sendMessage("§c[SMP Core] §7Banned item removed!");
+            player.sendMessage("§c[Vanilla Core] §7Banned item removed!");
             player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
             openBannedItems(player);
         } else if (isLeftClick) {
@@ -559,7 +559,7 @@ public class ItemLimiterFeature extends BaseFeature {
     private void openEditBannedChatInput(Player player, String key) {
         ItemLimit limit = manager.getItemLimit(key);
         if (limit == null) {
-            player.sendMessage("§c[SMP Core] §7Banned item not found!");
+            player.sendMessage("§c[Vanilla Core] §7Banned item not found!");
             openBannedItems(player);
             return;
         }
@@ -576,7 +576,7 @@ public class ItemLimiterFeature extends BaseFeature {
             editingSessions.remove(p.getUniqueId());
 
             if (input.equalsIgnoreCase("cancel")) {
-                p.sendMessage("§c[SMP Core] §7Input cancelled.");
+                p.sendMessage("§c[Vanilla Core] §7Input cancelled.");
                 Bukkit.getScheduler().runTask(plugin, () -> openBannedItems(p));
                 return;
             }
@@ -584,21 +584,21 @@ public class ItemLimiterFeature extends BaseFeature {
             try {
                 int newLimit = Integer.parseInt(input.trim());
                 if (newLimit < 0 || newLimit > 64000) {
-                    p.sendMessage("§c[SMP Core] §7Invalid number! Must be between 0 and 64000");
+                    p.sendMessage("§c[Vanilla Core] §7Invalid number! Must be between 0 and 64000");
                     Bukkit.getScheduler().runTask(plugin, () -> openBannedItems(p));
                     return;
                 }
 
                 manager.updateItemLimit(key, newLimit);
                 if (newLimit == 0) {
-                    p.sendMessage("§a[SMP Core] §7Item remains banned");
+                    p.sendMessage("§a[Vanilla Core] §7Item remains banned");
                 } else {
-                    p.sendMessage("§a[SMP Core] §7Item unbanned with limit: " + newLimit);
+                    p.sendMessage("§a[Vanilla Core] §7Item unbanned with limit: " + newLimit);
                 }
                 p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
                 Bukkit.getScheduler().runTask(plugin, () -> openBannedItems(p));
             } catch (NumberFormatException e) {
-                p.sendMessage("§c[SMP Core] §7Please enter a valid number!");
+                p.sendMessage("§c[Vanilla Core] §7Please enter a valid number!");
                 Bukkit.getScheduler().runTask(plugin, () -> openBannedItems(p));
             }
         });
@@ -614,7 +614,7 @@ public class ItemLimiterFeature extends BaseFeature {
 
         plugin.getChatInputManager().requestInput(player, (p, input) -> {
             if (input.equalsIgnoreCase("cancel")) {
-                p.sendMessage("§c[SMP Core] §7Input cancelled.");
+                p.sendMessage("§c[Vanilla Core] §7Input cancelled.");
                 Bukkit.getScheduler().runTask(plugin, () -> openAddItemGui(p));
                 return;
             }
@@ -622,7 +622,7 @@ public class ItemLimiterFeature extends BaseFeature {
             try {
                 int limit = Integer.parseInt(input.trim());
                 if (limit < 0 || limit > 64000) {
-                    p.sendMessage("§c[SMP Core] §7Invalid number! Must be between 0 and 64000");
+                    p.sendMessage("§c[Vanilla Core] §7Invalid number! Must be between 0 and 64000");
                     Bukkit.getScheduler().runTask(plugin, () -> openAddItemGui(p));
                     return;
                 }
@@ -637,10 +637,10 @@ public class ItemLimiterFeature extends BaseFeature {
                 }
                 currentSession.limit = limit;
 
-                p.sendMessage("§a[SMP Core] §7Limit set to: " + limit);
+                p.sendMessage("§a[Vanilla Core] §7Limit set to: " + limit);
                 Bukkit.getScheduler().runTask(plugin, () -> openAddItemGui(p));
             } catch (NumberFormatException e) {
-                p.sendMessage("§c[SMP Core] §7Please enter a valid number!");
+                p.sendMessage("§c[Vanilla Core] §7Please enter a valid number!");
                 Bukkit.getScheduler().runTask(plugin, () -> openAddItemGui(p));
             }
         });
@@ -649,7 +649,7 @@ public class ItemLimiterFeature extends BaseFeature {
     private void openEditChatInput(Player player, String key) {
         ItemLimit limit = manager.getItemLimit(key);
         if (limit == null) {
-            player.sendMessage("§c[SMP Core] §7Item limit not found!");
+            player.sendMessage("§c[Vanilla Core] §7Item limit not found!");
             openViewLimits(player);
             return;
         }
@@ -666,7 +666,7 @@ public class ItemLimiterFeature extends BaseFeature {
             editingSessions.remove(p.getUniqueId());
 
             if (input.equalsIgnoreCase("cancel")) {
-                p.sendMessage("§c[SMP Core] §7Input cancelled.");
+                p.sendMessage("§c[Vanilla Core] §7Input cancelled.");
                 Bukkit.getScheduler().runTask(plugin, () -> openViewLimits(p));
                 return;
             }
@@ -674,17 +674,17 @@ public class ItemLimiterFeature extends BaseFeature {
             try {
                 int newLimit = Integer.parseInt(input.trim());
                 if (newLimit < 0 || newLimit > 64000) {
-                    p.sendMessage("§c[SMP Core] §7Invalid number! Must be between 0 and 64000");
+                    p.sendMessage("§c[Vanilla Core] §7Invalid number! Must be between 0 and 64000");
                     Bukkit.getScheduler().runTask(plugin, () -> openViewLimits(p));
                     return;
                 }
 
                 manager.updateItemLimit(key, newLimit);
-                p.sendMessage("§a[SMP Core] §7Limit updated to " + newLimit);
+                p.sendMessage("§a[Vanilla Core] §7Limit updated to " + newLimit);
                 p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
                 Bukkit.getScheduler().runTask(plugin, () -> openViewLimits(p));
             } catch (NumberFormatException e) {
-                p.sendMessage("§c[SMP Core] §7Please enter a valid number!");
+                p.sendMessage("§c[Vanilla Core] §7Please enter a valid number!");
                 Bukkit.getScheduler().runTask(plugin, () -> openViewLimits(p));
             }
         });

@@ -328,7 +328,7 @@ public class InfiniteRestockFeature extends BaseFeature {
 
         plugin.getChatInputManager().requestInput(player, (p, input) -> {
             if (input.equalsIgnoreCase("cancel")) {
-                p.sendMessage("§c[SMP Core] §7Input cancelled.");
+                p.sendMessage("§c[Vanilla Core] §7Input cancelled.");
                 Bukkit.getScheduler().runTask(plugin, () -> openRestockGUI(p));
                 return;
             }
@@ -336,15 +336,15 @@ public class InfiniteRestockFeature extends BaseFeature {
             try {
                 int value = Integer.parseInt(input.trim());
                 if (value < 0 || value > 64000) {
-                    p.sendMessage("§c[SMP Core] §7Invalid number! Must be between 0 and 64000");
+                    p.sendMessage("§c[Vanilla Core] §7Invalid number! Must be between 0 and 64000");
                     Bukkit.getScheduler().runTask(plugin, () -> openRestockGUI(p));
                     return;
                 }
                 manager.setMaxTrades(value);
-                p.sendMessage("§a[SMP Core] §7Max trades set to: " + value);
+                p.sendMessage("§a[Vanilla Core] §7Max trades set to: " + value);
                 Bukkit.getScheduler().runTask(plugin, () -> openRestockGUI(p));
             } catch (NumberFormatException e) {
-                p.sendMessage("§c[SMP Core] §7Please enter a valid number!");
+                p.sendMessage("§c[Vanilla Core] §7Please enter a valid number!");
                 Bukkit.getScheduler().runTask(plugin, () -> openRestockGUI(p));
             }
         });

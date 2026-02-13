@@ -4,7 +4,7 @@ import Link from '@docusaurus/Link';
 import styles from './changelog.module.css';
 
 const PROJECT_ID = 'GH4H8ndx';
-const PROJECT_SLUG = 'smpcore';
+const PROJECT_SLUG = 'Vanilla Core';
 const API_BASE = 'https://api.modrinth.com/v2';
 
 function formatDate(dateString) {
@@ -39,7 +39,7 @@ function ChangelogPage() {
 
     useEffect(() => {
         fetch(`${API_BASE}/project/${PROJECT_ID}/version`, {
-            headers: { 'User-Agent': 'TejasLamba2006/smp-core-docs' }
+            headers: { 'User-Agent': 'TejasLamba2006/Vanilla Core-docs' }
         })
             .then(res => res.json())
             .then(data => {
@@ -77,7 +77,7 @@ function ChangelogPage() {
     };
 
     return (
-        <Layout title="Changelog" description="Track all updates and improvements to SMP Core">
+        <Layout title="Changelog" description="Track all updates and improvements to Vanilla Core">
             <section className={styles.changelogSection}>
                 <div className={styles.bgGradient} />
                 <div className={styles.bgGlow} />
@@ -85,7 +85,7 @@ function ChangelogPage() {
                 <div className="container">
                     <div className={styles.header}>
                         <h1 className={styles.title}>Changelog</h1>
-                        <p className={styles.subtitle}>Track all updates and improvements to SMP Core.</p>
+                        <p className={styles.subtitle}>Track all updates and improvements to Vanilla Core.</p>
                     </div>
 
                     {loading ? (

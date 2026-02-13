@@ -111,7 +111,7 @@ public abstract class BaseFeature implements Feature {
             if (plugin.getCDNManager() != null) {
                 message = plugin.getCDNManager().getDisabledMessage();
             }
-            player.sendMessage("§c[SMP Core] §7" + message);
+            player.sendMessage("§c[Vanilla Core] §7" + message);
             return;
         }
 
@@ -120,7 +120,7 @@ public abstract class BaseFeature implements Feature {
             if (plugin.getCDNManager() != null) {
                 message = plugin.getCDNManager().getMaintenanceMessage();
             }
-            player.sendMessage("§c[SMP Core] §7" + message);
+            player.sendMessage("§c[Vanilla Core] §7" + message);
             return;
         }
 

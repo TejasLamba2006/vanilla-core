@@ -1,6 +1,6 @@
 # License
 
-SMP Core is licensed under the **MIT License**, a permissive open-source license that allows you to freely use, modify, and distribute the software.
+Vanilla Core is licensed under the **MIT License**, a permissive open-source license that allows you to freely use, modify, and distribute the software.
 
 :::tip Open Source
 This project is now **fully open source**! You can:
@@ -14,7 +14,7 @@ This project is now **fully open source**! You can:
 :::info Official Downloads
 **Download the plugin from official sources:**
 
-- **[Modrinth](https://modrinth.com/plugin/smpcore)** - Recommended
+- **[Modrinth](<https://modrinth.com/plugin/Vanilla> Core)** - Recommended
 - **[GitHub Releases](https://github.com/TejasLamba2006/smp-core/releases)** - Direct from source
 
 While you can build from source, we recommend using official builds for stability and automatic updates.
@@ -71,7 +71,7 @@ SOFTWARE.
 
 ## Contributing
 
-When you contribute to SMP Core:
+When you contribute to Vanilla Core:
 
 - Your contributions will be licensed under the MIT License
 - You retain copyright to your contributions

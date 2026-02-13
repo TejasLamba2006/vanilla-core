@@ -1,5 +1,10 @@
 package com.tejaslamba.smpcore;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bstats.bukkit.Metrics;
 import com.tejaslamba.smpcore.manager.CommandManager;
@@ -32,6 +37,8 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        migrateDataFolderIfNeeded();
+
         int bStatsId = 28654;
         new Metrics(this, bStatsId);
 
@@ -60,8 +67,65 @@ public class Main extends JavaPlugin {
         updateNotificationListener = new UpdateNotificationListener(this);
         getServer().getPluginManager().registerEvents(updateNotificationListener, this);
 
-        getLogger().info("SMP Core has been enabled!");
+        getLogger().info("Vanilla Core has been enabled!");
         getLogger().info("Config Builder: https://smpcore.tejaslamba.com/config-builder");
+    }
+
+    private void migrateDataFolderIfNeeded() {
+        File newDataFolder = getDataFolder();
+        File newConfigFile = new File(newDataFolder, "config.yml");
+        if (newConfigFile.exists()) {
+            return;
+        }
+
+        File pluginsFolder = newDataFolder.getParentFile();
+        if (pluginsFolder == null || !pluginsFolder.isDirectory()) {
+            return;
+        }
+
+        String[] oldFolderNames = { "smp-core", "SMP-Core", "SMPCore", "smpcore", "SMPcore" };
+        File oldDataFolder = null;
+        for (String oldFolderName : oldFolderNames) {
+            File candidate = new File(pluginsFolder, oldFolderName);
+            if (candidate.isDirectory() && new File(candidate, "config.yml").exists()) {
+                oldDataFolder = candidate;
+                break;
+            }
+        }
+
+        if (oldDataFolder == null) {
+            return;
+        }
+
+        try {
+            Path sourceRoot = oldDataFolder.toPath();
+            Path targetRoot = newDataFolder.toPath();
+
+            Files.walk(sourceRoot).forEach(sourcePath -> {
+                try {
+                    Path relative = sourceRoot.relativize(sourcePath);
+                    Path targetPath = targetRoot.resolve(relative);
+
+                    if (Files.isDirectory(sourcePath)) {
+                        Files.createDirectories(targetPath);
+                        return;
+                    }
+
+                    if (Files.exists(targetPath)) {
+                        return;
+                    }
+
+                    Files.createDirectories(targetPath.getParent());
+                    Files.copy(sourcePath, targetPath);
+                } catch (IOException e) {
+                    getLogger().warning("Failed migrating file: " + sourcePath + " (" + e.getMessage() + ")");
+                }
+            });
+
+            getLogger().info("Migrated data folder from " + oldDataFolder.getName() + " to " + newDataFolder.getName());
+        } catch (IOException e) {
+            getLogger().warning("Failed migrating plugin data folder (" + e.getMessage() + ")");
+        }
     }
 
     @Override
@@ -75,7 +139,7 @@ public class Main extends JavaPlugin {
         if (menuManager != null) {
             menuManager.shutdown();
         }
-        getLogger().info("SMP Core has been disabled!");
+        getLogger().info("Vanilla Core has been disabled!");
     }
 
     public void refreshVerbose() {

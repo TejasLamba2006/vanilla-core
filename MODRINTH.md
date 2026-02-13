@@ -1,4 +1,4 @@
-# SMP Core
+# Vanilla Core
 
 <center>
 All-in-one **open source** plugin for SMP servers. PvP balance, item limits, mob control, and more.
@@ -8,9 +8,9 @@ All-in-one **open source** plugin for SMP servers. PvP balance, item limits, mob
 
 ---
 
-## What is SMP Core?
+## What is Vanilla Core?
 
-Instead of running 10+ different plugins, SMP Core handles most of what you need for an SMP:
+Instead of running 10+ different plugins, Vanilla Core handles most of what you need for an SMP:
 
 - **PvP Balance** - Gap limits, mace limits, enchantment caps
 - **Gear Control** - Disable netherite, limit enchantments

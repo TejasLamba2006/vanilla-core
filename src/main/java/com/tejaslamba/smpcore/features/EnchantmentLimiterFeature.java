@@ -307,18 +307,18 @@ public class EnchantmentLimiterFeature extends BaseFeature {
 
         if (isMiddleClick) {
             manager.setLimit(enchantName, -1);
-            player.sendMessage("§a[SMP Core] §7Removed limit for " + manager.getEnchantDisplayName(enchant));
+            player.sendMessage("§a[Vanilla Core] §7Removed limit for " + manager.getEnchantDisplayName(enchant));
             return;
         }
 
         if (isShiftClick) {
             if (isLeftClick) {
                 manager.setLimit(enchantName, enchant.getMaxLevel());
-                player.sendMessage("§a[SMP Core] §7Set " + manager.getEnchantDisplayName(enchant)
+                player.sendMessage("§a[Vanilla Core] §7Set " + manager.getEnchantDisplayName(enchant)
                         + " to max level: " + enchant.getMaxLevel());
             } else if (isRightClick) {
                 manager.setLimit(enchantName, 0);
-                player.sendMessage("§c[SMP Core] §7Banned " + manager.getEnchantDisplayName(enchant));
+                player.sendMessage("§c[Vanilla Core] §7Banned " + manager.getEnchantDisplayName(enchant));
             }
             return;
         }
@@ -331,7 +331,7 @@ public class EnchantmentLimiterFeature extends BaseFeature {
                 newLimit = Math.min(currentLimit + 1, 255);
             }
             manager.setLimit(enchantName, newLimit);
-            player.sendMessage("§a[SMP Core] §7Increased " + manager.getEnchantDisplayName(enchant)
+            player.sendMessage("§a[Vanilla Core] §7Increased " + manager.getEnchantDisplayName(enchant)
                     + " limit to: " + newLimit);
         } else if (isRightClick) {
             if (currentLimit < 0) {
@@ -341,9 +341,9 @@ public class EnchantmentLimiterFeature extends BaseFeature {
             }
             manager.setLimit(enchantName, newLimit);
             if (newLimit == 0) {
-                player.sendMessage("§c[SMP Core] §7Banned " + manager.getEnchantDisplayName(enchant));
+                player.sendMessage("§c[Vanilla Core] §7Banned " + manager.getEnchantDisplayName(enchant));
             } else {
-                player.sendMessage("§e[SMP Core] §7Decreased " + manager.getEnchantDisplayName(enchant)
+                player.sendMessage("§e[Vanilla Core] §7Decreased " + manager.getEnchantDisplayName(enchant)
                         + " limit to: " + newLimit);
             }
         }

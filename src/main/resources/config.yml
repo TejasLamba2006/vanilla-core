@@ -1,5 +1,5 @@
 # ============================================
-# SMP Core Configuration
+# Vanilla Core Configuration
 # ============================================
 # A comprehensive SMP plugin for PvP balance,
 # custom mechanics, and server management.
@@ -18,7 +18,7 @@ config-version: 2
 # Plugin Settings
 # ============================================
 plugin:
-  name: "SMP Core"
+  name: "Vanilla Core"
   prefix: "§8[§6SMP§8]§r"
   # Enable verbose logging for debugging (shows detailed info in console)
   verbose: false
@@ -189,7 +189,7 @@ features:
     notify-player: true
     # Message shown when excess items are removed
     # Placeholders: {item} = item name, {amount} = amount removed, {limit} = configured limit
-    notify-message: "§c[SMP Core] §7Excess items removed: {item} x{amount} (limit: {limit})"
+    notify-message: "§c[Vanilla Core] §7Excess items removed: {item} x{amount} (limit: {limit})"
     # Whether to drop excess items at player's feet (true) or delete them (false)
     drop-excess: true
     # Item limits configuration

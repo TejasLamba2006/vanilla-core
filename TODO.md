@@ -1,4 +1,4 @@
-# SMP Core - Feature Implementation Checklist
+# Vanilla Core - Feature Implementation Checklist
 
 ## Core Features (Must Implement)
 

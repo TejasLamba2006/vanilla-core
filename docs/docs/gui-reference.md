@@ -4,7 +4,7 @@ sidebar_position: 11
 
 # GUI Reference
 
-This page provides a complete guide to using the in-game configuration GUI. The GUI allows you to manage all SMP Core features without editing configuration files.
+This page provides a complete guide to using the in-game configuration GUI. The GUI allows you to manage all Vanilla Core features without editing configuration files.
 
 ## Opening the Main Menu
 
