@@ -16,14 +16,14 @@ The Mace is a powerful weapon introduced in Minecraft 1.21 with a unique smash a
 
 ## Why Limit Maces?
 
-The mace creates balance concerns on SMP servers:
+The mace has some balance issues on SMP servers:
 
 - **Smash Attack Damage**: Players can deal massive damage by falling from heights
 - **Breach Enchantment**: Bypasses armor, making protection enchantments less effective
 - **Density Enchantment**: Multiplies the already powerful smash attack damage
 - **Resource Scarcity**: Making maces rare creates a valuable commodity
 
-By limiting the total number of maces, you create a server-wide economy around this powerful weapon. Players must decide who gets a mace and whether to risk losing it in PvP.
+Limiting the total number of maces creates a server-wide economy around this weapon.
 
 ## Configuration
 
@@ -126,9 +126,9 @@ The GUI shows:
 |---------|------------|-------------|
 | `/mace` | `vanillacore.command.mace` | View current mace limit status |
 
-## Recommended Settings
+## Settings
 
-### Rare Maces (Recommended for SMPs)
+### Rare Maces
 
 Only 1-3 maces on the entire server:
 
@@ -137,8 +137,6 @@ mace-limiter:
   enabled: true
   max-maces: 3
 ```
-
-This creates a valuable server commodity where mace ownership matters.
 
 ### Moderate Availability
 
