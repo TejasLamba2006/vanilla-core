@@ -2,23 +2,9 @@
 
 Vanilla Core is licensed under the **MIT License**, a permissive open-source license that allows you to freely use, modify, and distribute the software.
 
-:::tip Open Source
-This project is now **fully open source**! You can:
 
-- View the source code on [GitHub](https://github.com/TejasLamba2006/vanilla-core)
-- Fork and modify the code
-- Contribute improvements via pull requests
-- Use it in your own projects (with attribution)
-:::
 
-:::info Official Downloads
-**Download the plugin from official sources:**
 
-- **[Modrinth](https://modrinth.com/plugin/vanillacorewastaken)** - Recommended
-- **[GitHub Releases](https://github.com/TejasLamba2006/vanilla-core/releases)** - Direct from source
-
-While you can build from source, we recommend using official builds for stability and automatic updates.
-:::
 
 ---
 
@@ -89,3 +75,4 @@ For questions about the license:
 - Join our [Discord](https://discord.gg/7fQPG4Grwt)
 
 > **Note:** The MIT License is one of the most permissive and widely-used open source licenses. It's simple, well-understood, and business-friendly.
+
