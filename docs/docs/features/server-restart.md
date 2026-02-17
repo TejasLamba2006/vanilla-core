@@ -8,7 +8,7 @@ Schedule and manage server restarts with countdown warnings, multiple notificati
 
 ## Overview
 
-The Server Restart feature provides a comprehensive restart management system with:
+The Server Restart feature provides:
 
 - **Instant Restart**: Immediate server restart with safety confirmation
 - **Countdown System**: Configurable countdown with player notifications
@@ -116,8 +116,7 @@ scheduled-times:
   - "2024-12-25 06:00:00"  # Christmas Day at 6:00 AM
 ```
 
-:::tip Mixed Schedules
-You can mix different formats in the same list:
+You can mix different formats:
 
 ```yaml
 scheduled-times:
@@ -125,8 +124,6 @@ scheduled-times:
   - "SUN 02:00:00"          # Extra restart on Sundays
   - "2024-12-31 23:59:00"   # New Year's Eve
 ```
-
-:::
 
 ## GUI Configuration
 
@@ -191,9 +188,9 @@ The plugin checks every second if a scheduled restart time has been reached:
 - The check accounts for `countdown-time` to start the countdown before the scheduled time
 - For example: if scheduled for `04:00:00` with 60s countdown, countdown starts at `03:59:00`
 
-## Best Practices
+## Configuration Examples
 
-### Recommended Setup
+### Standard Setup
 
 ```yaml
 features:
@@ -226,13 +223,6 @@ features:
       - "save-all"
       - "broadcast §eSaving world data..."
 ```
-
-### Tips
-
-- **Long Countdown for Scheduled**: Use 5+ minute countdowns for scheduled restarts so players have time to prepare
-- **Multiple Notifications**: Use both BossBar (constant visibility) and Title (attention-grabbing at key moments)
-- **Pre-Commands**: Always include `save-all` to ensure world data is saved
-- **Timezone**: Set timezone explicitly if your server has players from different regions
 
 ## Example Use Cases
 

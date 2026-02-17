@@ -8,7 +8,7 @@ Make villagers restock their trades instantly and infinitely.
 
 ## Overview
 
-In vanilla Minecraft, villagers have limited stock for each trade and only restock twice per day at their workstation. This can be frustrating when you need bulk items or are trying to get specific enchanted books. Infinite Restock removes these limitations, making villager trading smoother and more convenient.
+In vanilla Minecraft, villagers have limited stock for each trade and only restock twice per day at their workstation. Infinite Restock removes these limitations.
 
 ## Why Use Infinite Restock
 
@@ -20,9 +20,7 @@ Common scenarios where this feature helps:
 - **Event Preparation**: Stock up on golden apples or arrows without time limits
 - **Reducing Villager Count**: One good villager can serve unlimited trades
 
-:::info
-This feature is especially popular on servers where players maintain public villager trading halls. Everyone can use the same librarian without depleting stock.
-:::
+This feature is popular on servers where players maintain public villager trading halls.
 
 ## Configuration
 
@@ -109,7 +107,7 @@ The `max-trades` option allows you to set a limit:
 
 This is useful if you want to allow restock but still have some scarcity.
 
-## Recommended Presets
+## Presets
 
 ### Public Trading Hall
 
@@ -169,9 +167,7 @@ When you want to completely disable Infinite Restock and restore normal villager
 3. The feature will be disabled
 4. Villagers return to vanilla restock behavior
 
-:::warning
-Uninstall mode will reset villager trades. Use carefully if players have been relying on specific trades.
-:::
+Note: Uninstall mode will reset villager trades.
 
 ## Integration with Other Features
 

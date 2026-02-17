@@ -12,13 +12,12 @@ When a player with invisibility kills another player, the normal death message r
 
 ## Why Use Invisible Kills
 
-This feature adds strategic depth to PvP:
+Use cases for this feature:
 
 - **Assassin Gameplay**: Invisible attackers remain anonymous
 - **Paranoia Element**: Players cannot know who killed them
-- **Event Support**: Perfect for manhunt or assassin game modes
-- **Stealth Rewards**: Incentivizes using invisibility potions
-- **Social Dynamics**: Creates mystery and accusations among players
+- **Event Support**: Works well for manhunt or assassin game modes
+- **Stealth Rewards**: Makes invisibility potions more useful
 
 ## Configuration
 

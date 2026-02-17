@@ -8,18 +8,18 @@ Control access to the Nether and End dimensions on your server.
 
 ## Overview
 
-The Dimension Locks feature allows you to lock the Nether and End dimensions, preventing players from entering. This is essential for creating staged progression systems and managing the pacing of your SMP.
+This feature locks the Nether and End dimensions, preventing players from entering.
 
 ## Why Lock Dimensions?
 
-On a new SMP server, experienced players often rush to the Nether and End within the first few days. This creates problems:
+On a new SMP server, experienced players often rush to the Nether and End within the first few days:
 
 - Players obtain powerful gear (netherite, elytra) before others have iron
 - The Ender Dragon is killed before most players can participate
 - The shared exploration experience is lost
 - Server economy becomes unbalanced quickly
 
-By locking dimensions initially, you ensure all players progress together and can participate in milestone events like the first dragon fight.
+Locking dimensions initially keeps all players at the same progression level.
 
 ## How It Works
 
@@ -153,7 +153,3 @@ Unlock dimensions as community milestones or events:
 
 - **Netherite Disabler**: Combine with Nether Lock for complete netherite control
 - **Mob Manager**: Control mob spawning in dimensions when unlocked
-
-:::tip
-Use dimension locks to create a staged progression system. Keep the Nether locked for the first week, then unlock it. Keep the End locked until you're ready for a community dragon fight event.
-:::

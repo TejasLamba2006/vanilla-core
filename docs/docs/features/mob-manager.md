@@ -74,9 +74,7 @@ When WorldGuard is installed and `worldguard-bypass: true`:
 - Only natural spawning outside regions is affected
 - Useful for allowing spawner farms while blocking wild mobs
 
-:::info
-WorldGuard is **optional**. Mob Manager works perfectly without it. The WorldGuard bypass feature is simply an additional option for servers that use WorldGuard regions.
-:::
+WorldGuard is optional. Mob Manager works without it.
 
 ## Using the GUI
 
@@ -152,11 +150,9 @@ Use the exact Minecraft entity type names in UPPERCASE:
 | `ENDERMAN` | Enderman |
 | `SHULKER` | Shulker |
 
-## Recommended Presets
+## Presets
 
 ### No Phantoms Server-Wide
-
-The most common request - disable phantoms globally:
 
 ```yaml
 mob-manager:
@@ -169,10 +165,6 @@ mob-manager:
     world_the_end:
       - PHANTOM
 ```
-
-:::tip
-Phantoms are the most commonly disabled mob. They annoy players who skip sleeping and serve little purpose on servers with One Player Sleep enabled.
-:::
 
 ### Peaceful Overworld
 

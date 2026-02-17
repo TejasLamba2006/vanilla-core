@@ -93,9 +93,7 @@ Right-clicking on a feature item toggles it on or off immediately without openin
 
 Shift + left-clicking on a feature resets all of its settings to the default values. A confirmation message appears in chat before the reset is applied.
 
-:::warning Reset Confirmation
-When you shift-click to reset a feature, all custom settings for that feature are lost. Make sure you want to reset before confirming.
-:::
+
 
 ## Feature Settings Menus
 
@@ -190,9 +188,7 @@ To cancel a chat input prompt without making changes:
 - Type `cancel` and press Enter
 - Or wait 30 seconds for the prompt to expire
 
-:::tip Quick Return
-If you accidentally close the menu or cancel input, you can always run `/vanilla` again to return to the main menu.
-:::
+
 
 ## Settings Menu
 
@@ -210,9 +206,7 @@ Access global plugin settings by clicking the Settings button in the main menu.
 
 The Reload button in the main menu reloads all configuration files from disk. Use this after manually editing `config.yml`.
 
-:::danger Manual Edits
-If you make manual edits to `config.yml` while the server is running, those changes are not applied until you click Reload or run `/vanilla reload`. Changes made in the GUI overwrite manual edits if you don't reload first.
-:::
+
 
 ## Troubleshooting
 
@@ -239,3 +233,4 @@ If your changes don't persist after server restart:
 1. Ensure the server shuts down properly (use `/stop`, not kill)
 2. Check that the config file is not read-only
 3. Look for error messages in the console during shutdown
+

@@ -38,9 +38,7 @@ Bypass permissions allow players to ignore specific restrictions. Use these care
 | `vanillacore.bypass.nether` | Enter the Nether when it is locked | OP |
 | `vanillacore.bypass.end` | Enter the End when it is locked | OP |
 
-:::danger Bypass Warning
-Giving players bypass permissions undermines your server's balance settings. A player with `vanillacore.bypass.itemlimit` can carry unlimited totems while everyone else is limited to 2. Only grant bypass permissions when absolutely necessary.
-:::
+Warning: Giving players bypass permissions undermines your server's balance settings.
 
 ## Command Permissions
 
@@ -128,9 +126,7 @@ Allow VIP players to bypass item limits but still respect other restrictions:
 /lp group vip permission set vanillacore.bypass.itemlimit true
 ```
 
-:::tip Permission Inheritance
-If you're using LuckPerms with group inheritance (Moderator inherits from VIP, Staff inherits from Moderator), plan your permissions carefully to avoid unintended bypass access.
-:::
+Note: Plan your permissions carefully if using group inheritance.
 
 ### Remove OP Bypass
 
@@ -177,3 +173,4 @@ Always assign permissions through groups rather than directly to players. This m
 ---
 
 Next: Explore [Features](./category/features) in detail.
+

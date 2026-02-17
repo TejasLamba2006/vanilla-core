@@ -6,54 +6,52 @@
 [![Modrinth](https://img.shields.io/modrinth/dt/GH4H8ndx?logo=modrinth&label=downloads)](https://modrinth.com/plugin/vanillacorewastaken)
 [![Discord](https://img.shields.io/discord/1260632399245856801?logo=discord&label=discord)](https://discord.gg/7fQPG4Grwt)
 
-A comprehensive Minecraft plugin for Vanilla servers focused on **PvP balance**, **custom mechanics**, and **server management**. Built for Paper/Spigot 1.21.1+.
+A Minecraft plugin for Vanilla servers focused on PvP balance, custom mechanics, and server management. Built for Paper/Spigot 1.21.1+.
 
-<!-- ![Vanilla Core Feature List](features.png) -->
-
-> **🎉 Open Source!** This project is now open source. We welcome contributions from the community!
+> This project is now open source.
 
 ---
 
-## ✨ Features
+## Features
 
-### ⚔️ Combat & PvP
+### Combat & PvP
 
-- **Item Limiter** - Limit how many of specific items players can carry (gaps, totems, pearls, etc.)
-- **Mace Limiter** - Server-wide mace crafting limit with broadcast announcements
-- **Netherite Disabler** - Prevent use of netherite gear (configurable per item type)
+- Item Limiter: Limit how many of specific items players can carry (gaps, totems, pearls, etc.)
+- Mace Limiter: Server-wide mace crafting limit with broadcast announcements
+- Netherite Disabler: Prevent use of netherite gear (configurable per item type)
 
-### 📖 Enchantments
+### Enchantments
 
-- **Custom Anvil Caps** - Prevent enchantments from exceeding set levels via anvil/enchanting table
-- **Enchantment Replacement** - Automatically scan and reduce overpowered enchantments on items
-- **Item Whitelist** - Mark specific items as exempt from enchantment scans
+- Custom Anvil Caps: Prevent enchantments from exceeding set levels via anvil/enchanting table
+- Enchantment Replacement: Automatically scan and reduce overpowered enchantments on items
+- Item Whitelist: Mark specific items as exempt from enchantment scans
 
-### 🚫 Bans
+### Bans
 
-- **Item Bans** - Ban maces, anchors, crystals, pearls, netherite items
-- **Potion Effect Bans** - Config-driven list of banned potion effects
+- Item Bans: Ban maces, anchors, crystals, pearls, netherite items
+- Potion Effect Bans: Config-driven list of banned potion effects
 
-### 🌍 Dimensions
+### Dimensions
 
-- **Nether Lock** - Toggle access to The Nether
-- **End Lock** - Toggle access to The End
+- Nether Lock: Toggle access to The Nether
+- End Lock: Toggle access to The End
 
-### ⚙️ Custom Mechanics
+### Custom Mechanics
 
-- **Invisible Kills** - Hide killer name in death messages when invisible
-- **Item Explosion Immunity** - Protect dropped items from explosions
-- **Infinite Restock** - Villagers never run out of trades
-- **One Player Sleep** - Only one player needs to sleep to skip night
+- Invisible Kills: Hide killer name in death messages when invisible
+- Item Explosion Immunity: Protect dropped items from explosions
+- Infinite Restock: Villagers never run out of trades
+- One Player Sleep: Only one player needs to sleep to skip night
 
-### 🖥️ GUI System
+### GUI System
 
-- **Main Menu** - `/vanilla` opens a paginated GUI showing all features
-- **Dynamic Feature Items** - Toggle features with left-click, configure with right-click
-- **Menu Pagination** - Automatically handles many features across multiple pages
+- Main Menu: `/vanilla` opens a paginated GUI showing all features
+- Dynamic Feature Items: Toggle features with left-click, configure with right-click
+- Menu Pagination: Automatically handles many features across multiple pages
 
 ---
 
-## 📋 Commands
+## Commands
 
 | Command | Description | Permission |
 |---------|-------------|------------|
@@ -70,13 +68,13 @@ A comprehensive Minecraft plugin for Vanilla servers focused on **PvP balance**,
 - `/vanilla enchant unlimit <enchant> [anvil|replacement|both]`
 - `/vanilla enchant block <enchant> [anvil|replacement|both]`
 - `/vanilla enchant unblock <enchant> [anvil|replacement|both]`
-- `/vanilla enchant list` - Show all configured limits
-- `/vanilla enchant scan` - Manually scan your inventory
-- `/vanilla enchant whitelist` - Toggle whitelist on held item
+- `/vanilla enchant list`
+- `/vanilla enchant scan`
+- `/vanilla enchant whitelist`
 
 ---
 
-## 📥 Installation
+## Installation
 
 ### For Server Owners
 
@@ -89,23 +87,19 @@ A comprehensive Minecraft plugin for Vanilla servers focused on **PvP balance**,
 ### For Developers
 
 ```bash
-# Clone the repository
 git clone https://github.com/TejasLamba2006/vanilla-core.git
 cd vanilla-core
 
-# Build with Maven
 mvn clean package
-
-# The compiled JAR will be in target/
 ```
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
-All features are **disabled by default** and fully configurable via `config.yml`.
+All features are disabled by default and fully configurable via `config.yml`.
 
 <details>
 <summary>Example: Item Limiter Configuration</summary>
@@ -114,7 +108,7 @@ All features are **disabled by default** and fully configurable via `config.yml`
 features:
   item-limiter:
     enabled: false
-    check-method: "on-hit"  # or "on-move"
+    check-method: "on-hit"
     limits:
       golden_apple: 4
       enchanted_golden_apple: 1
@@ -168,66 +162,60 @@ features:
 
 ---
 
-## 🔧 Requirements
+## Requirements
 
-- **Server**: Paper or Spigot 1.21.1+
-- **Java**: 21 or higher
-
----
-
-## 📊 Technical Features
-
-- **Thread-Safe** - All managers use concurrent data structures
-- **Performance Optimized** - O(1) feature lookups, cached configs, cooldown systems
-- **Memory Safe** - Proper cleanup on player quit, no memory leaks
-- **Hot Reload** - All configs can be reloaded without restart
+- Server: Paper or Spigot 1.21.1+
+- Java: 21 or higher
 
 ---
 
-## 🤝 Contributing
+## Technical Features
 
-We welcome contributions! Here's how you can help:
+- Thread-Safe: All managers use concurrent data structures
+- Performance Optimized: O(1) feature lookups, cached configs, cooldown systems
+- Memory Safe: Proper cleanup on player quit, no memory leaks
+- Hot Reload: All configs can be reloaded without restart
 
-- 🐛 **Report bugs** using [issue templates](.github/ISSUE_TEMPLATE/bug_report.yml)
-- ✨ **Suggest features** using [feature requests](.github/ISSUE_TEMPLATE/feature_request.yml)
-- 💻 **Submit pull requests** following our [contributing guidelines](CONTRIBUTING.md)
-- 📖 **Improve documentation** in the [docs folder](docs/)
-- ⭐ **Star the repository** if you find it useful!
+---
+
+## Contributing
+
+You can help by:
+
+- Reporting bugs using [issue templates](.github/ISSUE_TEMPLATE/bug_report.yml)
+- Suggesting features using [feature requests](.github/ISSUE_TEMPLATE/feature_request.yml)
+- Submitting pull requests following our [contributing guidelines](CONTRIBUTING.md)
+- Improving documentation in the [docs folder](docs/)
+- Starring the repository if you find it useful
 
 ### Development
 
 ```bash
-# Fork and clone the repository
 git clone https://github.com/YOUR_USERNAME/vanilla-core.git
 
-# Create a feature branch
 git checkout -b feature/amazing-feature
 
-# Make your changes and test
 mvn clean package
 
-# Commit and push
 git commit -m "Add amazing feature"
 git push origin feature/amazing-feature
-
-# Open a Pull Request
 ```
 
 Read the full [Contributing Guide](CONTRIBUTING.md) for detailed information.
 
 ---
 
-## 🐛 Issues & Support
+## Issues & Support
 
-- **Bug Reports**: Use our [bug report template](.github/ISSUE_TEMPLATE/bug_report.yml)
-- **Feature Requests**: Use our [feature request template](.github/ISSUE_TEMPLATE/feature_request.yml)
-- **Discord**: Join our [Discord server](https://discord.gg/7fQPG4Grwt) for quick help
-- **Documentation**: Check the [full documentation](https://vanillacore.tejaslamba.com)
+- Bug Reports: Use our [bug report template](.github/ISSUE_TEMPLATE/bug_report.yml)
+- Feature Requests: Use our [feature request template](.github/ISSUE_TEMPLATE/feature_request.yml)
+- Discord: Join our [Discord server](https://discord.gg/7fQPG4Grwt) for quick help
+- Documentation: Check the [full documentation](https://vanillacore.tejaslamba.com)
 
 ---
 
-## 📜 License
+## License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 You are free to use, modify, and distribute this software. See [docs/license.md](docs/docs/license.md) for more information.

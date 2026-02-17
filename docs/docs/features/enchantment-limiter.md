@@ -8,20 +8,20 @@ import {FeatureBadgeGroup} from '@site/src/components/FeatureBadge';
 
 # Enchantment Limiter
 
-The Enchantment Limiter allows you to cap the maximum level of any enchantment on your server. This is essential for preventing overpowered gear from dominating PvP.
+Cap the maximum level of any enchantment on your server to prevent overpowered gear from dominating PvP.
 
 ![Enchantment Limiter demo](/gifs/enchantment-limiter.gif)
 
 ## Why Limit Enchantments?
 
-Vanilla Minecraft enchantments at maximum level create significant power imbalances:
+Vanilla Minecraft enchantments at maximum level create power imbalances:
 
 - Sharpness V adds 3 damage (1.5 hearts) per hit, making fights end too quickly
 - Protection IV on all armor pieces reduces damage by 64%, making players too tanky
 - Power V bows can two-shot unarmored players from across the map
 - Efficiency V tools trivialize resource gathering
 
-By capping enchantment levels, you can create more balanced and engaging gameplay where skill matters more than gear.
+Capping enchantment levels makes skill matter more than gear.
 
 ## How It Works
 
@@ -84,9 +84,7 @@ features:
 | `enabled` | boolean | false | Whether the feature is active |
 | `limits` | map | empty | Enchantment name (lowercase) to maximum level mapping |
 
-:::info Enchantment Names
-Use lowercase enchantment names with underscores (e.g., `fire_protection`, `swift_sneak`). The plugin uses Minecraft's internal enchantment names.
-:::
+Use lowercase enchantment names with underscores (e.g., `fire_protection`, `swift_sneak`).
 
 ## Using the GUI
 
@@ -159,9 +157,9 @@ Setting a cap of 0 effectively disables that enchantment entirely.
 | `fortune` | 3 | 2-3 | Usually left uncapped |
 | `looting` | 3 | 2-3 | Usually left uncapped |
 
-## Recommended Presets
+## Presets
 
-### Balanced PvP (Recommended)
+### Balanced PvP
 
 ```yaml
 limits:

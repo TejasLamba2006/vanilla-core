@@ -12,12 +12,11 @@ Netherite represents the ultimate tier of equipment in Minecraft. The Netherite 
 
 ## Why Control Netherite Access?
 
-Netherite access control serves several purposes:
+Reasons to control netherite access:
 
 - **PvP Balance**: Diamond vs diamond fights are more skill-based
 - **Armor Balance**: Netherite armor has knockback resistance which affects combat
 - **Selective Control**: Disable just netherite armor but allow tools, or vice versa
-- **Server Identity**: Create a unique gameplay experience
 
 ## Configuration
 
@@ -88,7 +87,7 @@ The GUI displays each netherite item type with its current status:
 |---------|------------|-------------|
 | `/netherite` | `vanillacore.command.netherite` | View netherite disabler status |
 
-## Recommended Presets
+## Presets
 
 ### No Netherite Armor (PvP Balance)
 

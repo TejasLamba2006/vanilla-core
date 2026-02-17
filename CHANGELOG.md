@@ -53,7 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Changed from custom restrictive license to MIT License
   - Source code now publicly available on GitHub
   - Community contributions now welcome via pull requests
-  - Added comprehensive contributing guidelines (CONTRIBUTING.md)
+  - Added contributing guidelines (CONTRIBUTING.md)
   - Added Code of Conduct (CODE_OF_CONDUCT.md)
   - Added Security Policy (SECURITY.md)
   - Added Support documentation (SUPPORT.md)
@@ -71,7 +71,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - YAML-based bug report template
   - Feature request template with categories
   - Configuration redirects to Discord/documentation
-- **Documentation Updates**: Comprehensive open source documentation
+- **Documentation Updates**: open source documentation
   - Updated README with badges, contribution section, build instructions
   - Updated MODRINTH.md to highlight open source nature
   - Created detailed launch checklist for maintainers
@@ -403,3 +403,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.2.0]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/TejasLamba2006/vanilla-core/releases/tag/v1.0.0
+

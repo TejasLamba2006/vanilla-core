@@ -4,7 +4,7 @@ Thank you for using Vanilla Core! Here are the ways you can get support:
 
 ## 📚 Documentation
 
-Before asking for help, please check our comprehensive documentation:
+Before asking for help, please check our documentation:
 
 **[vanillacore.tejaslamba.com](https://vanillacore.tejaslamba.com)**
 
@@ -86,3 +86,4 @@ If you find Vanilla Core helpful, consider supporting development:
 ---
 
 Thank you for being part of the Vanilla Core community! 🎉
+
