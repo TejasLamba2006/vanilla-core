@@ -20,8 +20,6 @@ Common problems solved by this feature:
 - **Phantom prevention**: Makes it easier to reset phantom timers
 - **Server flow**: No more waiting and asking "can everyone sleep?"
 
-One Player Sleep is one of the most requested features on any SMP. It dramatically improves quality of life for all players.
-
 ## Configuration
 
 ```yaml
@@ -75,13 +73,9 @@ When a player enters a bed with this feature enabled:
 3. Night skips after the standard sleep animation
 4. All players advance to morning together
 
-## Recommended Use
-
-This feature works great on virtually any server type:
+## Configuration Examples
 
 ### Small Private SMP (2-5 players)
-
-Enable for maximum convenience:
 
 ```yaml
 one-player-sleep:
@@ -91,8 +85,6 @@ one-player-sleep:
 ```
 
 ### Large Public Server (50+ players)
-
-Still recommended - prevents phantom issues. You may want shorter messages:
 
 ```yaml
 one-player-sleep:
