@@ -53,9 +53,9 @@ features:
 3. **Left Click**: Toggle the feature on/off
 4. **Right Click**: Open settings menu
 
-## Recommended Settings
+## Settings
 
-### Fair PvP Server (Recommended)
+### Fair PvP Server
 
 Allow basic minimap but block radar features:
 
@@ -119,9 +119,7 @@ FAIR mode still allows:
 - Waypoints
 - Map exploration
 
-:::tip
-**FAIR mode is ideal for most SMP servers.** It lets players enjoy minimap convenience while preventing the most problematic features like player radar that completely breaks PvP balance.
-:::
+FAIR mode is ideal for most SMP servers.
 
 ## Nether Fair Mode
 
@@ -140,11 +138,7 @@ Minimap Control uses the Xaero's minimap protocol. Compatible mods include:
 | Xaero's Minimap | Full support |
 | Xaero's World Map | Full support |
 
-Other minimap mods may or may not respond to these server-sent restrictions.
-
-:::info
-Players using incompatible mods or ignoring server restrictions won't be kicked automatically. This feature works on the honor system with compatible mods.
-:::
+Other minimap mods may or may not respond to these server-sent restrictions. Players using incompatible mods or ignoring server restrictions won't be kicked automatically.
 
 ## How It Works
 
