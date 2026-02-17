@@ -8,7 +8,7 @@ Protect dropped items from being destroyed by explosions.
 
 ## Overview
 
-When explosions occur in Minecraft (TNT, creepers, ghasts, etc.), nearby dropped items can be destroyed. This is often frustrating when valuable items are lost to griefers, accidental explosions, or mob attacks. Item Explosion Immunity protects ALL dropped items from explosion damage.
+When explosions occur in Minecraft (TNT, creepers, ghasts, etc.), nearby dropped items can be destroyed. Item Explosion Immunity protects all dropped items from explosion damage.
 
 ## Why Use Item Explosion Immunity
 
@@ -20,10 +20,6 @@ This feature prevents unfair item loss in various scenarios:
 - **Creeper Encounters**: Valuable items survive creeper sneak attacks
 - **Nether Travel**: Items survive ghast fireballs and bed explosions
 - **End Fights**: Loot survives crystal explosions during dragon fights
-
-:::danger
-Without this feature, a single creeper can destroy hours of work in dropped items. This is one of the most rage-inducing moments in Minecraft. Item Explosion Immunity prevents this entirely.
-:::
 
 ## Configuration
 
@@ -89,29 +85,21 @@ This feature protects against all explosion sources:
 | Bed (wrong dimension) | Yes |
 | Wind Charge | Yes |
 
-## Recommended Use Cases
+## Use Cases
 
 ### Anti-Grief Servers
 
-Enable for maximum protection against malicious destruction:
-
 ```yaml
 item-explosion-immunity:
   enabled: true
 ```
-
-**Best for**: Servers with history of griefing or where item loss causes significant player frustration.
 
 ### Death Drop Protection
 
-Enable to protect items dropped on death from subsequent explosions:
-
 ```yaml
 item-explosion-immunity:
   enabled: true
 ```
-
-**Best for**: Servers where players want to recover their gear after dying.
 
 ## Integration with Other Features
 
