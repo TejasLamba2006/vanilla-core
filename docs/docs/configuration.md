@@ -40,9 +40,7 @@ plugin:
 | `prefix` | string | "§8[§6SMP§8]§r" | Prefix for chat messages |
 | `verbose` | boolean | false | Enable verbose logging for debugging |
 
-:::info
-Verbose mode generates detailed console output. Only enable when troubleshooting specific issues.
-:::
+
 
 ## Features Configuration
 
@@ -328,9 +326,7 @@ After editing `config.yml`, apply changes with:
 /vanilla reload
 ```
 
-:::tip
-Most settings take effect immediately after reload. The GUI (`/vanilla`) is recommended for most configuration changes as it validates and saves settings automatically.
-:::
+
 
 ## Backup Recommendations
 
@@ -361,3 +357,4 @@ cp plugins/Vanilla Core/config.yml plugins/Vanilla Core/config.yml.backup
 1. Verify `enabled: true` for the feature
 2. Check for permission requirements
 3. Review feature-specific documentation
+
