@@ -2,6 +2,7 @@ package com.tejaslamba.vanillacore.features;
 
 import com.tejaslamba.vanillacore.Main;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
+import com.tejaslamba.vanillacore.gui.feature.ItemExplosionImmunityConfigGUI;
 import com.tejaslamba.vanillacore.listener.ItemExplosionImmunityListener;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -60,6 +61,7 @@ public class ItemExplosionImmunityFeature extends BaseFeature {
         lore.add("§7destroyed by explosions");
         lore.add("");
         lore.add("§eLeft Click: Toggle");
+        lore.add("§eRight Click: Configure");
         return lore;
     }
 
@@ -70,16 +72,7 @@ public class ItemExplosionImmunityFeature extends BaseFeature {
 
     @Override
     public void onRightClick(Player player) {
-        player.sendMessage("§6§l=== Item Explosion Immunity ===");
-        player.sendMessage("");
-        player.sendMessage("§7Status: " + (isEnabled() ? "§aEnabled" : "§cDisabled"));
-        player.sendMessage("");
-        player.sendMessage("§7When enabled, dropped items on");
-        player.sendMessage("§7the ground will be protected from");
-        player.sendMessage("§7TNT, creepers, crystals, and all");
-        player.sendMessage("§7other explosion damage.");
-        player.sendMessage("");
-        player.sendMessage("§7Useful for preventing item loss");
-        player.sendMessage("§7during PvP or griefing attempts.");
+        ItemExplosionImmunityConfigGUI gui = new ItemExplosionImmunityConfigGUI(plugin, player);
+        gui.open();
     }
 }
