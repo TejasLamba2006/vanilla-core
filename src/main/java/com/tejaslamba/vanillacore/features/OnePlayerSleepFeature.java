@@ -2,6 +2,7 @@ package com.tejaslamba.vanillacore.features;
 
 import com.tejaslamba.vanillacore.Main;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
+import com.tejaslamba.vanillacore.gui.feature.OnePlayerSleepConfigGUI;
 import com.tejaslamba.vanillacore.listener.OnePlayerSleepListener;
 import org.bukkit.GameRule;
 import org.bukkit.Material;
@@ -90,6 +91,7 @@ public class OnePlayerSleepFeature extends BaseFeature {
         lore.add("§7Skip Message: " + (skipMsg.isEmpty() ? "§8None" : "§a✓"));
         lore.add("");
         lore.add("§eLeft Click: Toggle");
+        lore.add("§eRight Click: Configure");
         return lore;
     }
 
@@ -101,16 +103,7 @@ public class OnePlayerSleepFeature extends BaseFeature {
 
     @Override
     public void onRightClick(Player player) {
-        player.sendMessage("§6§l=== One Player Sleep ===");
-        player.sendMessage("");
-        player.sendMessage("§7Status: " + (isEnabled() ? "§aEnabled" : "§cDisabled"));
-        player.sendMessage("");
-        player.sendMessage("§7When enabled:");
-        player.sendMessage("§a• §7Only 1 player needs to sleep");
-        player.sendMessage("§a• §7Night is skipped immediately");
-        player.sendMessage("§a• §7Works in all overworld dimensions");
-        player.sendMessage("");
-        player.sendMessage("§7Uses Minecraft's built-in");
-        player.sendMessage("§7playersSleepingPercentage gamerule");
+        OnePlayerSleepConfigGUI gui = new OnePlayerSleepConfigGUI(plugin, player);
+        gui.open();
     }
 }

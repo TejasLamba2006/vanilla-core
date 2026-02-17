@@ -16,6 +16,7 @@ import com.tejaslamba.vanillacore.manager.CooldownManager;
 import com.tejaslamba.vanillacore.manager.ChatInputManager;
 import com.tejaslamba.vanillacore.manager.FeatureManager;
 import com.tejaslamba.vanillacore.manager.CDNManager;
+import com.tejaslamba.vanillacore.manager.GUIManager;
 import com.tejaslamba.vanillacore.listener.UpdateNotificationListener;
 
 public class Main extends JavaPlugin {
@@ -30,6 +31,7 @@ public class Main extends JavaPlugin {
     private ChatInputManager chatInputManager;
     private FeatureManager featureManager;
     private CDNManager cdnManager;
+    private GUIManager guiManager;
     private UpdateNotificationListener updateNotificationListener;
     private boolean verboseLogging = false;
 
@@ -51,6 +53,7 @@ public class Main extends JavaPlugin {
         menuConfigManager.load();
         cooldownManager = new CooldownManager();
         chatInputManager = new ChatInputManager();
+        guiManager = new GUIManager(this);
         featureManager = new FeatureManager(this);
         featureManager.loadFeatures();
         menuManager = new MenuManager(this);
@@ -190,6 +193,10 @@ public class Main extends JavaPlugin {
 
     public CDNManager getCDNManager() {
         return cdnManager;
+    }
+
+    public GUIManager getGUIManager() {
+        return guiManager;
     }
 
     public UpdateNotificationListener getUpdateNotificationListener() {
