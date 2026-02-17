@@ -2,6 +2,7 @@ package com.tejaslamba.vanillacore.features;
 
 import com.tejaslamba.vanillacore.Main;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
+import com.tejaslamba.vanillacore.gui.feature.DimensionLockConfigGUI;
 import com.tejaslamba.vanillacore.listener.DimensionLockListener;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -61,7 +62,8 @@ public abstract class DimensionLockFeature extends BaseFeature {
         List<String> lore = new ArrayList<>();
         lore.add(enabled ? "§cCurrently: Locked" : "§aCurrently: Open");
         lore.add("");
-        lore.add("§eClick to " + (enabled ? "Unlock" : "Lock"));
+        lore.add("§eLeft Click: Toggle Lock");
+        lore.add("§eRight Click: Configure");
         return lore;
     }
 
@@ -72,7 +74,8 @@ public abstract class DimensionLockFeature extends BaseFeature {
 
     @Override
     public void onRightClick(Player player) {
-        toggle(player);
+        DimensionLockConfigGUI gui = new DimensionLockConfigGUI(plugin, player, dimension);
+        gui.open();
     }
 
     private void toggle(Player player) {
