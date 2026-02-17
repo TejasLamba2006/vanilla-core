@@ -25,9 +25,7 @@ When you run `/vanilla reload`:
 3. Cached data is refreshed
 4. Any pending changes are applied
 
-:::warning Config Priority
-If you have both made changes in the GUI and edited the config file manually, the reload will use the file on disk. GUI changes not yet saved to disk will be lost.
-:::
+Note: If you have both made changes in the GUI and edited the config file manually, the reload will use the file on disk.
 
 ## Dimension Lock Commands
 
