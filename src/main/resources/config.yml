@@ -52,6 +52,24 @@ features:
       unbreaking: 2
 
   # ------------------------------------------
+  # Limited Enchantment Slots
+  # ------------------------------------------
+  # Limit how many of a specific item type can be enchanted
+  # server-wide on a first-come-first-serve basis.
+  # When an item loses all enchantments (grindstone) or is destroyed,
+  # the slot reopens for another player.
+  # Configure via GUI (/vanilla menu -> Limited Enchantment Slots -> Right Click)
+  limited-enchantment-slots:
+    enabled: false
+    # Material-based limits (material: max_count)
+    # Only the first X items of each material can be enchanted
+    # Example: MACE: 3 means only 3 maces server-wide can have enchantments
+    limits:
+      MACE: 3
+      NETHERITE_SWORD: 5
+      NETHERITE_AXE: 5
+
+  # ------------------------------------------
   # Mace Limiter
   # ------------------------------------------
   # Limits how many maces can be crafted server-wide.
