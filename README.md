@@ -19,6 +19,7 @@ A Minecraft plugin for Vanilla servers focused on PvP balance, custom mechanics,
 - Item Limiter: Limit how many of specific items players can carry (gaps, totems, pearls, etc.)
 - Mace Limiter: Server-wide mace crafting limit with broadcast announcements
 - Netherite Disabler: Prevent use of netherite gear (configurable per item type)
+- Shield Mechanics: Add mace shield stun, customize axe stun duration, and toggle each separately
 
 ### Enchantments
 

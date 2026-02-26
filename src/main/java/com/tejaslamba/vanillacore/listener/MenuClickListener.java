@@ -1,10 +1,12 @@
 package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.features.ItemLimiterFeature;
 import com.tejaslamba.vanillacore.features.MobManagerFeature;
 import com.tejaslamba.vanillacore.features.NetheriteDisablerFeature;
 import com.tejaslamba.vanillacore.features.InfiniteRestockFeature;
+import com.tejaslamba.vanillacore.features.ShieldMechanicsFeature;
 import com.tejaslamba.vanillacore.menu.MainMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -27,6 +29,21 @@ public class MenuClickListener implements Listener {
         this.plugin = plugin;
     }
 
+    private boolean isClickInTopInventory(InventoryClickEvent event) {
+        int slot = event.getRawSlot();
+        return slot >= 0 && slot < event.getView().getTopInventory().getSize();
+    }
+
+    private <T extends BaseFeature> T getEnabledFeature(Class<T> clazz, Player player, String messageKey) {
+        T feature = plugin.getFeatureManager().getFeature(clazz);
+        if (feature == null || !feature.isEnabled()) {
+            plugin.getMessageManager().sendPrefixed(player, messageKey);
+            plugin.getServer().getScheduler().runTask(plugin, player::closeInventory);
+            return null;
+        }
+        return feature;
+    }
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void onMenuClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) {
@@ -37,6 +54,8 @@ public class MenuClickListener implements Listener {
 
         if (title.equals(ItemLimiterFeature.MAIN_GUI_TITLE)) {
             event.setCancelled(true);
+            if (!isClickInTopInventory(event))
+                return;
             handleItemLimiterMainGUI(event, player);
             return;
         }
@@ -48,55 +67,81 @@ public class MenuClickListener implements Listener {
 
         if (title.equals(ItemLimiterFeature.VIEW_GUI_TITLE)) {
             event.setCancelled(true);
+            if (!isClickInTopInventory(event))
+                return;
             handleItemLimiterViewGUI(event, player);
             return;
         }
 
         if (title.equals(ItemLimiterFeature.BANNED_GUI_TITLE)) {
             event.setCancelled(true);
+            if (!isClickInTopInventory(event))
+                return;
             handleItemLimiterBannedGUI(event, player);
             return;
         }
 
         if (title.equals(InfiniteRestockFeature.GUI_TITLE)) {
             event.setCancelled(true);
+            if (!isClickInTopInventory(event))
+                return;
             handleInfiniteRestockGUI(event, player);
             return;
         }
 
         if (title.equals(InfiniteRestockFeature.BLACKLIST_GUI_TITLE)) {
             event.setCancelled(true);
+            if (!isClickInTopInventory(event))
+                return;
             handleInfiniteRestockBlacklistGUI(event, player);
             return;
         }
 
         if (title.equals(NetheriteDisablerFeature.GUI_TITLE)) {
             event.setCancelled(true);
+            if (!isClickInTopInventory(event))
+                return;
             handleNetheriteGUI(event, player);
             return;
         }
 
         if (title.equals(MobManagerFeature.WORLD_SELECT_GUI_TITLE)) {
             event.setCancelled(true);
+            if (!isClickInTopInventory(event))
+                return;
             handleWorldSelectGUI(event, player);
             return;
         }
 
         if (title.equals(MobManagerFeature.SETTINGS_GUI_TITLE)) {
             event.setCancelled(true);
+            if (!isClickInTopInventory(event))
+                return;
             handleMobManagerSettingsGUI(event, player);
             return;
         }
 
         if (title.startsWith(MobManagerFeature.GUI_TITLE)) {
             event.setCancelled(true);
+            if (!isClickInTopInventory(event))
+                return;
             handleMobManagerGUI(event, player);
             return;
         }
 
         if (title.equals(MobManagerFeature.SPAWN_REASONS_GUI_TITLE)) {
             event.setCancelled(true);
+            if (!isClickInTopInventory(event))
+                return;
             handleSpawnReasonsGUI(event, player);
+            return;
+        }
+
+        if (title.equals(ShieldMechanicsFeature.GUI_TITLE)) {
+            event.setCancelled(true);
+            if (!isClickInTopInventory(event))
+                return;
+            handleShieldMechanicsGUI(event, player);
             return;
         }
 
@@ -131,25 +176,23 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        ItemLimiterFeature feature = plugin.getFeatureManager().getFeature(ItemLimiterFeature.class);
-        if (feature == null) {
-            player.closeInventory();
+        ItemLimiterFeature feature = getEnabledFeature(ItemLimiterFeature.class, player,
+                "item-limiter.feature-disabled");
+        if (feature == null)
             return;
-        }
 
         feature.handleMainMenuClick(event.getSlot(), player);
     }
 
     private void handleItemLimiterAddGUI(InventoryClickEvent event, Player player) {
-        ItemLimiterFeature feature = plugin.getFeatureManager().getFeature(ItemLimiterFeature.class);
-        if (feature == null) {
-            player.closeInventory();
-            return;
-        }
-
         if (event.getRawSlot() >= event.getView().getTopInventory().getSize()) {
             return;
         }
+
+        ItemLimiterFeature feature = getEnabledFeature(ItemLimiterFeature.class, player,
+                "item-limiter.feature-disabled");
+        if (feature == null)
+            return;
 
         feature.handleAddItemClick(event, player);
     }
@@ -159,11 +202,10 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        ItemLimiterFeature feature = plugin.getFeatureManager().getFeature(ItemLimiterFeature.class);
-        if (feature == null) {
-            player.closeInventory();
+        ItemLimiterFeature feature = getEnabledFeature(ItemLimiterFeature.class, player,
+                "item-limiter.feature-disabled");
+        if (feature == null)
             return;
-        }
 
         Material clickedType = event.getCurrentItem().getType();
         if (clickedType == Material.GRAY_STAINED_GLASS_PANE) {
@@ -183,11 +225,10 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        ItemLimiterFeature feature = plugin.getFeatureManager().getFeature(ItemLimiterFeature.class);
-        if (feature == null) {
-            player.closeInventory();
+        ItemLimiterFeature feature = getEnabledFeature(ItemLimiterFeature.class, player,
+                "item-limiter.feature-disabled");
+        if (feature == null)
             return;
-        }
 
         Material clickedType = event.getCurrentItem().getType();
         if (clickedType == Material.GRAY_STAINED_GLASS_PANE) {
@@ -207,11 +248,10 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        InfiniteRestockFeature feature = plugin.getFeatureManager().getFeature(InfiniteRestockFeature.class);
-        if (feature == null) {
-            player.closeInventory();
+        InfiniteRestockFeature feature = getEnabledFeature(InfiniteRestockFeature.class, player,
+                "infinite-restock.feature-disabled");
+        if (feature == null)
             return;
-        }
 
         feature.handleRestockGUIClick(event, player);
     }
@@ -221,11 +261,10 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        InfiniteRestockFeature feature = plugin.getFeatureManager().getFeature(InfiniteRestockFeature.class);
-        if (feature == null) {
-            player.closeInventory();
+        InfiniteRestockFeature feature = getEnabledFeature(InfiniteRestockFeature.class, player,
+                "infinite-restock.feature-disabled");
+        if (feature == null)
             return;
-        }
 
         feature.handleBlacklistGUIClick(event, player);
     }
@@ -235,13 +274,10 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        NetheriteDisablerFeature feature = (NetheriteDisablerFeature) plugin.getFeatureManager()
-                .getFeature("Netherite Disabler");
-        if (feature == null || !feature.isEnabled()) {
-            player.closeInventory();
-            plugin.getMessageManager().sendPrefixed(player, "netherite-disabler.feature-disabled");
+        NetheriteDisablerFeature feature = getEnabledFeature(NetheriteDisablerFeature.class, player,
+                "netherite-disabler.feature-disabled");
+        if (feature == null)
             return;
-        }
 
         Material clickedType = event.getCurrentItem().getType();
 
@@ -272,13 +308,9 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        MobManagerFeature feature = (MobManagerFeature) plugin.getFeatureManager()
-                .getFeature("Mob Manager");
-        if (feature == null || !feature.isEnabled()) {
-            player.closeInventory();
-            plugin.getMessageManager().sendPrefixed(player, "mob-manager.feature-disabled");
+        MobManagerFeature feature = getEnabledFeature(MobManagerFeature.class, player, "mob-manager.feature-disabled");
+        if (feature == null)
             return;
-        }
 
         Material clickedType = event.getCurrentItem().getType();
         int slot = event.getRawSlot();
@@ -361,13 +393,9 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        MobManagerFeature feature = (MobManagerFeature) plugin.getFeatureManager()
-                .getFeature("Mob Manager");
-        if (feature == null || !feature.isEnabled()) {
-            player.closeInventory();
-            plugin.getMessageManager().sendPrefixed(player, "mob-manager.feature-disabled");
+        MobManagerFeature feature = getEnabledFeature(MobManagerFeature.class, player, "mob-manager.feature-disabled");
+        if (feature == null)
             return;
-        }
 
         Material clickedType = event.getCurrentItem().getType();
         int slot = event.getRawSlot();
@@ -410,13 +438,9 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        MobManagerFeature feature = (MobManagerFeature) plugin.getFeatureManager()
-                .getFeature("Mob Manager");
-        if (feature == null || !feature.isEnabled()) {
-            player.closeInventory();
-            plugin.getMessageManager().sendPrefixed(player, "mob-manager.feature-disabled");
+        MobManagerFeature feature = getEnabledFeature(MobManagerFeature.class, player, "mob-manager.feature-disabled");
+        if (feature == null)
             return;
-        }
 
         int slot = event.getRawSlot();
         Material clickedType = event.getCurrentItem().getType();
@@ -456,13 +480,9 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        MobManagerFeature feature = (MobManagerFeature) plugin.getFeatureManager()
-                .getFeature("Mob Manager");
-        if (feature == null || !feature.isEnabled()) {
-            player.closeInventory();
-            plugin.getMessageManager().sendPrefixed(player, "mob-manager.feature-disabled");
+        MobManagerFeature feature = getEnabledFeature(MobManagerFeature.class, player, "mob-manager.feature-disabled");
+        if (feature == null)
             return;
-        }
 
         Material clickedType = event.getCurrentItem().getType();
         int slot = event.getRawSlot();
@@ -492,5 +512,18 @@ public class MenuClickListener implements Listener {
                 plugin.getServer().getScheduler().runTask(plugin, () -> feature.openSpawnReasonsGUI(player));
             }
         }
+    }
+
+    private void handleShieldMechanicsGUI(InventoryClickEvent event, Player player) {
+        if (event.getCurrentItem() == null || event.getCurrentItem().getType() == Material.AIR) {
+            return;
+        }
+
+        ShieldMechanicsFeature feature = getEnabledFeature(ShieldMechanicsFeature.class, player,
+                "shield-mechanics.feature-disabled");
+        if (feature == null)
+            return;
+
+        feature.handleSettingsGUIClick(event.getRawSlot(), event.isShiftClick(), player);
     }
 }

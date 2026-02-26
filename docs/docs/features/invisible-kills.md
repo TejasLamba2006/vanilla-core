@@ -10,14 +10,9 @@ Hide killer identity in death messages when the attacker is invisible.
 
 When a player with invisibility kills another player, the normal death message reveals their identity (e.g., "Steve was slain by Alex"). Invisible Kills modifies these death messages to hide the killer's name, maintaining the mystery of stealth attacks.
 
-## Why Use Invisible Kills
+## Why use invisible kills?
 
-Use cases for this feature:
-
-- **Assassin Gameplay**: Invisible attackers remain anonymous
-- **Paranoia Element**: Players cannot know who killed them
-- **Event Support**: Works well for manhunt or assassin game modes
-- **Stealth Rewards**: Makes invisibility potions more useful
+The default death message immediately outs who killed you. If you want invisibility attacks to stay anonymous — manhunt games, assassin events, or just making stealth potions worth using — this hides the killer's identity.
 
 ## Configuration
 

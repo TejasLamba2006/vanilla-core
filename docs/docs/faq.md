@@ -81,7 +81,7 @@ If you find conflicts, please report them on GitHub.
 
 ### Can I suggest new features?
 
-Absolutely! Open an issue on [GitHub](https://github.com/TejasLamba2006/vanilla-core/issues) with your suggestion.
+Open an issue on [GitHub](https://github.com/TejasLamba2006/vanilla-core/issues) describing what you want.
 
 ---
 
@@ -154,11 +154,7 @@ Yes! View the source on [GitHub](https://github.com/TejasLamba2006/vanilla-core)
 
 ### Can I contribute?
 
-Yes! We welcome contributions:
-
-1. Fork the repository
-2. Make your changes
-3. Submit a pull request
+Fork the repo, make your changes, and open a pull request.
 
 ### How do I report bugs?
 

@@ -20,9 +20,9 @@
   - [ ] Anti-restock in combat
   - [ ] Anti-elytra in combat
   - [ ] Ban breach swapping (hotbar swap prevention)
-- [ ] Shield Mechanics
-  - [ ] Mace stun shield on hit
-  - [ ] Modify Shield disable duration
+- [x] Shield Mechanics
+  - [x] Mace stun shield on hit
+  - [x] Modify Shield disable duration
 
 ### Cooldowns
 
@@ -33,12 +33,12 @@
 
 ### Bans & Restrictions
 
-- [x] Effect Ban System
-  - [x] Configurable potion effect blacklist
-  - [x] Effect removal on application
-- [ ] Enchantment Ban System
-  - [ ] Config-based enchantment blacklist
-  - [ ] Item validation on craft/pickup
+- [ ] Effect Ban System
+  - [ ] Configurable potion effect blacklist
+  - [ ] Effect removal on application
+- [x] Enchantment Ban System
+  - [x] Config-based enchantment blacklist
+  - [x] Item validation on craft/pickup
 - [ ] Tipped Arrow Ban
 - [ ] Bed Bombing Prevention
 - [ ] TNT Minecart Restriction
@@ -135,9 +135,7 @@
 | Feature | Status | Config Path |
 |---------|--------|-------------|
 | Custom Anvil Caps | Done | features.custom-anvil-caps |
-| Enchantment Replacement | Done | features.enchantment-replacement |
 | Enchantment Limiter | Done | features.enchantment-limiter |
-| Limited Enchantment Slots | Done | features.limited-enchantment-slots |
 | Mace Limiter | Done | features.mace-limiter |
 | Nether Lock | Done | features.dimension-lock-nether |
 | End Lock | Done | features.dimension-lock-end |
@@ -150,7 +148,7 @@
 | Mob Manager | Done | features.mob-manager |
 | Minimap Control | Done | features.minimap-control |
 | Item Bans | Done | bans.items |
-| Effect Bans | Done | bans.effects |
+| Shield Mechanics | Done | features.shield-mechanics |
 
 ---
 

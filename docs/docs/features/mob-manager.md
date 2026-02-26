@@ -12,7 +12,7 @@ Control mob spawning on a per-world basis with spawn reason filtering.
 
 ## Overview
 
-The Mob Manager provides control over which mobs can spawn in each world on your server. You can block specific mob types from spawning naturally while still allowing them from spawn eggs, spawners, or commands. This gives you granular control over mob population without completely removing them.
+The Mob Manager provides control over which mobs can spawn in each world on your server. You can block specific mob types from natural spawning while still allowing them from spawn eggs, spawners, or commands — so you can stop phantoms from spawning wild while keeping spawner farms working, for example.
 
 ## Configuration
 

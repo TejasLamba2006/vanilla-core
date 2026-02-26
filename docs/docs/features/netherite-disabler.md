@@ -8,15 +8,11 @@ Disable specific netherite items on your server.
 
 ## Overview
 
-Netherite represents the ultimate tier of equipment in Minecraft. The Netherite Disabler allows you to selectively disable specific netherite items, preventing players from using them. This is useful for creating more balanced PvP or maintaining a diamond-tier meta.
+The Netherite Disabler lets you block specific netherite items. You can disable just the armor but keep tools, block everything, or any combination. Players can't upgrade to a disabled item at the smithing table.
 
-## Why Control Netherite Access?
+## Why disable netherite?
 
-Reasons to control netherite access:
-
-- **PvP Balance**: Diamond vs diamond fights are more skill-based
-- **Armor Balance**: Netherite armor has knockback resistance which affects combat
-- **Selective Control**: Disable just netherite armor but allow tools, or vice versa
+Diamond vs diamond PvP is more skill-based. Netherite armor's knockback resistance changes the combat feel noticeably, and the stat gap makes diamond gear feel pointless once someone reaches netherite. You can disable specific items — blocking just the armor while keeping tools is a common setup.
 
 ## Configuration
 
@@ -61,13 +57,9 @@ Each item type can be individually toggled:
 
 Set to `true` to disable the item, `false` to allow it.
 
-## How It Works
+## How it works
 
-When an item is disabled:
-
-1. **Crafting/Upgrading Prevention**: Players cannot upgrade diamond items to netherite at the smithing table
-2. **Usage Prevention**: Disabled netherite items cannot be used effectively
-3. **Per-Item Control**: Only the specific items you disable are affected
+When an item is disabled, players can't upgrade to it at the smithing table and can't use it if they already have one. Only the specific types you disable are affected.
 
 ## Using the GUI
 
