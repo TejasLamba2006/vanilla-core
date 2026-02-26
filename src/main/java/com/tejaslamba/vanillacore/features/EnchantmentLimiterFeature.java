@@ -142,7 +142,7 @@ public class EnchantmentLimiterFeature extends BaseFeature {
 
     public void openConfigGUI(Player player, int page) {
         int totalPages = getTotalPages();
-        page = Math.max(0, Math.min(page, totalPages - 1));
+        page = Math.clamp(page, 0, totalPages - 1);
         playerPages.put(player.getUniqueId(), page);
 
         Inventory gui = Bukkit.createInventory(null, 54,

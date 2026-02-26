@@ -3,7 +3,7 @@ package com.tejaslamba.vanillacore.manager;
 import com.tejaslamba.vanillacore.Main;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.tejaslamba.vanillacore.commands.SmpCommand;
+import com.tejaslamba.vanillacore.commands.VanillaCommand;
 import com.tejaslamba.vanillacore.command.DimensionCommand;
 
 public class CommandManager {
@@ -15,7 +15,7 @@ public class CommandManager {
     }
 
     public void registerDefaults() {
-        registerCommand("vanilla", new SmpCommand());
+        registerCommand("vanilla", new VanillaCommand());
 
         registerCommand("nether", new DimensionCommand((Main) plugin, "nether"));
         registerCommand("end", new DimensionCommand((Main) plugin, "end"));

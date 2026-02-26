@@ -1,0 +1,106 @@
+# Automatically publish to Modrinth when a GitHub release is created
+#
+# This workflow:
+# 1. Triggers when a release is published on GitHub
+# 2. Builds the plugin from source
+# 3. Extracts the version from pom.xml
+# 4. Extracts the changelog for this version from CHANGELOG.md
+# 5. Publishes to Modrinth with proper metadata
+#
+# Prerequisites:
+# - Repository secret MODRINTH_TOKEN must be set (get from modrinth.com/settings/pats)
+# - Token needs PUBLISH_VERSION scope
+# - CHANGELOG.md must have a section for the release version
+
+name: Publish to Modrinth
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: "temurin"
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
+
+      - name: Get version from pom.xml
+        id: get_version
+        run: |
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION"
+
+      - name: Find JAR file
+        id: find_jar
+        run: |
+          JAR_FILE=$(find target -name "*.jar" -not -name "*-original.jar" -not -name "*-shaded.jar" | head -n 1)
+          echo "jar_file=$JAR_FILE" >> $GITHUB_OUTPUT
+          echo "JAR file: $JAR_FILE"
+
+      - name: Extract changelog for this version
+        id: changelog
+        run: |
+          VERSION="${{ steps.get_version.outputs.version }}"
+          echo "Extracting changelog for version $VERSION"
+
+          # Extract changelog section for this version
+          CHANGELOG=$(awk "/## \[$VERSION\]/,/## \[/" CHANGELOG.md | sed '$d' | tail -n +3)
+
+          # If changelog is empty, use a default message
+          if [ -z "$CHANGELOG" ]; then
+            CHANGELOG="Release $VERSION - See full changelog at https://github.com/TejasLamba2006/vanilla-core/releases/tag/v$VERSION"
+          fi
+
+          # Save to file to handle multiline content
+          echo "$CHANGELOG" > changelog.txt
+          echo "Changelog extracted successfully"
+
+      - name: Publish to Modrinth
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: GH4H8ndx
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+
+          files: ${{ steps.find_jar.outputs.jar_file }}
+
+          name: Vanilla Core ${{ steps.get_version.outputs.version }}
+          version: ${{ steps.get_version.outputs.version }}
+          version-type: release
+
+          changelog-file: changelog.txt
+
+          loaders: |
+            paper
+            spigot
+            purpur
+            folia
+
+          game-versions: |
+            >=1.19
+
+          java: |
+            21
+
+          dependencies: |
+            worldguard(optional)
+
+          retry-attempts: 2
+          retry-delay: 10000
+          fail-mode: fail
+
+      - name: Cleanup
+        if: always()
+        run: rm -f changelog.txt

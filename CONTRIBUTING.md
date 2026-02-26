@@ -272,6 +272,61 @@ When adding features:
 3. **Update Config Reference** with new options
 4. **Add Examples** showing usage
 
+## Release Process (Maintainers Only)
+
+### Automated Publishing to Modrinth
+
+The plugin is automatically published to Modrinth when a GitHub release is created:
+
+1. **Update Version**
+   - Update version in `pom.xml`
+   - Update version in `.github/copilot-instructions.md`
+   - Update `CHANGELOG.md` - move `[Unreleased]` items to new version section
+
+2. **Create GitHub Release**
+   - Go to [Releases](https://github.com/TejasLamba2006/vanilla-core/releases)
+   - Click "Draft a new release"
+   - Tag version: `vX.Y.Z` (e.g., `v1.3.1`)
+   - Release title: `Vanilla Core X.Y.Z`
+   - Copy the changelog for this version from `CHANGELOG.md`
+   - Attach the built JAR file
+   - Click "Publish release"
+
+3. **Automatic Modrinth Upload**
+   - GitHub Actions workflow triggers automatically
+   - Builds the plugin from source
+   - Extracts changelog for this version
+   - Publishes to [Modrinth](https://modrinth.com/plugin/vanillacorewastaken)
+   - Version info, changelog, and game versions are set automatically
+
+4. **Required Secret**
+   - Repository secret `MODRINTH_TOKEN` must be set
+   - Token is obtained from [Modrinth Settings](https://modrinth.com/settings/pats)
+   - Requires `PUBLISH_VERSION` scope
+
+### Manual Publishing (Fallback)
+
+If the automated workflow fails:
+
+1. Build locally: `mvn clean package`
+2. Go to [Modrinth project settings](https://modrinth.com/project/GH4H8ndx/versions)
+3. Click "Upload version"
+4. Fill in version details and upload JAR
+
+### Versioning
+
+Follow [Semantic Versioning](https://semver.org/):
+
+- **MAJOR** (X.0.0): Breaking changes, major rewrites
+- **MINOR** (x.Y.0): New features, non-breaking changes
+- **PATCH** (x.y.Z): Bug fixes, small improvements
+
+Examples:
+
+- Bug fix: `1.3.1` → `1.3.2`
+- New feature: `1.3.1` → `1.4.0`
+- Breaking change: `1.3.1` → `2.0.0`
+
 ## Questions?
 
 - Join our [Discord](https://discord.gg/7fQPG4Grwt)
