@@ -372,4 +372,25 @@ features:
       restart-now-message: "§c⚠ Server restart initiated by {player}!"
       restart-done-message: "§c⚠ Server is restarting now!"
       cancelled-message: "§a✔ Server restart has been cancelled."
+
+  # ------------------------------------------
+  # Shield Mechanics
+  # ------------------------------------------
+  # Customize shield stun behavior when players are hit while blocking.
+  # Mace hitting a blocking player applies a shield cooldown.
+  # Axe hitting a blocking player applies a shield cooldown.
+  # Configure via GUI (/vanilla menu -> Shield Mechanics -> Right Click)
+  shield-mechanics:
+    enabled: false
+    mace-stun:
+      # Apply shield cooldown when a mace hits a blocking player
+      enabled: true
+      # Cooldown duration in ticks (20 ticks = 1 second). Vanilla axe = 100 ticks
+      duration-ticks: 100
+    axe-stun:
+      # Apply shield cooldown when an axe hits a blocking player
+      enabled: true
+      # Cooldown duration in ticks
+      duration-ticks: 100
+      # Only stun if the axe attacker is sprinting (matches vanilla behavior)
 # ============================================

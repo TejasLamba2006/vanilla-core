@@ -143,8 +143,8 @@ public class EnchantmentLimiterFeature extends BaseFeature {
     public void openConfigGUI(Player player, int page) {
         int totalPages = getTotalPages();
         page = Math.clamp(page, 0, totalPages - 1);
-        playerPages.put(player.getUniqueId(), page);
-
+        plugin.getLogger().info(VERBOSE_PREFIX + "Opening config GUI for " + player.getName() + " (page " + (page + 1)
+                + "/" + totalPages + ")");
         Inventory gui = Bukkit.createInventory(null, 54,
                 CONFIG_GUI_TITLE + " §7(" + (page + 1) + "/" + totalPages + ")");
 
@@ -189,6 +189,7 @@ public class EnchantmentLimiterFeature extends BaseFeature {
         gui.setItem(47, infoItem);
 
         player.openInventory(gui);
+        playerPages.put(player.getUniqueId(), page);
     }
 
     private ItemStack createEnchantmentItem(Enchantment enchant) {
@@ -276,6 +277,7 @@ public class EnchantmentLimiterFeature extends BaseFeature {
 
         if (slot == 53 && page < getTotalPages() - 1) {
             openConfigGUI(player, page + 1);
+
             return;
         }
 

@@ -146,8 +146,14 @@ public class MaceLimiterListener implements Listener {
 
         event.setCancelled(true);
 
+        if (event.getRawSlot() < 0 || event.getRawSlot() >= event.getView().getTopInventory().getSize()) {
+            return;
+        }
+
         MaceLimiterFeature feature = plugin.getFeatureManager().getFeature(MaceLimiterFeature.class);
-        if (feature == null) {
+        if (feature == null || !feature.isEnabled()) {
+            plugin.getMessageManager().sendPrefixed(player, "mace-limiter.feature-disabled");
+            plugin.getServer().getScheduler().runTask(plugin, player::closeInventory);
             return;
         }
 

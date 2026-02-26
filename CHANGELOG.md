@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Shield Mechanics feature: configurable shield stun when a player is hit while blocking
+  - Mace hitting a blocking player puts their shield on cooldown
+  - Axe hitting a blocking player puts their shield on cooldown
+  - Stun duration adjustable per weapon type (in ticks) via GUI
+  - All settings accessible via /vanilla menu → Shield Mechanics → Right Click
+
+### Fixed
+
+- Enchantment Limiter config GUI: clicking an enchantment on page 2+ would apply the action to the enchantment at the same slot on page 1 instead. Caused by `player.openInventory()` firing `InventoryCloseEvent` synchronously, which wiped the stored page number before the new page was written. The page is now recorded after the inventory opens. Rare in practice — only affects servers with enough custom enchantments (from datapacks or other plugins) to fill more than 45 slots
+
 ## [1.3.1] - 2026-02-26
 
 ### Fixed

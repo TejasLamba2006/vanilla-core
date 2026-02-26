@@ -46,7 +46,7 @@ jobs:
       - name: Find JAR file
         id: find_jar
         run: |
-          JAR_FILE=$(find target -name "*.jar" -not -name "*-original.jar" -not -name "*-shaded.jar" | head -n 1)
+          JAR_FILE=$(find target -name "*.jar" -not -name "original-*.jar" -not -name "*-shaded.jar" | head -n 1)
           echo "jar_file=$JAR_FILE" >> $GITHUB_OUTPUT
           echo "JAR file: $JAR_FILE"
 
