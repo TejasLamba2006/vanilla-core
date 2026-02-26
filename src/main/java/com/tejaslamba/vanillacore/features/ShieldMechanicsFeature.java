@@ -215,39 +215,39 @@ public class ShieldMechanicsFeature extends BaseFeature {
         switch (slot) {
             case 4 -> {
                 maceStunEnabled = !maceStunEnabled;
-                saveSettings();
-                plugin.getServer().getScheduler().runTask(plugin, () -> openSettingsGUI(player));
+
             }
             case 3 -> {
                 int delta = isShiftClick ? 20 : 5;
                 maceStunDurationTicks = Math.max(1, maceStunDurationTicks - delta);
-                saveSettings();
-                plugin.getServer().getScheduler().runTask(plugin, () -> openSettingsGUI(player));
+
             }
             case 5 -> {
                 int delta = isShiftClick ? 20 : 5;
                 maceStunDurationTicks = Math.min(600, maceStunDurationTicks + delta);
-                saveSettings();
-                plugin.getServer().getScheduler().runTask(plugin, () -> openSettingsGUI(player));
+
             }
             case 13 -> {
                 axeStunEnabled = !axeStunEnabled;
-                saveSettings();
-                plugin.getServer().getScheduler().runTask(plugin, () -> openSettingsGUI(player));
+
             }
             case 12 -> {
                 int delta = isShiftClick ? 20 : 5;
                 axeStunDurationTicks = Math.max(1, axeStunDurationTicks - delta);
-                saveSettings();
-                plugin.getServer().getScheduler().runTask(plugin, () -> openSettingsGUI(player));
+
             }
             case 14 -> {
                 int delta = isShiftClick ? 20 : 5;
                 axeStunDurationTicks = Math.min(600, axeStunDurationTicks + delta);
-                saveSettings();
-                plugin.getServer().getScheduler().runTask(plugin, () -> openSettingsGUI(player));
+
+            }
+            default -> {
+                return;
             }
         }
+        saveSettings();
+        plugin.getServer().getScheduler().runTask(plugin, () -> openSettingsGUI(player));
+
     }
 
     private void saveSettings() {

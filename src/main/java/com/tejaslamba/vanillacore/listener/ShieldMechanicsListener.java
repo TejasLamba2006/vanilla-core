@@ -39,7 +39,7 @@ public class ShieldMechanicsListener implements Listener {
         }
 
         ItemStack weapon = attacker.getEquipment() != null ? attacker.getEquipment().getItemInMainHand() : null;
-        if (weapon == null) {
+        if (weapon == null || weapon.getType().isAir()) {
             return;
         }
 
