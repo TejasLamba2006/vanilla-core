@@ -23,6 +23,7 @@ const sidebars = {
                         'features/item-limiter',
                         'features/mace-limiter',
                         'features/netherite-disabler',
+                        'features/shield-mechanics',
                     ],
                 },
                 {

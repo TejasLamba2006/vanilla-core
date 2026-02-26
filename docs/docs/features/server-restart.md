@@ -4,17 +4,11 @@ sidebar_position: 12
 
 # Server Restart
 
-Schedule and manage server restarts with countdown warnings, multiple notification types, and automatic scheduling.
+Schedule automatic restarts and let players know before the server goes down.
 
 ## Overview
 
-The Server Restart feature provides:
-
-- **Instant Restart**: Immediate server restart with safety confirmation
-- **Countdown System**: Configurable countdown with player notifications
-- **Scheduled Restarts**: Automatic restarts at configured times
-- **Multiple Notifications**: Chat, ActionBar, BossBar, and Title messages
-- **Pre-Restart Commands**: Execute commands before shutdown
+The Server Restart feature lets you schedule and announce restarts in-game. You can trigger an immediate restart, run a countdown with warnings, set up automatic daily schedules, and choose how players are notified (chat, action bar, boss bar, title, or any combination). Pre-restart commands like `save-all` run automatically before shutdown.
 
 ## Configuration
 

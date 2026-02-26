@@ -12,18 +12,11 @@ Control how many maces can be crafted on your server.
 
 ## Overview
 
-The Mace is a powerful weapon introduced in Minecraft 1.21 with a unique smash attack mechanic. The Mace Limiter allows you to limit the **total number of maces** that can be crafted server-wide. Once the limit is reached, the mace crafting recipe is removed entirely.
+The Mace was added in Minecraft 1.21 with a smash attack that scales with fall height. The Mace Limiter tracks the total number of maces crafted server-wide and disables the recipe once that number is hit.
 
-## Why Limit Maces?
+## Why limit maces?
 
-The mace has some balance issues on SMP servers:
-
-- **Smash Attack Damage**: Players can deal massive damage by falling from heights
-- **Breach Enchantment**: Bypasses armor, making protection enchantments less effective
-- **Density Enchantment**: Multiplies the already powerful smash attack damage
-- **Resource Scarcity**: Making maces rare creates a valuable commodity
-
-Limiting the total number of maces creates a server-wide economy around this weapon.
+On SMP servers, the mace is hard to balance. The smash attack scales with fall height and gets multiplied by Density; Breach cuts through armor on top of that. Making maces scarce keeps one player from dominating everyone else, and it turns each crafted mace into something the whole server notices.
 
 ## Configuration
 
@@ -93,12 +86,12 @@ When a mace is crafted, all players see a title announcement:
 | `sound.volume` | decimal | 1.0 | Volume (0.0 - 1.0) |
 | `sound.pitch` | decimal | 1.0 | Pitch (0.5 - 2.0) |
 
-## How It Works
+## How it works
 
-1. **Tracking**: The plugin tracks how many maces have been crafted server-wide
-2. **Announcement**: When someone crafts a mace, everyone is notified via title, chat, and sound
-3. **Recipe Removal**: Once `max-maces` is reached, the mace crafting recipe is disabled
-4. **Persistence**: The count is saved to config and persists through restarts
+1. The plugin counts maces crafted server-wide.
+2. When someone crafts one, everyone gets notified via title, chat, and sound.
+3. Once the limit is hit, the crafting recipe is disabled.
+4. The count persists through restarts.
 
 ### What Happens When Limit is Reached
 

@@ -12,7 +12,7 @@ Control minimap mod features using Xaero's minimap protocol.
 
 ## Overview
 
-Minimap Control allows you to restrict minimap features across your server. It communicates with compatible minimap mods (like Xaero's Minimap) to enforce your preferred minimap rules - from completely disabling minimaps to allowing fair-play mode that only restricts radar features.
+Minimap Control restricts minimap mod features server-wide. It communicates with compatible mods (like Xaero's Minimap) to set rules: disable the minimap entirely, allow navigation only, or allow everything including radar.
 
 ## Configuration
 

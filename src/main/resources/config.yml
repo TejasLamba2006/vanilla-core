@@ -392,5 +392,4 @@ features:
       enabled: true
       # Cooldown duration in ticks
       duration-ticks: 100
-      # Only stun if the axe attacker is sprinting (matches vanilla behavior)
 # ============================================

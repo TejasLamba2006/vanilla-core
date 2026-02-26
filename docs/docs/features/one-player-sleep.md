@@ -10,15 +10,9 @@ Allow a single player to skip the night for the entire server.
 
 In vanilla Minecraft, all players must sleep simultaneously to skip the night. This becomes problematic on multiplayer servers where players are in different timezones, AFK, or simply busy building. One Player Sleep removes this requirement, allowing any single player to skip the night for everyone.
 
-## Why Use One Player Sleep
+## Why use one player sleep?
 
-Common problems solved by this feature:
-
-- **Timezone differences**: Players from different regions are online at different times
-- **AFK players**: One AFK player blocks everyone from sleeping
-- **Base builders**: Players busy building underground or in the nether
-- **Phantom prevention**: Makes it easier to reset phantom timers
-- **Server flow**: No more waiting and asking "can everyone sleep?"
+On any decent-sized SMP, getting everyone to sleep at the same time is basically impossible. Someone's AFK, someone's 12 time zones away, someone's deep in a mine and doesn't care about the night. One player sleep just fixes this: one person hits a bed, everyone wakes up.
 
 ## Configuration
 

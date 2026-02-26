@@ -9,7 +9,7 @@
 # General messages
 general:
   prefix: "&8[&6SMP&8]&r"
-  reload: "&aConfiguration reloaded successfully!"
+  reload: "&aConfiguration reloaded."
   no-permission: "&cYou don't have permission to do that!"
   player-only: "&cThis command can only be used by players!"
   unknown-command: "&cUnknown subcommand. Usage: /vanilla [menu|reload|enchant|mace|netherite|infiniterestock]"
@@ -22,7 +22,7 @@ commands:
     no-permission: "&cYou don't have permission to open the settings menu!"
   reload:
     no-permission: "&cYou don't have permission to reload!"
-    success: "&aConfiguration reloaded successfully!"
+    success: "&aConfiguration reloaded."
   enchant:
     no-permission: "&cYou don't have permission to use enchant commands!"
   mace:
