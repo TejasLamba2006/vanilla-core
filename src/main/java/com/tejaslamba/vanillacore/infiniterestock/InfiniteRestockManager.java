@@ -131,27 +131,17 @@ public class InfiniteRestockManager {
     }
 
     private void setMaxTrades(AbstractVillager villager) {
-        List<MerchantRecipe> newRecipes = new ArrayList<>();
-        for (MerchantRecipe old : villager.getRecipes()) {
-            int uses = 0;
+        List<MerchantRecipe> recipes = villager.getRecipes();
+        for (MerchantRecipe recipe : recipes) {
             int max = (maxTrades <= 0) ? Integer.MAX_VALUE : maxTrades;
-            float priceMultiplier = old.getPriceMultiplier();
-            boolean expReward = old.hasExperienceReward();
-            int villagerExp = old.getVillagerExperience();
-
-            MerchantRecipe nr = new MerchantRecipe(
-                    old.getResult(),
-                    uses,
-                    max,
-                    expReward,
-                    villagerExp,
-                    priceMultiplier,
-                    disablePricePenalty ? 0 : old.getDemand(),
-                    0);
-            nr.setIngredients(old.getIngredients());
-            newRecipes.add(nr);
+            recipe.setMaxUses(max);
+            if (maxTrades <= 0) {
+                recipe.setUses(0);
+            }
+            if (disablePricePenalty) {
+                recipe.setDemand(0);
+            }
         }
-        villager.setRecipes(newRecipes);
     }
 
     private boolean isBlacklistedProfession(Villager villager) {

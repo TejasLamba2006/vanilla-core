@@ -5,8 +5,6 @@ import com.tejaslamba.vanillacore.features.InfiniteRestockFeature;
 import com.tejaslamba.vanillacore.infiniterestock.InfiniteRestockManager;
 import org.bukkit.entity.AbstractVillager;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Villager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -16,10 +14,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.MerchantInventory;
-import org.bukkit.inventory.MerchantRecipe;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class InfiniteRestockListener implements Listener {
 
