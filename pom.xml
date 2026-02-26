@@ -14,6 +14,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Set to true to enable obfuscation, false for development -->
         <obfuscate>true</obfuscate>
+        <!-- Minecraft version for plugin.yml -->
+        <minecraft.version>1.21.1</minecraft.version>
     </properties>
 
     <repositories>
