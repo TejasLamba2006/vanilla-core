@@ -42,14 +42,14 @@ features:
     # Supports custom enchantments using namespace:key format
     # Example: minecraft:sharpness, customenchants:lifesteal
     limits:
-      sharpness: 4
-      protection: 3
-      fire_protection: 3
-      blast_protection: 3
-      projectile_protection: 3
-      feather_falling: 3
-      power: 4
-      unbreaking: 2
+      sharpness: 5
+      protection: 4
+      fire_protection: 4
+      blast_protection: 4
+      projectile_protection: 4
+      feather_falling: 4
+      power: 5
+      unbreaking: 3
 
   # ------------------------------------------
   # Mace Limiter
