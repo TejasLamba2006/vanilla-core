@@ -33,12 +33,12 @@
 
 ### Bans & Restrictions
 
-- [x] Effect Ban System
-  - [x] Configurable potion effect blacklist
-  - [x] Effect removal on application
-- [ ] Enchantment Ban System
-  - [ ] Config-based enchantment blacklist
-  - [ ] Item validation on craft/pickup
+- [ ] Effect Ban System
+  - [ ] Configurable potion effect blacklist
+  - [ ] Effect removal on application
+- [x] Enchantment Ban System
+  - [x] Config-based enchantment blacklist
+  - [x] Item validation on craft/pickup
 - [ ] Tipped Arrow Ban
 - [ ] Bed Bombing Prevention
 - [ ] TNT Minecart Restriction
@@ -135,7 +135,6 @@
 | Feature | Status | Config Path |
 |---------|--------|-------------|
 | Custom Anvil Caps | Done | features.custom-anvil-caps |
-| Enchantment Replacement | Done | features.enchantment-replacement |
 | Enchantment Limiter | Done | features.enchantment-limiter |
 | Mace Limiter | Done | features.mace-limiter |
 | Nether Lock | Done | features.dimension-lock-nether |
@@ -149,7 +148,7 @@
 | Mob Manager | Done | features.mob-manager |
 | Minimap Control | Done | features.minimap-control |
 | Item Bans | Done | bans.items |
-| Effect Bans | Done | bans.effects |
+| Shield Mechanics | Done | features.shield-mechanics |
 
 ---
 
