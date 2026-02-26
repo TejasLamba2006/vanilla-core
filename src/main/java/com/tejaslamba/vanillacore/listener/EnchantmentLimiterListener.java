@@ -90,34 +90,6 @@ public class EnchantmentLimiterListener implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onPrepareAnvil(PrepareAnvilEvent event) {
-        EnchantmentLimiterFeature feature = plugin.getFeatureManager().getFeature(EnchantmentLimiterFeature.class);
-        if (feature == null || !feature.isEnabled()) {
-            return;
-        }
-
-        ItemStack result = event.getResult();
-        if (result == null) {
-            return;
-        }
-
-        if (event.getViewers().isEmpty()) {
-            return;
-        }
-
-        boolean exceedsLimit = manager.checkItemEnchantments(event.getViewers().get(0), result);
-
-        if (exceedsLimit) {
-            event.setResult(null);
-            for (var viewer : event.getViewers()) {
-                if (viewer instanceof Player player) {
-                    player.updateInventory();
-                }
-            }
-        }
-    }
-
-    @EventHandler(ignoreCancelled = true)
     public void onInventoryClick(InventoryClickEvent event) {
         EnchantmentLimiterFeature feature = plugin.getFeatureManager().getFeature(EnchantmentLimiterFeature.class);
         if (feature == null || !feature.isEnabled()) {
