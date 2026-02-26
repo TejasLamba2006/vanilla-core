@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Previously, event handlers ran even when the feature was disabled in config
   - Now properly checks if feature is enabled before processing enchanting, anvil, and pickup events
   - Ensures feature can be fully disabled without affecting gameplay
+- **Infinite Restock** - Fixed villager discounts not being preserved
+  - Cured zombie villager discounts now work correctly
+  - Hero of the Village effect discounts now apply properly
+  - Changed from recreating recipes to directly modifying them in-place
+  - No longer overwrites the natural price multiplier that Minecraft adjusts for discounts
 
 ## [1.3.0] - 2026-02-13
 
