@@ -59,7 +59,7 @@ public class EnchantmentLimiterListener implements Listener {
         event.setCancelled(true);
 
         EnchantmentLimiterFeature feature = plugin.getFeatureManager().getFeature(EnchantmentLimiterFeature.class);
-        if (feature == null) {
+        if (feature == null || !feature.isEnabled()) {
             return;
         }
 
