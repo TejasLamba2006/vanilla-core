@@ -3,6 +3,7 @@ package com.tejaslamba.vanillacore.listener;
 import com.tejaslamba.vanillacore.Main;
 import com.tejaslamba.vanillacore.enchantlimiter.EnchantmentLimiterManager;
 import com.tejaslamba.vanillacore.features.EnchantmentLimiterFeature;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
@@ -37,8 +38,7 @@ public class EnchantmentLimiterListener implements Listener {
 
         String title = event.getView().getTitle();
         if (title.startsWith(EnchantmentLimiterFeature.CONFIG_GUI_TITLE)) {
-            EnchantmentLimiterFeature feature = (EnchantmentLimiterFeature) plugin.getFeatureManager()
-                    .getFeature("Enchantment Limiter");
+            EnchantmentLimiterFeature feature = plugin.getFeatureManager().getFeature(EnchantmentLimiterFeature.class);
             if (feature != null) {
                 feature.cleanupPlayer(player.getUniqueId());
             }
@@ -58,8 +58,7 @@ public class EnchantmentLimiterListener implements Listener {
 
         event.setCancelled(true);
 
-        EnchantmentLimiterFeature feature = (EnchantmentLimiterFeature) plugin.getFeatureManager()
-                .getFeature("Enchantment Limiter");
+        EnchantmentLimiterFeature feature = plugin.getFeatureManager().getFeature(EnchantmentLimiterFeature.class);
         if (feature == null) {
             return;
         }
@@ -80,6 +79,11 @@ public class EnchantmentLimiterListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onEnchantItem(EnchantItemEvent event) {
+        EnchantmentLimiterFeature feature = plugin.getFeatureManager().getFeature(EnchantmentLimiterFeature.class);
+        if (feature == null || !feature.isEnabled()) {
+            return;
+        }
+
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             manager.checkItemEnchantments(event.getEnchanter(), event.getItem());
         }, 1L);
@@ -87,6 +91,11 @@ public class EnchantmentLimiterListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPrepareAnvil(PrepareAnvilEvent event) {
+        EnchantmentLimiterFeature feature = plugin.getFeatureManager().getFeature(EnchantmentLimiterFeature.class);
+        if (feature == null || !feature.isEnabled()) {
+            return;
+        }
+
         ItemStack result = event.getResult();
         if (result == null) {
             return;
@@ -110,6 +119,11 @@ public class EnchantmentLimiterListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onInventoryClick(InventoryClickEvent event) {
+        EnchantmentLimiterFeature feature = plugin.getFeatureManager().getFeature(EnchantmentLimiterFeature.class);
+        if (feature == null || !feature.isEnabled()) {
+            return;
+        }
+
         ItemStack item = event.getCurrentItem();
         if (item == null || item.getType() == Material.AIR) {
             return;
@@ -138,6 +152,11 @@ public class EnchantmentLimiterListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onPlayerPickup(EntityPickupItemEvent event) {
+        EnchantmentLimiterFeature feature = plugin.getFeatureManager().getFeature(EnchantmentLimiterFeature.class);
+        if (feature == null || !feature.isEnabled()) {
+            return;
+        }
+
         if (!(event.getEntity() instanceof Player player)) {
             return;
         }
