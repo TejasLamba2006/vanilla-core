@@ -11,15 +11,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Enchantment Limiter** - Added missing feature-enabled checks to all event handlers
-  - Previously, event handlers ran even when the feature was disabled in config
-  - Now properly checks if feature is enabled before processing enchanting, anvil, and pickup events
-  - Ensures feature can be fully disabled without affecting gameplay
-- **Infinite Restock** - Fixed villager discounts not being preserved
-  - Cured zombie villager discounts now work correctly
-  - Hero of the Village effect discounts now apply properly
-  - Changed from recreating recipes to directly modifying them in-place
-  - No longer overwrites the natural price multiplier that Minecraft adjusts for discounts
+- Enchantment Limiter event handlers (enchanting table, anvil, pickup) no longer run when the feature is disabled in config
+- Players who disconnect while the Enchantment Limiter config GUI is open no longer leave stale session data server-side
+- Removed leftover `PrepareAnvilEvent` handler that was unused
+- Villager discounts from curing zombie villagers and from the Hero of the Village effect now apply correctly. The old code was rebuilding `MerchantRecipe` objects from scratch on every interaction, which dropped any price multiplier changes Minecraft had set. Recipes are now modified in-place instead
+
+### Changed
+
+- Default enchantment limits raised closer to vanilla max levels:
+  - Sharpness and Power: 4 → 5
+  - Protection, Fire Protection, Blast Protection, Projectile Protection, Feather Falling: 3 → 4
+  - Unbreaking: 2 → 3
+- Main command class renamed from `SmpCommand` to `VanillaCommand`
+
+### Added
+
+- GitHub Actions workflow that publishes to Modrinth automatically when a GitHub release is published. It builds from source, pulls the changelog for that version, and uploads via `mc-publish`
+- PR labeler config updated to `actions/labeler@v5` syntax
 
 ## [1.3.0] - 2026-02-13
 
@@ -403,6 +411,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Release Date | Highlights |
 |---------|--------------|------------|
+| 1.3.1 | 2026-02-26 | Enchantment Limiter fixes, Infinite Restock discount fix, Modrinth auto-publish |
 | 1.3.0 | 2026-02-13 | Complete Rebrand: SMP Core → Vanilla Core, Data Migration |
 | 1.2.1 | 2026-01-13 | Open Source Migration, MIT License, CI/CD Workflows |
 | 1.2.0 | 2026-01-02 | Server Restart, Main Menu Redesign, CDN Integration |
@@ -411,7 +420,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.3.1...HEAD
+[1.3.1]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.1.0...v1.2.0
