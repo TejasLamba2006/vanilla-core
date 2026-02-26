@@ -2,45 +2,45 @@
 
 documentation:
   - changed-files:
-    - any-glob-to-any-file:
-      - 'docs/**/*'
-      - '*.md'
-      - '.github/**/*.md'
+      - any-glob-to-any-file:
+          - "docs/**/*"
+          - "*.md"
+          - ".github/**/*.md"
 
 dependencies:
   - changed-files:
-    - any-glob-to-any-file:
-      - 'pom.xml'
-      - 'lib/**/*'
+      - any-glob-to-any-file:
+          - "pom.xml"
+          - "lib/**/*"
 
 configuration:
   - changed-files:
-    - any-glob-to-any-file:
-      - 'src/main/resources/**/*.yml'
-      - 'src/main/resources/**/*.yaml'
+      - any-glob-to-any-file:
+          - "src/main/resources/**/*.yml"
+          - "src/main/resources/**/*.yaml"
 
 feature:
   - changed-files:
-    - any-glob-to-any-file: 'src/main/java/**/features/**/*'
+      - any-glob-to-any-file: "src/main/java/**/features/**/*"
 
 listener:
   - changed-files:
-    - any-glob-to-any-file: 'src/main/java/**/listener/**/*'
+      - any-glob-to-any-file: "src/main/java/**/listener/**/*"
 
 manager:
   - changed-files:
-    - any-glob-to-any-file: 'src/main/java/**/manager/**/*'
+      - any-glob-to-any-file: "src/main/java/**/manager/**/*"
 
 gui:
   - changed-files:
-    - any-glob-to-any-file: 'src/main/java/**/menu/**/*'
+      - any-glob-to-any-file: "src/main/java/**/menu/**/*"
 
 workflow:
   - changed-files:
-    - any-glob-to-any-file: '.github/workflows/**/*'
+      - any-glob-to-any-file: ".github/workflows/**/*"
 
 build:
   - changed-files:
-    - any-glob-to-any-file:
-      - 'pom.xml'
-      - 'proguard*'
+      - any-glob-to-any-file:
+          - "pom.xml"
+          - "proguard*"
