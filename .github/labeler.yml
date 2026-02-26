@@ -1,33 +1,46 @@
 # Label configuration for PR auto-labeling
 
 documentation:
-  - docs/**/*
-  - "*.md"
-  - .github/**/*.md
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'docs/**/*'
+      - '*.md'
+      - '.github/**/*.md'
 
 dependencies:
-  - pom.xml
-  - lib/**/*
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'pom.xml'
+      - 'lib/**/*'
 
 configuration:
-  - src/main/resources/**/*.yml
-  - src/main/resources/**/*.yaml
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'src/main/resources/**/*.yml'
+      - 'src/main/resources/**/*.yaml'
 
 feature:
-  - src/main/java/**/features/**/*
+  - changed-files:
+    - any-glob-to-any-file: 'src/main/java/**/features/**/*'
 
 listener:
-  - src/main/java/**/listener/**/*
+  - changed-files:
+    - any-glob-to-any-file: 'src/main/java/**/listener/**/*'
 
 manager:
-  - src/main/java/**/manager/**/*
+  - changed-files:
+    - any-glob-to-any-file: 'src/main/java/**/manager/**/*'
 
 gui:
-  - src/main/java/**/menu/**/*
+  - changed-files:
+    - any-glob-to-any-file: 'src/main/java/**/menu/**/*'
 
 workflow:
-  - .github/workflows/**/*
+  - changed-files:
+    - any-glob-to-any-file: '.github/workflows/**/*'
 
 build:
-  - pom.xml
-  - proguard*
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'pom.xml'
+      - 'proguard*'
