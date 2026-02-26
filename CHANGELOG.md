@@ -7,20 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-- **Limited Enchantment Slots** - New feature to limit how many of a specific item type can be enchanted server-wide
-  - First-come-first-serve basis for enchanting items
-  - Slots automatically reopen when items are disenchanted or destroyed
-  - Full GUI configuration for setting material limits
-  - View registered items and their owners through GUI
-  - Automatic scanning of existing enchanted items on startup
-  - Persistent tracking with UUID-based item registration
-  - Supports all enchantable materials including custom items
-  - Example: Only 3 maces can be enchanted server-wide
-  - Data stored in `limited-enchants-registry.json`
-  - `/vanilla menu → Limited Enchantment Slots` to access
-
 ## [1.3.1] - 2026-02-26
 
 ### Fixed
