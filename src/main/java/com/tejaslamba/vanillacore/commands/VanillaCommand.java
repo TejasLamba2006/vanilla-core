@@ -14,14 +14,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SmpCommand implements CommandExecutor, TabCompleter {
+public class VanillaCommand implements CommandExecutor, TabCompleter {
 
     private final EnchantCommand enchantCommand;
     private final MaceCommand maceCommand;
     private final NetheriteCommand netheriteCommand;
     private final com.tejaslamba.vanillacore.command.InfiniteRestockCommand infiniteRestockCommand;
 
-    public SmpCommand() {
+    public VanillaCommand() {
         this.enchantCommand = new EnchantCommand(Main.getInstance());
         this.maceCommand = new MaceCommand(Main.getInstance());
         this.netheriteCommand = new NetheriteCommand(Main.getInstance());
