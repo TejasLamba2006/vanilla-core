@@ -1,10 +1,20 @@
 {
-    "latestVersion": "1.3.0",
+    "latestVersion": "1.3.2",
     "configBuilderUrl": "https://vanillacore.tejaslamba.com/config-builder",
     "documentationUrl": "https://vanillacore.tejaslamba.com/docs",
     "modrinthUrl": "https://modrinth.com/plugin/vanillacorewastaken",
     "discordUrl": "https://discord.gg/7fQPG4Grwt",
     "versions": {
+        "1.3.2": {
+            "minPluginVersion": "1.3.2",
+            "releaseDate": "2026-02-27",
+            "changelog": "Shield stun Mechanics and Enchantment Limiter Fix - Added a new shield stun mechanic that temporarily disables shield blocking after taking damage, adding a skill-based element to combat. Also resolved a critical bug in the enchantment limiter feature that caused server crashes when players attempted to enchant items with disallowed enchantments."
+        },
+        "1.3.1": {
+            "minPluginVersion": "1.3.1",
+            "releaseDate": "2026-02-26",
+            "changelog": "Enchantment Limiter Fix - Resolved a critical bug in the enchantment limiter feature that caused server crashes when players attempted to enchant items with disallowed enchantments."
+        },
         "1.3.0": {
             "minPluginVersion": "1.3.0",
             "releaseDate": "2026-02-13",
