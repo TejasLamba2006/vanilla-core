@@ -14,9 +14,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -28,6 +28,14 @@ public class EnchantmentLimiterListener implements Listener {
     public EnchantmentLimiterListener(Main plugin, EnchantmentLimiterManager manager) {
         this.plugin = plugin;
         this.manager = manager;
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        EnchantmentLimiterFeature feature = plugin.getFeatureManager().getFeature(EnchantmentLimiterFeature.class);
+        if (feature != null) {
+            feature.cleanupPlayer(event.getPlayer().getUniqueId());
+        }
     }
 
     @EventHandler
