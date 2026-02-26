@@ -137,7 +137,6 @@
 | Custom Anvil Caps | Done | features.custom-anvil-caps |
 | Enchantment Replacement | Done | features.enchantment-replacement |
 | Enchantment Limiter | Done | features.enchantment-limiter |
-| Limited Enchantment Slots | Done | features.limited-enchantment-slots |
 | Mace Limiter | Done | features.mace-limiter |
 | Nether Lock | Done | features.dimension-lock-nether |
 | End Lock | Done | features.dimension-lock-end |
