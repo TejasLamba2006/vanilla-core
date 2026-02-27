@@ -145,7 +145,7 @@ public class VanillaCorePlugin extends JavaPlugin {
     }
 
     public void refreshVerbose() {
-        this.verboseLogging = configManager.get().getBoolean("plugin.verbose", false);
+        this.verboseLogging = configManager.getTyped().verbose();
     }
 
     public boolean isVerbose() {

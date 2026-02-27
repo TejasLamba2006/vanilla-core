@@ -145,8 +145,8 @@ public class EnchantmentLimiterFeature extends BaseFeature {
     public void openConfigGUI(Player player, int page) {
         int totalPages = getTotalPages();
         page = Math.clamp(page, 0, totalPages - 1);
-        Inventory gui = Bukkit.createInventory(null, 54,
-                CONFIG_GUI_TITLE + " §7(" + (page + 1) + "/" + totalPages + ")");
+        Inventory gui = Bukkit.createInventory(null, 54, MessageManager.parse(
+                "<gold>Configure Limits <gray>(" + (page + 1) + "/" + totalPages + ")"));
 
         int startIndex = page * CONTENT_SLOTS.length;
         int slotIndex = 0;

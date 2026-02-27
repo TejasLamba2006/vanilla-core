@@ -1,5 +1,6 @@
 package com.tejaslamba.vanillacore.manager;
 
+import com.tejaslamba.vanillacore.config.PluginConfig;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
@@ -10,6 +11,7 @@ public class ConfigManager {
 
     private final JavaPlugin plugin;
     private static final int CURRENT_CONFIG_VERSION = 2;
+    private PluginConfig typedConfig;
 
     public ConfigManager(JavaPlugin plugin) {
         this.plugin = plugin;
@@ -19,6 +21,7 @@ public class ConfigManager {
         plugin.saveDefaultConfig();
         plugin.reloadConfig();
         migrateConfig();
+        typedConfig = PluginConfig.from(plugin.getConfig());
     }
 
     private void migrateConfig() {
@@ -62,7 +65,7 @@ public class ConfigManager {
         Map<String, Object> defaults = new HashMap<>();
         defaults.put("config-version", CURRENT_CONFIG_VERSION);
         defaults.put("plugin.name", "Vanilla Core");
-        defaults.put("plugin.prefix", "§8[§6Vanilla Core§8]§r");
+        defaults.put("plugin.prefix", "<dark_gray>[<gold>Vanilla Core<dark_gray>]<reset>");
         defaults.put("plugin.verbose", false);
 
         String[] features = {
@@ -79,15 +82,15 @@ public class ConfigManager {
         defaults.put("features.mace-limiter.mace-crafted", false);
         defaults.put("features.mace-limiter.broadcast-enabled", true);
         defaults.put("features.mace-limiter.broadcast-message",
-                "§6{player} §ehas crafted the only Mace on the server!");
+                "<gold>{player} <yellow>has crafted the only Mace on the server!");
 
         defaults.put("features.dimension-lock-end.enabled", false);
         defaults.put("features.dimension-lock-end.locked", false);
-        defaults.put("features.dimension-lock-end.locked-message", "§cThe End is currently locked!");
+        defaults.put("features.dimension-lock-end.locked-message", "<red>The End is currently locked!");
 
         defaults.put("features.dimension-lock-nether.enabled", false);
         defaults.put("features.dimension-lock-nether.locked", false);
-        defaults.put("features.dimension-lock-nether.locked-message", "§cThe Nether is currently locked!");
+        defaults.put("features.dimension-lock-nether.locked-message", "<red>The Nether is currently locked!");
 
         defaults.put("features.netherite-disabler.enabled", false);
         defaults.put("features.netherite-disabler.disabled-items.sword", true);
@@ -101,7 +104,7 @@ public class ConfigManager {
         defaults.put("features.netherite-disabler.disabled-items.boots", true);
 
         defaults.put("features.invisible-kills.enabled", false);
-        defaults.put("features.invisible-kills.death-message", "{victim} was killed by §k?????????");
+        defaults.put("features.invisible-kills.death-message", "{victim} was killed by <obfuscated>?????????");
 
         defaults.put("features.item-explosion-immunity.enabled", false);
 
@@ -135,6 +138,10 @@ public class ConfigManager {
 
     public FileConfiguration get() {
         return plugin.getConfig();
+    }
+
+    public PluginConfig getTyped() {
+        return typedConfig;
     }
 
 }

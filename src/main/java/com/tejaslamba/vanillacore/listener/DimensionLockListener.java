@@ -3,6 +3,7 @@ package com.tejaslamba.vanillacore.listener;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.EndLockFeature;
 import com.tejaslamba.vanillacore.features.NetherLockFeature;
+import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -40,8 +41,8 @@ public class DimensionLockListener implements Listener {
                     && !player.hasPermission("vanillacore.dimension.bypass.end")) {
                 event.setCancelled(true);
                 String message = plugin.getConfigManager().get()
-                        .getString("features.dimension-lock-end.locked-message", "§cThe End is currently locked!");
-                player.sendMessage(message);
+                        .getString("features.dimension-lock-end.locked-message", "<red>The End is currently locked!");
+                player.sendMessage(MessageManager.parse(message));
 
                 if (plugin.isVerbose()) {
                     plugin.getLogger()
@@ -56,8 +57,8 @@ public class DimensionLockListener implements Listener {
                 event.setCancelled(true);
                 String message = plugin.getConfigManager().get()
                         .getString("features.dimension-lock-nether.locked-message",
-                                "§cThe Nether is currently locked!");
-                player.sendMessage(message);
+                                "<red>The Nether is currently locked!");
+                player.sendMessage(MessageManager.parse(message));
 
                 if (plugin.isVerbose()) {
                     plugin.getLogger().info(

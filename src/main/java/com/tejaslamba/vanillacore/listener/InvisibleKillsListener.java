@@ -2,6 +2,7 @@ package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.InvisibleKillsFeature;
+import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -44,10 +45,10 @@ public class InvisibleKillsListener implements Listener {
         }
 
         String deathMessage = plugin.getConfigManager().get()
-                .getString("features.invisible-kills.death-message", "{victim} was killed by §k?????????");
+                .getString("features.invisible-kills.death-message", "{victim} was killed by <obf>?????????");
 
         String formattedMessage = deathMessage.replace("{victim}", victim.getName());
 
-        event.setDeathMessage(formattedMessage);
+        event.deathMessage(MessageManager.parse(formattedMessage));
     }
 }

@@ -19,7 +19,7 @@ config-version: 2
 # ============================================
 plugin:
   name: "Vanilla Core"
-  prefix: "§8[§6Vanilla Core§8]§r"
+  prefix: "<dark_gray>[<gold>Vanilla Core<dark_gray>]<reset>"
   # Enable verbose logging for debugging (shows detailed info in console)
   verbose: false
 
@@ -65,9 +65,9 @@ features:
     # Title announcement settings
     title:
       enabled: true
-      title: "§6⚔ MACE CRAFTED ⚔"
+      title: "<gold>⚔ MACE CRAFTED ⚔"
       # {player} = crafter name, {count} = mace number
-      subtitle: "§e{player} §7has crafted mace §e#§6{count}"
+      subtitle: "<yellow>{player} <gray>has crafted mace <yellow>#<gold>{count}"
       fade-in: 10 # ticks (20 ticks = 1 second)
       stay: 70 # ticks
       fade-out: 20 # ticks
@@ -75,7 +75,7 @@ features:
     chat:
       enabled: true
       # {player} = crafter name, {count} = mace number
-      message: "§6{player} §ehas crafted mace #§6{count}§e!"
+      message: "<gold>{player} <yellow>has crafted mace #<gold>{count}<yellow>!"
     # Sound played to all players when mace is crafted
     sound:
       enabled: true
@@ -93,7 +93,7 @@ features:
     # Whether the dimension is currently locked
     locked: false
     # Message shown when trying to enter locked dimension
-    locked-message: "§cThe End is currently locked!"
+    locked-message: "<red>The End is currently locked!"
 
   # ------------------------------------------
   # Dimension Lock - Nether
@@ -104,7 +104,7 @@ features:
     # Whether the dimension is currently locked
     locked: false
     # Message shown when trying to enter locked dimension
-    locked-message: "§cThe Nether is currently locked!"
+    locked-message: "<red>The Nether is currently locked!"
 
   # ------------------------------------------
   # Netherite Disabler
@@ -143,8 +143,8 @@ features:
     enabled: false
     # Death message format
     # {victim} = killed player's name
-    # Use §k for obfuscated text (minecraft formatting)
-    death-message: "{victim} was killed by §k?????????"
+    # Supports MiniMessage format (e.g. <obfuscated> for obfuscated text)
+    death-message: "{victim} was killed by <obfuscated>?????????"
 
   # ------------------------------------------
   # Item Explosion Immunity
@@ -189,7 +189,7 @@ features:
     notify-player: true
     # Message shown when excess items are removed
     # Placeholders: {item} = item name, {amount} = amount removed, {limit} = configured limit
-    notify-message: "§c[Vanilla Core] §7Excess items removed: {item} x{amount} (limit: {limit})"
+    notify-message: "<red>[Vanilla Core] <gray>Excess items removed: <yellow>{item} x{amount} <gray>(limit: {limit})"
     # Whether to drop excess items at player's feet (true) or delete them (false)
     drop-excess: true
     # Item limits configuration

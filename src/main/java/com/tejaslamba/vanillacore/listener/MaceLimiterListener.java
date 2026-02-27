@@ -2,9 +2,9 @@ package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.MaceLimiterFeature;
+import com.tejaslamba.vanillacore.manager.MessageManager;
 import com.tejaslamba.vanillacore.menu.MainMenu;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -95,8 +95,8 @@ public class MaceLimiterListener implements Listener {
             int stay = plugin.getConfigManager().get().getInt("features.mace-limiter.title.stay", 70);
             int fadeOut = plugin.getConfigManager().get().getInt("features.mace-limiter.title.fade-out", 20);
 
-            Component titleComp = LegacyComponentSerializer.legacySection().deserialize(title);
-            Component subtitleComp = LegacyComponentSerializer.legacySection().deserialize(subtitle);
+            Component titleComp = MessageManager.parse(title);
+            Component subtitleComp = MessageManager.parse(subtitle);
             Title.Times times = Title.Times.times(
                     Duration.ofMillis(fadeIn * 50L),
                     Duration.ofMillis(stay * 50L),
@@ -117,7 +117,7 @@ public class MaceLimiterListener implements Listener {
                     .replace("{player}", crafterName)
                     .replace("{count}", String.valueOf(count));
 
-            Bukkit.getServer().broadcast(LegacyComponentSerializer.legacySection().deserialize(chatMessage));
+            Bukkit.getServer().broadcast(MessageManager.parse(chatMessage));
 
             if (plugin.isVerbose()) {
                 plugin.getLogger().info("[VERBOSE] Mace Limiter - Sent chat message for " + crafterName);

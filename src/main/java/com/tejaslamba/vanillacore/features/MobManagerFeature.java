@@ -289,8 +289,9 @@ public class MobManagerFeature extends BaseFeature {
         playerSelectedWorld.put(player.getUniqueId(), worldName);
 
         String titleWorld = worldName == null ? "All Worlds" : worldName;
-        Inventory gui = Bukkit.createInventory(null, 54,
-                GUI_TITLE + " §7[" + titleWorld + "] (" + (page + 1) + "/" + totalPages + ")");
+        Inventory gui = Bukkit.createInventory(null, 54, MessageManager.parse(
+                "<dark_gray>Mob Manager <gray>[<yellow>" + titleWorld + "<gray>] (" + (page + 1) + "/" + totalPages
+                        + ")"));
 
         populateMobItems(gui, page, worldName);
         addMobGUINavigationButtons(gui, page, totalPages);
@@ -629,33 +630,33 @@ public class MobManagerFeature extends BaseFeature {
 
         if (meta != null) {
             String reasonName = formatReasonName(reason);
-            meta.setDisplayName((isAllowed ? "§a" : "§c") + reasonName);
-            meta.setLore(createSpawnReasonLore(reason, isAllowed));
+            meta.displayName(MessageManager.parse("<!italic>" + (isAllowed ? "<green>" : "<red>") + reasonName));
+            meta.lore(createSpawnReasonLore(reason, isAllowed));
             item.setItemMeta(meta);
         }
 
         return item;
     }
 
-    private List<String> createSpawnReasonLore(CreatureSpawnEvent.SpawnReason reason, boolean isAllowed) {
-        List<String> lore = new ArrayList<>();
-        lore.add("");
+    private List<Component> createSpawnReasonLore(CreatureSpawnEvent.SpawnReason reason, boolean isAllowed) {
+        List<Component> lore = new ArrayList<>();
+        lore.add(Component.empty());
 
         String description = getSpawnReasonDescription(reason);
-        lore.add("§8" + description);
-        lore.add("");
+        lore.add(MessageManager.parse("<dark_gray>" + description));
+        lore.add(Component.empty());
 
         if (isAllowed) {
-            lore.add("§aBypass: §2Allowed");
-            lore.add("§7Mobs CAN spawn via this reason");
-            lore.add("§7even if mob type is disabled.");
+            lore.add(MessageManager.parse("<green>Bypass: <dark_green>Allowed"));
+            lore.add(MessageManager.parse("<gray>Mobs CAN spawn via this reason"));
+            lore.add(MessageManager.parse("<gray>even if mob type is disabled."));
         } else {
-            lore.add("§cBypass: §4Blocked");
-            lore.add("§7Mobs CANNOT spawn via this");
-            lore.add("§7reason if mob type is disabled.");
+            lore.add(MessageManager.parse("<red>Bypass: <dark_red>Blocked"));
+            lore.add(MessageManager.parse("<gray>Mobs CANNOT spawn via this"));
+            lore.add(MessageManager.parse("<gray>reason if mob type is disabled."));
         }
-        lore.add("");
-        lore.add("§eClick to toggle!");
+        lore.add(Component.empty());
+        lore.add(MessageManager.parse("<yellow>Click to toggle!"));
         return lore;
     }
 
@@ -710,7 +711,7 @@ public class MobManagerFeature extends BaseFeature {
         ItemStack backButton = new ItemStack(Material.OAK_DOOR);
         ItemMeta backMeta = backButton.getItemMeta();
         if (backMeta != null) {
-            backMeta.setDisplayName("§eBack to Mob Manager");
+            backMeta.displayName(MessageManager.parse("<!italic><yellow>Back to Mob Manager"));
             backButton.setItemMeta(backMeta);
         }
         gui.setItem(49, backButton);
@@ -718,7 +719,7 @@ public class MobManagerFeature extends BaseFeature {
         ItemStack barrier = new ItemStack(Material.BARRIER);
         ItemMeta barrierMeta = barrier.getItemMeta();
         if (barrierMeta != null) {
-            barrierMeta.setDisplayName("§cClose");
+            barrierMeta.displayName(MessageManager.parse("<!italic><red>Close"));
             barrier.setItemMeta(barrierMeta);
         }
         gui.setItem(50, barrier);
@@ -731,16 +732,16 @@ public class MobManagerFeature extends BaseFeature {
         ItemStack infoItem = new ItemStack(Material.BOOK);
         ItemMeta infoMeta = infoItem.getItemMeta();
         if (infoMeta != null) {
-            infoMeta.setDisplayName("§6Spawn Reasons Info");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Allowed spawn reasons will");
-            lore.add("§7bypass mob blocking.");
-            lore.add("");
-            lore.add("§7Example: If §aSPAWNER_EGG §7is allowed,");
-            lore.add("§7disabled mobs can still spawn");
-            lore.add("§7from spawn eggs.");
-            infoMeta.setLore(lore);
+            infoMeta.displayName(MessageManager.parse("<!italic><gold>Spawn Reasons Info"));
+            List<Component> infoLore = new ArrayList<>();
+            infoLore.add(Component.empty());
+            infoLore.add(MessageManager.parse("<gray>Allowed spawn reasons will"));
+            infoLore.add(MessageManager.parse("<gray>bypass mob blocking."));
+            infoLore.add(Component.empty());
+            infoLore.add(MessageManager.parse("<gray>Example: If <green>SPAWNER_EGG <gray>is allowed,"));
+            infoLore.add(MessageManager.parse("<gray>disabled mobs can still spawn"));
+            infoLore.add(MessageManager.parse("<gray>from spawn eggs."));
+            infoMeta.lore(infoLore);
             infoItem.setItemMeta(infoMeta);
         }
         return infoItem;
@@ -806,19 +807,20 @@ public class MobManagerFeature extends BaseFeature {
                 chunkCleanupEnabled ? Material.LIME_STAINED_GLASS_PANE : Material.RED_STAINED_GLASS_PANE);
         ItemMeta chunkMeta = chunkCleanup.getItemMeta();
         if (chunkMeta != null) {
-            chunkMeta.setDisplayName("§6Chunk Cleanup");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Status: " + (chunkCleanupEnabled ? "§aEnabled" : "§cDisabled"));
-            lore.add("");
-            lore.add("§7When enabled, removes disabled");
-            lore.add("§7mobs from chunks when they load.");
-            lore.add("");
-            lore.add("§c⚠ Warning: This is destructive!");
-            lore.add("§cExisting mobs will be deleted.");
-            lore.add("");
-            lore.add("§eClick to toggle!");
-            chunkMeta.setLore(lore);
+            chunkMeta.displayName(MessageManager.parse("<!italic><gold>Chunk Cleanup"));
+            List<Component> chunkLore = new ArrayList<>();
+            chunkLore.add(Component.empty());
+            chunkLore.add(MessageManager
+                    .parse("<gray>Status: " + (chunkCleanupEnabled ? "<green>Enabled" : "<red>Disabled")));
+            chunkLore.add(Component.empty());
+            chunkLore.add(MessageManager.parse("<gray>When enabled, removes disabled"));
+            chunkLore.add(MessageManager.parse("<gray>mobs from chunks when they load."));
+            chunkLore.add(Component.empty());
+            chunkLore.add(MessageManager.parse("<red>⚠ Warning: This is destructive!"));
+            chunkLore.add(MessageManager.parse("<red>Existing mobs will be deleted."));
+            chunkLore.add(Component.empty());
+            chunkLore.add(MessageManager.parse("<yellow>Click to toggle!"));
+            chunkMeta.lore(chunkLore);
             chunkCleanup.setItemMeta(chunkMeta);
         }
         gui.setItem(11, chunkCleanup);
@@ -827,17 +829,18 @@ public class MobManagerFeature extends BaseFeature {
                 worldGuardBypass ? Material.LIME_STAINED_GLASS_PANE : Material.RED_STAINED_GLASS_PANE);
         ItemMeta wgMeta = worldGuardItem.getItemMeta();
         if (wgMeta != null) {
-            wgMeta.setDisplayName("§6WorldGuard Bypass");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Status: " + (worldGuardBypass ? "§aEnabled" : "§cDisabled"));
-            lore.add("");
-            lore.add("§7When enabled, mobs can spawn");
-            lore.add("§7in WorldGuard protected regions");
-            lore.add("§7even if disabled in that world.");
-            lore.add("");
-            lore.add("§eClick to toggle!");
-            wgMeta.setLore(lore);
+            wgMeta.displayName(MessageManager.parse("<!italic><gold>WorldGuard Bypass"));
+            List<Component> wgLore = new ArrayList<>();
+            wgLore.add(Component.empty());
+            wgLore.add(
+                    MessageManager.parse("<gray>Status: " + (worldGuardBypass ? "<green>Enabled" : "<red>Disabled")));
+            wgLore.add(Component.empty());
+            wgLore.add(MessageManager.parse("<gray>When enabled, mobs can spawn"));
+            wgLore.add(MessageManager.parse("<gray>in WorldGuard protected regions"));
+            wgLore.add(MessageManager.parse("<gray>even if disabled in that world."));
+            wgLore.add(Component.empty());
+            wgLore.add(MessageManager.parse("<yellow>Click to toggle!"));
+            wgMeta.lore(wgLore);
             worldGuardItem.setItemMeta(wgMeta);
         }
         gui.setItem(15, worldGuardItem);
@@ -845,7 +848,7 @@ public class MobManagerFeature extends BaseFeature {
         ItemStack backButton = new ItemStack(Material.OAK_DOOR);
         ItemMeta backMeta = backButton.getItemMeta();
         if (backMeta != null) {
-            backMeta.setDisplayName("§eBack to World Select");
+            backMeta.displayName(MessageManager.parse("<!italic><yellow>Back to World Select"));
             backButton.setItemMeta(backMeta);
         }
         gui.setItem(22, backButton);

@@ -81,17 +81,17 @@ public class OnePlayerSleepFeature extends BaseFeature {
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "§aEnabled" : "§cDisabled");
+        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
         lore.add("");
-        lore.add("§7When enabled, only one player");
-        lore.add("§7needs to sleep to skip the night");
+        lore.add("<gray>When enabled, only one player");
+        lore.add("<gray>needs to sleep to skip the night");
         lore.add("");
         String sleepMsg = plugin.getConfigManager().get().getString("features.one-player-sleep.sleep-message", "");
         String skipMsg = plugin.getConfigManager().get().getString("features.one-player-sleep.skip-message", "");
-        lore.add("§7Sleep Message: " + (sleepMsg.isEmpty() ? "§8None" : "§a✓"));
-        lore.add("§7Skip Message: " + (skipMsg.isEmpty() ? "§8None" : "§a✓"));
+        lore.add("<gray>Sleep Message: " + (sleepMsg.isEmpty() ? "<dark_gray>None" : "<green>\u2713"));
+        lore.add("<gray>Skip Message: " + (skipMsg.isEmpty() ? "<dark_gray>None" : "<green>\u2713"));
         lore.add("");
-        lore.add("§eLeft Click: Toggle");
+        lore.add("<yellow>Left Click: Toggle");
         return lore;
     }
 
