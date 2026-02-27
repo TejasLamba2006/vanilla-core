@@ -75,7 +75,7 @@ public class InvisibleKillsFeature extends BaseFeature {
     @Override
     public void onRightClick(Player player) {
         String deathMessage = plugin.getConfigManager().get()
-                .getString("features.invisible-kills.death-message", "{victim} was killed by §k?????????");
+                .getString("features.invisible-kills.death-message", "{victim} was killed by <obfuscated>?????????");
 
         player.sendMessage(MessageManager.parse("<gold><bold>=== Invisible Kills ==="));
         player.sendMessage(Component.empty());

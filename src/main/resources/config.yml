@@ -199,7 +199,7 @@ features:
     #     material: MATERIAL_NAME
     #     limit: number
     #     customModelData: number (optional)
-    #     displayName: "§cCustom Name" (optional)
+    #     displayName: "<red>Custom Name" (optional)
     #     potionType: POTION_TYPE (optional, for potions only)
     # Note: Item bans can be done via Item Limiter
     # by setting an item's limit to 0
@@ -241,10 +241,10 @@ features:
     # Message broadcast when a player starts sleeping
     # Placeholders: {player} = player name, {displayname} = display name
     # Leave empty to disable
-    sleep-message: "§e{player} §7is sleeping..."
+    sleep-message: "<yellow>{player} <gray>is sleeping..."
     # Message broadcast when night is skipped
     # Leave empty to disable
-    skip-message: "§a☀ Good morning!"
+    skip-message: "<green>☀ Good morning!"
 
   # ------------------------------------------
   # Mob Manager
@@ -361,17 +361,17 @@ features:
       sound: "BLOCK_NOTE_BLOCK_PLING"
       volume: 1.0
       pitch: 1.0
-    # Customizable messages (supports color codes with §)
+    # Customizable messages (supports MiniMessage format)
     # {time} = seconds remaining, {player} = executor name
     messages:
-      countdown-message: "§c⚠ Server restarting in §e{time} §cseconds!"
-      actionbar-message: "§cRestarting in {time}s"
-      bossbar-message: "§cServer Restart: {time}s"
-      title-message: "§c⚠ Server Restart"
-      subtitle-message: "§e{time} seconds remaining"
-      restart-now-message: "§c⚠ Server restart initiated by {player}!"
-      restart-done-message: "§c⚠ Server is restarting now!"
-      cancelled-message: "§a✔ Server restart has been cancelled."
+      countdown-message: "<red>⚠ Server restarting in <yellow>{time} <red>seconds!"
+      actionbar-message: "<red>Restarting in {time}s"
+      bossbar-message: "<red>Server Restart: {time}s"
+      title-message: "<red>⚠ Server Restart"
+      subtitle-message: "<yellow>{time} seconds remaining"
+      restart-now-message: "<red>⚠ Server restart initiated by {player}!"
+      restart-done-message: "<red>⚠ Server is restarting now!"
+      cancelled-message: "<green>✔ Server restart has been cancelled."
 
   # ------------------------------------------
   # Shield Mechanics

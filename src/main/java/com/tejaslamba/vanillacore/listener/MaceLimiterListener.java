@@ -82,12 +82,13 @@ public class MaceLimiterListener implements Listener {
 
         if (titleEnabled) {
             String title = plugin.getConfigManager().get()
-                    .getString("features.mace-limiter.title.title", "§6⚔ MACE CRAFTED ⚔")
+                    .getString("features.mace-limiter.title.title", "<gold>⚔ MACE CRAFTED ⚔")
                     .replace("{player}", crafterName)
                     .replace("{count}", String.valueOf(count));
 
             String subtitle = plugin.getConfigManager().get()
-                    .getString("features.mace-limiter.title.subtitle", "§e{player} §7has crafted mace §e#§6{count}")
+                    .getString("features.mace-limiter.title.subtitle",
+                            "<yellow>{player} <gray>has crafted mace <yellow>#<gold>{count}")
                     .replace("{player}", crafterName)
                     .replace("{count}", String.valueOf(count));
 
@@ -113,7 +114,8 @@ public class MaceLimiterListener implements Listener {
 
         if (chatEnabled) {
             String chatMessage = plugin.getConfigManager().get()
-                    .getString("features.mace-limiter.chat.message", "§6{player} §ehas crafted mace #§6{count}§e!")
+                    .getString("features.mace-limiter.chat.message",
+                            "<gold>{player} <yellow>has crafted mace #<gold>{count}<yellow>!")
                     .replace("{player}", crafterName)
                     .replace("{count}", String.valueOf(count));
 

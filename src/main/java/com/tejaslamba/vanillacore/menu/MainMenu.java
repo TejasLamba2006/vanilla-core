@@ -20,6 +20,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
 public class MainMenu extends BaseMenu {
 
@@ -381,12 +383,13 @@ public class MainMenu extends BaseMenu {
             return;
         }
 
-        if (item != null && item.hasItemMeta() && item.getItemMeta().hasLore()) {
-            List<String> lore = item.getItemMeta().getLore();
-            if (lore != null) {
-                for (String line : lore) {
-                    if (line.contains("§8Config: §7")) {
-                        String configPath = line.replace("§8Config: §7", "").replaceAll("§.", "");
+        if (item != null && item.hasItemMeta() && item.getItemMeta().lore() != null) {
+            List<Component> loreComponents = item.getItemMeta().lore();
+            if (loreComponents != null) {
+                for (Component loreComp : loreComponents) {
+                    String plain = PlainTextComponentSerializer.plainText().serialize(loreComp);
+                    if (plain.contains("Config: ")) {
+                        String configPath = plain.replace("Config: ", "").trim();
                         String featureConfigPath = configPath.replace(".enabled", "");
 
                         com.tejaslamba.vanillacore.feature.Feature feature = plugin.getFeatureManager()
