@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.NetheriteDisablerFeature;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,9 +11,9 @@ import org.bukkit.inventory.ItemStack;
 
 public class NetheriteDisablerListener implements Listener {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
 
-    public NetheriteDisablerListener(Main plugin) {
+    public NetheriteDisablerListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

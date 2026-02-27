@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.ShieldMechanicsFeature;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
@@ -13,9 +13,9 @@ import org.bukkit.inventory.ItemStack;
 
 public class ShieldMechanicsListener implements Listener {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
 
-    public ShieldMechanicsListener(Main plugin) {
+    public ShieldMechanicsListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

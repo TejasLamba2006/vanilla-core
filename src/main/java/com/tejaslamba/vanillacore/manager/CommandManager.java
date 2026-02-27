@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.manager;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.tejaslamba.vanillacore.commands.VanillaCommand;
@@ -17,8 +17,8 @@ public class CommandManager {
     public void registerDefaults() {
         registerCommand("vanilla", new VanillaCommand());
 
-        registerCommand("nether", new DimensionCommand((Main) plugin, "nether"));
-        registerCommand("end", new DimensionCommand((Main) plugin, "end"));
+        registerCommand("nether", new DimensionCommand((VanillaCorePlugin) plugin, "nether"));
+        registerCommand("end", new DimensionCommand((VanillaCorePlugin) plugin, "end"));
     }
 
     public void registerCommand(String name, org.bukkit.command.CommandExecutor executor) {

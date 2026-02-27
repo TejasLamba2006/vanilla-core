@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.features;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.NetheriteDisablerListener;
 import org.bukkit.Material;
@@ -41,7 +41,7 @@ public class NetheriteDisablerFeature extends BaseFeature {
     }
 
     @Override
-    public void onEnable(Main plugin) {
+    public void onEnable(VanillaCorePlugin plugin) {
         listener = new NetheriteDisablerListener(plugin);
         super.onEnable(plugin);
         loadDisabledItems();

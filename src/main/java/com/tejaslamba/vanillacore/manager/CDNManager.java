@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.manager;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -23,7 +23,7 @@ public class CDNManager {
     private static final int TIMEOUT_MS = 5000;
     private static final long CACHE_DURATION_MS = 5 * 60 * 1000;
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private final Gson gson;
     private final ConcurrentHashMap<String, CachedData> cache;
 
@@ -41,7 +41,7 @@ public class CDNManager {
     private String updateNotificationActionMessage;
     private long lastFetch;
 
-    public CDNManager(Main plugin) {
+    public CDNManager(VanillaCorePlugin plugin) {
         this.plugin = plugin;
         this.gson = new Gson();
         this.cache = new ConcurrentHashMap<>();

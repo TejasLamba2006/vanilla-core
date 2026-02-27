@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.feature;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -15,7 +15,7 @@ public interface Feature {
 
     boolean isEnabled();
 
-    void onEnable(Main plugin);
+    void onEnable(VanillaCorePlugin plugin);
 
     void onDisable();
 

@@ -1,15 +1,15 @@
 package com.tejaslamba.vanillacore.manager;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.menu.MainMenu;
 import org.bukkit.entity.Player;
 
 public class MenuManager {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private MainMenu mainMenu;
 
-    public MenuManager(Main plugin) {
+    public MenuManager(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

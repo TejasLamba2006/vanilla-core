@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.commands;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.command.EnchantCommand;
 import com.tejaslamba.vanillacore.command.MaceCommand;
 import com.tejaslamba.vanillacore.command.NetheriteCommand;
@@ -22,14 +22,14 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
     private final com.tejaslamba.vanillacore.command.InfiniteRestockCommand infiniteRestockCommand;
 
     public VanillaCommand() {
-        this.enchantCommand = new EnchantCommand(Main.getInstance());
-        this.maceCommand = new MaceCommand(Main.getInstance());
-        this.netheriteCommand = new NetheriteCommand(Main.getInstance());
-        this.infiniteRestockCommand = new com.tejaslamba.vanillacore.command.InfiniteRestockCommand(Main.getInstance());
+        this.enchantCommand = new EnchantCommand(VanillaCorePlugin.getInstance());
+        this.maceCommand = new MaceCommand(VanillaCorePlugin.getInstance());
+        this.netheriteCommand = new NetheriteCommand(VanillaCorePlugin.getInstance());
+        this.infiniteRestockCommand = new com.tejaslamba.vanillacore.command.InfiniteRestockCommand(VanillaCorePlugin.getInstance());
     }
 
     private MessageManager msg() {
-        return Main.getInstance().getMessageManager();
+        return VanillaCorePlugin.getInstance().getMessageManager();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
                 msg().sendPrefixed(p, "commands.menu.no-permission");
                 return true;
             }
-            Main.getInstance().getMenuManager().openMainMenu(p);
+            VanillaCorePlugin.getInstance().getMenuManager().openMainMenu(p);
             return true;
         }
 
@@ -96,7 +96,7 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
                 msg().sendPrefixed(p, "commands.menu.no-permission");
                 return true;
             }
-            Main.getInstance().getMenuManager().openMainMenu(p);
+            VanillaCorePlugin.getInstance().getMenuManager().openMainMenu(p);
             return true;
         }
 
@@ -105,10 +105,10 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
                 msg().sendPrefixed(sender, "commands.reload.no-permission");
                 return true;
             }
-            Main.getInstance().getConfigManager().load();
-            Main.getInstance().getMessageManager().reload();
-            Main.getInstance().getMenuConfigManager().load();
-            Main.getInstance().refreshVerbose();
+            VanillaCorePlugin.getInstance().getConfigManager().load();
+            VanillaCorePlugin.getInstance().getMessageManager().reload();
+            VanillaCorePlugin.getInstance().getMenuConfigManager().load();
+            VanillaCorePlugin.getInstance().refreshVerbose();
             msg().sendPrefixed(sender, "commands.reload.success");
             return true;
         }

@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.command;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.MaceLimiterFeature;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -17,10 +17,10 @@ import java.util.List;
 
 public class MaceCommand implements CommandExecutor, TabCompleter {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private static final String WHITELIST_LORE = "§8[§6MaceWhitelisted§8]";
 
-    public MaceCommand(Main plugin) {
+    public MaceCommand(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

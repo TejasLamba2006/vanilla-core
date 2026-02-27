@@ -18,9 +18,9 @@ import com.tejaslamba.vanillacore.manager.FeatureManager;
 import com.tejaslamba.vanillacore.manager.CDNManager;
 import com.tejaslamba.vanillacore.listener.UpdateNotificationListener;
 
-public class Main extends JavaPlugin {
+public class VanillaCorePlugin extends JavaPlugin {
 
-    private static Main instance;
+    private static VanillaCorePlugin instance;
     private CommandManager commandManager;
     private ConfigManager configManager;
     private MessageManager messageManager;
@@ -152,7 +152,7 @@ public class Main extends JavaPlugin {
         return verboseLogging;
     }
 
-    public static Main getInstance() {
+    public static VanillaCorePlugin getInstance() {
         return instance;
     }
 

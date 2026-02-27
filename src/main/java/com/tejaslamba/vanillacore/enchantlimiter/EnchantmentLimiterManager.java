@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.enchantlimiter;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
@@ -18,12 +18,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class EnchantmentLimiterManager {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private final Map<Enchantment, Integer> enchantmentLimits = new ConcurrentHashMap<>();
     private final Map<String, Enchantment> enchantmentCache = new ConcurrentHashMap<>();
     private final Map<String, String> enchantmentNameMap = new HashMap<>();
 
-    public EnchantmentLimiterManager(Main plugin) {
+    public EnchantmentLimiterManager(VanillaCorePlugin plugin) {
         this.plugin = plugin;
         initEnchantmentNameMap();
     }

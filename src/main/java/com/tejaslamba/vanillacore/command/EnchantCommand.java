@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.command;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.utils.EnchantmentUtils;
 import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
@@ -20,10 +20,10 @@ import java.util.Map;
 
 public class EnchantCommand implements CommandExecutor, TabCompleter {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private static final String WHITELIST_LORE = "§8[§6EnchantWhitelisted§8]";
 
-    public EnchantCommand(Main plugin) {
+    public EnchantCommand(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

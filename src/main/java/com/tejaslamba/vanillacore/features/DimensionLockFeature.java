@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.features;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.DimensionLockListener;
 import org.bukkit.Material;
@@ -21,7 +21,7 @@ public abstract class DimensionLockFeature extends BaseFeature {
     }
 
     @Override
-    public void onEnable(Main plugin) {
+    public void onEnable(VanillaCorePlugin plugin) {
         if (sharedListener == null) {
             sharedListener = new DimensionLockListener(plugin);
         }

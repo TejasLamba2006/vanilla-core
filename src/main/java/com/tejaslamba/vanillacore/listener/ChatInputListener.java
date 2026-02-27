@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -10,9 +10,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class ChatInputListener implements Listener {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
 
-    public ChatInputListener(Main plugin) {
+    public ChatInputListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

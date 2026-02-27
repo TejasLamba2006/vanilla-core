@@ -42,7 +42,7 @@ public class MessageManager {
             messagesConfig.setDefaults(defaultConfig);
         }
 
-        if (com.tejaslamba.vanillacore.Main.getInstance().isVerbose()) {
+        if (com.tejaslamba.vanillacore.VanillaCorePlugin.getInstance().isVerbose()) {
             plugin.getLogger().info("[VERBOSE] Messages loaded from messages.yml");
         }
     }

@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.ServerRestartFeature;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -18,10 +18,10 @@ import java.util.UUID;
 
 public class ServerRestartListener implements Listener {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private final Map<UUID, ScheduleInputState> awaitingInput = new HashMap<>();
 
-    public ServerRestartListener(Main plugin) {
+    public ServerRestartListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

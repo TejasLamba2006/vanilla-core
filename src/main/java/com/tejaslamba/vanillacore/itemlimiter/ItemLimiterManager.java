@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.itemlimiter;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ItemLimiterManager {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private final Map<String, ItemLimit> itemLimits = new ConcurrentHashMap<>();
     private final Map<UUID, Long> lastMessageTime = new ConcurrentHashMap<>();
     private static final long MESSAGE_COOLDOWN = 5000L;
@@ -26,7 +26,7 @@ public class ItemLimiterManager {
     private String notifyMessage = "§c[Vanilla Core] §7Excess items removed: {item} x{amount} (limit: {limit})";
     private boolean dropExcess = true;
 
-    public ItemLimiterManager(Main plugin) {
+    public ItemLimiterManager(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

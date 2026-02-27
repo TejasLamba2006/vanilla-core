@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.features.ItemLimiterFeature;
 import com.tejaslamba.vanillacore.features.MobManagerFeature;
@@ -23,9 +23,9 @@ import org.bukkit.inventory.InventoryHolder;
 
 public class MenuClickListener implements Listener {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
 
-    public MenuClickListener(Main plugin) {
+    public MenuClickListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.features;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.ItemExplosionImmunityListener;
 import org.bukkit.Material;
@@ -16,7 +16,7 @@ public class ItemExplosionImmunityFeature extends BaseFeature {
     private ItemExplosionImmunityListener listener;
 
     @Override
-    public void onEnable(Main plugin) {
+    public void onEnable(VanillaCorePlugin plugin) {
         listener = new ItemExplosionImmunityListener(plugin);
         super.onEnable(plugin);
 

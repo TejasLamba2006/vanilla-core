@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -12,9 +12,9 @@ import org.bukkit.event.world.TimeSkipEvent;
 
 public class OnePlayerSleepListener implements Listener {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
 
-    public OnePlayerSleepListener(Main plugin) {
+    public OnePlayerSleepListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

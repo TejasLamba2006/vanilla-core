@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.command;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.InfiniteRestockFeature;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,9 +14,9 @@ import java.util.List;
 
 public class InfiniteRestockCommand implements CommandExecutor, TabCompleter {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
 
-    public InfiniteRestockCommand(Main plugin) {
+    public InfiniteRestockCommand(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

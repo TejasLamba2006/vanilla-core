@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.features;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.enchantlimiter.EnchantmentLimiterManager;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.EnchantmentLimiterListener;
@@ -51,7 +51,7 @@ public class EnchantmentLimiterFeature extends BaseFeature {
     }
 
     @Override
-    public void onEnable(Main plugin) {
+    public void onEnable(VanillaCorePlugin plugin) {
         manager = new EnchantmentLimiterManager(plugin);
         listener = new EnchantmentLimiterListener(plugin, manager);
         super.onEnable(plugin);

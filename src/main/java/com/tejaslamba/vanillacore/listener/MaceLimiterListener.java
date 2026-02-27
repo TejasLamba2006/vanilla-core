@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.MaceLimiterFeature;
 import com.tejaslamba.vanillacore.menu.MainMenu;
 import org.bukkit.Bukkit;
@@ -15,9 +15,9 @@ import org.bukkit.inventory.ItemStack;
 
 public class MaceLimiterListener implements Listener {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
 
-    public MaceLimiterListener(Main plugin) {
+    public MaceLimiterListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

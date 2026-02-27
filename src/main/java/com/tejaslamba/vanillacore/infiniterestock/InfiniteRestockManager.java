@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.infiniterestock;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.AbstractVillager;
 import org.bukkit.entity.EntityType;
@@ -17,7 +17,7 @@ import java.util.Set;
 
 public class InfiniteRestockManager {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private final NamespacedKey backupKey;
 
     private int maxTrades;
@@ -26,7 +26,7 @@ public class InfiniteRestockManager {
     private boolean uninstallMode;
     private final Set<String> villagerBlacklist = new HashSet<>();
 
-    public InfiniteRestockManager(Main plugin) {
+    public InfiniteRestockManager(VanillaCorePlugin plugin) {
         this.plugin = plugin;
         this.backupKey = new NamespacedKey(plugin, "infinite_restock_backup");
         load();

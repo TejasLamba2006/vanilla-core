@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.ItemLimiterFeature;
 import com.tejaslamba.vanillacore.itemlimiter.ItemLimit;
 import com.tejaslamba.vanillacore.itemlimiter.ItemLimiterManager;
@@ -19,10 +19,10 @@ import java.util.Map;
 
 public class ItemLimiterListener implements Listener {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private final ItemLimiterManager manager;
 
-    public ItemLimiterListener(Main plugin, ItemLimiterManager manager) {
+    public ItemLimiterListener(VanillaCorePlugin plugin, ItemLimiterManager manager) {
         this.plugin = plugin;
         this.manager = manager;
     }

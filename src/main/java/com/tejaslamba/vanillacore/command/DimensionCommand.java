@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.command;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.DimensionLockFeature;
 import com.tejaslamba.vanillacore.features.EndLockFeature;
 import com.tejaslamba.vanillacore.features.NetherLockFeature;
@@ -15,10 +15,10 @@ import java.util.List;
 
 public class DimensionCommand implements CommandExecutor, TabCompleter {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private final String dimension;
 
-    public DimensionCommand(Main plugin, String dimension) {
+    public DimensionCommand(VanillaCorePlugin plugin, String dimension) {
         this.plugin = plugin;
         this.dimension = dimension;
     }

@@ -1,5 +1,5 @@
 name: VanillaCore
-main: com.tejaslamba.vanillacore.Main
+main: com.tejaslamba.vanillacore.VanillaCorePlugin
 version: ${project.version}
 api-version: ${minecraft.version}
 softdepend: [WorldGuard]

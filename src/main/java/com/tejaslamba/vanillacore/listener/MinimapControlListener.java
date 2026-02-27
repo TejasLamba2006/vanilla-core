@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.MinimapControlFeature;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -18,10 +18,10 @@ import java.util.List;
 
 public class MinimapControlListener implements Listener {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private final MinimapControlFeature feature;
 
-    public MinimapControlListener(Main plugin, MinimapControlFeature feature) {
+    public MinimapControlListener(VanillaCorePlugin plugin, MinimapControlFeature feature) {
         this.plugin = plugin;
         this.feature = feature;
     }

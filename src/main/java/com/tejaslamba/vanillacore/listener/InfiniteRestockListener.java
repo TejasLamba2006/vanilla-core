@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.InfiniteRestockFeature;
 import com.tejaslamba.vanillacore.infiniterestock.InfiniteRestockManager;
 import org.bukkit.entity.AbstractVillager;
@@ -18,9 +18,9 @@ import org.bukkit.inventory.MerchantInventory;
 
 public class InfiniteRestockListener implements Listener {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
 
-    public InfiniteRestockListener(Main plugin) {
+    public InfiniteRestockListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

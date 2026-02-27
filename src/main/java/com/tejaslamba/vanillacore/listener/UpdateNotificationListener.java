@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.manager.CDNManager;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -18,10 +18,10 @@ import java.util.UUID;
 
 public class UpdateNotificationListener implements Listener {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private final Set<UUID> notifiedPlayers;
 
-    public UpdateNotificationListener(Main plugin) {
+    public UpdateNotificationListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
         this.notifiedPlayers = new HashSet<>();
     }

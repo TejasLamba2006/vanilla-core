@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.command;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.NetheriteDisablerFeature;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -13,10 +13,10 @@ import java.util.*;
 
 public class NetheriteCommand implements CommandExecutor, TabCompleter {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private final Map<String, Material> netheriteItems = new HashMap<>();
 
-    public NetheriteCommand(Main plugin) {
+    public NetheriteCommand(VanillaCorePlugin plugin) {
         this.plugin = plugin;
         initializeItems();
     }

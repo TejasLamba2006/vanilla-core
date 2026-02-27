@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.features;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.OnePlayerSleepListener;
 import org.bukkit.GameRule;
@@ -19,7 +19,7 @@ public class OnePlayerSleepFeature extends BaseFeature {
     private OnePlayerSleepListener listener;
 
     @Override
-    public void onEnable(Main plugin) {
+    public void onEnable(VanillaCorePlugin plugin) {
         super.onEnable(plugin);
         listener = new OnePlayerSleepListener(plugin);
         applySleepPercentage();

@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.enchantlimiter.EnchantmentLimiterManager;
 import com.tejaslamba.vanillacore.features.EnchantmentLimiterFeature;
 
@@ -22,10 +22,10 @@ import org.bukkit.inventory.ItemStack;
 
 public class EnchantmentLimiterListener implements Listener {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private final EnchantmentLimiterManager manager;
 
-    public EnchantmentLimiterListener(Main plugin, EnchantmentLimiterManager manager) {
+    public EnchantmentLimiterListener(VanillaCorePlugin plugin, EnchantmentLimiterManager manager) {
         this.plugin = plugin;
         this.manager = manager;
     }

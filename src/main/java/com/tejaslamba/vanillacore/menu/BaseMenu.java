@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.menu;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -13,10 +13,10 @@ import java.util.List;
 
 public abstract class BaseMenu implements InventoryHolder {
 
-    protected final Main plugin;
+    protected final VanillaCorePlugin plugin;
     protected final Inventory inventory;
 
-    public BaseMenu(Main plugin, Inventory inventory) {
+    public BaseMenu(VanillaCorePlugin plugin, Inventory inventory) {
         this.plugin = plugin;
         this.inventory = inventory != null ? inventory : createInventory();
     }
@@ -116,7 +116,7 @@ public abstract class BaseMenu implements InventoryHolder {
         player.closeInventory();
         player.sendMessage("§6[Vanilla Core] §7Enter the max level for " + enchantType + " (1-10, or 'cancel'):");
 
-        Main.getInstance().getChatInputManager().requestInput(player, (p, input) -> {
+        VanillaCorePlugin.getInstance().getChatInputManager().requestInput(player, (p, input) -> {
             if (input.equalsIgnoreCase("cancel")) {
                 p.sendMessage("§6[Vanilla Core] §cCancelled.");
                 plugin.getMenuManager().openMainMenu(p);

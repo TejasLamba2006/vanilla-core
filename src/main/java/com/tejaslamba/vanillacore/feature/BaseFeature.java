@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.feature;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
@@ -13,12 +13,12 @@ import java.util.List;
 
 public abstract class BaseFeature implements Feature {
 
-    protected Main plugin;
+    protected VanillaCorePlugin plugin;
     protected boolean enabled;
     private boolean listenerRegistered = false;
 
     @Override
-    public void onEnable(Main plugin) {
+    public void onEnable(VanillaCorePlugin plugin) {
         this.plugin = plugin;
         this.enabled = plugin.getConfigManager().get().getBoolean(getConfigPath() + ".enabled", false);
         registerListenerIfNeeded();

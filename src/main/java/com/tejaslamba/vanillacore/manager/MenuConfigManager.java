@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.manager;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -14,11 +14,11 @@ import java.util.Map;
 
 public class MenuConfigManager {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private FileConfiguration menuConfig;
     private final Map<String, String> configToNameMap = new HashMap<>();
 
-    public MenuConfigManager(Main plugin) {
+    public MenuConfigManager(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

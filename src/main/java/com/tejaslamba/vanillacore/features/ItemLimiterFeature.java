@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.features;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.itemlimiter.ItemLimit;
 import com.tejaslamba.vanillacore.itemlimiter.ItemLimiterManager;
@@ -35,7 +35,7 @@ public class ItemLimiterFeature extends BaseFeature {
     private final Map<UUID, Boolean> keepSession = new HashMap<>();
 
     @Override
-    public void onEnable(Main plugin) {
+    public void onEnable(VanillaCorePlugin plugin) {
         manager = new ItemLimiterManager(plugin);
         listener = new ItemLimiterListener(plugin, manager);
         super.onEnable(plugin);

@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.InvisibleKillsFeature;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,9 +11,9 @@ import org.bukkit.potion.PotionEffectType;
 
 public class InvisibleKillsListener implements Listener {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
 
-    public InvisibleKillsListener(Main plugin) {
+    public InvisibleKillsListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

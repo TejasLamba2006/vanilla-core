@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.MobManagerFeature;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -20,11 +20,11 @@ public class MobManagerListener implements Listener {
     private static final String VERBOSE_PREFIX = "[VERBOSE] Mob Manager - ";
     private static final long CHUNK_CLEANUP_DELAY = 5L;
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private final MobManagerFeature feature;
     private final WorldGuardHook worldGuardHook;
 
-    public MobManagerListener(Main plugin, MobManagerFeature feature) {
+    public MobManagerListener(VanillaCorePlugin plugin, MobManagerFeature feature) {
         this.plugin = plugin;
         this.feature = feature;
         this.worldGuardHook = new WorldGuardHook(plugin);
@@ -163,7 +163,7 @@ public class MobManagerListener implements Listener {
 
     private static class WorldGuardHook {
 
-        private final Main plugin;
+        private final VanillaCorePlugin plugin;
         private final boolean worldGuardAvailable;
         private Object worldGuard;
 
@@ -176,7 +176,7 @@ public class MobManagerListener implements Listener {
         private java.lang.reflect.Method sizeMethod;
         private Class<?> blockVector3Class;
 
-        public WorldGuardHook(Main plugin) {
+        public WorldGuardHook(VanillaCorePlugin plugin) {
             this.plugin = plugin;
             this.worldGuardAvailable = Bukkit.getPluginManager().getPlugin("WorldGuard") != null;
 

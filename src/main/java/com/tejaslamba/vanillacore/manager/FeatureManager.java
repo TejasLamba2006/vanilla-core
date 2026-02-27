@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.manager;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.Feature;
 import org.bukkit.inventory.ItemStack;
 
@@ -13,12 +13,12 @@ import java.util.jar.JarFile;
 
 public class FeatureManager {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
     private final Map<String, Feature> features = new LinkedHashMap<>();
     private final Map<String, Feature> featuresByConfigPath = new HashMap<>();
     private final Map<Class<?>, Feature> featuresByClass = new HashMap<>();
 
-    public FeatureManager(Main plugin) {
+    public FeatureManager(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

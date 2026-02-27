@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.menu;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.manager.CDNManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -37,7 +37,7 @@ public class MainMenu extends BaseMenu {
 
     private int currentPage = 0;
 
-    public MainMenu(Main plugin) {
+    public MainMenu(VanillaCorePlugin plugin) {
         super(plugin, null);
     }
 

@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.EndLockFeature;
 import com.tejaslamba.vanillacore.features.NetherLockFeature;
 import org.bukkit.World;
@@ -11,9 +11,9 @@ import org.bukkit.event.player.PlayerPortalEvent;
 
 public class DimensionLockListener implements Listener {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
 
-    public DimensionLockListener(Main plugin) {
+    public DimensionLockListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 

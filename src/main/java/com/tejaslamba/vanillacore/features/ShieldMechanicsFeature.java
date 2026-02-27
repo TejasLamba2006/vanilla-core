@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.features;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.ShieldMechanicsListener;
 import org.bukkit.Material;
@@ -25,7 +25,7 @@ public class ShieldMechanicsFeature extends BaseFeature {
     private int axeStunDurationTicks;
 
     @Override
-    public void onEnable(Main plugin) {
+    public void onEnable(VanillaCorePlugin plugin) {
         listener = new ShieldMechanicsListener(plugin);
         super.onEnable(plugin);
         loadSettings();

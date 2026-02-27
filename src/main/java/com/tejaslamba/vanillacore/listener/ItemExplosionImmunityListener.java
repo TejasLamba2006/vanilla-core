@@ -1,6 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
-import com.tejaslamba.vanillacore.Main;
+import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.ItemExplosionImmunityFeature;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
@@ -11,9 +11,9 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 public class ItemExplosionImmunityListener implements Listener {
 
-    private final Main plugin;
+    private final VanillaCorePlugin plugin;
 
-    public ItemExplosionImmunityListener(Main plugin) {
+    public ItemExplosionImmunityListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 
