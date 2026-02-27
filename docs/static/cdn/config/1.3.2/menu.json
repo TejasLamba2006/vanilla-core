@@ -1,0 +1,16 @@
+{
+    "version": "1.3.2",
+    "updateNotification": {
+        "enabled": true,
+        "permission": "vanillacore.admin",
+        "title": "Vanilla Core Update",
+        "message": "A new configuration version is available! Current: {current}, Latest: {latest}",
+        "actionMessage": "Visit {url} to see what's new"
+    },
+    "featureControl": {
+        "disabledFeatures": [],
+        "disabledMessage": "This feature has been temporarily disabled by the plugin author.",
+        "maintenanceMode": false,
+        "maintenanceMessage": "Vanilla Core is currently in maintenance mode. Please try again later."
+    }
+}
