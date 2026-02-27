@@ -10,7 +10,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionType;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,8 +23,10 @@ public class ItemLimiterManager {
     private final VanillaCorePlugin plugin;
     private final Map<String, ItemLimit> itemLimits = new ConcurrentHashMap<>();
     private final Map<UUID, Long> lastMessageTime = new ConcurrentHashMap<>();
+    private final Map<Material, List<String>> materialIndex = new HashMap<>();
     private static final long MESSAGE_COOLDOWN = 5000L;
     private int taskId = -1;
+    private int playerCheckIndex = 0;
     private boolean notifyPlayer = true;
     private String notifyMessage = "§c[Vanilla Core] §7Excess items removed: {item} x{amount} (limit: {limit})";
     private boolean dropExcess = true;
@@ -32,6 +37,7 @@ public class ItemLimiterManager {
 
     public void load() {
         itemLimits.clear();
+        materialIndex.clear();
 
         notifyPlayer = plugin.getConfigManager().get().getBoolean("features.item-limiter.notify-player", true);
         notifyMessage = plugin.getConfigManager().get().getString("features.item-limiter.notify-message",
@@ -73,7 +79,7 @@ public class ItemLimiterManager {
         }
 
         PotionType potionType = null;
-        if (potionTypeString != null && material.toString().contains("POTION")) {
+        if (potionTypeString != null && ItemLimit.POTION_MATERIALS.contains(material)) {
             try {
                 potionType = PotionType.valueOf(potionTypeString);
             } catch (IllegalArgumentException e) {
@@ -83,6 +89,7 @@ public class ItemLimiterManager {
 
         ItemLimit itemLimit = new ItemLimit(material, limit, customModelData, displayName, potionType);
         itemLimits.put(key, itemLimit);
+        indexLimit(key, material);
     }
 
     private void loadSimpleLimit(String key, int limit) {
@@ -96,6 +103,7 @@ public class ItemLimiterManager {
 
         ItemLimit itemLimit = new ItemLimit(material, limit, null, null);
         itemLimits.put(materialName, itemLimit);
+        indexLimit(materialName, material);
     }
 
     public void startChecker() {
@@ -104,12 +112,16 @@ public class ItemLimiterManager {
         }
 
         taskId = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                if (!player.hasPermission("vanillacore.itemlimiter.bypass")) {
-                    checkAndEnforceLimits(player);
-                }
+            List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
+            if (players.isEmpty())
+                return;
+            if (playerCheckIndex >= players.size())
+                playerCheckIndex = 0;
+            Player player = players.get(playerCheckIndex++);
+            if (!player.hasPermission("vanillacore.itemlimiter.bypass")) {
+                checkAndEnforceLimits(player);
             }
-        }, 0L, 20L).getTaskId();
+        }, 0L, 1L).getTaskId();
     }
 
     public void stopChecker() {
@@ -136,7 +148,7 @@ public class ItemLimiterManager {
         String displayName = (meta != null && meta.hasDisplayName()) ? meta.getDisplayName() : null;
 
         PotionType potionType = null;
-        if (item.getType().toString().contains("POTION") && meta instanceof PotionMeta potionMeta) {
+        if (ItemLimit.POTION_MATERIALS.contains(item.getType()) && meta instanceof PotionMeta potionMeta) {
             potionType = potionMeta.getBasePotionType();
             customModelData = null;
             displayName = null;
@@ -144,7 +156,7 @@ public class ItemLimiterManager {
 
         ItemLimit itemLimit = new ItemLimit(item.getType(), limit, customModelData, displayName, potionType);
         itemLimits.put(key, itemLimit);
-
+        indexLimit(key, item.getType());
         saveLimit(key, itemLimit);
     }
 
@@ -171,7 +183,9 @@ public class ItemLimiterManager {
             return;
         }
 
-        itemLimits.remove(key);
+        ItemLimit removed = itemLimits.remove(key);
+        if (removed != null)
+            unindexLimit(key, removed.getMaterial());
         plugin.getConfigManager().get().set("features.item-limiter.limits." + key, null);
         plugin.getConfigManager().save();
     }
@@ -197,7 +211,7 @@ public class ItemLimiterManager {
         ItemMeta meta = item.getItemMeta();
         StringBuilder key = new StringBuilder(item.getType().name());
 
-        if (item.getType().toString().contains("POTION") && meta instanceof PotionMeta potionMeta) {
+        if (ItemLimit.POTION_MATERIALS.contains(item.getType()) && meta instanceof PotionMeta potionMeta) {
             if (potionMeta.getBasePotionType() != null) {
                 key.append("_").append(potionMeta.getBasePotionType().toString());
                 return key.toString();
@@ -224,13 +238,16 @@ public class ItemLimiterManager {
         if (item == null || item.getType() == Material.AIR) {
             return null;
         }
-
-        for (Map.Entry<String, ItemLimit> entry : itemLimits.entrySet()) {
-            if (entry.getValue().matches(item)) {
-                return entry.getKey();
+        List<String> candidates = materialIndex.get(item.getType());
+        if (candidates == null) {
+            return null;
+        }
+        for (String key : candidates) {
+            ItemLimit limit = itemLimits.get(key);
+            if (limit != null && limit.matches(item)) {
+                return key;
             }
         }
-
         return null;
     }
 
@@ -238,57 +255,19 @@ public class ItemLimiterManager {
         if (player == null || targetItem == null || targetItem.getType() == Material.AIR) {
             return 0;
         }
-
+        String targetKey = findMatchingItemKey(targetItem);
+        if (targetKey == null)
+            return 0;
+        ItemLimit targetLimit = itemLimits.get(targetKey);
+        if (targetLimit == null)
+            return 0;
         int count = 0;
         for (ItemStack item : player.getInventory().getContents()) {
-            if (item != null && itemsMatch(item, targetItem)) {
+            if (item != null && targetLimit.matches(item)) {
                 count += item.getAmount();
             }
         }
-
         return count;
-    }
-
-    private boolean itemsMatch(ItemStack item1, ItemStack item2) {
-        if (item1 == null || item2 == null) {
-            return false;
-        }
-
-        String key1 = findMatchingItemKey(item1);
-        String key2 = findMatchingItemKey(item2);
-
-        if (key1 != null && key2 != null) {
-            return key1.equals(key2);
-        }
-
-        if (item1.getType() != item2.getType()) {
-            return false;
-        }
-
-        ItemMeta meta1 = item1.getItemMeta();
-        ItemMeta meta2 = item2.getItemMeta();
-
-        if (meta1 == null && meta2 == null) {
-            return true;
-        }
-
-        if (meta1 == null || meta2 == null) {
-            return false;
-        }
-
-        if (meta1.hasCustomModelData() != meta2.hasCustomModelData()) {
-            return false;
-        }
-
-        if (meta1.hasCustomModelData() && meta1.getCustomModelData() != meta2.getCustomModelData()) {
-            return false;
-        }
-
-        if (meta1.hasDisplayName() != meta2.hasDisplayName()) {
-            return false;
-        }
-
-        return !meta1.hasDisplayName() || meta1.getDisplayName().equals(meta2.getDisplayName());
     }
 
     public void checkAndEnforceLimits(Player player) {
@@ -416,6 +395,19 @@ public class ItemLimiterManager {
 
     public Map<String, ItemLimit> getItemLimits() {
         return new HashMap<>(itemLimits);
+    }
+
+    private void indexLimit(String key, Material material) {
+        materialIndex.computeIfAbsent(material, k -> new ArrayList<>()).add(key);
+    }
+
+    private void unindexLimit(String key, Material material) {
+        List<String> keys = materialIndex.get(material);
+        if (keys != null) {
+            keys.remove(key);
+            if (keys.isEmpty())
+                materialIndex.remove(material);
+        }
     }
 
     public ItemLimit getItemLimit(String key) {

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Item Limiter: `findMatchingItemKey` no longer scans all configured limits linearly. A `Material → key` index is built at load time so lookups are O(1) for the common case instead of O(n limits)
+- Item Limiter: inventory scan is now distributed across ticks (1 player per tick) instead of checking every online player in a single 20-tick burst
+- Item Limiter: `getPlayerItemCount` no longer re-runs `findMatchingItemKey` for each inventory slot — the target limit is resolved once and `ItemLimit.matches()` is used directly
+- Item Limiter: potion material detection replaced `toString().contains("POTION")` with a proper `EnumSet<Material>` covering `POTION`, `SPLASH_POTION`, and `LINGERING_POTION`
+
 ## [1.3.2] - 2026-02-27
 
 ### Added

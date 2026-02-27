@@ -6,7 +6,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionType;
 
+import java.util.EnumSet;
+
 public class ItemLimit {
+
+    static final EnumSet<Material> POTION_MATERIALS = EnumSet.of(
+            Material.POTION, Material.SPLASH_POTION, Material.LINGERING_POTION);
 
     private final Material material;
     private int limit;
@@ -39,7 +44,7 @@ public class ItemLimit {
 
         ItemMeta meta = item.getItemMeta();
 
-        if (material.toString().contains("POTION") && meta instanceof PotionMeta potionMeta) {
+        if (POTION_MATERIALS.contains(material) && meta instanceof PotionMeta potionMeta) {
             if (potionType != null) {
                 return potionMeta.getBasePotionType() == potionType;
             }
