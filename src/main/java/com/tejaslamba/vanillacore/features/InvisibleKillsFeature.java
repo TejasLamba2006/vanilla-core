@@ -3,6 +3,8 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.InvisibleKillsListener;
+import com.tejaslamba.vanillacore.manager.MessageManager;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -47,21 +49,21 @@ public class InvisibleKillsFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.POTION, "§5Invisible Kills",
-                "§7Hide killer names when invisible");
+        return createMenuItem(Material.POTION, "<!italic><dark_purple>Invisible Kills",
+                "<!italic><gray>Hide killer names when invisible");
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "§aEnabled" : "§cDisabled");
+        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
         lore.add("");
-        lore.add("§7When an invisible player kills");
-        lore.add("§7someone, the death message will");
-        lore.add("§7hide the killer's name");
+        lore.add("<gray>When an invisible player kills");
+        lore.add("<gray>someone, the death message will");
+        lore.add("<gray>hide the killer's name");
         lore.add("");
-        lore.add("§eLeft Click: Toggle");
-        lore.add("§eRight Click: Info");
+        lore.add("<yellow>Left Click: Toggle");
+        lore.add("<yellow>Right Click: Info");
         return lore;
     }
 
@@ -75,17 +77,17 @@ public class InvisibleKillsFeature extends BaseFeature {
         String deathMessage = plugin.getConfigManager().get()
                 .getString("features.invisible-kills.death-message", "{victim} was killed by §k?????????");
 
-        player.sendMessage("§6§l=== Invisible Kills ===");
-        player.sendMessage("");
-        player.sendMessage("§7Status: " + (isEnabled() ? "§aEnabled" : "§cDisabled"));
-        player.sendMessage("");
-        player.sendMessage("§7When enabled, if an invisible player");
-        player.sendMessage("§7kills someone, the death message will");
-        player.sendMessage("§7be obfuscated to hide the killer's name.");
-        player.sendMessage("");
-        player.sendMessage("§6Death Message Format:");
-        player.sendMessage("§7" + deathMessage.replace("{victim}", "PlayerName"));
-        player.sendMessage("");
-        player.sendMessage("§7Configure in §fconfig.yml");
+        player.sendMessage(MessageManager.parse("<gold><bold>=== Invisible Kills ==="));
+        player.sendMessage(Component.empty());
+        player.sendMessage(MessageManager.parse("<gray>Status: " + (isEnabled() ? "<green>Enabled" : "<red>Disabled")));
+        player.sendMessage(Component.empty());
+        player.sendMessage(MessageManager.parse("<gray>When enabled, if an invisible player"));
+        player.sendMessage(MessageManager.parse("<gray>kills someone, the death message will"));
+        player.sendMessage(MessageManager.parse("<gray>be obfuscated to hide the killer's name."));
+        player.sendMessage(Component.empty());
+        player.sendMessage(MessageManager.parse("<gold>Death Message Format:"));
+        player.sendMessage(MessageManager.parse("<gray>" + deathMessage.replace("{victim}", "PlayerName")));
+        player.sendMessage(Component.empty());
+        player.sendMessage(MessageManager.parse("<gray>Configure in <white>config.yml"));
     }
 }

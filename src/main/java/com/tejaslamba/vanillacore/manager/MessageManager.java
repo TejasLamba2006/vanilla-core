@@ -1,6 +1,10 @@
 package com.tejaslamba.vanillacore.manager;
 
-import org.bukkit.ChatColor;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -14,6 +18,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MessageManager {
+
+    private static final MiniMessage MM = MiniMessage.miniMessage();
 
     private final JavaPlugin plugin;
     private File messagesFile;
@@ -69,55 +75,53 @@ public class MessageManager {
         return message;
     }
 
-    public String get(String path) {
-        return colorize(getRaw(path));
+    public Component get(String path) {
+        return MM.deserialize(getRaw(path));
     }
 
-    public String get(String path, Object... replacements) {
-        String message = getRaw(path);
-
-        for (int i = 0; i < replacements.length - 1; i += 2) {
-            String placeholder = String.valueOf(replacements[i]);
+    public Component get(String path, Object... replacements) {
+        String raw = getRaw(path);
+        TagResolver.Builder resolver = TagResolver.builder();
+        for (int i = 0; i + 1 < replacements.length; i += 2) {
+            String key = String.valueOf(replacements[i]).replace("{", "").replace("}", "");
             String value = String.valueOf(replacements[i + 1]);
-            message = message.replace(placeholder, value);
+            resolver.resolver(Placeholder.unparsed(key, value));
         }
-
-        return colorize(message);
+        return MM.deserialize(raw, resolver.build());
     }
 
-    public String getPrefix() {
+    public Component getPrefix() {
         return get("general.prefix");
     }
 
-    public String getPrefixed(String path) {
-        return getPrefix() + " " + get(path);
+    public Component getPrefixed(String path) {
+        return getPrefix().append(Component.text(" ")).append(get(path));
     }
 
-    public String getPrefixed(String path, Object... replacements) {
-        return getPrefix() + " " + get(path, replacements);
+    public Component getPrefixed(String path, Object... replacements) {
+        return getPrefix().append(Component.text(" ")).append(get(path, replacements));
     }
 
-    public void send(CommandSender sender, String path) {
-        sender.sendMessage(get(path));
+    public void send(Audience audience, String path) {
+        audience.sendMessage(get(path));
     }
 
-    public void send(CommandSender sender, String path, Object... replacements) {
-        sender.sendMessage(get(path, replacements));
+    public void send(Audience audience, String path, Object... replacements) {
+        audience.sendMessage(get(path, replacements));
     }
 
-    public void sendPrefixed(CommandSender sender, String path) {
-        sender.sendMessage(getPrefixed(path));
+    public void sendPrefixed(Audience audience, String path) {
+        audience.sendMessage(getPrefixed(path));
     }
 
-    public void sendPrefixed(CommandSender sender, String path, Object... replacements) {
-        sender.sendMessage(getPrefixed(path, replacements));
+    public void sendPrefixed(Audience audience, String path, Object... replacements) {
+        audience.sendMessage(getPrefixed(path, replacements));
     }
 
-    public static String colorize(String message) {
-        if (message == null) {
-            return "";
-        }
-        return ChatColor.translateAlternateColorCodes('&', message);
+    public static Component parse(String miniMessage) {
+        if (miniMessage == null)
+            return Component.empty();
+        return MM.deserialize(miniMessage);
     }
 
     public FileConfiguration getConfig() {

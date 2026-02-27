@@ -79,36 +79,31 @@ public class MinimapControlListener implements Listener {
             case 13 -> {
                 feature.cycleGlobalMode();
                 player.sendMessage(plugin.getMessageManager().get("minimap-control.mode-changed",
-                        "§7Global mode changed to: §e{mode}")
-                        .replace("{mode}", feature.getGlobalMode().name()));
+                        "mode", feature.getGlobalMode().name()));
                 feature.openMainGUI(player);
             }
             case 20 -> {
                 feature.setNetherFairMode(!feature.isNetherFairMode());
                 player.sendMessage(plugin.getMessageManager().get("minimap-control.nether-fair-toggled",
-                        "§7Nether fair mode: {state}")
-                        .replace("{state}", feature.isNetherFairMode() ? "§aEnabled" : "§cDisabled"));
+                        "state", feature.isNetherFairMode() ? "Enabled" : "Disabled"));
                 feature.openMainGUI(player);
             }
             case 22 -> {
                 feature.setSendOnJoin(!feature.isSendOnJoin());
                 player.sendMessage(plugin.getMessageManager().get("minimap-control.send-on-join-toggled",
-                        "§7Send on join: {state}")
-                        .replace("{state}", feature.isSendOnJoin() ? "§aEnabled" : "§cDisabled"));
+                        "state", feature.isSendOnJoin() ? "Enabled" : "Disabled"));
                 feature.openMainGUI(player);
             }
             case 24 -> {
                 feature.setSendOnWorldChange(!feature.isSendOnWorldChange());
                 player.sendMessage(plugin.getMessageManager().get("minimap-control.send-on-world-change-toggled",
-                        "§7Send on world change: {state}")
-                        .replace("{state}", feature.isSendOnWorldChange() ? "§aEnabled" : "§cDisabled"));
+                        "state", feature.isSendOnWorldChange() ? "Enabled" : "Disabled"));
                 feature.openMainGUI(player);
             }
             case 30 -> feature.openWorldSettingsGUI(player);
             case 32 -> {
                 feature.sendToAllPlayers();
-                player.sendMessage(plugin.getMessageManager().get("minimap-control.applied-to-all",
-                        "§aApplied minimap settings to all online players!"));
+                player.sendMessage(plugin.getMessageManager().get("minimap-control.applied-to-all"));
             }
             case 35 -> player.closeInventory();
         }
@@ -137,14 +132,11 @@ public class MinimapControlListener implements Listener {
             if (rightClick) {
                 feature.clearWorldMode(world.getName());
                 player.sendMessage(plugin.getMessageManager().get("minimap-control.world-mode-reset",
-                        "§7World §e{world} §7now uses global mode.")
-                        .replace("{world}", world.getName()));
+                        "world", world.getName()));
             } else {
                 feature.cycleWorldMode(world.getName());
                 player.sendMessage(plugin.getMessageManager().get("minimap-control.world-mode-changed",
-                        "§7World §e{world} §7mode changed to: §e{mode}")
-                        .replace("{world}", world.getName())
-                        .replace("{mode}", feature.getWorldMode(world.getName()).name()));
+                        "world", world.getName(), "mode", feature.getWorldMode(world.getName()).name()));
             }
 
             feature.openWorldSettingsGUI(player);

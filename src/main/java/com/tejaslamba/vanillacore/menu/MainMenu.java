@@ -2,6 +2,8 @@ package com.tejaslamba.vanillacore.menu;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.manager.CDNManager;
+import com.tejaslamba.vanillacore.manager.MessageManager;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -53,7 +55,7 @@ public class MainMenu extends BaseMenu {
 
     @Override
     protected Inventory createInventory() {
-        return Bukkit.createInventory(this, 54, "§6§lVanilla Core Settings");
+        return Bukkit.createInventory(this, 54, MessageManager.parse("<gold><bold>Vanilla Core Settings"));
     }
 
     public void setupItems() {
@@ -94,18 +96,18 @@ public class MainMenu extends BaseMenu {
         inventory.setItem(47, createDiscordItem());
         inventory.setItem(48, createWikiItem());
         inventory.setItem(49, createModrinthItem());
-        inventory.setItem(50, createMenuItem(Material.OAK_DOOR, "§c§lClose Menu", "§7Close this menu"));
+        inventory.setItem(50, createMenuItem(Material.OAK_DOOR, "<red><bold>Close Menu", "<gray>Close this menu"));
         inventory.setItem(51, createDonateItem());
 
         if (totalPages > 1) {
             if (currentPage > 0) {
-                inventory.setItem(45, createNavItem(Material.ARROW, "§a« Previous Page", currentPage, totalPages));
+                inventory.setItem(45, createNavItem(Material.ARROW, "<green>« Previous Page", currentPage, totalPages));
             }
 
             inventory.setItem(52, createPageIndicator(currentPage + 1, totalPages));
 
             if (currentPage < totalPages - 1) {
-                inventory.setItem(53, createNavItem(Material.ARROW, "§aNext Page »", currentPage + 2, totalPages));
+                inventory.setItem(53, createNavItem(Material.ARROW, "<green>Next Page »", currentPage + 2, totalPages));
             }
         }
     }
@@ -114,16 +116,16 @@ public class MainMenu extends BaseMenu {
         ItemStack item = createCustomSkull(DISCORD_TEXTURE);
         SkullMeta meta = (SkullMeta) item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§b§lDiscord");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Join our Discord community!");
-            lore.add("");
-            lore.add("§7Get support, report bugs,");
-            lore.add("§7and suggest new features.");
-            lore.add("");
-            lore.add("§eClick to join!");
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic><aqua><bold>Discord"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Join our Discord community!"));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Get support, report bugs,"));
+            lore.add(MessageManager.parse("<!italic><gray>and suggest new features."));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><yellow>Click to join!"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -133,17 +135,17 @@ public class MainMenu extends BaseMenu {
         ItemStack item = createCustomSkull(WIKI_TEXTURE);
         SkullMeta meta = (SkullMeta) item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§a§lWiki / Documentation");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7View the full documentation");
-            lore.add("§7for Vanilla Core plugin.");
-            lore.add("");
-            lore.add("§7Features, commands, configs,");
-            lore.add("§7permissions and more!");
-            lore.add("");
-            lore.add("§eClick to open!");
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic><green><bold>Wiki / Documentation"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>View the full documentation"));
+            lore.add(MessageManager.parse("<!italic><gray>for Vanilla Core plugin."));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Features, commands, configs,"));
+            lore.add(MessageManager.parse("<!italic><gray>permissions and more!"));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><yellow>Click to open!"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -153,16 +155,16 @@ public class MainMenu extends BaseMenu {
         ItemStack item = createCustomSkull(MODRINTH_TEXTURE);
         SkullMeta meta = (SkullMeta) item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§2§lModrinth");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Download on Modrinth!");
-            lore.add("");
-            lore.add("§7Leave a review, check for");
-            lore.add("§7updates, and see changelog.");
-            lore.add("");
-            lore.add("§eClick to open!");
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic><dark_green><bold>Modrinth"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Download on Modrinth!"));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Leave a review, check for"));
+            lore.add(MessageManager.parse("<!italic><gray>updates, and see changelog."));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><yellow>Click to open!"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -172,17 +174,17 @@ public class MainMenu extends BaseMenu {
         ItemStack item = new ItemStack(Material.CLOCK);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§e§lMore Features Coming Soon!");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7We're always working on new");
-            lore.add("§7features for Vanilla Core!");
-            lore.add("");
-            lore.add("§7Have a suggestion? Join our");
-            lore.add("§7Discord and let us know!");
-            lore.add("");
-            lore.add("§d§oDonate to speed up development!");
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic><yellow><bold>More Features Coming Soon!"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>We're always working on new"));
+            lore.add(MessageManager.parse("<!italic><gray>features for Vanilla Core!"));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Have a suggestion? Join our"));
+            lore.add(MessageManager.parse("<!italic><gray>Discord and let us know!"));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><light_purple><italic>Donate to speed up development!"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -192,19 +194,19 @@ public class MainMenu extends BaseMenu {
         ItemStack item = createCustomSkull(DONATE_TEXTURE);
         SkullMeta meta = (SkullMeta) item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§6§lDonate");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Support Vanilla Core development!");
-            lore.add("");
-            lore.add("§7Your donations help us:");
-            lore.add("§a• §7Add new features faster");
-            lore.add("§a• §7Fix bugs quicker");
-            lore.add("§a• §7Keep the plugin free");
-            lore.add("");
-            lore.add("§e§lClick to donate via PayPal!");
-            lore.add("§7Thank you for your support! §c❤");
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic><gold><bold>Donate"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Support Vanilla Core development!"));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Your donations help us:"));
+            lore.add(MessageManager.parse("<!italic><green>• <gray>Add new features faster"));
+            lore.add(MessageManager.parse("<!italic><green>• <gray>Fix bugs quicker"));
+            lore.add(MessageManager.parse("<!italic><green>• <gray>Keep the plugin free"));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><yellow><bold>Click to donate via PayPal!"));
+            lore.add(MessageManager.parse("<!italic><gray>Thank you for your support! <red>❤"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -232,17 +234,17 @@ public class MainMenu extends BaseMenu {
         ItemStack item = new ItemStack(Material.NETHER_STAR);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§a§lUpdate Available!");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Current: §c" + cdnManager.getCurrentVersion());
-            lore.add("§7Latest: §a" + cdnManager.getLatestVersion());
-            lore.add("");
-            lore.add("§eClick to open download page");
-            lore.add("");
-            lore.add("§7Config Builder:");
-            lore.add("§b" + cdnManager.getConfigBuilderUrl());
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic><green><bold>Update Available!"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Current: <red>" + cdnManager.getCurrentVersion()));
+            lore.add(MessageManager.parse("<!italic><gray>Latest: <green>" + cdnManager.getLatestVersion()));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><yellow>Click to open download page"));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Config Builder:"));
+            lore.add(MessageManager.parse("<!italic><aqua>" + cdnManager.getConfigBuilderUrl()));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -252,12 +254,13 @@ public class MainMenu extends BaseMenu {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName(name);
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Page §e" + targetPage + "§7/§e" + totalPages);
-            lore.add("§eClick to navigate");
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic>" + name));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(
+                    MessageManager.parse("<!italic><gray>Page <yellow>" + targetPage + "<gray>/<yellow>" + totalPages));
+            lore.add(MessageManager.parse("<!italic><yellow>Click to navigate"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -267,13 +270,14 @@ public class MainMenu extends BaseMenu {
         ItemStack item = new ItemStack(Material.BOOK);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§6Page §e" + current + "§6/§e" + total);
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Use arrows to navigate");
-            lore.add("");
-            lore.add("§cClick to close menu");
-            meta.setLore(lore);
+            meta.displayName(
+                    MessageManager.parse("<!italic><gold>Page <yellow>" + current + "<gold>/<yellow>" + total));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Use arrows to navigate"));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><red>Click to close menu"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -310,9 +314,11 @@ public class MainMenu extends BaseMenu {
             ItemStack item = event.getCurrentItem();
             if (item != null && item.getType() == Material.NETHER_STAR) {
                 player.closeInventory();
-                player.sendMessage("§6§l[Vanilla Core] §7Download: §bhttps://modrinth.com/plugin/vanillacorewastaken");
-                player.sendMessage(
-                        "§6§l[Vanilla Core] §7Config Builder: §b" + plugin.getCDNManager().getConfigBuilderUrl());
+                player.sendMessage(MessageManager.parse(
+                        "<gold><bold>[Vanilla Core] <gray>Download: <aqua>https://modrinth.com/plugin/vanillacorewastaken"));
+                player.sendMessage(MessageManager.parse(
+                        "<gold><bold>[Vanilla Core] <gray>Config Builder: <aqua>"
+                                + plugin.getCDNManager().getConfigBuilderUrl()));
                 return;
             }
         }
@@ -331,7 +337,7 @@ public class MainMenu extends BaseMenu {
 
         if (slot == 47) {
             player.closeInventory();
-            player.sendMessage("§b§l[Vanilla Core] §7Discord: §b" + DISCORD_URL);
+            player.sendMessage(MessageManager.parse("<aqua><bold>[Vanilla Core] <gray>Discord: <aqua>" + DISCORD_URL));
             return;
         }
 
@@ -339,13 +345,14 @@ public class MainMenu extends BaseMenu {
             player.closeInventory();
             CDNManager cdnManager = plugin.getCDNManager();
             String wikiUrl = cdnManager != null ? cdnManager.getDocumentationUrl() : WIKI_URL;
-            player.sendMessage("§a§l[Vanilla Core] §7Wiki: §a" + wikiUrl);
+            player.sendMessage(MessageManager.parse("<green><bold>[Vanilla Core] <gray>Wiki: <green>" + wikiUrl));
             return;
         }
 
         if (slot == 49) {
             player.closeInventory();
-            player.sendMessage("§2§l[Vanilla Core] §7Modrinth: §2" + MODRINTH_URL);
+            player.sendMessage(MessageManager
+                    .parse("<dark_green><bold>[Vanilla Core] <gray>Modrinth: <dark_green>" + MODRINTH_URL));
             return;
         }
 
@@ -355,13 +362,13 @@ public class MainMenu extends BaseMenu {
         }
         ItemStack item = event.getCurrentItem();
 
-        if (slot == 51 || item != null && item.getType() == Material.PLAYER_HEAD &&
-                item.getItemMeta() != null &&
-                "§6§lDonate".equals(item.getItemMeta().getDisplayName())) {
+        if (slot == 51) {
             player.closeInventory();
-            player.sendMessage("§6§l[Vanilla Core] §7Thank you for considering a donation!");
-            player.sendMessage("§6§l[Vanilla Core] §7PayPal: §e" + PAYPAL_URL);
-            player.sendMessage("§7Your support helps keep Vanilla Core free and updated! §c❤");
+            player.sendMessage(
+                    MessageManager.parse("<gold><bold>[Vanilla Core] <gray>Thank you for considering a donation!"));
+            player.sendMessage(MessageManager.parse("<gold><bold>[Vanilla Core] <gray>PayPal: <yellow>" + PAYPAL_URL));
+            player.sendMessage(
+                    MessageManager.parse("<gray>Your support helps keep Vanilla Core free and updated! <red>❤"));
             return;
         }
 
@@ -370,9 +377,7 @@ public class MainMenu extends BaseMenu {
             return;
         }
 
-        if (item != null && item.getType() == Material.CLOCK &&
-                item.getItemMeta() != null &&
-                "§e§lMore Features Coming Soon!".equals(item.getItemMeta().getDisplayName())) {
+        if (item != null && item.getType() == Material.CLOCK) {
             return;
         }
 

@@ -2,6 +2,7 @@ package com.tejaslamba.vanillacore.command;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.MaceLimiterFeature;
+import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -27,8 +28,7 @@ public class MaceCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("vanillacore.mace")) {
-            sender.sendMessage(plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r")
-                    + " §cYou don't have permission to use this command!");
+            sender.sendMessage(plugin.getMessageManager().get("commands.mace.no-permission"));
             return true;
         }
 
@@ -54,13 +54,13 @@ public class MaceCommand implements CommandExecutor, TabCompleter {
 
     private boolean handleWhitelist(CommandSender sender) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("§cOnly players can use this command!");
+            sender.sendMessage(MessageManager.parse("<red>Only players can use this command!"));
             return true;
         }
 
         ItemStack item = player.getInventory().getItemInMainHand();
         if (item.getType() != Material.MACE) {
-            sender.sendMessage("§cYou must be holding a Mace!");
+            sender.sendMessage(MessageManager.parse("<red>You must be holding a Mace!"));
             return true;
         }
 
@@ -75,16 +75,14 @@ public class MaceCommand implements CommandExecutor, TabCompleter {
             lore.remove(WHITELIST_LORE);
             meta.setLore(lore);
             item.setItemMeta(meta);
-
-            String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
-            sender.sendMessage(prefix + " §cRemoved mace limiter whitelist from item");
+            sender.sendMessage(MessageManager
+                    .parse("<dark_gray>[<gold>Vanilla Core<dark_gray>] <red>Removed mace limiter whitelist from item"));
         } else {
             lore.add(WHITELIST_LORE);
             meta.setLore(lore);
             item.setItemMeta(meta);
-
-            String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
-            sender.sendMessage(prefix + " §aWhitelisted mace from limiter");
+            sender.sendMessage(MessageManager
+                    .parse("<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>Whitelisted mace from limiter"));
         }
 
         return true;
@@ -92,14 +90,14 @@ public class MaceCommand implements CommandExecutor, TabCompleter {
 
     private boolean handleReset(CommandSender sender) {
         if (!sender.hasPermission("vanillacore.mace.reset")) {
-            sender.sendMessage("§cYou don't have permission to reset the mace limiter!");
+            sender.sendMessage(MessageManager.parse("<red>You don't have permission to reset the mace limiter!"));
             return true;
         }
 
         MaceLimiterFeature feature = plugin.getFeatureManager().getFeature(MaceLimiterFeature.class);
 
         if (feature == null) {
-            sender.sendMessage("§cMace Limiter feature not found!");
+            sender.sendMessage(MessageManager.parse("<red>Mace Limiter feature not found!"));
             return true;
         }
 
@@ -109,8 +107,8 @@ public class MaceCommand implements CommandExecutor, TabCompleter {
             plugin.getLogger().info("[VERBOSE] Mace Command - " + sender.getName() + " reset the mace limiter");
         }
 
-        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
-        sender.sendMessage(prefix + " §aReset mace craft count! Maces can now be crafted again.");
+        sender.sendMessage(MessageManager.parse(
+                "<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>Reset mace craft count! Maces can now be crafted again."));
 
         return true;
     }
@@ -119,7 +117,7 @@ public class MaceCommand implements CommandExecutor, TabCompleter {
         MaceLimiterFeature feature = plugin.getFeatureManager().getFeature(MaceLimiterFeature.class);
 
         if (feature == null) {
-            sender.sendMessage("§cMace Limiter feature not found!");
+            sender.sendMessage(MessageManager.parse("<red>Mace Limiter feature not found!"));
             return true;
         }
 
@@ -127,10 +125,11 @@ public class MaceCommand implements CommandExecutor, TabCompleter {
         int crafted = feature.getMacesCrafted();
         int max = feature.getMaxMaces();
 
-        sender.sendMessage("§6§l=== Mace Limiter Status ===");
-        sender.sendMessage("§eFeature Enabled: " + (enabled ? "§aYes" : "§cNo"));
-        sender.sendMessage("§eMaces Crafted: §a" + crafted + "§e/§a" + max);
-        sender.sendMessage("§eCan Craft More: " + (feature.canCraftMace() ? "§aYes" : "§cNo"));
+        sender.sendMessage(MessageManager.parse("<gold><bold>=== Mace Limiter Status ==="));
+        sender.sendMessage(MessageManager.parse("<yellow>Feature Enabled: " + (enabled ? "<green>Yes" : "<red>No")));
+        sender.sendMessage(MessageManager.parse("<yellow>Maces Crafted: <green>" + crafted + "<yellow>/<green>" + max));
+        sender.sendMessage(
+                MessageManager.parse("<yellow>Can Craft More: " + (feature.canCraftMace() ? "<green>Yes" : "<red>No")));
 
         return true;
     }
@@ -150,10 +149,11 @@ public class MaceCommand implements CommandExecutor, TabCompleter {
     }
 
     private void sendHelp(CommandSender sender) {
-        sender.sendMessage("§6§l=== Mace Commands ===");
-        sender.sendMessage("§e/vanilla mace whitelist §7- Toggle whitelist on held mace");
-        sender.sendMessage("§e/vanilla mace reset §7- Reset mace limiter (admin)");
-        sender.sendMessage("§e/vanilla mace status §7- Check mace limiter status");
+        sender.sendMessage(MessageManager.parse("<gold><bold>=== Mace Commands ==="));
+        sender.sendMessage(
+                MessageManager.parse("<yellow>/vanilla mace whitelist <gray>- Toggle whitelist on held mace"));
+        sender.sendMessage(MessageManager.parse("<yellow>/vanilla mace reset <gray>- Reset mace limiter (admin)"));
+        sender.sendMessage(MessageManager.parse("<yellow>/vanilla mace status <gray>- Check mace limiter status"));
     }
 
     @Override

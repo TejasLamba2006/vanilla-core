@@ -1,6 +1,7 @@
 package com.tejaslamba.vanillacore.command;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
+import com.tejaslamba.vanillacore.manager.MessageManager;
 import com.tejaslamba.vanillacore.utils.EnchantmentUtils;
 import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
@@ -30,8 +31,8 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("vanillacore.enchant")) {
-            sender.sendMessage(plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r")
-                    + " §cYou don't have permission to use this command!");
+            sender.sendMessage(MessageManager.parse(
+                    "<dark_gray>[<gold>Vanilla Core<dark_gray>] <red>You don't have permission to use this command!"));
             return true;
         }
 
@@ -65,13 +66,14 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
 
     private boolean handleLimit(CommandSender sender, String[] args) {
         if (args.length < 3 || args.length > 4) {
-            sender.sendMessage("§cUsage: /vanilla enchant limit <enchant> <maxLevel> [anvil|replacement|both]");
+            sender.sendMessage(MessageManager
+                    .parse("<red>Usage: /vanilla enchant limit <enchant> <maxLevel> [anvil|replacement|both]"));
             return true;
         }
 
         Enchantment enchant = EnchantmentUtils.parseEnchantment(args[1]);
         if (enchant == null) {
-            sender.sendMessage("§cInvalid enchantment: " + args[1]);
+            sender.sendMessage(MessageManager.parse("<red>Invalid enchantment: " + args[1]));
             return true;
         }
 
@@ -79,22 +81,21 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
         try {
             maxLevel = Integer.parseInt(args[2]);
             if (maxLevel < 0) {
-                sender.sendMessage("§cMax level must be 0 or greater!");
+                sender.sendMessage(MessageManager.parse("<red>Max level must be 0 or greater!"));
                 return true;
             }
         } catch (NumberFormatException e) {
-            sender.sendMessage("§cInvalid number: " + args[2]);
+            sender.sendMessage(MessageManager.parse("<red>Invalid number: " + args[2]));
             return true;
         }
 
         String option = args.length == 4 ? args[3].toLowerCase() : "both";
         if (!option.equals("anvil") && !option.equals("replacement") && !option.equals("both")) {
-            sender.sendMessage("§cInvalid option! Use: anvil, replacement, or both");
+            sender.sendMessage(MessageManager.parse("<red>Invalid option! Use: anvil, replacement, or both"));
             return true;
         }
 
         String enchantKey = enchant.getKey().getKey();
-        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
 
         if (option.equals("anvil") || option.equals("both")) {
             plugin.getConfigManager().get().set("features.custom-anvil-caps.caps." + enchantKey, maxLevel);
@@ -106,10 +107,13 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
 
         String optionText = option.equals("both") ? "both anvil & replacement" : option;
         if (maxLevel == 0) {
-            sender.sendMessage(prefix + " §aBlocked enchantment: §f" + enchantKey + " §7(" + optionText + ")");
+            sender.sendMessage(MessageManager
+                    .parse("<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>Blocked enchantment: <white>" + enchantKey
+                            + " <gray>(" + optionText + ")"));
         } else {
-            sender.sendMessage(prefix + " §aSet enchantment limit: §f" + enchantKey + " §7→ §e" + maxLevel + " §7("
-                    + optionText + ")");
+            sender.sendMessage(MessageManager
+                    .parse("<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>Set enchantment limit: <white>"
+                            + enchantKey + " <gray>\u2192 <yellow>" + maxLevel + " <gray>(" + optionText + ")"));
         }
 
         return true;
@@ -117,19 +121,20 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
 
     private boolean handleUnlimit(CommandSender sender, String[] args) {
         if (args.length < 2 || args.length > 3) {
-            sender.sendMessage("§cUsage: /vanilla enchant unlimit <enchant> [anvil|replacement|both]");
+            sender.sendMessage(
+                    MessageManager.parse("<red>Usage: /vanilla enchant unlimit <enchant> [anvil|replacement|both]"));
             return true;
         }
 
         Enchantment enchant = EnchantmentUtils.parseEnchantment(args[1]);
         if (enchant == null) {
-            sender.sendMessage("§cInvalid enchantment: " + args[1]);
+            sender.sendMessage(MessageManager.parse("<red>Invalid enchantment: " + args[1]));
             return true;
         }
 
         String option = args.length == 3 ? args[2].toLowerCase() : "both";
         if (!option.equals("anvil") && !option.equals("replacement") && !option.equals("both")) {
-            sender.sendMessage("§cInvalid option! Use: anvil, replacement, or both");
+            sender.sendMessage(MessageManager.parse("<red>Invalid option! Use: anvil, replacement, or both"));
             return true;
         }
 
@@ -143,15 +148,15 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
         boolean hasReplacementCap = replacementCaps != null && replacementCaps.contains(enchantKey);
 
         if (option.equals("anvil") && !hasAnvilCap) {
-            sender.sendMessage("§cNo anvil limit set for: " + enchantKey);
+            sender.sendMessage(MessageManager.parse("<red>No anvil limit set for: " + enchantKey));
             return true;
         }
         if (option.equals("replacement") && !hasReplacementCap) {
-            sender.sendMessage("§cNo replacement limit set for: " + enchantKey);
+            sender.sendMessage(MessageManager.parse("<red>No replacement limit set for: " + enchantKey));
             return true;
         }
         if (option.equals("both") && !hasAnvilCap && !hasReplacementCap) {
-            sender.sendMessage("§cNo limit set for: " + enchantKey);
+            sender.sendMessage(MessageManager.parse("<red>No limit set for: " + enchantKey));
             return true;
         }
 
@@ -163,9 +168,10 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
         }
         plugin.getConfigManager().save();
 
-        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
         String optionText = option.equals("both") ? "both anvil & replacement" : option;
-        sender.sendMessage(prefix + " §aRemoved limit for: §f" + enchantKey + " §7(" + optionText + ")");
+        sender.sendMessage(
+                MessageManager.parse("<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>Removed limit for: <white>"
+                        + enchantKey + " <gray>(" + optionText + ")"));
 
         return true;
     }
@@ -176,29 +182,31 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
         ConfigurationSection replacementCaps = plugin.getConfigManager().get()
                 .getConfigurationSection("features.enchantment-replacement.caps");
 
-        sender.sendMessage("§6§l=== Enchantment Limits ===");
-        sender.sendMessage("");
+        sender.sendMessage(MessageManager.parse("<gold><bold>=== Enchantment Limits ==="));
+        sender.sendMessage(MessageManager.parse(""));
 
-        sender.sendMessage("§e§lAnvil Caps:");
+        sender.sendMessage(MessageManager.parse("<yellow><bold>Anvil Caps:"));
         if (anvilCaps == null || anvilCaps.getKeys(false).isEmpty()) {
-            sender.sendMessage("  §7No anvil caps configured.");
+            sender.sendMessage(MessageManager.parse("  <gray>No anvil caps configured."));
         } else {
             Map<String, Object> limits = anvilCaps.getValues(false);
             limits.forEach((enchant, cap) -> {
-                String capText = cap.equals(0) ? "§c§lBLOCKED" : "§e" + cap;
-                sender.sendMessage("  §7• §f" + enchant + " §7→ " + capText);
+                String capText = cap.equals(0) ? "<red><bold>BLOCKED" : "<yellow>" + cap;
+                sender.sendMessage(
+                        MessageManager.parse("  <gray>\u2022 <white>" + enchant + " <gray>\u2192 " + capText));
             });
         }
 
-        sender.sendMessage("");
-        sender.sendMessage("§e§lReplacement Caps:");
+        sender.sendMessage(MessageManager.parse(""));
+        sender.sendMessage(MessageManager.parse("<yellow><bold>Replacement Caps:"));
         if (replacementCaps == null || replacementCaps.getKeys(false).isEmpty()) {
-            sender.sendMessage("  §7No replacement caps configured.");
+            sender.sendMessage(MessageManager.parse("  <gray>No replacement caps configured."));
         } else {
             Map<String, Object> limits = replacementCaps.getValues(false);
             limits.forEach((enchant, cap) -> {
-                String capText = cap.equals(0) ? "§c§lBLOCKED" : "§e" + cap;
-                sender.sendMessage("  §7• §f" + enchant + " §7→ " + capText);
+                String capText = cap.equals(0) ? "<red><bold>BLOCKED" : "<yellow>" + cap;
+                sender.sendMessage(
+                        MessageManager.parse("  <gray>\u2022 <white>" + enchant + " <gray>\u2192 " + capText));
             });
         }
 
@@ -207,19 +215,20 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
 
     private boolean handleBlock(CommandSender sender, String[] args) {
         if (args.length < 2 || args.length > 3) {
-            sender.sendMessage("§cUsage: /vanilla enchant block <enchant> [anvil|replacement|both]");
+            sender.sendMessage(
+                    MessageManager.parse("<red>Usage: /vanilla enchant block <enchant> [anvil|replacement|both]"));
             return true;
         }
 
         Enchantment enchant = EnchantmentUtils.parseEnchantment(args[1]);
         if (enchant == null) {
-            sender.sendMessage("§cInvalid enchantment: " + args[1]);
+            sender.sendMessage(MessageManager.parse("<red>Invalid enchantment: " + args[1]));
             return true;
         }
 
         String option = args.length == 3 ? args[2].toLowerCase() : "both";
         if (!option.equals("anvil") && !option.equals("replacement") && !option.equals("both")) {
-            sender.sendMessage("§cInvalid option! Use: anvil, replacement, or both");
+            sender.sendMessage(MessageManager.parse("<red>Invalid option! Use: anvil, replacement, or both"));
             return true;
         }
 
@@ -233,9 +242,10 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
         }
         plugin.getConfigManager().save();
 
-        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
         String optionText = option.equals("both") ? "both anvil & replacement" : option;
-        sender.sendMessage(prefix + " §aBlocked enchantment: §f" + enchantKey + " §7(" + optionText + ")");
+        sender.sendMessage(
+                MessageManager.parse("<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>Blocked enchantment: <white>"
+                        + enchantKey + " <gray>(" + optionText + ")"));
 
         return true;
     }
@@ -246,7 +256,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
 
     private boolean handleScan(CommandSender sender) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("§cOnly players can use this command!");
+            sender.sendMessage(MessageManager.parse("<red>Only players can use this command!"));
             return true;
         }
 
@@ -266,7 +276,8 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
                     if (!before.isEmpty()) {
                         scanned++;
                         plugin.getServer().getPluginManager().callEvent(
-                                new org.bukkit.event.player.PlayerJoinEvent(player, null));
+                                new org.bukkit.event.player.PlayerJoinEvent(player,
+                                        (net.kyori.adventure.text.Component) null));
 
                         Map<Enchantment, Integer> after = EnchantmentUtils.getAllEnchantments(item);
                         if (!before.equals(after)) {
@@ -276,10 +287,10 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
                 }
             }
 
-            String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
-            sender.sendMessage(prefix + " §aScanned §e" + scanned + " §aitems, modified §e" + modified);
+            sender.sendMessage(MessageManager.parse("<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>Scanned <yellow>"
+                    + scanned + " <green>items, modified <yellow>" + modified));
         } else {
-            sender.sendMessage("§cEnchantment Replacement feature is not enabled!");
+            sender.sendMessage(MessageManager.parse("<red>Enchantment Replacement feature is not enabled!"));
         }
 
         return true;
@@ -287,13 +298,13 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
 
     private boolean handleWhitelist(CommandSender sender) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("§cOnly players can use this command!");
+            sender.sendMessage(MessageManager.parse("<red>Only players can use this command!"));
             return true;
         }
 
         ItemStack item = player.getInventory().getItemInMainHand();
         if (item == null || !item.hasItemMeta()) {
-            sender.sendMessage("§cYou must be holding an item!");
+            sender.sendMessage(MessageManager.parse("<red>You must be holding an item!"));
             return true;
         }
 
@@ -304,16 +315,14 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
             lore.remove(WHITELIST_LORE);
             meta.setLore(lore);
             item.setItemMeta(meta);
-
-            String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
-            sender.sendMessage(prefix + " §cRemoved enchantment scan whitelist from item");
+            sender.sendMessage(MessageManager.parse(
+                    "<dark_gray>[<gold>Vanilla Core<dark_gray>] <red>Removed enchantment scan whitelist from item"));
         } else {
             lore.add(WHITELIST_LORE);
             meta.setLore(lore);
             item.setItemMeta(meta);
-
-            String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
-            sender.sendMessage(prefix + " §aWhitelisted item from enchantment scans");
+            sender.sendMessage(MessageManager.parse(
+                    "<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>Whitelisted item from enchantment scans"));
         }
 
         return true;
@@ -334,15 +343,21 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
     }
 
     private void sendHelp(CommandSender sender) {
-        sender.sendMessage("§6§l=== Enchantment Commands ===");
-        sender.sendMessage("§e/vanilla enchant limit <enchant> <maxLevel> [option] §7- Set enchantment limit");
-        sender.sendMessage("§e/vanilla enchant unlimit <enchant> [option] §7- Remove enchantment limit");
-        sender.sendMessage("§e/vanilla enchant list §7- Show all limits");
-        sender.sendMessage("§e/vanilla enchant block <enchant> [option] §7- Block enchantment completely");
-        sender.sendMessage("§e/vanilla enchant unblock <enchant> [option] §7- Unblock enchantment");
-        sender.sendMessage("§e/vanilla enchant scan §7- Manually scan your inventory");
-        sender.sendMessage("§e/vanilla enchant whitelist §7- Toggle whitelist on held item");
-        sender.sendMessage("§7Options: §fانvil §7| §freplacement §7| §fboth §7(default)");
+        sender.sendMessage(MessageManager.parse("<gold><bold>=== Enchantment Commands ==="));
+        sender.sendMessage(MessageManager
+                .parse("<yellow>/vanilla enchant limit <enchant> <maxLevel> [option] <gray>- Set enchantment limit"));
+        sender.sendMessage(MessageManager
+                .parse("<yellow>/vanilla enchant unlimit <enchant> [option] <gray>- Remove enchantment limit"));
+        sender.sendMessage(MessageManager.parse("<yellow>/vanilla enchant list <gray>- Show all limits"));
+        sender.sendMessage(MessageManager
+                .parse("<yellow>/vanilla enchant block <enchant> [option] <gray>- Block enchantment completely"));
+        sender.sendMessage(MessageManager
+                .parse("<yellow>/vanilla enchant unblock <enchant> [option] <gray>- Unblock enchantment"));
+        sender.sendMessage(MessageManager.parse("<yellow>/vanilla enchant scan <gray>- Manually scan your inventory"));
+        sender.sendMessage(
+                MessageManager.parse("<yellow>/vanilla enchant whitelist <gray>- Toggle whitelist on held item"));
+        sender.sendMessage(MessageManager
+                .parse("<gray>Options: <white>anvil <gray>| <white>replacement <gray>| <white>both <gray>(default)"));
     }
 
     @Override

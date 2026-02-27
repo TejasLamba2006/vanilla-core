@@ -3,6 +3,9 @@ package com.tejaslamba.vanillacore.listener;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.MaceLimiterFeature;
 import com.tejaslamba.vanillacore.menu.MainMenu;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -12,6 +15,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+
+import java.time.Duration;
 
 public class MaceLimiterListener implements Listener {
 
@@ -64,7 +69,7 @@ public class MaceLimiterListener implements Listener {
         broadcastMaceCraft(crafter, feature.getMacesCrafted());
 
         if (!feature.canCraftMace()) {
-            Bukkit.getScheduler().runTask(plugin, feature::removeAllMaceRecipes);
+            Bukkit.getScheduler().runTask(plugin, (Runnable) feature::removeAllMaceRecipes);
         }
     }
 
@@ -90,8 +95,15 @@ public class MaceLimiterListener implements Listener {
             int stay = plugin.getConfigManager().get().getInt("features.mace-limiter.title.stay", 70);
             int fadeOut = plugin.getConfigManager().get().getInt("features.mace-limiter.title.fade-out", 20);
 
+            Component titleComp = LegacyComponentSerializer.legacySection().deserialize(title);
+            Component subtitleComp = LegacyComponentSerializer.legacySection().deserialize(subtitle);
+            Title.Times times = Title.Times.times(
+                    Duration.ofMillis(fadeIn * 50L),
+                    Duration.ofMillis(stay * 50L),
+                    Duration.ofMillis(fadeOut * 50L));
+
             for (Player player : Bukkit.getOnlinePlayers()) {
-                player.sendTitle(title, subtitle, fadeIn, stay, fadeOut);
+                player.showTitle(Title.title(titleComp, subtitleComp, times));
             }
 
             if (plugin.isVerbose()) {
@@ -105,7 +117,7 @@ public class MaceLimiterListener implements Listener {
                     .replace("{player}", crafterName)
                     .replace("{count}", String.valueOf(count));
 
-            Bukkit.broadcastMessage(chatMessage);
+            Bukkit.getServer().broadcast(LegacyComponentSerializer.legacySection().deserialize(chatMessage));
 
             if (plugin.isVerbose()) {
                 plugin.getLogger().info("[VERBOSE] Mace Limiter - Sent chat message for " + crafterName);
@@ -153,7 +165,7 @@ public class MaceLimiterListener implements Listener {
         MaceLimiterFeature feature = plugin.getFeatureManager().getFeature(MaceLimiterFeature.class);
         if (feature == null || !feature.isEnabled()) {
             plugin.getMessageManager().sendPrefixed(player, "mace-limiter.feature-disabled");
-            plugin.getServer().getScheduler().runTask(plugin, player::closeInventory);
+            plugin.getServer().getScheduler().runTask(plugin, (Runnable) player::closeInventory);
             return;
         }
 

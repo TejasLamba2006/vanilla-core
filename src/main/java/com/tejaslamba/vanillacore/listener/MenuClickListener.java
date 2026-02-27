@@ -38,7 +38,7 @@ public class MenuClickListener implements Listener {
         T feature = plugin.getFeatureManager().getFeature(clazz);
         if (feature == null || !feature.isEnabled()) {
             plugin.getMessageManager().sendPrefixed(player, messageKey);
-            plugin.getServer().getScheduler().runTask(plugin, player::closeInventory);
+            plugin.getServer().getScheduler().runTask(plugin, (Runnable) player::closeInventory);
             return null;
         }
         return feature;

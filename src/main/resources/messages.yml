@@ -1,150 +1,156 @@
-# ============================================
+﻿# ============================================
 # Vanilla Core Messages Configuration
 # ============================================
 # All plugin messages can be customized here.
-# Use & for color codes (e.g., &a = green)
-# Use {placeholder} for dynamic values
+# Uses MiniMessage format for colors and formatting.
+# See: https://docs.advntr.dev/minimessage/format.html
+#
+# Common tags:
+#   <gold>      <gray>      <green>     <red>       <yellow>
+#   <aqua>      <white>     <dark_gray> <bold>      <italic>
+#   <strikethrough>  <underlined>  <reset>
+#   Placeholders like <player>, <enchant> etc. are replaced at runtime.
 # ============================================
 
 # General messages
 general:
-  prefix: "&8[&6SMP&8]&r"
-  reload: "&aConfiguration reloaded."
-  no-permission: "&cYou don't have permission to do that!"
-  player-only: "&cThis command can only be used by players!"
-  unknown-command: "&cUnknown subcommand. Usage: /vanilla [menu|reload|enchant|mace|netherite|infiniterestock]"
-  cancelled: "&cCancelled."
-  invalid-number: "&cPlease enter a valid number!"
+  prefix: "<dark_gray>[<gold>SMP<dark_gray>]<reset>"
+  reload: "<green>Configuration reloaded."
+  no-permission: "<red>You don't have permission to do that!"
+  player-only: "<red>This command can only be used by players!"
+  unknown-command: "<red>Unknown subcommand. Usage: /vanilla [menu|reload|enchant|mace|netherite|infiniterestock]"
+  cancelled: "<red>Cancelled."
+  invalid-number: "<red>Please enter a valid number!"
 
 # Command messages
 commands:
   menu:
-    no-permission: "&cYou don't have permission to open the settings menu!"
+    no-permission: "<red>You don't have permission to open the settings menu!"
   reload:
-    no-permission: "&cYou don't have permission to reload!"
-    success: "&aConfiguration reloaded."
+    no-permission: "<red>You don't have permission to reload!"
+    success: "<green>Configuration reloaded."
   enchant:
-    no-permission: "&cYou don't have permission to use enchant commands!"
+    no-permission: "<red>You don't have permission to use enchant commands!"
   mace:
-    no-permission: "&cYou don't have permission to use mace commands!"
+    no-permission: "<red>You don't have permission to use mace commands!"
   netherite:
-    no-permission: "&cYou don't have permission to use netherite commands!"
+    no-permission: "<red>You don't have permission to use netherite commands!"
   infinite-restock:
-    no-permission: "&cYou don't have permission to manage Infinite Restock!"
+    no-permission: "<red>You don't have permission to manage Infinite Restock!"
 
 # Feature toggle messages
 feature:
-  toggled: "&7Toggled {feature} to {state}"
-  enabled: "&aEnabled"
-  disabled: "&cDisabled"
+  toggled: "<gray>Toggled <feature> to <state>"
+  enabled: "<green>Enabled"
+  disabled: "<red>Disabled"
 
 # Custom Anvil Caps
 anvil-caps:
-  enchantments-limited: "&cSome enchantments were limited!"
+  enchantments-limited: "<red>Some enchantments were limited!"
 
 # Enchantment Limiter
 enchantment-limiter:
-  feature-disabled: "&cEnchantment Limiter is disabled! Enable it first."
-  banned: "&c'{enchant}' is banned!"
-  limited: "&cMax level for '{enchant}' is {limit}"
+  feature-disabled: "<red>Enchantment Limiter is disabled! Enable it first."
+  banned: "<red>'<enchant>' is banned!"
+  limited: "<red>Max level for '<enchant>' is <limit>"
 
 # Mace Limiter
 mace-limiter:
-  feature-disabled: "&cMace Limiter is disabled! Enable it first."
-  craft-limit-reached: "&cThe mace craft limit has been reached!"
-  max-maces-set: "&7Max maces set to &e{count}"
-  craft-count-reset: "&7Mace craft count reset! Recipes re-enabled."
+  feature-disabled: "<red>Mace Limiter is disabled! Enable it first."
+  craft-limit-reached: "<red>The mace craft limit has been reached!"
+  max-maces-set: "<gray>Max maces set to <yellow><count>"
+  craft-count-reset: "<gray>Mace craft count reset! Recipes re-enabled."
 
 # Dimension Lock
 dimension-lock:
-  feature-disabled: "&cDimension Lock is disabled! Enable it first."
-  end-locked: "&cThe End is currently locked!"
-  nether-locked: "&cThe Nether is currently locked!"
+  feature-disabled: "<red>Dimension Lock is disabled! Enable it first."
+  end-locked: "<red>The End is currently locked!"
+  nether-locked: "<red>The Nether is currently locked!"
 
 # Netherite Disabler
 netherite-disabler:
-  feature-disabled: "&cNetherite Disabler is disabled! Enable it first."
+  feature-disabled: "<red>Netherite Disabler is disabled! Enable it first."
 
 # Mob Manager
 mob-manager:
-  feature-disabled: "&cMob Manager is disabled! Enable it first."
-  enabled-all: "&7Enabled spawning for all mobs!"
-  disabled-all: "&7Disabled spawning for all mobs!"
-  chunk-cleanup-enabled: "&aChunk cleanup enabled! Disabled mobs will be removed from chunks."
-  chunk-cleanup-disabled: "&7Chunk cleanup disabled."
-  worldguard-bypass-enabled: "&aWorldGuard bypass enabled! Mobs in protected regions can spawn."
-  worldguard-bypass-disabled: "&7WorldGuard bypass disabled."
+  feature-disabled: "<red>Mob Manager is disabled! Enable it first."
+  enabled-all: "<gray>Enabled spawning for all mobs!"
+  disabled-all: "<gray>Disabled spawning for all mobs!"
+  chunk-cleanup-enabled: "<green>Chunk cleanup enabled! Disabled mobs will be removed from chunks."
+  chunk-cleanup-disabled: "<gray>Chunk cleanup disabled."
+  worldguard-bypass-enabled: "<green>WorldGuard bypass enabled! Mobs in protected regions can spawn."
+  worldguard-bypass-disabled: "<gray>WorldGuard bypass disabled."
 
 # Infinite Restock
 infinite-restock:
-  feature-disabled: "&cInfinite Restock is disabled! Enable it first."
-  enabled: "&7Infinite Restock enabled"
-  disabled: "&7Infinite Restock disabled"
+  feature-disabled: "<red>Infinite Restock is disabled! Enable it first."
+  enabled: "<gray>Infinite Restock enabled"
+  disabled: "<gray>Infinite Restock disabled"
 
 # Item Limiter
 item-limiter:
-  feature-disabled: "&cItem Limiter is disabled! Enable it first."
-  limit-exceeded: "&cYou have reached the limit of {limit} for this item"
-  item-banned: "&7Item banned successfully!"
-  item-limit-added: "&7Item limit added successfully!"
-  item-placed-ban: "&7Item placed! Click confirm to ban it."
-  item-placed-limit: "&7Item placed! Now set the limit amount."
-  item-removed: "&7Item removed."
-  limit-removed: "&7Item limit removed!"
-  banned-item-removed: "&7Banned item removed!"
-  banned-item-not-found: "&7Banned item not found!"
-  limit-not-found: "&7Item limit not found!"
-  limit-set: "&7Limit set to: {limit}"
-  limit-updated: "&7Limit updated to {limit}"
-  item-unbanned: "&7Item unbanned with limit: {limit}"
-  item-remains-banned: "&7Item remains banned"
-  please-set-item: "&7Please set an item first!"
+  feature-disabled: "<red>Item Limiter is disabled! Enable it first."
+  limit-exceeded: "<red>You have reached the limit of <limit> for this item"
+  item-banned: "<gray>Item banned successfully!"
+  item-limit-added: "<gray>Item limit added successfully!"
+  item-placed-ban: "<gray>Item placed! Click confirm to ban it."
+  item-placed-limit: "<gray>Item placed! Now set the limit amount."
+  item-removed: "<gray>Item removed."
+  limit-removed: "<gray>Item limit removed!"
+  banned-item-removed: "<gray>Banned item removed!"
+  banned-item-not-found: "<gray>Banned item not found!"
+  limit-not-found: "<gray>Item limit not found!"
+  limit-set: "<gray>Limit set to: <limit>"
+  limit-updated: "<gray>Limit updated to <limit>"
+  item-unbanned: "<gray>Item unbanned with limit: <limit>"
+  item-remains-banned: "<gray>Item remains banned"
+  please-set-item: "<gray>Please set an item first!"
   # Chat input prompts
   input:
-    unban-title: "&6Unban Item - Set Limit"
-    unban-current: "&7Current: &cBANNED (0)"
-    unban-prompt: "&aEnter a limit to unban (1-64000):"
-    set-limit-title: "&6Set Item Limit"
-    set-limit-prompt: "&aEnter the maximum amount (0-64000):"
-    edit-limit-title: "&6Edit Limit Amount"
-    edit-limit-current: "&7Current: &f{limit}"
-    edit-limit-prompt: "&aEnter the new limit amount (0-64000):"
-    cancel-hint: "&7Type &c'cancel' &7to cancel"
-    invalid-range: "&7Invalid number! Must be between 0 and 64000"
+    unban-title: "<gold>Unban Item - Set Limit"
+    unban-current: "<gray>Current: <red>BANNED (0)"
+    unban-prompt: "<green>Enter a limit to unban (1-64000):"
+    set-limit-title: "<gold>Set Item Limit"
+    set-limit-prompt: "<green>Enter the maximum amount (0-64000):"
+    edit-limit-title: "<gold>Edit Limit Amount"
+    edit-limit-current: "<gray>Current: <white><limit>"
+    edit-limit-prompt: "<green>Enter the new limit amount (0-64000):"
+    cancel-hint: "<gray>Type <red>'cancel' <gray>to cancel"
+    invalid-range: "<gray>Invalid number! Must be between 0 and 64000"
 
 # Enchantment level input (BaseMenu)
 enchant-input:
-  prompt: "&7Enter the max level for {enchant} (1-10, or 'cancel'):"
-  invalid-level: "&cInvalid level! Must be between 1-10."
-  level-set: "&a{enchant} limited to level {level}"
+  prompt: "<gray>Enter the max level for <enchant> (1-10, or 'cancel'):"
+  invalid-level: "<red>Invalid level! Must be between 1-10."
+  level-set: "<green><enchant> limited to level <level>"
 
 # Minimap Control
 minimap-control:
-  feature-disabled: "&cMinimap Control is disabled! Enable it first."
-  mode-changed: "&7Global mode changed to: &e{mode}"
-  nether-fair-toggled: "&7Nether fair mode: {state}"
-  send-on-join-toggled: "&7Send on join: {state}"
-  send-on-world-change-toggled: "&7Send on world change: {state}"
-  applied-to-all: "&aApplied minimap settings to all online players!"
-  world-mode-changed: "&7World &e{world} &7mode changed to: &e{mode}"
-  world-mode-reset: "&7World &e{world} &7now uses global mode."
+  feature-disabled: "<red>Minimap Control is disabled! Enable it first."
+  mode-changed: "<gray>Global mode changed to: <yellow><mode>"
+  nether-fair-toggled: "<gray>Nether fair mode: <state>"
+  send-on-join-toggled: "<gray>Send on join: <state>"
+  send-on-world-change-toggled: "<gray>Send on world change: <state>"
+  applied-to-all: "<green>Applied minimap settings to all online players!"
+  world-mode-changed: "<gray>World <yellow><world> <gray>mode changed to: <yellow><mode>"
+  world-mode-reset: "<gray>World <yellow><world> <gray>now uses global mode."
 
 # Shield Mechanics
 shield-mechanics:
-  feature-disabled: "&cShield Mechanics is disabled! Enable it first."
+  feature-disabled: "<red>Shield Mechanics is disabled! Enable it first."
 
 # Invisible Kills
 invisible-kills:
-  feature-disabled: "&cInvisible Kills is disabled! Enable it first."
+  feature-disabled: "<red>Invisible Kills is disabled! Enable it first."
 
 # Item Explosion Immunity
 item-explosion-immunity:
-  feature-disabled: "&cItem Explosion Immunity is disabled! Enable it first."
+  feature-disabled: "<red>Item Explosion Immunity is disabled! Enable it first."
 
 # One Player Sleep
 one-player-sleep:
-  feature-disabled: "&cOne Player Sleep is disabled! Enable it first."
+  feature-disabled: "<red>One Player Sleep is disabled! Enable it first."
 
 # Server Restart
 server-restart:
-  feature-disabled: "&cServer Restart is disabled! Enable it first."
+  feature-disabled: "<red>Server Restart is disabled! Enable it first."

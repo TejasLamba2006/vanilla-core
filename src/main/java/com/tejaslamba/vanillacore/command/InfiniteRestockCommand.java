@@ -2,6 +2,7 @@ package com.tejaslamba.vanillacore.command;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.InfiniteRestockFeature;
+import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,18 +24,18 @@ public class InfiniteRestockCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player p)) {
-            sender.sendMessage("§c[Vanilla Core] Command can only be used by a player");
+            sender.sendMessage(MessageManager.parse("<red>[Vanilla Core] Command can only be used by a player"));
             return true;
         }
 
         if (!p.hasPermission("vanillacore.infiniterestock")) {
-            p.sendMessage("§c[Vanilla Core] You don't have permission to manage Infinite Restock!");
+            p.sendMessage(plugin.getMessageManager().get("commands.infinite-restock.no-permission"));
             return true;
         }
 
         InfiniteRestockFeature feature = plugin.getFeatureManager().getFeature(InfiniteRestockFeature.class);
         if (feature == null) {
-            p.sendMessage("§c[Vanilla Core] Infinite Restock feature not found");
+            p.sendMessage(MessageManager.parse("<red>[Vanilla Core] Infinite Restock feature not found"));
             return true;
         }
 
