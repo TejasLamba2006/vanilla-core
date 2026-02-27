@@ -1,11 +1,9 @@
 package com.tejaslamba.vanillacore.manager;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import org.bukkit.Bukkit;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -14,7 +12,6 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class CDNManager {
 
@@ -24,11 +21,8 @@ public class CDNManager {
     private static final long CACHE_DURATION_MS = 5 * 60 * 1000;
 
     private final VanillaCorePlugin plugin;
-    private final Gson gson;
-    private final ConcurrentHashMap<String, CachedData> cache;
 
     private String latestVersion;
-    private String configBuilderUrl;
     private String documentationUrl;
     private Set<String> disabledFeatures;
     private boolean maintenanceMode;
@@ -43,8 +37,6 @@ public class CDNManager {
 
     public CDNManager(VanillaCorePlugin plugin) {
         this.plugin = plugin;
-        this.gson = new Gson();
-        this.cache = new ConcurrentHashMap<>();
         this.disabledFeatures = new HashSet<>();
         this.maintenanceMode = false;
         this.disabledMessage = "This feature has been temporarily disabled by the plugin author.";
@@ -78,8 +70,6 @@ public class CDNManager {
 
                 JsonObject manifest = JsonParser.parseString(json).getAsJsonObject();
                 latestVersion = manifest.has("latestVersion") ? manifest.get("latestVersion").getAsString() : null;
-                configBuilderUrl = manifest.has("configBuilderUrl") ? manifest.get("configBuilderUrl").getAsString()
-                        : "https://vanillacore.tejaslamba.com/config-builder";
                 documentationUrl = manifest.has("documentationUrl") ? manifest.get("documentationUrl").getAsString()
                         : "https://vanillacore.tejaslamba.com/docs";
                 lastFetch = System.currentTimeMillis();
@@ -210,10 +200,6 @@ public class CDNManager {
         if (latestVersion == null)
             return false;
         return compareVersions(latestVersion, getCurrentVersion()) > 0;
-    }
-
-    public String getConfigBuilderUrl() {
-        return configBuilderUrl != null ? configBuilderUrl : "https://vanillacore.tejaslamba.com/config-builder";
     }
 
     public String getDocumentationUrl() {

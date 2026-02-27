@@ -245,7 +245,6 @@ public class MainMenu extends BaseMenu {
             lore.add(MessageManager.parse("<!italic><yellow>Click to open download page"));
             lore.add(Component.empty());
             lore.add(MessageManager.parse("<!italic><gray>Config Builder:"));
-            lore.add(MessageManager.parse("<!italic><aqua>" + cdnManager.getConfigBuilderUrl()));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -318,9 +317,6 @@ public class MainMenu extends BaseMenu {
                 player.closeInventory();
                 player.sendMessage(MessageManager.parse(
                         "<gold><bold>[Vanilla Core] <gray>Download: <aqua>https://modrinth.com/plugin/vanillacorewastaken"));
-                player.sendMessage(MessageManager.parse(
-                        "<gold><bold>[Vanilla Core] <gray>Config Builder: <aqua>"
-                                + plugin.getCDNManager().getConfigBuilderUrl()));
                 return;
             }
         }
