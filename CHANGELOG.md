@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.3] - 2026-03-01
+
 ### Changed
 
 - Migrated all player messaging from legacy §-code strings to Adventure API (`Component`/MiniMessage) across all command and listener classes
@@ -41,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed `DimensionLockConfig` default `lockedMessage` values to use MiniMessage (`<red>The End/Nether is currently locked!`)
 - Fixed `InvisibleKillsConfig` default `deathMessage` to use MiniMessage (`{victim} was killed by <obfuscated>?????????`)
+- Documentation: updated all `§`-coded examples in `docs/docs/configuration.md` to MiniMessage format
 
 ## [1.3.2] - 2026-02-27
 

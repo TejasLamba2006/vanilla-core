@@ -30,17 +30,15 @@ The configuration is organized into logical sections:
 ```yaml
 plugin:
   name: "Vanilla Core"
-  prefix: "§8[§6SMP§8]§r"
+  prefix: "<dark_gray>[<gold>SMP<dark_gray>]<reset>"
   verbose: false
 ```
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `name` | string | "Vanilla Core" | Plugin display name |
-| `prefix` | string | "§8[§6SMP§8]§r" | Prefix for chat messages |
+| `prefix` | string | `"<dark_gray>[<gold>SMP<dark_gray>]<reset>"` | Prefix for chat messages (MiniMessage format) |
 | `verbose` | boolean | false | Enable verbose logging for debugging |
-
-
 
 ## Features Configuration
 
@@ -65,7 +63,7 @@ config-version: 2
 
 plugin:
   name: "Vanilla Core"
-  prefix: "§8[§6SMP§8]§r"
+  prefix: "<dark_gray>[<gold>SMP<dark_gray>]<reset>"
   verbose: false
 
 features:
@@ -93,14 +91,14 @@ features:
     maces-crafted: 0  # Managed by plugin
     title:
       enabled: true
-      title: "§6⚔ MACE CRAFTED ⚔"
-      subtitle: "§e{player} §7has crafted mace §e#§6{count}"
+      title: "<gold>⚔ MACE CRAFTED ⚔"
+      subtitle: "<yellow>{player} <gray>has crafted mace <yellow>#<gold>{count}"
       fade-in: 10
       stay: 70
       fade-out: 20
     chat:
       enabled: true
-      message: "§6{player} §ehas crafted mace #§6{count}§e!"
+      message: "<gold>{player} <yellow>has crafted mace #<gold>{count}<yellow>!"
     sound:
       enabled: true
       sound: "ENTITY_ENDER_DRAGON_GROWL"
@@ -113,7 +111,7 @@ features:
   dimension-lock-end:
     enabled: false
     locked: false
-    locked-message: "§cThe End is currently locked!"
+    locked-message: "<red>The End is currently locked!"
 
   # ------------------------------------------
   # Dimension Lock - Nether
@@ -121,7 +119,7 @@ features:
   dimension-lock-nether:
     enabled: false
     locked: false
-    locked-message: "§cThe Nether is currently locked!"
+    locked-message: "<red>The Nether is currently locked!"
 
   # ------------------------------------------
   # Netherite Disabler
@@ -144,7 +142,7 @@ features:
   # ------------------------------------------
   invisible-kills:
     enabled: false
-    death-message: "{victim} was killed by §k?????????"
+    death-message: "{victim} was killed by <obfuscated>?????????"
 
   # ------------------------------------------
   # Item Explosion Immunity
@@ -169,7 +167,7 @@ features:
   item-limiter:
     enabled: false
     notify-player: true
-    notify-message: "§c[Vanilla Core] §7Excess items removed: {item} x{amount} (limit: {limit})"
+    notify-message: "<red>[Vanilla Core] <gray>Excess items removed: {item} x{amount} (limit: {limit})"
     drop-excess: true
     limits:
       GOLDEN_APPLE:
@@ -204,8 +202,8 @@ features:
   # ------------------------------------------
   one-player-sleep:
     enabled: false
-    sleep-message: "§e{player} §7is sleeping..."
-    skip-message: "§a☀ Good morning!"
+    sleep-message: "<yellow>{player} <gray>is sleeping..."
+    skip-message: "<green>☀ Good morning!"
 
   # ------------------------------------------
   # Mob Manager
@@ -265,14 +263,14 @@ features:
       volume: 1.0
       pitch: 1.0
     messages:
-      countdown-message: "§c⚠ Server restarting in §e{time} §cseconds!"
-      actionbar-message: "§cRestarting in {time}s"
-      bossbar-message: "§cServer Restart: {time}s"
-      title-message: "§c⚠ Server Restart"
-      subtitle-message: "§e{time} seconds remaining"
-      restart-now-message: "§c⚠ Server restart initiated by {player}!"
-      restart-done-message: "§c⚠ Server is restarting now!"
-      cancelled-message: "§a✔ Server restart has been cancelled."
+      countdown-message: "<red>⚠ Server restarting in <yellow>{time} <red>seconds!"
+      actionbar-message: "<red>Restarting in {time}s"
+      bossbar-message: "<red>Server Restart: {time}s"
+      title-message: "<red>⚠ Server Restart"
+      subtitle-message: "<yellow>{time} seconds remaining"
+      restart-now-message: "<red>⚠ Server restart initiated by {player}!"
+      restart-done-message: "<red>⚠ Server is restarting now!"
+      cancelled-message: "<green>✔ Server restart has been cancelled."
 ```
 
 ## Feature Quick Reference
@@ -292,31 +290,32 @@ features:
 | [Minimap Control](/docs/features/minimap-control) | `minimap-control` | Control minimap mod features |
 | [Server Restart](/docs/features/server-restart) | `server-restart` | Scheduled restarts with countdown |
 
-## Color Codes
+## Color Tags (MiniMessage)
 
-Use `§` followed by a code for colors in messages:
+All messages use [MiniMessage](https://docs.advntr.dev/minimessage/format.html) format. Wrap color names in `< >`:
 
-| Code | Color | Code | Color |
-|------|-------|------|-------|
-| `§0` | Black | `§8` | Dark Gray |
-| `§1` | Dark Blue | `§9` | Blue |
-| `§2` | Dark Green | `§a` | Green |
-| `§3` | Dark Aqua | `§b` | Aqua |
-| `§4` | Dark Red | `§c` | Red |
-| `§5` | Dark Purple | `§d` | Light Purple |
-| `§6` | Gold | `§e` | Yellow |
-| `§7` | Gray | `§f` | White |
+| Tag | Color | Tag | Color |
+|-----|-------|-----|-------|
+| `<black>` | Black | `<dark_gray>` | Dark Gray |
+| `<dark_blue>` | Dark Blue | `<blue>` | Blue |
+| `<dark_green>` | Dark Green | `<green>` | Green |
+| `<dark_aqua>` | Dark Aqua | `<aqua>` | Aqua |
+| `<dark_red>` | Dark Red | `<red>` | Red |
+| `<dark_purple>` | Dark Purple | `<light_purple>` | Light Purple |
+| `<gold>` | Gold | `<yellow>` | Yellow |
+| `<gray>` | Gray | `<white>` | White |
 
-### Format Codes
+### Format Tags
 
-| Code | Effect |
-|------|--------|
-| `§l` | Bold |
-| `§o` | Italic |
-| `§n` | Underline |
-| `§m` | Strikethrough |
-| `§k` | Obfuscated |
-| `§r` | Reset |
+| Tag | Effect |
+|-----|--------|
+| `<bold>` | Bold |
+| `<italic>` | Italic |
+| `<underlined>` | Underline |
+| `<strikethrough>` | Strikethrough |
+| `<obfuscated>` | Obfuscated |
+| `<reset>` | Reset |
+| `<!italic>` | Cancel default italic (useful in item lore) |
 
 ## Reloading Configuration
 
@@ -325,8 +324,6 @@ After editing `config.yml`, apply changes with:
 ```bash
 /vanilla reload
 ```
-
-
 
 ## Backup Recommendations
 
@@ -357,4 +354,3 @@ cp plugins/Vanilla Core/config.yml plugins/Vanilla Core/config.yml.backup
 1. Verify `enabled: true` for the feature
 2. Check for permission requirements
 3. Review feature-specific documentation
-
