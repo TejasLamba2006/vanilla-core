@@ -19,12 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Completed full Adventure API migration: replaced all remaining legacy § color codes in `ServerRestartFeature`, `ShieldMechanicsFeature`, `MinimapControlFeature`, `ItemLimiterListener`, `MaceLimiterListener`, `InvisibleKillsFeature`, and `MainMenu` with MiniMessage format
 - `ServerRestartFeature`: migrated from BungeeCord ActionBar API and Bukkit BossBar to Adventure API (`player.sendActionBar`, `player.showTitle`, `net.kyori.adventure.bossbar.BossBar`)
 - `MainMenu`: replaced deprecated `getLore()` + §-detection with `lore()` + `PlainTextComponentSerializer` for lore inspection
-- `config.yml`: migrated all message values (sleep, skip, server-restart) from § codes to MiniMessage format
+- `config.yml`: migrated all message values from § codes to MiniMessage format
 - Added JUnit 5 (`junit-jupiter:5.10.0`) as a test dependency
 
 ### Added
 
-- `SectionSymbolMigrationTest`: unit test that scans all Java source files and `config.yml` to assert no legacy § color codes remain outside intentional constants (`GUI_TITLE`, `XAEROS_*`, `WHITELIST_LORE`)
+- Fixed `DimensionLockConfig` default `lockedMessage` values to use MiniMessage (`<red>The End/Nether is currently locked!`)
+- Fixed `InvisibleKillsConfig` default `deathMessage` to use MiniMessage (`{victim} was killed by <obfuscated>?????????`)
 
 ## [1.3.2] - 2026-02-27
 
