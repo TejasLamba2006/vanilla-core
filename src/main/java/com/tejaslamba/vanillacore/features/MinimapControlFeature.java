@@ -5,6 +5,7 @@ import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.MinimapControlListener;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -292,11 +293,13 @@ public class MinimapControlFeature extends BaseFeature {
             ItemStack worldItem = new ItemStack(material);
             ItemMeta meta = worldItem.getItemMeta();
             if (meta != null) {
-                meta.displayName(MessageManager.parse("<!italic><green>" + world.getName()));
+                MiniMessage mm = MiniMessage.miniMessage();
+                meta.displayName(MessageManager.parse("<!italic><green>" + mm.escapeTags(world.getName())));
                 List<Component> lore = new ArrayList<>();
                 lore.add(Component.empty());
-                lore.add(MessageManager.parse("<!italic><gray>Environment: <yellow>" + world.getEnvironment().name()));
-                lore.add(MessageManager.parse("<!italic><gray>Mode: <yellow>" + mode.name()));
+                lore.add(MessageManager
+                        .parse("<!italic><gray>Environment: <yellow>" + mm.escapeTags(world.getEnvironment().name())));
+                lore.add(MessageManager.parse("<!italic><gray>Mode: <yellow>" + mm.escapeTags(mode.name())));
                 lore.add(Component.empty());
                 lore.add(MessageManager.parse("<!italic><yellow>Left Click: Cycle mode"));
                 lore.add(MessageManager.parse("<!italic><yellow>Right Click: Use global"));

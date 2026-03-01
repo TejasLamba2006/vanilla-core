@@ -21,10 +21,11 @@ import java.util.*;
 
 public class MobManagerFeature extends BaseFeature {
 
-    public static final String GUI_TITLE = "§8Mob Manager";
-    public static final String SPAWN_REASONS_GUI_TITLE = "§8Spawn Reasons Config";
-    public static final String WORLD_SELECT_GUI_TITLE = "§8Select World";
-    public static final String SETTINGS_GUI_TITLE = "§8Mob Manager Settings";
+    public static final String GUI_TITLE_PLAIN = "Mob Manager";
+    public static final Component SPAWN_REASONS_GUI_TITLE = MessageManager
+            .parse("<!italic><dark_gray>Spawn Reasons Config");
+    public static final Component WORLD_SELECT_GUI_TITLE = MessageManager.parse("<!italic><dark_gray>Select World");
+    public static final Component SETTINGS_GUI_TITLE = MessageManager.parse("<!italic><dark_gray>Mob Manager Settings");
     private static final int[] CONTENT_SLOTS = calculateContentSlots();
     private static final String CONFIG_PATH_PREFIX = "features.mob-manager.worlds.";
     private static final String VERBOSE_PREFIX = "[VERBOSE] Mob Manager - ";
@@ -197,7 +198,7 @@ public class MobManagerFeature extends BaseFeature {
     @Override
     public void onRightClick(Player player) {
         if (!isEnabled()) {
-            player.sendMessage(MessageManager.parse("<red>Mob Manager is disabled! Enable it first."));
+            plugin.getMessageManager().sendPrefixed(player, "mob-manager.feature-disabled");
             return;
         }
         openWorldSelectGUI(player);

@@ -80,9 +80,17 @@ public class MessageManager {
     }
 
     public Component get(String path, Object... replacements) {
+        if ((replacements.length & 1) != 0) {
+            throw new IllegalArgumentException(
+                    "Replacements must be key/value pairs but got " + replacements.length + " args for path: " + path);
+        }
         String raw = getRaw(path);
         TagResolver.Builder resolver = TagResolver.builder();
         for (int i = 0; i + 1 < replacements.length; i += 2) {
+            if (replacements[i] == null) {
+                throw new IllegalArgumentException(
+                        "Replacement key cannot be null at index " + i + " for path: " + path);
+            }
             String key = String.valueOf(replacements[i]).replace("{", "").replace("}", "");
             String value = String.valueOf(replacements[i + 1]);
             resolver.resolver(Placeholder.unparsed(key, value));

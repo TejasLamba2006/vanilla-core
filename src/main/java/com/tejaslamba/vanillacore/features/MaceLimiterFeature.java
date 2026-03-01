@@ -21,7 +21,7 @@ import java.util.List;
 
 public class MaceLimiterFeature extends BaseFeature {
 
-    public static final String GUI_TITLE = "§8Mace Limiter Settings";
+    public static final Component GUI_TITLE = MessageManager.parse("<!italic><dark_gray>Mace Limiter Settings");
 
     private MaceLimiterListener listener;
     private int macesCrafted = 0;

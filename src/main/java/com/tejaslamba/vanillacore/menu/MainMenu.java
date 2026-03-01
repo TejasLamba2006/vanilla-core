@@ -20,7 +20,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
 public class MainMenu extends BaseMenu {
@@ -354,10 +353,6 @@ public class MainMenu extends BaseMenu {
             return;
         }
 
-        if (slot == 50) {
-            player.closeInventory();
-            return;
-        }
         ItemStack item = event.getCurrentItem();
 
         if (slot == 51) {

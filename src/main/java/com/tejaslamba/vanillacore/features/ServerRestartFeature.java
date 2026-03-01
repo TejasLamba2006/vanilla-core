@@ -26,8 +26,8 @@ import java.util.Set;
 
 public class ServerRestartFeature extends BaseFeature {
 
-    public static final String GUI_TITLE = "§8Server Restart Settings";
-    public static final String SCHEDULE_GUI_TITLE = "§8Scheduled Restarts";
+    public static final Component GUI_TITLE = MessageManager.parse("<!italic><dark_gray>Server Restart Settings");
+    public static final Component SCHEDULE_GUI_TITLE = MessageManager.parse("<!italic><dark_gray>Scheduled Restarts");
 
     private ServerRestartListener listener;
     private int activeTaskId = -1;
@@ -402,8 +402,7 @@ public class ServerRestartFeature extends BaseFeature {
     }
 
     public void restartNow(Player executor) {
-        Bukkit.broadcast(MessageManager.parse(getRestartMessage("restart-now-message", 0)
-                .replace("{player}", executor.getName())));
+        Bukkit.broadcast(MessageManager.parse(getRestartMessage("restart-now-message", 0, executor.getName())));
 
         Bukkit.getScheduler().runTask(plugin, () -> {
             executePreRestartCommands();
@@ -566,9 +565,17 @@ public class ServerRestartFeature extends BaseFeature {
     }
 
     private String getRestartMessage(String key, int seconds) {
+        return getRestartMessage(key, seconds, null);
+    }
+
+    private String getRestartMessage(String key, int seconds, String playerName) {
         String message = plugin.getConfigManager().get()
                 .getString(getConfigPath() + ".messages." + key, "<red>Server restarting in {time} seconds!");
-        return message.replace("{time}", String.valueOf(seconds));
+        message = message.replace("{time}", String.valueOf(seconds));
+        if (playerName != null) {
+            message = message.replace("{player}", playerName);
+        }
+        return message;
     }
 
     public boolean isScheduledRestartsEnabled() {

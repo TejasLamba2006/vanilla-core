@@ -3,6 +3,7 @@ package com.tejaslamba.vanillacore.listener;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import com.tejaslamba.vanillacore.features.ServerRestartFeature;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -13,14 +14,14 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerRestartListener implements Listener {
 
     private final VanillaCorePlugin plugin;
-    private final Map<UUID, ScheduleInputState> awaitingInput = new HashMap<>();
+    private final Map<UUID, ScheduleInputState> awaitingInput = new ConcurrentHashMap<>();
 
     public ServerRestartListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
@@ -50,7 +51,7 @@ public class ServerRestartListener implements Listener {
         if (!(event.getWhoClicked() instanceof Player player))
             return;
 
-        String title = event.getView().getTitle();
+        Component title = event.getView().title();
 
         if (title.equals(ServerRestartFeature.GUI_TITLE)) {
             handleMainGUI(event, player);
@@ -186,12 +187,11 @@ public class ServerRestartListener implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
 
-        if (!awaitingInput.containsKey(uuid))
-            return;
-
         event.setCancelled(true);
         String message = event.getMessage().trim();
         ScheduleInputState state = awaitingInput.remove(uuid);
+        if (state == null)
+            return;
 
         if (message.equalsIgnoreCase("cancel")) {
             player.sendMessage(MessageManager.parse("<red>Cancelled."));

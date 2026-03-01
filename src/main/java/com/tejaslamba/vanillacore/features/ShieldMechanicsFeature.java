@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ShieldMechanicsFeature extends BaseFeature {
 
-    public static final String GUI_TITLE = "§8Shield Mechanics Settings";
+    public static final Component GUI_TITLE = MessageManager.parse("<!italic><dark_gray>Shield Mechanics Settings");
 
     private ShieldMechanicsListener listener;
 
@@ -138,24 +138,26 @@ public class ShieldMechanicsFeature extends BaseFeature {
         return pane;
     }
 
+    private List<Component> buildStunLore(boolean enabled, int durationTicks) {
+        List<Component> lore = new ArrayList<>();
+        lore.add(Component.empty());
+        lore.add(MessageManager.parse("<!italic><gray>Hitting a blocking player with this weapon"));
+        lore.add(MessageManager.parse("<!italic><gray>will put their shield on cooldown."));
+        lore.add(Component.empty());
+        lore.add(MessageManager.parse("<!italic><gray>Status: " + (enabled ? "<green>Enabled" : "<red>Disabled")));
+        lore.add(MessageManager.parse("<!italic><gray>Duration: <yellow>" + durationTicks + " ticks <dark_gray>(<gray>"
+                + String.format("%.1f", durationTicks / 20.0) + "s<dark_gray>)"));
+        lore.add(Component.empty());
+        lore.add(MessageManager.parse("<!italic><yellow>Click: Toggle"));
+        return lore;
+    }
+
     private ItemStack buildMaceStunItem() {
         ItemStack item = new ItemStack(Material.MACE);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             meta.displayName(MessageManager.parse("<!italic><light_purple>Mace Shield Stun"));
-            List<Component> lore = new ArrayList<>();
-            lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Hitting a blocking player with a mace"));
-            lore.add(MessageManager.parse("<!italic><gray>will put their shield on cooldown."));
-            lore.add(Component.empty());
-            lore.add(MessageManager
-                    .parse("<!italic><gray>Status: " + (maceStunEnabled ? "<green>Enabled" : "<red>Disabled")));
-            lore.add(MessageManager
-                    .parse("<!italic><gray>Duration: <yellow>" + maceStunDurationTicks + " ticks <dark_gray>(<gray>"
-                            + String.format("%.1f", maceStunDurationTicks / 20.0) + "s<dark_gray>)"));
-            lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Click: Toggle"));
-            meta.lore(lore);
+            meta.lore(buildStunLore(maceStunEnabled, maceStunDurationTicks));
             item.setItemMeta(meta);
         }
         return item;
@@ -166,19 +168,7 @@ public class ShieldMechanicsFeature extends BaseFeature {
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             meta.displayName(MessageManager.parse("<!italic><gold>Axe Shield Stun"));
-            List<Component> lore = new ArrayList<>();
-            lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Hitting a blocking player with an axe"));
-            lore.add(MessageManager.parse("<!italic><gray>will put their shield on cooldown."));
-            lore.add(Component.empty());
-            lore.add(MessageManager
-                    .parse("<!italic><gray>Status: " + (axeStunEnabled ? "<green>Enabled" : "<red>Disabled")));
-            lore.add(MessageManager
-                    .parse("<!italic><gray>Duration: <yellow>" + axeStunDurationTicks + " ticks <dark_gray>(<gray>"
-                            + String.format("%.1f", axeStunDurationTicks / 20.0) + "s<dark_gray>)"));
-            lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Click: Toggle"));
-            meta.lore(lore);
+            meta.lore(buildStunLore(axeStunEnabled, axeStunDurationTicks));
             item.setItemMeta(meta);
         }
         return item;

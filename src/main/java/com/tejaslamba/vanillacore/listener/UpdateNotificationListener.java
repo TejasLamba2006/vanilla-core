@@ -4,6 +4,7 @@ import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.manager.CDNManager;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -73,12 +74,16 @@ public class UpdateNotificationListener implements Listener {
                 .replace("{current}", currentVersion)
                 .replace("{latest}", latestVersion);
 
+        MiniMessage mm = MiniMessage.miniMessage();
+        String safeTitle = mm.escapeTags(title);
+        String safeMessage = mm.escapeTags(message);
+
         player.sendMessage(Component.empty());
         player.sendMessage(
                 MessageManager.parse("<dark_gray><strikethrough>                                              "));
-        player.sendMessage(MessageManager.parse("<gold><bold>  " + title + " <gray>- <yellow>Update Available!"));
+        player.sendMessage(MessageManager.parse("<gold><bold>  " + safeTitle + " <gray>- <yellow>Update Available!"));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gray>  " + message));
+        player.sendMessage(MessageManager.parse("<gray>  " + safeMessage));
         player.sendMessage(Component.empty());
 
         Component downloadBtn = Component.text("[DOWNLOAD]")

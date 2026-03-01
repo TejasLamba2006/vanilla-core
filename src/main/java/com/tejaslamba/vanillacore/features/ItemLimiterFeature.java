@@ -732,7 +732,7 @@ public class ItemLimiterFeature extends BaseFeature {
         ItemStack glass = new ItemStack(material);
         ItemMeta meta = glass.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName(" ");
+            meta.displayName(Component.empty());
             glass.setItemMeta(meta);
         }
 

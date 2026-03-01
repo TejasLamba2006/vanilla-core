@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -110,8 +111,19 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
             VanillaCorePlugin.getInstance().getMessageManager().reload();
             VanillaCorePlugin.getInstance().getMenuConfigManager().load();
             VanillaCorePlugin.getInstance().refreshVerbose();
-            VanillaCorePlugin.getInstance().getFeatureManager().getFeatures()
-                    .forEach(com.tejaslamba.vanillacore.feature.Feature::reload);
+            Collection<com.tejaslamba.vanillacore.feature.Feature> features = VanillaCorePlugin.getInstance()
+                    .getFeatureManager().getFeatures();
+            if (features != null) {
+                features.forEach(feature -> {
+                    try {
+                        feature.reload();
+                    } catch (Exception e) {
+                        VanillaCorePlugin.getInstance().getLogger().warning(
+                                "Failed to reload feature " + feature.getClass().getSimpleName() + ": "
+                                        + e.getMessage());
+                    }
+                });
+            }
             msg().sendPrefixed(sender, "commands.reload.success");
             return true;
         }

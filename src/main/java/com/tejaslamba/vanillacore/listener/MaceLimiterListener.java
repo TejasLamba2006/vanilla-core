@@ -153,8 +153,7 @@ public class MaceLimiterListener implements Listener {
             return;
         }
 
-        String title = event.getView().getTitle();
-        if (!title.equals(MaceLimiterFeature.GUI_TITLE)) {
+        if (!event.getView().title().equals(MaceLimiterFeature.GUI_TITLE)) {
             return;
         }
 

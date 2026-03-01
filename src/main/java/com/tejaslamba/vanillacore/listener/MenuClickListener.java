@@ -8,6 +8,7 @@ import com.tejaslamba.vanillacore.features.NetheriteDisablerFeature;
 import com.tejaslamba.vanillacore.features.InfiniteRestockFeature;
 import com.tejaslamba.vanillacore.features.ShieldMechanicsFeature;
 import com.tejaslamba.vanillacore.menu.MainMenu;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -105,7 +106,7 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        if (title.equals(MobManagerFeature.WORLD_SELECT_GUI_TITLE)) {
+        if (event.getView().title().equals(MobManagerFeature.WORLD_SELECT_GUI_TITLE)) {
             event.setCancelled(true);
             if (!isClickInTopInventory(event))
                 return;
@@ -113,7 +114,7 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        if (title.equals(MobManagerFeature.SETTINGS_GUI_TITLE)) {
+        if (event.getView().title().equals(MobManagerFeature.SETTINGS_GUI_TITLE)) {
             event.setCancelled(true);
             if (!isClickInTopInventory(event))
                 return;
@@ -121,7 +122,8 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        if (title.startsWith(MobManagerFeature.GUI_TITLE)) {
+        if (PlainTextComponentSerializer.plainText().serialize(event.getView().title())
+                .startsWith(MobManagerFeature.GUI_TITLE_PLAIN)) {
             event.setCancelled(true);
             if (!isClickInTopInventory(event))
                 return;
@@ -129,7 +131,7 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        if (title.equals(MobManagerFeature.SPAWN_REASONS_GUI_TITLE)) {
+        if (event.getView().title().equals(MobManagerFeature.SPAWN_REASONS_GUI_TITLE)) {
             event.setCancelled(true);
             if (!isClickInTopInventory(event))
                 return;
@@ -137,7 +139,7 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        if (title.equals(ShieldMechanicsFeature.GUI_TITLE)) {
+        if (event.getView().title().equals(ShieldMechanicsFeature.GUI_TITLE)) {
             event.setCancelled(true);
             if (!isClickInTopInventory(event))
                 return;
