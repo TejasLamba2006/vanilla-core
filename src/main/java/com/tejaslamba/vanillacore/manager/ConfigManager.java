@@ -1,6 +1,5 @@
 package com.tejaslamba.vanillacore.manager;
 
-import com.tejaslamba.vanillacore.config.PluginConfig;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
@@ -11,7 +10,6 @@ public class ConfigManager {
 
     private final JavaPlugin plugin;
     private static final int CURRENT_CONFIG_VERSION = 2;
-    private PluginConfig typedConfig;
 
     public ConfigManager(JavaPlugin plugin) {
         this.plugin = plugin;
@@ -21,7 +19,6 @@ public class ConfigManager {
         plugin.saveDefaultConfig();
         plugin.reloadConfig();
         migrateConfig();
-        typedConfig = PluginConfig.from(plugin.getConfig());
     }
 
     private void migrateConfig() {
@@ -138,10 +135,6 @@ public class ConfigManager {
 
     public FileConfiguration get() {
         return plugin.getConfig();
-    }
-
-    public PluginConfig getTyped() {
-        return typedConfig;
     }
 
 }
