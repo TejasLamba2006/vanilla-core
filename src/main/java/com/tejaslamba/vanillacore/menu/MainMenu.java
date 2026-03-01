@@ -375,10 +375,6 @@ public class MainMenu extends BaseMenu {
             return;
         }
 
-        if (item != null && item.getType() == Material.CLOCK) {
-            return;
-        }
-
         if (item != null && item.hasItemMeta() && item.getItemMeta().lore() != null) {
             List<Component> loreComponents = item.getItemMeta().lore();
             if (loreComponents != null) {

@@ -25,7 +25,8 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
         this.enchantCommand = new EnchantCommand(VanillaCorePlugin.getInstance());
         this.maceCommand = new MaceCommand(VanillaCorePlugin.getInstance());
         this.netheriteCommand = new NetheriteCommand(VanillaCorePlugin.getInstance());
-        this.infiniteRestockCommand = new com.tejaslamba.vanillacore.command.InfiniteRestockCommand(VanillaCorePlugin.getInstance());
+        this.infiniteRestockCommand = new com.tejaslamba.vanillacore.command.InfiniteRestockCommand(
+                VanillaCorePlugin.getInstance());
     }
 
     private MessageManager msg() {
@@ -109,6 +110,8 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
             VanillaCorePlugin.getInstance().getMessageManager().reload();
             VanillaCorePlugin.getInstance().getMenuConfigManager().load();
             VanillaCorePlugin.getInstance().refreshVerbose();
+            VanillaCorePlugin.getInstance().getFeatureManager().getFeatures()
+                    .forEach(com.tejaslamba.vanillacore.feature.Feature::reload);
             msg().sendPrefixed(sender, "commands.reload.success");
             return true;
         }
