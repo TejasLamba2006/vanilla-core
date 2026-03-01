@@ -5,7 +5,6 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -129,7 +128,7 @@ public class MessageManager {
     public static Component parse(String miniMessage) {
         if (miniMessage == null)
             return Component.empty();
-        return MM.deserialize(miniMessage);
+        return MM.deserializeOrNull(miniMessage);
     }
 
     public FileConfiguration getConfig() {
