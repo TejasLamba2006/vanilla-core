@@ -83,11 +83,7 @@ const config = {
                             {
                                 label: 'Configuration',
                                 to: '/docs/configuration',
-                            },
-                            {
-                                label: 'Config Builder',
-                                to: '/config-builder',
-                            },
+                            }
                         ],
                     },
                     {

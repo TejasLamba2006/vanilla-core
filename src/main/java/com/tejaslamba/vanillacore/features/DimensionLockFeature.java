@@ -3,6 +3,7 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.DimensionLockListener;
+import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -51,17 +52,17 @@ public abstract class DimensionLockFeature extends BaseFeature {
     @Override
     public ItemStack getMenuItem() {
         Material material = dimension.equals("end") ? Material.END_PORTAL_FRAME : Material.NETHERRACK;
-        String name = "§5" + getName();
+        String name = "<!italic><dark_purple>" + getName();
         return createMenuItem(material, name,
-                "§7Control access to the " + dimension);
+                "<!italic><gray>Control access to the " + dimension);
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "§cCurrently: Locked" : "§aCurrently: Open");
+        lore.add(enabled ? "<red>Currently: Locked" : "<green>Currently: Open");
         lore.add("");
-        lore.add("§eClick to " + (enabled ? "Unlock" : "Lock"));
+        lore.add("<yellow>Click to " + (enabled ? "Unlock" : "Lock"));
         return lore;
     }
 
@@ -81,7 +82,8 @@ public abstract class DimensionLockFeature extends BaseFeature {
         plugin.getConfigManager().save();
 
         String dimensionName = dimension.substring(0, 1).toUpperCase() + dimension.substring(1);
-        player.sendMessage("§6[Vanilla Core] §7The " + dimensionName + " is now " + (enabled ? "§cLocked" : "§aOpen"));
+        player.sendMessage(MessageManager.parse("<gold>[Vanilla Core] <gray>The " + dimensionName + " is now "
+                + (enabled ? "<red>Locked" : "<green>Open")));
 
         if (plugin.isVerbose()) {
             plugin.getLogger().info("[VERBOSE] Dimension Lock (" + dimension + ") - " + player.getName()

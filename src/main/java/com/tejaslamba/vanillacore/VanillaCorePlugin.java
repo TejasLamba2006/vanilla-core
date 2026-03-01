@@ -68,7 +68,6 @@ public class VanillaCorePlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(updateNotificationListener, this);
 
         getLogger().info("Vanilla Core has been enabled!");
-        getLogger().info("Config Builder: https://vanillacore.tejaslamba.com/config-builder");
     }
 
     private void migrateDataFolderIfNeeded() {

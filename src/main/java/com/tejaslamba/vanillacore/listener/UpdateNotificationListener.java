@@ -2,11 +2,13 @@ package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.manager.CDNManager;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.hover.content.Text;
+import com.tejaslamba.vanillacore.manager.MessageManager;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -71,48 +73,54 @@ public class UpdateNotificationListener implements Listener {
         String message = cdnManager.getUpdateNotificationMessage()
                 .replace("{current}", currentVersion)
                 .replace("{latest}", latestVersion);
-        String actionMessage = cdnManager.getUpdateNotificationActionMessage()
-                .replace("{url}", "https://modrinth.com/plugin/vanillacorewastaken");
 
-        player.sendMessage("");
-        player.sendMessage("§8§l§m                                              ");
-        player.sendMessage("§6§l  " + title + " §7- §eUpdate Available!");
-        player.sendMessage("");
-        player.sendMessage("§7  " + message);
-        player.sendMessage("");
+        MiniMessage mm = MiniMessage.miniMessage();
+        String safeTitle = mm.escapeTags(title);
+        String safeMessage = mm.escapeTags(message);
 
-        TextComponent downloadMsg = new TextComponent("  ");
-        TextComponent downloadBtn = new TextComponent("§a§l[DOWNLOAD]");
-        downloadBtn.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://modrinth.com/plugin/vanillacorewastaken"));
-        downloadBtn.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Click to open Modrinth")));
+        player.sendMessage(Component.empty());
+        player.sendMessage(
+                MessageManager.parse("<dark_gray><strikethrough>                                              "));
+        player.sendMessage(MessageManager.parse("<gold><bold>  " + safeTitle + " <gray>- <yellow>Update Available!"));
+        player.sendMessage(Component.empty());
+        player.sendMessage(MessageManager.parse("<gray>  " + safeMessage));
+        player.sendMessage(Component.empty());
 
-        TextComponent changelogBtn = new TextComponent(" §e§l[CHANGELOG]");
-        changelogBtn.setClickEvent(
-                new ClickEvent(ClickEvent.Action.OPEN_URL,
-                        cdnManager.getDocumentationUrl().replace("docs", "changelog")));
-        changelogBtn.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Click to view changelog")));
+        Component downloadBtn = Component.text("[DOWNLOAD]")
+                .color(NamedTextColor.GREEN)
+                .decorate(TextDecoration.BOLD)
+                .clickEvent(ClickEvent.openUrl("https://modrinth.com/plugin/vanillacorewastaken"))
+                .hoverEvent(HoverEvent.showText(Component.text("Click to open Modrinth").color(NamedTextColor.GRAY)));
 
-        downloadMsg.addExtra(downloadBtn);
-        downloadMsg.addExtra(changelogBtn);
-        player.spigot().sendMessage(downloadMsg);
+        Component changelogBtn = Component.text(" [CHANGELOG]")
+                .color(NamedTextColor.YELLOW)
+                .decorate(TextDecoration.BOLD)
+                .clickEvent(ClickEvent.openUrl(
+                        cdnManager.getDocumentationUrl().replace("docs", "changelog")))
+                .hoverEvent(HoverEvent.showText(Component.text("Click to view changelog").color(NamedTextColor.GRAY)));
 
-        player.sendMessage("§8§l§m                                              ");
-        player.sendMessage("");
+        player.sendMessage(Component.text("  ").append(downloadBtn).append(changelogBtn));
+
+        player.sendMessage(
+                MessageManager.parse("<dark_gray><strikethrough>                                              "));
+        player.sendMessage(Component.empty());
     }
 
     private void sendDisabledFeaturesWarning(Player player, Set<String> disabledFeatures, CDNManager cdnManager) {
         String disabledMessage = cdnManager.getDisabledMessage();
-        player.sendMessage("§c§l[Vanilla Core] §eWarning: §7Some features have been remotely disabled:");
+        player.sendMessage(MessageManager
+                .parse("<red><bold>[Vanilla Core] <yellow>Warning: <gray>Some features have been remotely disabled:"));
         for (String feature : disabledFeatures) {
-            player.sendMessage("§7  - §c" + feature);
+            player.sendMessage(MessageManager.parse("<gray>  - <red>" + feature));
         }
-        player.sendMessage("§7" + disabledMessage);
+        player.sendMessage(MessageManager.parse("<gray>" + disabledMessage));
     }
 
     private void sendMaintenanceWarning(Player player, CDNManager cdnManager) {
         String maintenanceMessage = cdnManager.getMaintenanceMessage();
-        player.sendMessage("§c§l[Vanilla Core] §eWarning: §7Plugin is in maintenance mode.");
-        player.sendMessage("§7" + maintenanceMessage);
+        player.sendMessage(MessageManager
+                .parse("<red><bold>[Vanilla Core] <yellow>Warning: <gray>Plugin is in maintenance mode."));
+        player.sendMessage(MessageManager.parse("<gray>" + maintenanceMessage));
     }
 
     public void clearNotifiedPlayer(UUID uuid) {

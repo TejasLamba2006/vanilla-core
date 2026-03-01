@@ -9,10 +9,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Migrated all player messaging from legacy §-code strings to Adventure API (`Component`/MiniMessage) across all command and listener classes
+- Migrated `UpdateNotificationListener` from BungeeCord chat API to Adventure API (`ClickEvent`, `HoverEvent`, `Component` builder)
+- Fixed `InfiniteRestockFeature` blacklist GUI: `statusText`/`statusColor` now use MiniMessage tags (`<red>`, `<green>`) instead of §-codes so they render correctly when passed to `MessageManager.parse()`
 - Item Limiter: `findMatchingItemKey` no longer scans all configured limits linearly. A `Material → key` index is built at load time so lookups are O(1) for the common case instead of O(n limits)
 - Item Limiter: inventory scan is now distributed across ticks (1 player per tick) instead of checking every online player in a single 20-tick burst
 - Item Limiter: `getPlayerItemCount` no longer re-runs `findMatchingItemKey` for each inventory slot — the target limit is resolved once and `ItemLimit.matches()` is used directly
 - Item Limiter: potion material detection replaced `toString().contains("POTION")` with a proper `EnumSet<Material>` covering `POTION`, `SPLASH_POTION`, and `LINGERING_POTION`
+- Completed Adventure API migration: replaced all remaining legacy § color codes in `ServerRestartFeature`, `ShieldMechanicsFeature`, `MinimapControlFeature`, `ItemLimiterListener`, `MaceLimiterListener`, `InvisibleKillsFeature`, and `MainMenu` with MiniMessage format; GUI title constants in `MaceLimiterFeature`, `ShieldMechanicsFeature`, `MobManagerFeature`, and `ServerRestartFeature` converted from §-coded strings to `Component` constants; corresponding listeners updated to use `InventoryView.title()` (Component API) for title matching
+- `ServerRestartFeature`: migrated from BungeeCord ActionBar API and Bukkit BossBar to Adventure API (`player.sendActionBar`, `player.showTitle`, `net.kyori.adventure.bossbar.BossBar`)
+- `MainMenu`: replaced deprecated `getLore()` + §-detection with `lore()` + `PlainTextComponentSerializer` for lore inspection
+- `config.yml`: migrated all message values from § codes to MiniMessage format
+- Added JUnit 5 (`junit-jupiter:5.10.0`) as a test dependency
+- `ServerRestartListener`: replaced non-thread-safe `HashMap` with `ConcurrentHashMap` for `awaitingInput`; async chat handler now uses atomic `remove`-and-null-check pattern to eliminate TOCTOU race
+- `UpdateNotificationListener`: CDN-provided title and message text is now escaped with `MiniMessage.escapeTags()` before parsing to prevent tag injection
+- `MinimapControlFeature`: world name, environment, and minimap mode values are escaped with `MiniMessage.escapeTags()` before being embedded in MiniMessage strings
+- `MessageManager.get(String, Object...)`: now throws `IllegalArgumentException` immediately when an odd number of replacement arguments is supplied or a key is `null`, instead of silently ignoring the trailing argument
+- `ShieldMechanicsFeature`: extracted shared stun-lore assembly into `buildStunLore(boolean, int)` helper to eliminate duplication between `buildMaceStunItem` and `buildAxeStunItem`
+- `ServerRestartFeature.getRestartMessage`: consolidated `{time}` and `{player}` substitution into a single overloaded method; callers no longer chain `.replace("{player}", ...)` at the call site
+- `MobManagerFeature.onRightClick`: disabled warning now uses the centralized `mob-manager.feature-disabled` messages.yml key instead of a hardcoded literal
+- `InfiniteRestockFeature`, `ItemLimiterFeature`: `fillBorder` now uses `meta.displayName(Component.empty())` instead of the deprecated `meta.setDisplayName(" ")`
+- `messages.yml`: removed UTF-8 BOM from file header
+
+### Fixed
+
+- `VanillaCommand` reload: each feature's `reload()` is now wrapped in its own `try/catch`; a failure in one feature no longer aborts the reload loop for all subsequent features
+- `MainMenu`: removed unreachable duplicate slot-50 handler that could never be reached after the earlier slot-50 Wiki handler returned
+- `MainMenu`: removed duplicate `import net.kyori.adventure.text.Component` import
+
+### Added
+
+- Fixed `DimensionLockConfig` default `lockedMessage` values to use MiniMessage (`<red>The End/Nether is currently locked!`)
+- Fixed `InvisibleKillsConfig` default `deathMessage` to use MiniMessage (`{victim} was killed by <obfuscated>?????????`)
 
 ## [1.3.2] - 2026-02-27
 

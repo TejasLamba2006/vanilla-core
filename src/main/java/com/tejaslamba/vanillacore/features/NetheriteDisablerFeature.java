@@ -3,6 +3,8 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.NetheriteDisablerListener;
+import com.tejaslamba.vanillacore.manager.MessageManager;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -80,16 +82,16 @@ public class NetheriteDisablerFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.NETHERITE_CHESTPLATE, "§5Netherite Disabler",
-                "§7Disable specific netherite items");
+        return createMenuItem(Material.NETHERITE_CHESTPLATE, "<!italic><dark_purple>Netherite Disabler",
+                "<!italic><gray>Disable specific netherite items");
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "§aEnabled" : "§cDisabled");
-        lore.add("§eLeft Click: Toggle");
-        lore.add("§eRight Click: Open GUI");
+        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add("<yellow>Left Click: Toggle");
+        lore.add("<yellow>Right Click: Open GUI");
         return lore;
     }
 
@@ -101,7 +103,7 @@ public class NetheriteDisablerFeature extends BaseFeature {
     @Override
     public void onRightClick(Player player) {
         if (!isEnabled()) {
-            player.sendMessage("§cNetherite Disabler is disabled! Enable it first.");
+            player.sendMessage(MessageManager.parse("<red>Netherite Disabler is disabled! Enable it first."));
             return;
         }
         openNetheriteGUI(player);
@@ -121,18 +123,18 @@ public class NetheriteDisablerFeature extends BaseFeature {
                 String itemName = material.name().toLowerCase().replace("netherite_", "");
                 itemName = itemName.substring(0, 1).toUpperCase() + itemName.substring(1);
 
-                meta.setDisplayName("§5Netherite " + itemName);
+                meta.displayName(MessageManager.parse("<!italic><dark_purple>Netherite " + itemName));
 
-                List<String> lore = new ArrayList<>();
-                lore.add("");
+                List<Component> lore = new ArrayList<>();
+                lore.add(Component.empty());
                 if (isDisabled) {
-                    lore.add("§cStatus: Disabled");
+                    lore.add(MessageManager.parse("<red>Status: Disabled"));
                 } else {
-                    lore.add("§aStatus: Enabled");
+                    lore.add(MessageManager.parse("<green>Status: Enabled"));
                 }
-                lore.add("");
-                lore.add("§eClick to toggle!");
-                meta.setLore(lore);
+                lore.add(Component.empty());
+                lore.add(MessageManager.parse("<yellow>Click to toggle!"));
+                meta.lore(lore);
 
                 meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                 meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -146,7 +148,7 @@ public class NetheriteDisablerFeature extends BaseFeature {
         ItemStack backButton = new ItemStack(Material.ARROW);
         ItemMeta backMeta = backButton.getItemMeta();
         if (backMeta != null) {
-            backMeta.setDisplayName("§eBack to Main Menu");
+            backMeta.displayName(MessageManager.parse("<!italic><yellow>Back to Main Menu"));
             backButton.setItemMeta(backMeta);
         }
         gui.setItem(39, backButton);
@@ -154,7 +156,7 @@ public class NetheriteDisablerFeature extends BaseFeature {
         ItemStack barrier = new ItemStack(Material.BARRIER);
         ItemMeta barrierMeta = barrier.getItemMeta();
         if (barrierMeta != null) {
-            barrierMeta.setDisplayName("§cClose");
+            barrierMeta.displayName(MessageManager.parse("<!italic><red>Close"));
             barrier.setItemMeta(barrierMeta);
         }
         gui.setItem(40, barrier);

@@ -1,6 +1,9 @@
 package com.tejaslamba.vanillacore.feature;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
+import com.tejaslamba.vanillacore.manager.MessageManager;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
@@ -111,7 +114,7 @@ public abstract class BaseFeature implements Feature {
             if (plugin.getCDNManager() != null) {
                 message = plugin.getCDNManager().getDisabledMessage();
             }
-            player.sendMessage("§c[Vanilla Core] §7" + message);
+            player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>" + message));
             return;
         }
 
@@ -120,7 +123,7 @@ public abstract class BaseFeature implements Feature {
             if (plugin.getCDNManager() != null) {
                 message = plugin.getCDNManager().getMaintenanceMessage();
             }
-            player.sendMessage("§c[Vanilla Core] §7" + message);
+            player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>" + message));
             return;
         }
 
@@ -138,58 +141,63 @@ public abstract class BaseFeature implements Feature {
         reload();
 
         String displayName = plugin.getMenuConfigManager().getDisplayNameForConfig(getConfigPath() + ".enabled");
-        player.sendMessage(
-                "§6[Vanilla Core] §7Toggled " + displayName + " §7to §" + (!current ? "aEnabled" : "cDisabled"));
+        player.sendMessage(MessageManager.parse(
+                "<gold>[Vanilla Core] <gray>Toggled " + displayName + " <gray>to "
+                        + (!current ? "<green>Enabled" : "<red>Disabled")));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
         if (isRemotelyDisabled()) {
-            lore.add("§c§lREMOTELY DISABLED");
-            lore.add("§7(Critical issue detected)");
+            lore.add("<red><bold>REMOTELY DISABLED");
+            lore.add("<gray>(Critical issue detected)");
         } else {
-            lore.add(enabled ? "§aEnabled" : "§cDisabled");
+            lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
         }
-        lore.add("§eLeft Click: Toggle");
-        lore.add("§eRight Click: Toggle");
+        lore.add("<yellow>Left Click: Toggle");
+        lore.add("<yellow>Right Click: Toggle");
         return lore;
     }
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.BARRIER, "§cUnnamed Feature");
+        return createMenuItem(Material.BARRIER, "<!italic><red>Unnamed Feature");
     }
 
     protected ItemStack createMenuItem(Material material, String name, String... customLore) {
         Material displayMaterial = isRemotelyDisabled() ? Material.BARRIER : material;
-        String displayName = isRemotelyDisabled() ? "§c§m" + stripColor(name) + " §c[DISABLED]" : name;
+        String displayNameStr;
+        if (isRemotelyDisabled()) {
+            String plainName = MiniMessage.miniMessage().stripTags(name);
+            displayNameStr = "<!italic><red><strikethrough>" + plainName + " <red>[DISABLED]";
+        } else {
+            displayNameStr = name;
+        }
 
         ItemStack item = new ItemStack(displayMaterial);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName(displayName);
-            List<String> loreList = new ArrayList<>();
+            meta.displayName(MessageManager.parse(displayNameStr));
+            List<Component> loreComponents = new ArrayList<>();
 
             for (String line : customLore) {
-                loreList.add(line);
+                loreComponents.add(MessageManager.parse(line));
             }
 
             if (customLore.length > 0) {
-                loreList.add("");
+                loreComponents.add(Component.empty());
             }
 
-            loreList.addAll(getMenuLore());
-            loreList.add("");
-            loreList.add("§8Config: §7" + getConfigPath() + ".enabled");
+            for (String line : getMenuLore()) {
+                loreComponents.add(MessageManager.parse(line));
+            }
+            loreComponents.add(Component.empty());
+            loreComponents.add(MessageManager.parse("<dark_gray>Config: <gray>" + getConfigPath() + ".enabled"));
 
-            meta.setLore(loreList);
+            meta.lore(loreComponents);
             item.setItemMeta(meta);
         }
         return item;
-    }
-
-    private String stripColor(String text) {
-        return text.replaceAll("§[0-9a-fk-or]", "");
     }
 }

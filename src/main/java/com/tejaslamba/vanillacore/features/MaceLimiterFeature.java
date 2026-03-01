@@ -3,6 +3,8 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.MaceLimiterListener;
+import com.tejaslamba.vanillacore.manager.MessageManager;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -19,7 +21,7 @@ import java.util.List;
 
 public class MaceLimiterFeature extends BaseFeature {
 
-    public static final String GUI_TITLE = "§8Mace Limiter Settings";
+    public static final Component GUI_TITLE = MessageManager.parse("<!italic><dark_gray>Mace Limiter Settings");
 
     private MaceLimiterListener listener;
     private int macesCrafted = 0;
@@ -77,18 +79,18 @@ public class MaceLimiterFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.MACE, "§5Mace Limiter",
-                "§7Limit the number of maces craftable");
+        return createMenuItem(Material.MACE, "<!italic><dark_purple>Mace Limiter",
+                "<!italic><gray>Limit the number of maces craftable");
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "§aEnabled" : "§cDisabled");
-        lore.add("§7Crafted: §e" + macesCrafted + "§7/§e" + maxMaces);
+        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add("<gray>Crafted: <yellow>" + macesCrafted + "<gray>/<yellow>" + maxMaces);
         lore.add("");
-        lore.add("§eLeft Click: Toggle");
-        lore.add("§eRight Click: Open Settings");
+        lore.add("<yellow>Left Click: Toggle");
+        lore.add("<yellow>Right Click: Open Settings");
         return lore;
     }
 
@@ -108,14 +110,14 @@ public class MaceLimiterFeature extends BaseFeature {
         ItemStack decreaseItem = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         ItemMeta decreaseMeta = decreaseItem.getItemMeta();
         if (decreaseMeta != null) {
-            decreaseMeta.setDisplayName("§c- Decrease Max Maces");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Current Max: §e" + maxMaces);
-            lore.add("");
-            lore.add("§eLeft Click: §7-1");
-            lore.add("§eShift Click: §7-5");
-            decreaseMeta.setLore(lore);
+            decreaseMeta.displayName(MessageManager.parse("<!italic><red>- Decrease Max Maces"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<gray>Current Max: <yellow>" + maxMaces));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<yellow>Left Click: <gray>-1"));
+            lore.add(MessageManager.parse("<yellow>Shift Click: <gray>-5"));
+            decreaseMeta.lore(lore);
             decreaseItem.setItemMeta(decreaseMeta);
         }
         gui.setItem(10, decreaseItem);
@@ -123,18 +125,18 @@ public class MaceLimiterFeature extends BaseFeature {
         ItemStack displayItem = new ItemStack(Material.MACE);
         ItemMeta displayMeta = displayItem.getItemMeta();
         if (displayMeta != null) {
-            displayMeta.setDisplayName("§5Mace Limit");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Max Maces: §e" + maxMaces);
-            lore.add("§7Maces Crafted: §e" + macesCrafted);
-            lore.add("");
+            displayMeta.displayName(MessageManager.parse("<!italic><dark_purple>Mace Limit"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<gray>Max Maces: <yellow>" + maxMaces));
+            lore.add(MessageManager.parse("<gray>Maces Crafted: <yellow>" + macesCrafted));
+            lore.add(Component.empty());
             if (macesCrafted >= maxMaces) {
-                lore.add("§c⚠ Limit Reached!");
+                lore.add(MessageManager.parse("<red>\u26a0 Limit Reached!"));
             } else {
-                lore.add("§a" + (maxMaces - macesCrafted) + " maces remaining");
+                lore.add(MessageManager.parse("<green>" + (maxMaces - macesCrafted) + " maces remaining"));
             }
-            displayMeta.setLore(lore);
+            displayMeta.lore(lore);
             displayItem.setItemMeta(displayMeta);
         }
         gui.setItem(13, displayItem);
@@ -142,14 +144,14 @@ public class MaceLimiterFeature extends BaseFeature {
         ItemStack increaseItem = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
         ItemMeta increaseMeta = increaseItem.getItemMeta();
         if (increaseMeta != null) {
-            increaseMeta.setDisplayName("§a+ Increase Max Maces");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Current Max: §e" + maxMaces);
-            lore.add("");
-            lore.add("§eLeft Click: §7+1");
-            lore.add("§eShift Click: §7+5");
-            increaseMeta.setLore(lore);
+            increaseMeta.displayName(MessageManager.parse("<!italic><green>+ Increase Max Maces"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<gray>Current Max: <yellow>" + maxMaces));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<yellow>Left Click: <gray>+1"));
+            lore.add(MessageManager.parse("<yellow>Shift Click: <gray>+5"));
+            increaseMeta.lore(lore);
             increaseItem.setItemMeta(increaseMeta);
         }
         gui.setItem(16, increaseItem);
@@ -157,14 +159,14 @@ public class MaceLimiterFeature extends BaseFeature {
         ItemStack resetItem = new ItemStack(Material.BARRIER);
         ItemMeta resetMeta = resetItem.getItemMeta();
         if (resetMeta != null) {
-            resetMeta.setDisplayName("§cReset Craft Count");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Resets maces crafted to 0");
-            lore.add("§7and re-enables mace recipes");
-            lore.add("");
-            lore.add("§eClick to reset");
-            resetMeta.setLore(lore);
+            resetMeta.displayName(MessageManager.parse("<!italic><red>Reset Craft Count"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<gray>Resets maces crafted to 0"));
+            lore.add(MessageManager.parse("<gray>and re-enables mace recipes"));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<yellow>Click to reset"));
+            resetMeta.lore(lore);
             resetItem.setItemMeta(resetMeta);
         }
         gui.setItem(22, resetItem);
@@ -172,7 +174,7 @@ public class MaceLimiterFeature extends BaseFeature {
         ItemStack backItem = new ItemStack(Material.ARROW);
         ItemMeta backMeta = backItem.getItemMeta();
         if (backMeta != null) {
-            backMeta.setDisplayName("§eBack to Main Menu");
+            backMeta.displayName(MessageManager.parse("<!italic><yellow>Back to Main Menu"));
             backItem.setItemMeta(backMeta);
         }
         gui.setItem(18, backItem);

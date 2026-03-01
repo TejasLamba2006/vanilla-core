@@ -9,7 +9,7 @@
 #
 # Prerequisites:
 # - Repository secret MODRINTH_TOKEN must be set (get from modrinth.com/settings/pats)
-# - Token needs PUBLISH_VERSION scope
+# - Token needs CREATE_VERSION scope
 # - CHANGELOG.md must have a section for the release version
 
 name: Publish to Modrinth
@@ -89,7 +89,7 @@ jobs:
             folia
 
           game-versions: |
-            >=1.19
+            >=1.21.1
 
           java: |
             21

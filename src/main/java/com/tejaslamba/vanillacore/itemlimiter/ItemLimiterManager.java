@@ -1,6 +1,7 @@
 package com.tejaslamba.vanillacore.itemlimiter;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
+import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -28,7 +29,7 @@ public class ItemLimiterManager {
     private int taskId = -1;
     private int playerCheckIndex = 0;
     private boolean notifyPlayer = true;
-    private String notifyMessage = "§c[Vanilla Core] §7Excess items removed: {item} x{amount} (limit: {limit})";
+    private String notifyMessage = "<red>[Vanilla Core] <gray>Excess items removed: <yellow>{item} x{amount} <gray>(limit: {limit})";
     private boolean dropExcess = true;
 
     public ItemLimiterManager(VanillaCorePlugin plugin) {
@@ -41,7 +42,7 @@ public class ItemLimiterManager {
 
         notifyPlayer = plugin.getConfigManager().get().getBoolean("features.item-limiter.notify-player", true);
         notifyMessage = plugin.getConfigManager().get().getString("features.item-limiter.notify-message",
-                "§c[Vanilla Core] §7Excess items removed: {item} x{amount} (limit: {limit})");
+                "<red>[Vanilla Core] <gray>Excess items removed: <yellow>{item} x{amount} <gray>(limit: {limit})");
         dropExcess = plugin.getConfigManager().get().getBoolean("features.item-limiter.drop-excess", true);
 
         ConfigurationSection limitsSection = plugin.getConfigManager().get()
@@ -388,7 +389,7 @@ public class ItemLimiterManager {
         Long lastTime = lastMessageTime.get(playerId);
 
         if (lastTime == null || currentTime - lastTime >= MESSAGE_COOLDOWN) {
-            player.sendMessage(message);
+            player.sendMessage(MessageManager.parse(message));
             lastMessageTime.put(playerId, currentTime);
         }
     }

@@ -3,15 +3,13 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.ServerRestartListener;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
+import com.tejaslamba.vanillacore.manager.MessageManager;
+import net.kyori.adventure.bossbar.BossBar;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarFlag;
-import org.bukkit.boss.BarStyle;
-import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
@@ -24,11 +22,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public class ServerRestartFeature extends BaseFeature {
 
-    public static final String GUI_TITLE = "§8Server Restart Settings";
-    public static final String SCHEDULE_GUI_TITLE = "§8Scheduled Restarts";
+    public static final Component GUI_TITLE = MessageManager.parse("<!italic><dark_gray>Server Restart Settings");
+    public static final Component SCHEDULE_GUI_TITLE = MessageManager.parse("<!italic><dark_gray>Scheduled Restarts");
 
     private ServerRestartListener listener;
     private int activeTaskId = -1;
@@ -81,21 +80,21 @@ public class ServerRestartFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.CLOCK, "§c§lServer Restart",
-                "§7Schedule and manage server restarts");
+        return createMenuItem(Material.CLOCK, "<!italic><red><bold>Server Restart",
+                "<!italic><gray>Schedule and manage server restarts");
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "§aEnabled" : "§cDisabled");
+        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
         if (activeTaskId != -1) {
-            lore.add("§e⚠ Restart in progress!");
-            lore.add("§7Time left: §c" + countdownSeconds + "s");
+            lore.add("<yellow>⚠ Restart in progress!");
+            lore.add("<gray>Time left: <red>" + countdownSeconds + "s");
         }
         lore.add("");
-        lore.add("§eLeft Click: Toggle");
-        lore.add("§eRight Click: Open Settings");
+        lore.add("<yellow>Left Click: Toggle");
+        lore.add("<yellow>Right Click: Open Settings");
         return lore;
     }
 
@@ -149,16 +148,16 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.REDSTONE_BLOCK);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§c§lRestart Now");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Immediately restart the server");
-            lore.add("§7with a save-all command.");
-            lore.add("");
-            lore.add("§c⚠ This will kick all players!");
-            lore.add("");
-            lore.add("§eShift + Click to confirm");
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic><red><bold>Restart Now"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Immediately restart the server"));
+            lore.add(MessageManager.parse("<!italic><gray>with a save-all command."));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><red>⚠ This will kick all players!"));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><yellow>Shift + Click to confirm"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -169,17 +168,17 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.CLOCK);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§e§lStart Countdown");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Start a restart countdown");
-            lore.add("§7with warnings to players.");
-            lore.add("");
-            lore.add("§7Default time: §e" + defaultTime + " seconds");
-            lore.add("");
-            lore.add("§eLeft Click: Start (" + defaultTime + "s)");
-            lore.add("§eRight Click: Custom time");
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic><yellow><bold>Start Countdown"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Start a restart countdown"));
+            lore.add(MessageManager.parse("<!italic><gray>with warnings to players."));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Default time: <yellow>" + defaultTime + " seconds"));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><yellow>Left Click: Start (" + defaultTime + "s)"));
+            lore.add(MessageManager.parse("<!italic><yellow>Right Click: Custom time"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -189,18 +188,18 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.BARRIER);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§c§lCancel Restart");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
+            meta.displayName(MessageManager.parse("<!italic><red><bold>Cancel Restart"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
             if (activeTaskId != -1) {
-                lore.add("§a✔ Restart is active");
-                lore.add("§7Time remaining: §c" + countdownSeconds + "s");
-                lore.add("");
-                lore.add("§eClick to cancel");
+                lore.add(MessageManager.parse("<!italic><green>✔ Restart is active"));
+                lore.add(MessageManager.parse("<!italic><gray>Time remaining: <red>" + countdownSeconds + "s"));
+                lore.add(Component.empty());
+                lore.add(MessageManager.parse("<!italic><yellow>Click to cancel"));
             } else {
-                lore.add("§7No restart in progress");
+                lore.add(MessageManager.parse("<!italic><gray>No restart in progress"));
             }
-            meta.setLore(lore);
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -213,14 +212,14 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.REPEATING_COMMAND_BLOCK);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§b§lScheduled Restarts");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add(scheduledEnabled ? "§aEnabled" : "§cDisabled");
-            lore.add("§7Configured times: §e" + schedules.size());
-            lore.add("");
-            lore.add("§eClick to manage schedules");
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic><aqua><bold>Scheduled Restarts"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse(scheduledEnabled ? "<!italic><green>Enabled" : "<!italic><red>Disabled"));
+            lore.add(MessageManager.parse("<!italic><gray>Configured times: <yellow>" + schedules.size()));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><yellow>Click to manage schedules"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -231,17 +230,21 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.BELL);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§6§lNotification Types");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Current notifications:");
-            lore.add("§a• Chat: " + (types.contains("chat") ? "§a✔" : "§c✘"));
-            lore.add("§a• ActionBar: " + (types.contains("actionbar") ? "§a✔" : "§c✘"));
-            lore.add("§a• BossBar: " + (types.contains("bossbar") ? "§a✔" : "§c✘"));
-            lore.add("§a• Title: " + (types.contains("title") ? "§a✔" : "§c✘"));
-            lore.add("");
-            lore.add("§eClick to cycle");
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic><gold><bold>Notification Types"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Current notifications:"));
+            lore.add(MessageManager
+                    .parse("<!italic><green>• <gray>Chat: " + (types.contains("chat") ? "<green>✔" : "<red>✘")));
+            lore.add(MessageManager.parse(
+                    "<!italic><green>• <gray>ActionBar: " + (types.contains("actionbar") ? "<green>✔" : "<red>✘")));
+            lore.add(MessageManager
+                    .parse("<!italic><green>• <gray>BossBar: " + (types.contains("bossbar") ? "<green>✔" : "<red>✘")));
+            lore.add(MessageManager
+                    .parse("<!italic><green>• <gray>Title: " + (types.contains("title") ? "<green>✔" : "<red>✘")));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><yellow>Click to cycle"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -252,15 +255,15 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.COMPASS);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§e§lCountdown Time");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Default countdown: §e" + time + " seconds");
-            lore.add("");
-            lore.add("§aLeft Click: +10s");
-            lore.add("§cRight Click: -10s");
-            lore.add("§eShift Click: ±60s");
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic><yellow><bold>Countdown Time"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Default countdown: <yellow>" + time + " seconds"));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><green>Left Click: +10s"));
+            lore.add(MessageManager.parse("<!italic><red>Right Click: -10s"));
+            lore.add(MessageManager.parse("<!italic><yellow>Shift Click: ±60s"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -274,20 +277,20 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.COMMAND_BLOCK);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§d§lPre-Restart Commands");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add(execute ? "§aEnabled" : "§cDisabled");
-            lore.add("§7Commands: §e" + commands.size());
+            meta.displayName(MessageManager.parse("<!italic><light_purple><bold>Pre-Restart Commands"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse(execute ? "<!italic><green>Enabled" : "<!italic><red>Disabled"));
+            lore.add(MessageManager.parse("<!italic><gray>Commands: <yellow>" + commands.size()));
             if (!commands.isEmpty()) {
-                lore.add("");
+                lore.add(Component.empty());
                 for (String cmd : commands) {
-                    lore.add("§8- §7/" + cmd);
+                    lore.add(MessageManager.parse("<!italic><dark_gray>- <gray>/" + cmd));
                 }
             }
-            lore.add("");
-            lore.add("§eClick to toggle");
-            meta.setLore(lore);
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><yellow>Click to toggle"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -300,13 +303,13 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(dye);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§5§lBossBar Color");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Current: §e" + color);
-            lore.add("");
-            lore.add("§eClick to cycle colors");
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic><light_purple><bold>BossBar Color"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Current: <yellow>" + color));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><yellow>Click to cycle colors"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -317,13 +320,13 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(enabled ? Material.LIME_DYE : Material.GRAY_DYE);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§e§lScheduled Restarts");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add(enabled ? "§aEnabled" : "§cDisabled");
-            lore.add("");
-            lore.add("§eClick to toggle");
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic><yellow><bold>Scheduled Restarts"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse(enabled ? "<!italic><green>Enabled" : "<!italic><red>Disabled"));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><yellow>Click to toggle"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -333,13 +336,13 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.PAPER);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§e" + schedule);
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Schedule #" + (index + 1));
-            lore.add("");
-            lore.add("§cShift + Click to remove");
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic><yellow>" + schedule));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Schedule #" + (index + 1)));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><red>Shift + Click to remove"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -349,18 +352,18 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.EMERALD);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§a§lAdd Schedule");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Add a new scheduled restart time.");
-            lore.add("");
-            lore.add("§7Formats supported:");
-            lore.add("§8- §7HH:mm:ss §8(daily)");
-            lore.add("§8- §7MON HH:mm:ss §8(weekly)");
-            lore.add("§8- §7yyyy-MM-dd HH:mm:ss §8(one-time)");
-            lore.add("");
-            lore.add("§eClick to add via chat");
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic><green><bold>Add Schedule"));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Add a new scheduled restart time."));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Formats supported:"));
+            lore.add(MessageManager.parse("<!italic><dark_gray>- <gray>HH:mm:ss <dark_gray>(daily)"));
+            lore.add(MessageManager.parse("<!italic><dark_gray>- <gray>MON HH:mm:ss <dark_gray>(weekly)"));
+            lore.add(MessageManager.parse("<!italic><dark_gray>- <gray>yyyy-MM-dd HH:mm:ss <dark_gray>(one-time)"));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><yellow>Click to add via chat"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -370,7 +373,7 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.ARROW);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§eBack to Main Menu");
+            meta.displayName(MessageManager.parse("<!italic><yellow>Back to Main Menu"));
             item.setItemMeta(meta);
         }
         return item;
@@ -380,7 +383,7 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.ARROW);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§eBack to Restart Settings");
+            meta.displayName(MessageManager.parse("<!italic><yellow>Back to Restart Settings"));
             item.setItemMeta(meta);
         }
         return item;
@@ -399,8 +402,7 @@ public class ServerRestartFeature extends BaseFeature {
     }
 
     public void restartNow(Player executor) {
-        Bukkit.broadcastMessage(getRestartMessage("restart-now-message", 0)
-                .replace("{player}", executor.getName()));
+        Bukkit.broadcast(MessageManager.parse(getRestartMessage("restart-now-message", 0, executor.getName())));
 
         Bukkit.getScheduler().runTask(plugin, () -> {
             executePreRestartCommands();
@@ -422,23 +424,21 @@ public class ServerRestartFeature extends BaseFeature {
                 .getStringList(getConfigPath() + ".notification-types");
 
         String colorName = plugin.getConfigManager().get()
-                .getString(getConfigPath() + ".bossbar-color", "RED").toUpperCase(Locale.ROOT);
-        BarColor bossBarColor;
-        try {
-            bossBarColor = BarColor.valueOf(colorName);
-        } catch (IllegalArgumentException e) {
-            bossBarColor = BarColor.RED;
+                .getString(getConfigPath() + ".bossbar-color", "RED").toLowerCase(Locale.ROOT);
+        BossBar.Color bossBarColor = BossBar.Color.NAMES.value(colorName);
+        if (bossBarColor == null) {
+            bossBarColor = BossBar.Color.RED;
         }
 
         if (notificationTypes.contains("bossbar")) {
-            activeBossBar = Bukkit.createBossBar(
-                    getRestartMessage("bossbar-message", seconds),
+            activeBossBar = BossBar.bossBar(
+                    MessageManager.parse(getRestartMessage("bossbar-message", seconds)),
+                    1.0f,
                     bossBarColor,
-                    BarStyle.SEGMENTED_10,
-                    BarFlag.DARKEN_SKY);
-            activeBossBar.setProgress(1.0);
+                    BossBar.Overlay.NOTCHED_10,
+                    Set.of(BossBar.Flag.DARKEN_SCREEN));
             for (Player player : Bukkit.getOnlinePlayers()) {
-                activeBossBar.addPlayer(player);
+                player.showBossBar(activeBossBar);
             }
         }
 
@@ -452,10 +452,12 @@ public class ServerRestartFeature extends BaseFeature {
                 countdownSeconds = timeLeft;
 
                 if (timeLeft <= 0) {
-                    Bukkit.broadcastMessage(getRestartMessage("restart-done-message", 0));
+                    Bukkit.broadcast(MessageManager.parse(getRestartMessage("restart-done-message", 0)));
 
                     if (activeBossBar != null) {
-                        activeBossBar.removeAll();
+                        for (Player p : Bukkit.getOnlinePlayers()) {
+                            p.hideBossBar(activeBossBar);
+                        }
                         activeBossBar = null;
                     }
 
@@ -472,28 +474,31 @@ public class ServerRestartFeature extends BaseFeature {
                 }
 
                 if (notificationTypes.contains("chat") && announcements.contains(timeLeft)) {
-                    Bukkit.broadcastMessage(getRestartMessage("countdown-message", timeLeft));
+                    Bukkit.broadcast(MessageManager.parse(getRestartMessage("countdown-message", timeLeft)));
                 }
 
                 if (notificationTypes.contains("actionbar")) {
                     String actionBarMsg = getRestartMessage("actionbar-message", timeLeft);
                     for (Player player : Bukkit.getOnlinePlayers()) {
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
-                                TextComponent.fromLegacyText(actionBarMsg));
+                        player.sendActionBar(MessageManager.parse(actionBarMsg));
                     }
                 }
 
                 if (notificationTypes.contains("title") && announcements.contains(timeLeft)) {
                     String titleMsg = getRestartMessage("title-message", timeLeft);
                     String subtitleMsg = getRestartMessage("subtitle-message", timeLeft);
+                    Title.Times times = Title.Times.times(
+                            Duration.ofMillis(500L), Duration.ofMillis(2000L), Duration.ofMillis(500L));
+                    Title titleObj = Title.title(
+                            MessageManager.parse(titleMsg), MessageManager.parse(subtitleMsg), times);
                     for (Player player : Bukkit.getOnlinePlayers()) {
-                        player.sendTitle(titleMsg, subtitleMsg, 10, 40, 10);
+                        player.showTitle(titleObj);
                     }
                 }
 
                 if (notificationTypes.contains("bossbar") && activeBossBar != null) {
-                    activeBossBar.setTitle(getRestartMessage("bossbar-message", timeLeft));
-                    activeBossBar.setProgress((double) timeLeft / totalSeconds);
+                    activeBossBar.name(MessageManager.parse(getRestartMessage("bossbar-message", timeLeft)));
+                    activeBossBar.progress((float) timeLeft / totalSeconds);
                 }
 
                 boolean soundEnabled = plugin.getConfigManager().get()
@@ -514,11 +519,13 @@ public class ServerRestartFeature extends BaseFeature {
             countdownSeconds = 0;
 
             if (activeBossBar != null) {
-                activeBossBar.removeAll();
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    p.hideBossBar(activeBossBar);
+                }
                 activeBossBar = null;
             }
 
-            Bukkit.broadcastMessage(getRestartMessage("cancelled-message", 0));
+            Bukkit.broadcast(MessageManager.parse(getRestartMessage("cancelled-message", 0)));
         }
     }
 
@@ -558,9 +565,17 @@ public class ServerRestartFeature extends BaseFeature {
     }
 
     private String getRestartMessage(String key, int seconds) {
+        return getRestartMessage(key, seconds, null);
+    }
+
+    private String getRestartMessage(String key, int seconds, String playerName) {
         String message = plugin.getConfigManager().get()
-                .getString(getConfigPath() + ".messages." + key, "§cServer restarting in {time} seconds!");
-        return message.replace("{time}", String.valueOf(seconds));
+                .getString(getConfigPath() + ".messages." + key, "<red>Server restarting in {time} seconds!");
+        message = message.replace("{time}", String.valueOf(seconds));
+        if (playerName != null) {
+            message = message.replace("{player}", playerName);
+        }
+        return message;
     }
 
     public boolean isScheduledRestartsEnabled() {

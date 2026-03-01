@@ -3,6 +3,9 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.MinimapControlListener;
+import com.tejaslamba.vanillacore.manager.MessageManager;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -124,17 +127,17 @@ public class MinimapControlFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.FILLED_MAP, "§6Minimap Control",
-                "§7Control Xaero's minimap features");
+        return createMenuItem(Material.FILLED_MAP, "<!italic><gold>Minimap Control",
+                "<!italic><gray>Control Xaero's minimap features");
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "§aEnabled" : "§cDisabled");
-        lore.add("§7Mode: §e" + globalMode.name());
-        lore.add("§eLeft Click: Toggle");
-        lore.add("§eRight Click: Open GUI");
+        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add("<gray>Mode: <yellow>" + globalMode.name());
+        lore.add("<yellow>Left Click: Toggle");
+        lore.add("<yellow>Right Click: Open GUI");
         return lore;
     }
 
@@ -146,8 +149,7 @@ public class MinimapControlFeature extends BaseFeature {
     @Override
     public void onRightClick(Player player) {
         if (!isEnabled()) {
-            player.sendMessage(plugin.getMessageManager().get("minimap-control.feature-disabled",
-                    "§cMinimap Control is disabled! Enable it first."));
+            player.sendMessage(plugin.getMessageManager().get("minimap-control.feature-disabled"));
             return;
         }
         openMainGUI(player);
@@ -159,35 +161,35 @@ public class MinimapControlFeature extends BaseFeature {
         ItemStack modeItem = createModeItem();
         gui.setItem(13, modeItem);
 
-        ItemStack netherItem = createToggleItem(Material.NETHERRACK, "§6Nether Fair Mode",
+        ItemStack netherItem = createToggleItem(Material.NETHERRACK, "<gold>Nether Fair Mode",
                 netherFairMode,
-                "§7When in FAIR mode, sends extra",
-                "§7restrictions for the Nether.");
+                "<gray>When in FAIR mode, sends extra",
+                "<gray>restrictions for the Nether.");
         gui.setItem(20, netherItem);
 
-        ItemStack joinItem = createToggleItem(Material.OAK_DOOR, "§6Send on Join",
+        ItemStack joinItem = createToggleItem(Material.OAK_DOOR, "<gold>Send on Join",
                 sendOnJoin,
-                "§7Apply settings when",
-                "§7players join the server.");
+                "<gray>Apply settings when",
+                "<gray>players join the server.");
         gui.setItem(22, joinItem);
 
-        ItemStack worldChangeItem = createToggleItem(Material.ENDER_PEARL, "§6Send on World Change",
+        ItemStack worldChangeItem = createToggleItem(Material.ENDER_PEARL, "<gold>Send on World Change",
                 sendOnWorldChange,
-                "§7Apply settings when players",
-                "§7change worlds/dimensions.");
+                "<gray>Apply settings when players",
+                "<gray>change worlds/dimensions.");
         gui.setItem(24, worldChangeItem);
 
         ItemStack worldSettings = new ItemStack(Material.GRASS_BLOCK);
         ItemMeta worldMeta = worldSettings.getItemMeta();
         if (worldMeta != null) {
-            worldMeta.setDisplayName("§6Per-World Settings");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Configure different modes");
-            lore.add("§7for each world.");
-            lore.add("");
-            lore.add("§eClick to configure!");
-            worldMeta.setLore(lore);
+            worldMeta.displayName(MessageManager.parse("<!italic><gold>Per-World Settings"));
+            List<Component> worldLore = new ArrayList<>();
+            worldLore.add(Component.empty());
+            worldLore.add(MessageManager.parse("<!italic><gray>Configure different modes"));
+            worldLore.add(MessageManager.parse("<!italic><gray>for each world."));
+            worldLore.add(Component.empty());
+            worldLore.add(MessageManager.parse("<!italic><yellow>Click to configure!"));
+            worldMeta.lore(worldLore);
             worldSettings.setItemMeta(worldMeta);
         }
         gui.setItem(30, worldSettings);
@@ -195,14 +197,14 @@ public class MinimapControlFeature extends BaseFeature {
         ItemStack applyAll = new ItemStack(Material.LIME_DYE);
         ItemMeta applyMeta = applyAll.getItemMeta();
         if (applyMeta != null) {
-            applyMeta.setDisplayName("§aApply to All Online");
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Send current settings to");
-            lore.add("§7all online players now.");
-            lore.add("");
-            lore.add("§eClick to apply!");
-            applyMeta.setLore(lore);
+            applyMeta.displayName(MessageManager.parse("<!italic><green>Apply to All Online"));
+            List<Component> applyLore = new ArrayList<>();
+            applyLore.add(Component.empty());
+            applyLore.add(MessageManager.parse("<!italic><gray>Send current settings to"));
+            applyLore.add(MessageManager.parse("<!italic><gray>all online players now."));
+            applyLore.add(Component.empty());
+            applyLore.add(MessageManager.parse("<!italic><yellow>Click to apply!"));
+            applyMeta.lore(applyLore);
             applyAll.setItemMeta(applyMeta);
         }
         gui.setItem(32, applyAll);
@@ -210,7 +212,7 @@ public class MinimapControlFeature extends BaseFeature {
         ItemStack closeItem = new ItemStack(Material.BARRIER);
         ItemMeta closeMeta = closeItem.getItemMeta();
         if (closeMeta != null) {
-            closeMeta.setDisplayName("§cClose");
+            closeMeta.displayName(MessageManager.parse("<!italic><red>Close"));
             closeItem.setItemMeta(closeMeta);
         }
         gui.setItem(35, closeItem);
@@ -228,18 +230,21 @@ public class MinimapControlFeature extends BaseFeature {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName("§6Global Mode: §e" + globalMode.name());
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add(globalMode == MinimapMode.DISABLED ? "§a» §cDISABLED §7- Minimap fully disabled"
-                    : "§7  §8DISABLED - Minimap fully disabled");
-            lore.add(globalMode == MinimapMode.FAIR ? "§a» §eFAIR §7- No cave map, no radar"
-                    : "§7  §8FAIR - No cave map, no radar");
-            lore.add(globalMode == MinimapMode.FULL ? "§a» §aFULL §7- All features enabled"
-                    : "§7  §8FULL - All features enabled");
-            lore.add("");
-            lore.add("§eClick to cycle modes!");
-            meta.setLore(lore);
+            meta.displayName(MessageManager.parse("<!italic><gold>Global Mode: <yellow>" + globalMode.name()));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse(globalMode == MinimapMode.DISABLED
+                    ? "<!italic><green>\u00bb <red>DISABLED <gray>- Minimap fully disabled"
+                    : "<!italic><gray>  <dark_gray>DISABLED - Minimap fully disabled"));
+            lore.add(MessageManager.parse(globalMode == MinimapMode.FAIR
+                    ? "<!italic><green>\u00bb <yellow>FAIR <gray>- No cave map, no radar"
+                    : "<!italic><gray>  <dark_gray>FAIR - No cave map, no radar"));
+            lore.add(MessageManager.parse(globalMode == MinimapMode.FULL
+                    ? "<!italic><green>\u00bb <green>FULL <gray>- All features enabled"
+                    : "<!italic><gray>  <dark_gray>FULL - All features enabled"));
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><yellow>Click to cycle modes!"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -249,17 +254,17 @@ public class MinimapControlFeature extends BaseFeature {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName(name);
-            List<String> lore = new ArrayList<>();
-            lore.add("");
-            lore.add("§7Status: " + (enabled ? "§aEnabled" : "§cDisabled"));
-            lore.add("");
+            meta.displayName(MessageManager.parse("<!italic>" + name));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><gray>Status: " + (enabled ? "<green>Enabled" : "<red>Disabled")));
+            lore.add(Component.empty());
             for (String line : descriptionLines) {
-                lore.add(line);
+                lore.add(MessageManager.parse("<!italic>" + line));
             }
-            lore.add("");
-            lore.add("§eClick to toggle!");
-            meta.setLore(lore);
+            lore.add(Component.empty());
+            lore.add(MessageManager.parse("<!italic><yellow>Click to toggle!"));
+            meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
@@ -288,15 +293,17 @@ public class MinimapControlFeature extends BaseFeature {
             ItemStack worldItem = new ItemStack(material);
             ItemMeta meta = worldItem.getItemMeta();
             if (meta != null) {
-                meta.setDisplayName("§a" + world.getName());
-                List<String> lore = new ArrayList<>();
-                lore.add("");
-                lore.add("§7Environment: §e" + world.getEnvironment().name());
-                lore.add("§7Mode: §e" + mode.name());
-                lore.add("");
-                lore.add("§eLeft Click: Cycle mode");
-                lore.add("§eRight Click: Use global");
-                meta.setLore(lore);
+                MiniMessage mm = MiniMessage.miniMessage();
+                meta.displayName(MessageManager.parse("<!italic><green>" + mm.escapeTags(world.getName())));
+                List<Component> lore = new ArrayList<>();
+                lore.add(Component.empty());
+                lore.add(MessageManager
+                        .parse("<!italic><gray>Environment: <yellow>" + mm.escapeTags(world.getEnvironment().name())));
+                lore.add(MessageManager.parse("<!italic><gray>Mode: <yellow>" + mm.escapeTags(mode.name())));
+                lore.add(Component.empty());
+                lore.add(MessageManager.parse("<!italic><yellow>Left Click: Cycle mode"));
+                lore.add(MessageManager.parse("<!italic><yellow>Right Click: Use global"));
+                meta.lore(lore);
                 worldItem.setItemMeta(meta);
             }
             gui.setItem(slot++, worldItem);
@@ -305,7 +312,7 @@ public class MinimapControlFeature extends BaseFeature {
         ItemStack backItem = new ItemStack(Material.OAK_DOOR);
         ItemMeta backMeta = backItem.getItemMeta();
         if (backMeta != null) {
-            backMeta.setDisplayName("§eBack");
+            backMeta.displayName(MessageManager.parse("<!italic><yellow>Back"));
             backItem.setItemMeta(backMeta);
         }
         gui.setItem(size - 5, backItem);
@@ -313,7 +320,7 @@ public class MinimapControlFeature extends BaseFeature {
         ItemStack closeItem = new ItemStack(Material.BARRIER);
         ItemMeta closeMeta = closeItem.getItemMeta();
         if (closeMeta != null) {
-            closeMeta.setDisplayName("§cClose");
+            closeMeta.displayName(MessageManager.parse("<!italic><red>Close"));
             closeItem.setItemMeta(closeMeta);
         }
         gui.setItem(size - 1, closeItem);

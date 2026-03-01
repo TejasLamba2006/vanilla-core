@@ -1,6 +1,7 @@
 package com.tejaslamba.vanillacore.command;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
+import com.tejaslamba.vanillacore.manager.MessageManager;
 import com.tejaslamba.vanillacore.features.DimensionLockFeature;
 import com.tejaslamba.vanillacore.features.EndLockFeature;
 import com.tejaslamba.vanillacore.features.NetherLockFeature;
@@ -26,8 +27,8 @@ public class DimensionCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("vanillacore.dimension." + dimension)) {
-            sender.sendMessage(plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r")
-                    + " §cYou don't have permission to use this command!");
+            sender.sendMessage(MessageManager.parse(
+                    "<dark_gray>[<gold>Vanilla Core<dark_gray>] <red>You don't have permission to use this command!"));
             return true;
         }
 
@@ -36,17 +37,16 @@ public class DimensionCommand implements CommandExecutor, TabCompleter {
                 : plugin.getFeatureManager().getFeature(NetherLockFeature.class);
 
         if (feature == null) {
-            sender.sendMessage("§cDimension Lock feature not found!");
+            sender.sendMessage(MessageManager.parse("<red>Dimension Lock feature not found!"));
             return true;
         }
 
-        String prefix = plugin.getConfigManager().get().getString("plugin.prefix", "§8[§6Vanilla Core§8]§r");
         String dimensionName = dimension.substring(0, 1).toUpperCase() + dimension.substring(1);
 
         if (args.length == 0) {
             boolean isLocked = feature.isLocked();
-            sender.sendMessage(
-                    prefix + " §eThe " + dimensionName + " is currently " + (isLocked ? "§cLocked" : "§aOpen"));
+            sender.sendMessage(MessageManager.parse("<dark_gray>[<gold>Vanilla Core<dark_gray>] <yellow>The "
+                    + dimensionName + " is currently " + (isLocked ? "<red>Locked" : "<green>Open")));
             return true;
         }
 
@@ -55,7 +55,8 @@ public class DimensionCommand implements CommandExecutor, TabCompleter {
         switch (action) {
             case "open":
                 feature.setLocked(false);
-                sender.sendMessage(prefix + " §aThe " + dimensionName + " has been opened!");
+                sender.sendMessage(MessageManager.parse("<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>The "
+                        + dimensionName + " has been opened!"));
                 if (plugin.isVerbose()) {
                     plugin.getLogger()
                             .info("[VERBOSE] Dimension Command - " + sender.getName() + " opened " + dimensionName);
@@ -63,7 +64,8 @@ public class DimensionCommand implements CommandExecutor, TabCompleter {
                 break;
             case "close":
                 feature.setLocked(true);
-                sender.sendMessage(prefix + " §cThe " + dimensionName + " has been closed!");
+                sender.sendMessage(MessageManager.parse(
+                        "<dark_gray>[<gold>Vanilla Core<dark_gray>] <red>The " + dimensionName + " has been closed!"));
                 if (plugin.isVerbose()) {
                     plugin.getLogger()
                             .info("[VERBOSE] Dimension Command - " + sender.getName() + " closed " + dimensionName);
@@ -71,11 +73,12 @@ public class DimensionCommand implements CommandExecutor, TabCompleter {
                 break;
             case "status":
                 boolean isLocked = feature.isLocked();
-                sender.sendMessage("§e§l=== " + dimensionName + " Status ===");
-                sender.sendMessage("§eAccess: " + (isLocked ? "§cLocked" : "§aOpen"));
+                sender.sendMessage(MessageManager.parse("<yellow><bold>=== " + dimensionName + " Status ==="));
+                sender.sendMessage(
+                        MessageManager.parse("<yellow>Access: " + (isLocked ? "<red>Locked" : "<green>Open")));
                 break;
             default:
-                sender.sendMessage("§eUsage: /" + dimension + " <open|close|status>");
+                sender.sendMessage(MessageManager.parse("<yellow>Usage: /" + dimension + " <open|close|status>"));
         }
 
         return true;

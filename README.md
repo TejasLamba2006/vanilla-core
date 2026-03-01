@@ -4,7 +4,8 @@
 [![CodeQL](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/codeql.yml/badge.svg)](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/codeql.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Modrinth](https://img.shields.io/modrinth/dt/GH4H8ndx?logo=modrinth&label=downloads)](https://modrinth.com/plugin/vanillacorewastaken)
-[![Discord](https://img.shields.io/discord/1260632399245856801?logo=discord&label=discord)](https://discord.gg/7fQPG4Grwt)
+[![Discord](https://img.shields.io/discord/1380092469613432912?logo=discord&label=discord)](https://discord.gg/7fQPG4Grwt)
+[![CodeFactor](https://www.codefactor.io/repository/github/tejaslamba2006/vanilla-core/badge)](https://www.codefactor.io/repository/github/tejaslamba2006/vanilla-core)
 
 A Minecraft plugin for Vanilla servers focused on PvP balance, custom mechanics, and server management. Built for Paper/Spigot 1.21.1+.
 

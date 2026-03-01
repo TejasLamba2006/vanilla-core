@@ -1,7 +1,9 @@
 package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
+import com.tejaslamba.vanillacore.manager.MessageManager;
 import com.tejaslamba.vanillacore.features.ServerRestartFeature;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -12,14 +14,14 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerRestartListener implements Listener {
 
     private final VanillaCorePlugin plugin;
-    private final Map<UUID, ScheduleInputState> awaitingInput = new HashMap<>();
+    private final Map<UUID, ScheduleInputState> awaitingInput = new ConcurrentHashMap<>();
 
     public ServerRestartListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
@@ -35,9 +37,11 @@ public class ServerRestartListener implements Listener {
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             if (feature.isRestartActive()) {
-                player.sendMessage("§c§l⚠ SERVER RESTART ACTIVE ⚠");
-                player.sendMessage("§7Time remaining: §c" + feature.getCountdownSeconds() + " seconds");
-                player.sendMessage("§7Use §e/vanilla menu §7→ §cServer Restart §7to cancel.");
+                player.sendMessage(MessageManager.parse("<red><bold>\u26a0 SERVER RESTART ACTIVE \u26a0"));
+                player.sendMessage(MessageManager
+                        .parse("<gray>Time remaining: <red>" + feature.getCountdownSeconds() + " seconds"));
+                player.sendMessage(MessageManager
+                        .parse("<gray>Use <yellow>/vanilla menu <gray>\u2192 <red>Server Restart <gray>to cancel."));
             }
         }, 60L);
     }
@@ -47,7 +51,7 @@ public class ServerRestartListener implements Listener {
         if (!(event.getWhoClicked() instanceof Player player))
             return;
 
-        String title = event.getView().getTitle();
+        Component title = event.getView().title();
 
         if (title.equals(ServerRestartFeature.GUI_TITLE)) {
             handleMainGUI(event, player);
@@ -72,32 +76,34 @@ public class ServerRestartListener implements Listener {
                     player.closeInventory();
                     feature.restartNow(player);
                 } else {
-                    player.sendMessage("§c⚠ Hold Shift and click to confirm immediate restart!");
+                    player.sendMessage(
+                            MessageManager.parse("<red>\u26a0 Hold Shift and click to confirm immediate restart!"));
                     player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
                 }
             }
             case 12 -> {
                 if (clickType.isRightClick()) {
                     player.closeInventory();
-                    player.sendMessage("§eEnter countdown time in seconds (e.g., 120):");
-                    player.sendMessage("§7Type 'cancel' to cancel.");
+                    player.sendMessage(MessageManager.parse("<yellow>Enter countdown time in seconds (e.g., 120):"));
+                    player.sendMessage(MessageManager.parse("<gray>Type 'cancel' to cancel."));
                     awaitingInput.put(player.getUniqueId(), ScheduleInputState.COUNTDOWN_TIME);
                 } else {
                     int defaultTime = plugin.getConfigManager().get()
                             .getInt(feature.getConfigPath() + ".countdown-time", 60);
                     feature.startCountdown(defaultTime);
                     player.closeInventory();
-                    player.sendMessage("§aRestart countdown started! (" + defaultTime + " seconds)");
+                    player.sendMessage(
+                            MessageManager.parse("<green>Restart countdown started! (" + defaultTime + " seconds)"));
                 }
             }
             case 14 -> {
                 if (feature.isRestartActive()) {
                     feature.cancelRestart();
-                    player.sendMessage("§aRestart cancelled!");
+                    player.sendMessage(MessageManager.parse("<green>Restart cancelled!"));
                     player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
                     feature.openMainGUI(player);
                 } else {
-                    player.sendMessage("§cNo restart is currently in progress.");
+                    player.sendMessage(MessageManager.parse("<red>No restart is currently in progress."));
                     player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
                 }
             }
@@ -158,10 +164,10 @@ public class ServerRestartListener implements Listener {
             }
             case 40 -> {
                 player.closeInventory();
-                player.sendMessage("§eEnter a restart schedule:");
-                player.sendMessage(
-                        "§7Formats: §fHH:mm:ss §7(daily), §fMON HH:mm:ss §7(weekly), §fyyyy-MM-dd HH:mm:ss §7(one-time)");
-                player.sendMessage("§7Type 'cancel' to cancel.");
+                player.sendMessage(MessageManager.parse("<yellow>Enter a restart schedule:"));
+                player.sendMessage(MessageManager.parse(
+                        "<gray>Formats: <white>HH:mm:ss <gray>(daily), <white>MON HH:mm:ss <gray>(weekly), <white>yyyy-MM-dd HH:mm:ss <gray>(one-time)"));
+                player.sendMessage(MessageManager.parse("<gray>Type 'cancel' to cancel."));
                 awaitingInput.put(player.getUniqueId(), ScheduleInputState.ADD_SCHEDULE);
             }
             default -> {
@@ -169,7 +175,7 @@ public class ServerRestartListener implements Listener {
                     int index = slot - 19;
                     feature.removeScheduledTime(index);
                     feature.openScheduleGUI(player);
-                    player.sendMessage("§aSchedule removed!");
+                    player.sendMessage(MessageManager.parse("<green>Schedule removed!"));
                     player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
                 }
             }
@@ -181,15 +187,14 @@ public class ServerRestartListener implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
 
-        if (!awaitingInput.containsKey(uuid))
-            return;
-
         event.setCancelled(true);
         String message = event.getMessage().trim();
         ScheduleInputState state = awaitingInput.remove(uuid);
+        if (state == null)
+            return;
 
         if (message.equalsIgnoreCase("cancel")) {
-            player.sendMessage("§cCancelled.");
+            player.sendMessage(MessageManager.parse("<red>Cancelled."));
             return;
         }
 
@@ -202,27 +207,29 @@ public class ServerRestartListener implements Listener {
                 try {
                     int seconds = Integer.parseInt(message);
                     if (seconds < 10) {
-                        player.sendMessage("§cMinimum countdown time is 10 seconds.");
+                        player.sendMessage(MessageManager.parse("<red>Minimum countdown time is 10 seconds."));
                         return;
                     }
                     org.bukkit.Bukkit.getScheduler().runTask(plugin, () -> {
                         feature.startCountdown(seconds);
-                        player.sendMessage("§aRestart countdown started! (" + seconds + " seconds)");
+                        player.sendMessage(
+                                MessageManager.parse("<green>Restart countdown started! (" + seconds + " seconds)"));
                     });
                 } catch (NumberFormatException e) {
-                    player.sendMessage("§cInvalid number! Please enter a valid number of seconds.");
+                    player.sendMessage(
+                            MessageManager.parse("<red>Invalid number! Please enter a valid number of seconds."));
                 }
             }
             case ADD_SCHEDULE -> {
                 if (isValidScheduleFormat(message)) {
                     org.bukkit.Bukkit.getScheduler().runTask(plugin, () -> {
                         feature.addScheduledTime(message);
-                        player.sendMessage("§aSchedule added: §e" + message);
+                        player.sendMessage(MessageManager.parse("<green>Schedule added: <yellow>" + message));
                         feature.openScheduleGUI(player);
                     });
                 } else {
-                    player.sendMessage(
-                            "§cInvalid format! Use: §fHH:mm:ss§c, §fMON HH:mm:ss§c, or §fyyyy-MM-dd HH:mm:ss");
+                    player.sendMessage(MessageManager.parse(
+                            "<red>Invalid format! Use: <white>HH:mm:ss<red>, <white>MON HH:mm:ss<red>, or <white>yyyy-MM-dd HH:mm:ss"));
                 }
             }
         }
