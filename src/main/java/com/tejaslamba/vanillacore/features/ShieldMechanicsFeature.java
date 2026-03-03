@@ -116,6 +116,14 @@ public class ShieldMechanicsFeature extends BaseFeature {
         gui.setItem(12, buildDecreaseItem("<red>Decrease Axe Stun", axeStunDurationTicks));
         gui.setItem(14, buildIncreaseItem("<green>Increase Axe Stun", axeStunDurationTicks));
 
+        ItemStack backButton = new ItemStack(Material.ARROW);
+        ItemMeta backMeta = backButton.getItemMeta();
+        if (backMeta != null) {
+            backMeta.displayName(MessageManager.parse("<!italic><yellow>Back to Main Menu"));
+            backButton.setItemMeta(backMeta);
+        }
+        gui.setItem(22, backButton);
+
         player.openInventory(gui);
     }
 
@@ -209,6 +217,10 @@ public class ShieldMechanicsFeature extends BaseFeature {
     }
 
     public void handleSettingsGUIClick(int slot, boolean isShiftClick, Player player) {
+        if (slot == 22) {
+            plugin.getServer().getScheduler().runTask(plugin, () -> plugin.getMenuManager().openMainMenu(player));
+            return;
+        }
         switch (slot) {
             case 4 -> {
                 maceStunEnabled = !maceStunEnabled;

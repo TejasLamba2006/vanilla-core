@@ -95,7 +95,7 @@
 - [x] Item Explosion Immunity (Stop items from despawning due to explosions)
 - [x] Infinite Restock Toggle
 - [x] One Mace (Mace Limiter)
-- [ ] Stop Item Despawning (timer-based)
+- [x] Stop Item Despawning (timer-based)
 - [ ] First Join Kit System
 - [ ] Custom Recipes via Config
 - [ ] Pearl Cooldown
@@ -149,6 +149,7 @@
 | Minimap Control | Done | features.minimap-control |
 | Item Bans | Done | bans.items |
 | Shield Mechanics | Done | features.shield-mechanics |
+| Stop Item Despawn | Done | features.stop-item-despawn |
 
 ---
 

@@ -402,4 +402,12 @@ features:
       enabled: true
       # Cooldown duration in ticks
       duration-ticks: 100
+
+  # ------------------------------------------
+  # Stop Item Despawn
+  # ------------------------------------------
+  # Prevents items dropped when a player dies from despawning naturally.
+  # Items will persist indefinitely until picked up.
+  stop-item-despawn:
+    enabled: false
 # ============================================

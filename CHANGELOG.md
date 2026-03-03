@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Stop Item Despawn feature: items dropped when a player dies will never despawn naturally; they persist indefinitely until picked up; enabled via `features.stop-item-despawn.enabled`
+- Back button (ARROW) to Shield Mechanics settings GUI (slot 22) to navigate back to the main menu
+- Back button (ARROW) to Mob Manager World Select GUI (slot `size-3`) to navigate back to the main menu
+
 - Breach Swap feature: blocks hotbar and hand-swap (F key) between a Breach-enchanted mace and any sword or axe, closing the breach-swap PvP exploit; configurable action bar denied message via `features.breach-swap.denied-message`
 
 ## [1.3.3] - 2026-03-01

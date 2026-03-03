@@ -408,6 +408,11 @@ public class MenuClickListener implements Listener {
             return;
         }
 
+        if (clickedType == Material.ARROW) {
+            plugin.getServer().getScheduler().runTask(plugin, () -> plugin.getMenuManager().openMainMenu(player));
+            return;
+        }
+
         if (clickedType == Material.COMPARATOR && slot == inventorySize - 9) {
             plugin.getServer().getScheduler().runTask(plugin, () -> feature.openGlobalSettingsGUI(player));
             return;
