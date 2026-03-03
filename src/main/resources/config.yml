@@ -372,6 +372,18 @@ features:
       cancelled-message: "<green>✔ Server restart has been cancelled."
 
   # ------------------------------------------
+  # Breach Swap
+  # ------------------------------------------
+  # Prevents players from quickly swapping between a Breach-enchanted
+  # mace and a sword or axe in their hotbar or by pressing F (swap hands).
+  # This closes the "breach swap" exploit used in PvP.
+  breach-swap:
+    enabled: false
+    # Message shown in the action bar when the swap is blocked.
+    # Supports MiniMessage format.
+    denied-message: "<red>Breach swapping is disabled."
+
+  # ------------------------------------------
   # Shield Mechanics
   # ------------------------------------------
   # Customize shield stun behavior when players are hit while blocking.
