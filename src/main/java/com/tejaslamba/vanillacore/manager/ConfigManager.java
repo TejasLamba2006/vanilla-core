@@ -76,7 +76,7 @@ public class ConfigManager {
         defaults.put("features.enchantment-limiter.enabled", false);
 
         defaults.put("features.mace-limiter.enabled", false);
-        defaults.put("features.mace-limiter.mace-crafted", false);
+        defaults.put("features.mace-limiter.maces-crafted", 0);
         defaults.put("features.mace-limiter.broadcast-enabled", true);
         defaults.put("features.mace-limiter.broadcast-message",
                 "<gold>{player} <yellow>has crafted the only Mace on the server!");

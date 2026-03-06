@@ -50,6 +50,7 @@ public class VanillaCorePlugin extends JavaPlugin {
         menuConfigManager = new MenuConfigManager(this);
         menuConfigManager.load();
         cooldownManager = new CooldownManager();
+        getServer().getScheduler().runTaskTimerAsynchronously(this, cooldownManager::cleanup, 6000L, 6000L);
         chatInputManager = new ChatInputManager();
         featureManager = new FeatureManager(this);
         featureManager.loadFeatures();
@@ -82,7 +83,7 @@ public class VanillaCorePlugin extends JavaPlugin {
             return;
         }
 
-        String[] oldFolderNames = { "smp-core", "SMP-Core", "vanillacore", "vanillacore", "vanillacore" };
+        String[] oldFolderNames = { "smp-core", "SMP-Core", "vanillacore" };
         File oldDataFolder = null;
         for (String oldFolderName : oldFolderNames) {
             File candidate = new File(pluginsFolder, oldFolderName);

@@ -360,7 +360,7 @@ public class MinimapControlFeature extends BaseFeature {
 
     private void sendTellraw(Player player, String message) {
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
-                String.format("tellraw %s \"%s\"", player.getName(), message));
+                String.format("tellraw %s \"%s\"", player.getUniqueId(), message));
     }
 
     public MinimapMode getGlobalMode() {

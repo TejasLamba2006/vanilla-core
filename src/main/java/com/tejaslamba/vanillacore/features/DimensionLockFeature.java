@@ -6,6 +6,7 @@ import com.tejaslamba.vanillacore.listener.DimensionLockListener;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
@@ -15,7 +16,8 @@ import java.util.List;
 public abstract class DimensionLockFeature extends BaseFeature {
 
     private final String dimension;
-    private DimensionLockListener sharedListener;
+    private static DimensionLockListener sharedListener;
+    private static boolean sharedListenerRegistered = false;
 
     public DimensionLockFeature(String dimension) {
         this.dimension = dimension;
@@ -23,14 +25,33 @@ public abstract class DimensionLockFeature extends BaseFeature {
 
     @Override
     public void onEnable(VanillaCorePlugin plugin) {
+        this.plugin = plugin;
+        this.enabled = plugin.getConfigManager().get().getBoolean(getConfigPath() + ".enabled", false);
+
         if (sharedListener == null) {
             sharedListener = new DimensionLockListener(plugin);
         }
 
-        super.onEnable(plugin);
+        if (!sharedListenerRegistered) {
+            plugin.getServer().getPluginManager().registerEvents(sharedListener, plugin);
+            sharedListenerRegistered = true;
+        }
 
         if (plugin.isVerbose()) {
             plugin.getLogger().info("[VERBOSE] Dimension Lock (" + dimension + ") - Enabled: " + enabled);
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        if (plugin != null && plugin.isVerbose()) {
+            plugin.getLogger().info("[VERBOSE] Disabling feature: " + getName());
+        }
+        this.enabled = false;
+        if (sharedListenerRegistered) {
+            HandlerList.unregisterAll(sharedListener);
+            sharedListener = null;
+            sharedListenerRegistered = false;
         }
     }
 
@@ -77,6 +98,24 @@ public abstract class DimensionLockFeature extends BaseFeature {
     }
 
     private void toggle(Player player) {
+        if (isRemotelyDisabled()) {
+            String message = "This feature has been remotely disabled.";
+            if (plugin.getCDNManager() != null) {
+                message = plugin.getCDNManager().getDisabledMessage();
+            }
+            player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>" + message));
+            return;
+        }
+
+        if (plugin.getFeatureManager().isMaintenanceMode()) {
+            String message = "Plugin is in maintenance mode.";
+            if (plugin.getCDNManager() != null) {
+                message = plugin.getCDNManager().getMaintenanceMessage();
+            }
+            player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>" + message));
+            return;
+        }
+
         enabled = !enabled;
         plugin.getConfigManager().get().set(getConfigPath() + ".enabled", enabled);
         plugin.getConfigManager().save();

@@ -31,6 +31,7 @@ public class ServerRestartFeature extends BaseFeature {
 
     private ServerRestartListener listener;
     private int activeTaskId = -1;
+    private int scheduledCheckerTaskId = -1;
     private BossBar activeBossBar;
     private int countdownSeconds = 0;
 
@@ -61,6 +62,10 @@ public class ServerRestartFeature extends BaseFeature {
 
     @Override
     public void onDisable() {
+        if (scheduledCheckerTaskId != -1) {
+            Bukkit.getScheduler().cancelTask(scheduledCheckerTaskId);
+            scheduledCheckerTaskId = -1;
+        }
         cancelRestart();
         super.onDisable();
     }
@@ -68,6 +73,10 @@ public class ServerRestartFeature extends BaseFeature {
     @Override
     public void reload() {
         super.reload();
+        if (scheduledCheckerTaskId != -1) {
+            Bukkit.getScheduler().cancelTask(scheduledCheckerTaskId);
+            scheduledCheckerTaskId = -1;
+        }
         if (isEnabled() && isScheduledRestartsEnabled()) {
             startScheduledRestartChecker();
         }
@@ -661,10 +670,14 @@ public class ServerRestartFeature extends BaseFeature {
     }
 
     private void startScheduledRestartChecker() {
+        if (scheduledCheckerTaskId != -1) {
+            Bukkit.getScheduler().cancelTask(scheduledCheckerTaskId);
+            scheduledCheckerTaskId = -1;
+        }
         String timezone = plugin.getConfigManager().get().getString(getConfigPath() + ".timezone", "");
         ZoneId zoneId = timezone.isEmpty() ? ZoneId.systemDefault() : ZoneId.of(timezone);
 
-        Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+        scheduledCheckerTaskId = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             if (!isEnabled() || !isScheduledRestartsEnabled())
                 return;
 
@@ -713,7 +726,7 @@ public class ServerRestartFeature extends BaseFeature {
                     }
                 }
             }
-        }, 20L, 20L);
+        }, 20L, 20L).getTaskId();
     }
 
     private DayOfWeek parseDayOfWeek(String day) {

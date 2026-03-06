@@ -38,7 +38,9 @@ public class NetheriteDisablerListener implements Listener {
         }
 
         if (feature.isDisabled(resultType)) {
-            Player player = (Player) event.getView().getPlayer();
+            if (!(event.getView().getPlayer() instanceof Player player)) {
+                return;
+            }
 
             String permission = "vanillacore.netherite.craft." +
                     resultType.name().toLowerCase().replace("netherite_", "");

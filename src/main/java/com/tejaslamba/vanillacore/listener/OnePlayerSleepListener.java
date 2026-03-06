@@ -1,6 +1,7 @@
 package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
+import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -39,7 +40,7 @@ public class OnePlayerSleepListener implements Listener {
                 .replace("{displayname}", player.getDisplayName());
 
         for (Player p : Bukkit.getOnlinePlayers()) {
-            p.sendMessage(formattedMessage);
+            p.sendMessage(MessageManager.parse(formattedMessage));
         }
     }
 
@@ -60,7 +61,7 @@ public class OnePlayerSleepListener implements Listener {
 
         World world = event.getWorld();
         for (Player player : world.getPlayers()) {
-            player.sendMessage(skipMessage);
+            player.sendMessage(MessageManager.parse(skipMessage));
         }
     }
 }
