@@ -9,20 +9,27 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class BreachSwapListener implements Listener {
 
     private final VanillaCorePlugin plugin;
+    private final Map<UUID, Long> recentBreachSwap = new HashMap<>();
+    private static final long SWAP_WINDOW_MS = 500L;
 
     public BreachSwapListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onHotbarSwitch(PlayerItemHeldEvent event) {
         BreachSwapFeature feature = plugin.getFeatureManager().getFeature(BreachSwapFeature.class);
         if (feature == null || !feature.isEnabled()) {
@@ -30,30 +37,55 @@ public class BreachSwapListener implements Listener {
         }
 
         Player player = event.getPlayer();
-        PlayerInventory inv = player.getInventory();
-        ItemStack oldItem = inv.getItem(event.getPreviousSlot());
-        ItemStack newItem = inv.getItem(event.getNewSlot());
+        ItemStack oldItem = player.getInventory().getItem(event.getPreviousSlot());
+        ItemStack newItem = player.getInventory().getItem(event.getNewSlot());
 
-        if (isBreachMace(oldItem) && isSwordOrAxe(newItem) || isSwordOrAxe(oldItem) && isBreachMace(newItem)) {
-            event.setCancelled(true);
-            player.sendActionBar(MessageManager.parse(feature.getDeniedMessage()));
+        if (isBreachMace(oldItem) && isSwordOrAxe(newItem)) {
+            recentBreachSwap.put(player.getUniqueId(), System.currentTimeMillis());
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onSwapHands(PlayerSwapHandItemsEvent event) {
         BreachSwapFeature feature = plugin.getFeatureManager().getFeature(BreachSwapFeature.class);
         if (feature == null || !feature.isEnabled()) {
             return;
         }
 
-        ItemStack main = event.getMainHandItem();
-        ItemStack off = event.getOffHandItem();
-
-        if (isBreachMace(main) && isSwordOrAxe(off) || isSwordOrAxe(main) && isBreachMace(off)) {
-            event.setCancelled(true);
-            event.getPlayer().sendActionBar(MessageManager.parse(feature.getDeniedMessage()));
+        if (isBreachMace(event.getMainHandItem()) && isSwordOrAxe(event.getOffHandItem())) {
+            recentBreachSwap.put(event.getPlayer().getUniqueId(), System.currentTimeMillis());
         }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onDamage(EntityDamageByEntityEvent event) {
+        if (!(event.getDamager() instanceof Player player)) {
+            return;
+        }
+
+        BreachSwapFeature feature = plugin.getFeatureManager().getFeature(BreachSwapFeature.class);
+        if (feature == null || !feature.isEnabled()) {
+            return;
+        }
+
+        if (!isSwordOrAxe(player.getInventory().getItemInMainHand())) {
+            return;
+        }
+
+        Long lastSwapTime = recentBreachSwap.get(player.getUniqueId());
+        if (lastSwapTime == null) {
+            return;
+        }
+
+        if (System.currentTimeMillis() - lastSwapTime <= SWAP_WINDOW_MS) {
+            event.setCancelled(true);
+            player.sendActionBar(MessageManager.parse(feature.getDeniedMessage()));
+        }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onQuit(PlayerQuitEvent event) {
+        recentBreachSwap.remove(event.getPlayer().getUniqueId());
     }
 
     private boolean isBreachMace(ItemStack stack) {
