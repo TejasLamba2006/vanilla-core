@@ -7,7 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
+### Fixed
+
+- `VanillaCorePlugin`: removed duplicate `"vanillacore"` entries in the data-folder migration array (was listed three times)
+- `ConfigManager`: corrected default config key `features.mace-limiter.mace-crafted` → `features.mace-limiter.maces-crafted` so config migration properly seeds the mace craft counter
+- `DimensionLockFeature`: made `sharedListener` and registration flag static so `NetherLockFeature` and `EndLockFeature` share one `DimensionLockListener` instance instead of each registering their own, preventing every `PlayerPortalEvent` from firing twice
+- `DimensionLockFeature.toggle()`: added remote-disable and maintenance-mode checks (matching `BaseFeature.toggleDefault()`) before processing the toggle
+- `OnePlayerSleepListener`: sleep and skip messages now parsed through `MessageManager.parse()` so MiniMessage tags (e.g. `<yellow>{player}`) render correctly instead of showing literally
+- `MaceLimiterListener`: shift-click mace crafting now sets matrix slots to `null` instead of `setAmount(0)` when an ingredient stack reaches zero, preventing ghost items in the crafting grid
+- `ServerRestartFeature`: `startScheduledRestartChecker()` now stores its task ID; `reload()` and `onDisable()` cancel the old checker task before starting a new one, preventing accumulated duplicate restart-checker tasks across reloads
+- `FeatureManager.getClasses()`: added null check for `directory.listFiles()` return value to prevent `NullPointerException` when an I/O error occurs in dev/directory mode
+- `InvisibleKillsFeature`: standardised default death-message fallback tag from `<obfuscated>` to `<obf>` to match the default in `InvisibleKillsListener`
+- `MinimapControlFeature.sendTellraw()`: switched from player name to UUID when targeting the `tellraw` command to be future-proof against edge cases
+- `NetheriteDisablerListener`: `event.getView().getPlayer()` guarded with `instanceof Player` pattern-match to prevent a `ClassCastException` if a non-player human entity ever triggers the smithing event
+
+### Changed
+
+- `VanillaCorePlugin`: scheduled `CooldownManager.cleanup()` as an async repeating task (every 5 minutes) to evict expired cooldown entries for offline players and prevent unbounded memory growth
+- `CDNManager`: removed the unused `CachedData` inner class
+- `ChatInputListener`: migrated from deprecated `AsyncPlayerChatEvent` (Bukkit) to `AsyncChatEvent` (Paper) and `PlainTextComponentSerializer` for message extraction
 
 - Stop Item Despawn feature: items dropped when a player dies will never despawn naturally; they persist indefinitely until picked up; enabled via `features.stop-item-despawn.enabled`
 - Back button (ARROW) to Shield Mechanics settings GUI (slot 22) to navigate back to the main menu
