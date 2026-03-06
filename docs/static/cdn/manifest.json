@@ -1,9 +1,14 @@
 {
-    "latestVersion": "1.3.2",
+    "latestVersion": "1.4.0",
     "documentationUrl": "https://vanillacore.tejaslamba.com/docs",
     "modrinthUrl": "https://modrinth.com/plugin/vanillacorewastaken",
     "discordUrl": "https://discord.gg/7fQPG4Grwt",
     "versions": {
+        "1.4.0": {
+            "minPluginVersion": "1.4.0",
+            "releaseDate": "2026-03-07",
+            "changelog": "Added Stop Item Despawn and Anti Breach Swap Features"
+        },
         "1.3.2": {
             "minPluginVersion": "1.3.2",
             "releaseDate": "2026-02-27",

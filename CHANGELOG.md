@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-03-07
+
 ### Fixed
 
 - `VanillaCorePlugin`: removed duplicate `"vanillacore"` entries in the data-folder migration array (was listed three times)
@@ -47,7 +49,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `CDNManager`: removed the unused `CachedData` inner class
 - `ChatInputListener`: migrated from deprecated `AsyncPlayerChatEvent` (Bukkit) to `AsyncChatEvent` (Paper) and `PlainTextComponentSerializer` for message extraction
 
-- Breach Swap feature: blocks hotbar and hand-swap (F key) between a Breach-enchanted mace and any sword or axe, closing the breach-swap PvP exploit; configurable action bar denied message via `features.breach-swap.denied-message`
+- Breach Swap: swapping between a Breach-enchanted mace and a sword/axe is now allowed freely; the first attack within 500ms of that swap is blocked instead, removing the attribute-swap PvP advantage without restricting movement
+- Breach Swap GUI: the mace icon in the settings menu now displays with an enchantment glint
 
 ## [1.3.3] - 2026-03-01
 

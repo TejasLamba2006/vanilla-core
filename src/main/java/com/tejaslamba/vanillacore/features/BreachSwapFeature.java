@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,8 +62,14 @@ public class BreachSwapFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.MACE, "<!italic><red>Breach Swap",
+        ItemStack item = createMenuItem(Material.MACE, "<!italic><red>Breach Swap",
                 "<!italic><gray>Prevent swapping between Breach mace and sword/axe");
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            meta.setEnchantmentGlintOverride(true);
+            item.setItemMeta(meta);
+        }
+        return item;
     }
 
     @Override
