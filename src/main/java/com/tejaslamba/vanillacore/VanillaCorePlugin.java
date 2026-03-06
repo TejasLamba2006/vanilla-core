@@ -83,7 +83,7 @@ public class VanillaCorePlugin extends JavaPlugin {
             return;
         }
 
-        String[] oldFolderNames = { "smp-core", "SMP-Core", "vanillacore" };
+        String[] oldFolderNames = { "smp-core", "SMP-Core", "SMPCore", "vanillacore" };
         File oldDataFolder = null;
         for (String oldFolderName : oldFolderNames) {
             File candidate = new File(pluginsFolder, oldFolderName);

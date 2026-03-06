@@ -148,7 +148,6 @@ public class FeatureManager {
                         try {
                             classes.add(Class.forName(className));
                         } catch (ClassNotFoundException | NoClassDefFoundError ignored) {
-                            // Skip classes that can't be loaded
                         }
                     }
                 }
@@ -167,7 +166,6 @@ public class FeatureManager {
                                 try {
                                     classes.add(Class.forName(className));
                                 } catch (ClassNotFoundException | NoClassDefFoundError ignored) {
-                                    // Skip classes that can't be loaded
                                 }
                             }
                         }

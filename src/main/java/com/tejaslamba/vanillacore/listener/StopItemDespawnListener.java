@@ -23,6 +23,7 @@ public class StopItemDespawnListener implements Listener {
     private final VanillaCorePlugin plugin;
     private final Map<UUID, Location> recentDeaths = new HashMap<>();
     private final Set<UUID> deathDrops = new HashSet<>();
+    private final Map<UUID, Integer> cleanupTasks = new HashMap<>();
 
     public StopItemDespawnListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
@@ -38,7 +39,15 @@ public class StopItemDespawnListener implements Listener {
         Location deathLoc = event.getPlayer().getLocation();
         recentDeaths.put(playerId, deathLoc);
 
-        plugin.getServer().getScheduler().runTaskLater(plugin, () -> recentDeaths.remove(playerId), 60L);
+        if (cleanupTasks.containsKey(playerId)) {
+            plugin.getServer().getScheduler().cancelTask(cleanupTasks.get(playerId));
+        }
+
+        int taskId = plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+            recentDeaths.remove(playerId);
+            cleanupTasks.remove(playerId);
+        }, 60L).getTaskId();
+        cleanupTasks.put(playerId, taskId);
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -51,7 +60,7 @@ public class StopItemDespawnListener implements Listener {
         for (Location deathLoc : recentDeaths.values()) {
             if (deathLoc.getWorld() != null
                     && deathLoc.getWorld().equals(spawnLoc.getWorld())
-                    && spawnLoc.distanceSquared(deathLoc) < 16) {
+                    && spawnLoc.distanceSquared(deathLoc) <= 16) {
                 deathDrops.add(event.getEntity().getUniqueId());
                 return;
             }
@@ -60,17 +69,22 @@ public class StopItemDespawnListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onItemDespawn(ItemDespawnEvent event) {
+        UUID itemId = event.getEntity().getUniqueId();
         if (!isEnabled()) {
+            deathDrops.remove(itemId);
             return;
         }
 
-        if (deathDrops.contains(event.getEntity().getUniqueId())) {
+        if (deathDrops.contains(itemId)) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onItemMerge(ItemMergeEvent event) {
+        if (!isEnabled()) {
+            return;
+        }
         if (deathDrops.contains(event.getEntity().getUniqueId())) {
             deathDrops.add(event.getTarget().getUniqueId());
             deathDrops.remove(event.getEntity().getUniqueId());

@@ -10,26 +10,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - `VanillaCorePlugin`: removed duplicate `"vanillacore"` entries in the data-folder migration array (was listed three times)
+- `VanillaCorePlugin`: re-added `"SMPCore"` legacy alias to data-folder migration array so configs from that legacy folder name are migrated correctly
 - `ConfigManager`: corrected default config key `features.mace-limiter.mace-crafted` → `features.mace-limiter.maces-crafted` so config migration properly seeds the mace craft counter
+- `ConfigManager`: added explicit migration step to remove the old boolean `mace-crafted` key and convert its value to the new integer `maces-crafted` key in existing configs
+- `ConfigManager`: fixed migration log message reporting total defaults instead of actually-added entry count; also removed dead empty features array
+- `ConfigManager`: bumped `CURRENT_CONFIG_VERSION` to 3 to reflect the new `features.stop-item-despawn` config section
+- `DimensionLockFeature.toggle()`: CDN-sourced messages are now escaped with `MiniMessage.escapeTags()` before being passed to `MessageManager.parse()` to prevent MiniMessage tag injection from remote payloads; also added null checks on CDN message getters
 - `DimensionLockFeature`: made `sharedListener` and registration flag static so `NetherLockFeature` and `EndLockFeature` share one `DimensionLockListener` instance instead of each registering their own, preventing every `PlayerPortalEvent` from firing twice
 - `DimensionLockFeature.toggle()`: added remote-disable and maintenance-mode checks (matching `BaseFeature.toggleDefault()`) before processing the toggle
+- `FeatureManager.getClasses()`: removed `// Skip classes that can't be loaded` comments from both catch blocks (production code no-comment rule); also added null check for `directory.listFiles()` return value
+- `OnePlayerSleepListener`: player name and display name are now escaped with `MiniMessage.escapeTags()` before substitution to prevent tag injection; sleep message is parsed once and reused for all recipients; skip message is also parsed once outside the loop
 - `OnePlayerSleepListener`: sleep and skip messages now parsed through `MessageManager.parse()` so MiniMessage tags (e.g. `<yellow>{player}`) render correctly instead of showing literally
+- `MaceLimiterListener`: shift-click mace crafting now validates cursor is empty and inventory has space before consuming ingredients; result is added via `addItem()` instead of `setItemOnCursor()` to properly handle shift-click semantics
 - `MaceLimiterListener`: shift-click mace crafting now sets matrix slots to `null` instead of `setAmount(0)` when an ingredient stack reaches zero, preventing ghost items in the crafting grid
+- `ServerRestartFeature`: `setScheduledRestartsEnabled(false)` now cancels the running checker task, preventing it from continuing after scheduled restarts are disabled
 - `ServerRestartFeature`: `startScheduledRestartChecker()` now stores its task ID; `reload()` and `onDisable()` cancel the old checker task before starting a new one, preventing accumulated duplicate restart-checker tasks across reloads
+- `StopItemDespawnListener`: double-death within 60-tick window no longer causes the second death location to be prematurely removed; previous cleanup task is cancelled before scheduling a new one
+- `StopItemDespawnListener`: stale UUID accumulation fixed — `onItemDespawn` now always removes item UUID from `deathDrops` even when feature is disabled, preventing unbounded set growth for items destroyed by lava/void/explosions
+- `StopItemDespawnListener`: proximity radius check changed from `< 16` to `<= 16` so items spawning exactly 4 blocks from the death location are included
+- `StopItemDespawnListener`: `onItemMerge` now checks `isEnabled()` to avoid silently transferring tags when feature is toggled off mid-session
+- `MenuClickListener`: ARROW back-button click in Mob Manager World Select GUI now also validates the slot (`inventorySize - 3`) to prevent any future ARROW item from accidentally triggering navigation
 - `FeatureManager.getClasses()`: added null check for `directory.listFiles()` return value to prevent `NullPointerException` when an I/O error occurs in dev/directory mode
 - `InvisibleKillsFeature`: standardised default death-message fallback tag from `<obfuscated>` to `<obf>` to match the default in `InvisibleKillsListener`
 - `MinimapControlFeature.sendTellraw()`: switched from player name to UUID when targeting the `tellraw` command to be future-proof against edge cases
 - `NetheriteDisablerListener`: `event.getView().getPlayer()` guarded with `instanceof Player` pattern-match to prevent a `ClassCastException` if a non-player human entity ever triggers the smithing event
+
+### Added
+
+- Stop Item Despawn feature: items dropped when a player dies will never despawn naturally; they persist indefinitely until picked up; enabled via `features.stop-item-despawn.enabled`
+- Back button (ARROW) to Shield Mechanics settings GUI (slot 22) to navigate back to the main menu
+- Back button (ARROW) to Mob Manager World Select GUI (slot `size-3`) to navigate back to the main menu
 
 ### Changed
 
 - `VanillaCorePlugin`: scheduled `CooldownManager.cleanup()` as an async repeating task (every 5 minutes) to evict expired cooldown entries for offline players and prevent unbounded memory growth
 - `CDNManager`: removed the unused `CachedData` inner class
 - `ChatInputListener`: migrated from deprecated `AsyncPlayerChatEvent` (Bukkit) to `AsyncChatEvent` (Paper) and `PlainTextComponentSerializer` for message extraction
-
-- Stop Item Despawn feature: items dropped when a player dies will never despawn naturally; they persist indefinitely until picked up; enabled via `features.stop-item-despawn.enabled`
-- Back button (ARROW) to Shield Mechanics settings GUI (slot 22) to navigate back to the main menu
-- Back button (ARROW) to Mob Manager World Select GUI (slot `size-3`) to navigate back to the main menu
 
 - Breach Swap feature: blocks hotbar and hand-swap (F key) between a Breach-enchanted mace and any sword or axe, closing the breach-swap PvP exploit; configurable action bar denied message via `features.breach-swap.denied-message`
 

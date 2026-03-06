@@ -597,6 +597,11 @@ public class ServerRestartFeature extends BaseFeature {
 
         if (enabled) {
             startScheduledRestartChecker();
+        } else {
+            if (scheduledCheckerTaskId != -1) {
+                Bukkit.getScheduler().cancelTask(scheduledCheckerTaskId);
+                scheduledCheckerTaskId = -1;
+            }
         }
     }
 

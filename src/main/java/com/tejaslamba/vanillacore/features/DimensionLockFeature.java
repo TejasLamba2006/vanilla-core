@@ -4,6 +4,7 @@ import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.DimensionLockListener;
 import com.tejaslamba.vanillacore.manager.MessageManager;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
@@ -100,8 +101,8 @@ public abstract class DimensionLockFeature extends BaseFeature {
     private void toggle(Player player) {
         if (isRemotelyDisabled()) {
             String message = "This feature has been remotely disabled.";
-            if (plugin.getCDNManager() != null) {
-                message = plugin.getCDNManager().getDisabledMessage();
+            if (plugin.getCDNManager() != null && plugin.getCDNManager().getDisabledMessage() != null) {
+                message = MiniMessage.miniMessage().escapeTags(plugin.getCDNManager().getDisabledMessage());
             }
             player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>" + message));
             return;
@@ -109,8 +110,8 @@ public abstract class DimensionLockFeature extends BaseFeature {
 
         if (plugin.getFeatureManager().isMaintenanceMode()) {
             String message = "Plugin is in maintenance mode.";
-            if (plugin.getCDNManager() != null) {
-                message = plugin.getCDNManager().getMaintenanceMessage();
+            if (plugin.getCDNManager() != null && plugin.getCDNManager().getMaintenanceMessage() != null) {
+                message = MiniMessage.miniMessage().escapeTags(plugin.getCDNManager().getMaintenanceMessage());
             }
             player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>" + message));
             return;

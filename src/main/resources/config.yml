@@ -10,7 +10,7 @@
 # ============================================
 
 # Do not change the config-version unless instructed or config would reset.
-config-version: 2
+config-version: 3
 
 # ============================================
 # Plugin Settings

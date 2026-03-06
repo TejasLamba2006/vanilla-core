@@ -9,7 +9,7 @@ import java.util.Map;
 public class ConfigManager {
 
     private final JavaPlugin plugin;
-    private static final int CURRENT_CONFIG_VERSION = 2;
+    private static final int CURRENT_CONFIG_VERSION = 3;
 
     public ConfigManager(JavaPlugin plugin) {
         this.plugin = plugin;
@@ -35,13 +35,23 @@ public class ConfigManager {
 
         plugin.getLogger().info("Migrating config from version " + configVersion + " to " + CURRENT_CONFIG_VERSION);
 
+        if (config.contains("features.mace-limiter.mace-crafted")) {
+            boolean oldValue = config.getBoolean("features.mace-limiter.mace-crafted", false);
+            config.set("features.mace-limiter.mace-crafted", null);
+            if (!config.contains("features.mace-limiter.maces-crafted")) {
+                config.set("features.mace-limiter.maces-crafted", oldValue ? 1 : 0);
+            }
+        }
+
         Map<String, Object> defaults = getDefaultValues();
         boolean modified = false;
+        int addedCount = 0;
 
         for (Map.Entry<String, Object> entry : defaults.entrySet()) {
             if (!config.contains(entry.getKey())) {
                 config.set(entry.getKey(), entry.getValue());
                 modified = true;
+                addedCount++;
                 if (verbose) {
                     plugin.getLogger()
                             .info("[VERBOSE] Added missing config key: " + entry.getKey() + " = " + entry.getValue());
@@ -54,7 +64,7 @@ public class ConfigManager {
 
         if (modified) {
             save();
-            plugin.getLogger().info("Config migration completed. Added " + defaults.size() + " missing entries.");
+            plugin.getLogger().info("Config migration completed. Added " + addedCount + " missing entries.");
         }
     }
 
@@ -64,14 +74,6 @@ public class ConfigManager {
         defaults.put("plugin.name", "Vanilla Core");
         defaults.put("plugin.prefix", "<dark_gray>[<gold>Vanilla Core<dark_gray>]<reset>");
         defaults.put("plugin.verbose", false);
-
-        String[] features = {
-
-        };
-
-        for (String feature : features) {
-            defaults.put("features." + feature + ".enabled", false);
-        }
 
         defaults.put("features.enchantment-limiter.enabled", false);
 
