@@ -148,7 +148,6 @@ public class FeatureManager {
                         try {
                             classes.add(Class.forName(className));
                         } catch (ClassNotFoundException | NoClassDefFoundError ignored) {
-                            // Skip classes that can't be loaded
                         }
                     }
                 }
@@ -158,14 +157,16 @@ public class FeatureManager {
             if (resource != null) {
                 File directory = new File(resource.toURI());
                 if (directory.exists()) {
-                    for (File file : directory.listFiles()) {
-                        if (file.getName().endsWith(".class")) {
-                            String className = packageName + '.'
-                                    + file.getName().substring(0, file.getName().length() - 6);
-                            try {
-                                classes.add(Class.forName(className));
-                            } catch (ClassNotFoundException | NoClassDefFoundError ignored) {
-                                // Skip classes that can't be loaded
+                    File[] files = directory.listFiles();
+                    if (files != null) {
+                        for (File file : files) {
+                            if (file.getName().endsWith(".class")) {
+                                String className = packageName + '.'
+                                        + file.getName().substring(0, file.getName().length() - 6);
+                                try {
+                                    classes.add(Class.forName(className));
+                                } catch (ClassNotFoundException | NoClassDefFoundError ignored) {
+                                }
                             }
                         }
                     }

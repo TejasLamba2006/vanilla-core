@@ -255,6 +255,14 @@ public class MobManagerFeature extends BaseFeature {
         }
         gui.setItem(size - 5, allWorlds);
 
+        ItemStack backItem = new ItemStack(Material.ARROW);
+        ItemMeta backItemMeta = backItem.getItemMeta();
+        if (backItemMeta != null) {
+            backItemMeta.displayName(MessageManager.parse("<!italic><yellow>Back to Main Menu"));
+            backItem.setItemMeta(backItemMeta);
+        }
+        gui.setItem(size - 3, backItem);
+
         ItemStack closeItem = new ItemStack(Material.BARRIER);
         ItemMeta closeMeta = closeItem.getItemMeta();
         if (closeMeta != null) {

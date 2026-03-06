@@ -1,6 +1,9 @@
 package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
+import com.tejaslamba.vanillacore.manager.MessageManager;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -34,12 +37,14 @@ public class OnePlayerSleepListener implements Listener {
         }
 
         Player player = event.getPlayer();
+        MiniMessage mm = MiniMessage.miniMessage();
         String formattedMessage = sleepMessage
-                .replace("{player}", player.getName())
-                .replace("{displayname}", player.getDisplayName());
+                .replace("{player}", mm.escapeTags(player.getName()))
+                .replace("{displayname}", mm.escapeTags(player.getDisplayName()));
+        Component parsedMessage = MessageManager.parse(formattedMessage);
 
         for (Player p : Bukkit.getOnlinePlayers()) {
-            p.sendMessage(formattedMessage);
+            p.sendMessage(parsedMessage);
         }
     }
 
@@ -59,8 +64,9 @@ public class OnePlayerSleepListener implements Listener {
         }
 
         World world = event.getWorld();
+        Component parsedSkipMessage = MessageManager.parse(skipMessage);
         for (Player player : world.getPlayers()) {
-            player.sendMessage(skipMessage);
+            player.sendMessage(parsedSkipMessage);
         }
     }
 }

@@ -54,14 +54,25 @@ public class MaceLimiterListener implements Listener {
 
         if (event.isShiftClick()) {
             event.setCancelled(true);
+            ItemStack cursorItem = crafter.getItemOnCursor();
+            if (cursorItem != null && !cursorItem.getType().isAir()) {
+                return;
+            }
+            if (!crafter.getInventory().addItem(resultItem.clone()).isEmpty()) {
+                return;
+            }
             ItemStack[] matrix = event.getInventory().getMatrix();
-            for (ItemStack itemStack : matrix) {
+            for (int i = 0; i < matrix.length; i++) {
+                ItemStack itemStack = matrix[i];
                 if (itemStack != null && !itemStack.getType().isAir()) {
-                    itemStack.setAmount(itemStack.getAmount() - 1);
+                    if (itemStack.getAmount() <= 1) {
+                        matrix[i] = null;
+                    } else {
+                        itemStack.setAmount(itemStack.getAmount() - 1);
+                    }
                 }
             }
             event.getInventory().setMatrix(matrix);
-            event.getWhoClicked().setItemOnCursor(resultItem.clone());
         }
 
         feature.incrementMacesCrafted();

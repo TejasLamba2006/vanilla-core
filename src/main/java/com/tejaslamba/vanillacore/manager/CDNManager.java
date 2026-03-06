@@ -268,18 +268,4 @@ public class CDNManager {
             return 0;
         }
     }
-
-    private static class CachedData {
-        String data;
-        long timestamp;
-
-        CachedData(String data) {
-            this.data = data;
-            this.timestamp = System.currentTimeMillis();
-        }
-
-        boolean isExpired() {
-            return System.currentTimeMillis() - timestamp > CACHE_DURATION_MS;
-        }
-    }
 }
