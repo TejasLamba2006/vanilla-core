@@ -7,8 +7,8 @@ import com.tejaslamba.vanillacore.features.MobManagerFeature;
 import com.tejaslamba.vanillacore.features.NetheriteDisablerFeature;
 import com.tejaslamba.vanillacore.features.InfiniteRestockFeature;
 import com.tejaslamba.vanillacore.features.ShieldMechanicsFeature;
+import com.tejaslamba.vanillacore.menu.GuiHolder;
 import com.tejaslamba.vanillacore.menu.MainMenu;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -20,6 +20,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.InventoryHolder;
 
 public class MenuClickListener implements Listener {
@@ -51,104 +52,67 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        String title = event.getView().getTitle();
-
-        if (title.equals(ItemLimiterFeature.MAIN_GUI_TITLE)) {
-            event.setCancelled(true);
-            if (!isClickInTopInventory(event))
-                return;
-            handleItemLimiterMainGUI(event, player);
-            return;
-        }
-
-        if (title.equals(ItemLimiterFeature.ADD_GUI_TITLE)) {
-            handleItemLimiterAddGUI(event, player);
-            return;
-        }
-
-        if (title.equals(ItemLimiterFeature.VIEW_GUI_TITLE)) {
-            event.setCancelled(true);
-            if (!isClickInTopInventory(event))
-                return;
-            handleItemLimiterViewGUI(event, player);
-            return;
-        }
-
-        if (title.equals(ItemLimiterFeature.BANNED_GUI_TITLE)) {
-            event.setCancelled(true);
-            if (!isClickInTopInventory(event))
-                return;
-            handleItemLimiterBannedGUI(event, player);
-            return;
-        }
-
-        if (title.equals(InfiniteRestockFeature.GUI_TITLE)) {
-            event.setCancelled(true);
-            if (!isClickInTopInventory(event))
-                return;
-            handleInfiniteRestockGUI(event, player);
-            return;
-        }
-
-        if (title.equals(InfiniteRestockFeature.BLACKLIST_GUI_TITLE)) {
-            event.setCancelled(true);
-            if (!isClickInTopInventory(event))
-                return;
-            handleInfiniteRestockBlacklistGUI(event, player);
-            return;
-        }
-
-        if (title.equals(NetheriteDisablerFeature.GUI_TITLE)) {
-            event.setCancelled(true);
-            if (!isClickInTopInventory(event))
-                return;
-            handleNetheriteGUI(event, player);
-            return;
-        }
-
-        if (event.getView().title().equals(MobManagerFeature.WORLD_SELECT_GUI_TITLE)) {
-            event.setCancelled(true);
-            if (!isClickInTopInventory(event))
-                return;
-            handleWorldSelectGUI(event, player);
-            return;
-        }
-
-        if (event.getView().title().equals(MobManagerFeature.SETTINGS_GUI_TITLE)) {
-            event.setCancelled(true);
-            if (!isClickInTopInventory(event))
-                return;
-            handleMobManagerSettingsGUI(event, player);
-            return;
-        }
-
-        if (PlainTextComponentSerializer.plainText().serialize(event.getView().title())
-                .startsWith(MobManagerFeature.GUI_TITLE_PLAIN)) {
-            event.setCancelled(true);
-            if (!isClickInTopInventory(event))
-                return;
-            handleMobManagerGUI(event, player);
-            return;
-        }
-
-        if (event.getView().title().equals(MobManagerFeature.SPAWN_REASONS_GUI_TITLE)) {
-            event.setCancelled(true);
-            if (!isClickInTopInventory(event))
-                return;
-            handleSpawnReasonsGUI(event, player);
-            return;
-        }
-
-        if (event.getView().title().equals(ShieldMechanicsFeature.GUI_TITLE)) {
-            event.setCancelled(true);
-            if (!isClickInTopInventory(event))
-                return;
-            handleShieldMechanicsGUI(event, player);
-            return;
-        }
-
-        InventoryHolder holder = event.getInventory().getHolder();
-        if (holder instanceof MainMenu mainMenu) {
+        InventoryHolder holder = event.getView().getTopInventory().getHolder();
+        if (holder instanceof GuiHolder gui) {
+            switch (gui.getId()) {
+                case "item-limiter-main" -> {
+                    event.setCancelled(true);
+                    if (isClickInTopInventory(event))
+                        handleItemLimiterMainGUI(event, player);
+                }
+                case "item-limiter-add" -> handleItemLimiterAddGUI(event, player);
+                case "item-limiter-view" -> {
+                    event.setCancelled(true);
+                    if (isClickInTopInventory(event))
+                        handleItemLimiterViewGUI(event, player);
+                }
+                case "item-limiter-banned" -> {
+                    event.setCancelled(true);
+                    if (isClickInTopInventory(event))
+                        handleItemLimiterBannedGUI(event, player);
+                }
+                case "infinite-restock" -> {
+                    event.setCancelled(true);
+                    if (isClickInTopInventory(event))
+                        handleInfiniteRestockGUI(event, player);
+                }
+                case "infinite-restock-blacklist" -> {
+                    event.setCancelled(true);
+                    if (isClickInTopInventory(event))
+                        handleInfiniteRestockBlacklistGUI(event, player);
+                }
+                case "netherite-disabler" -> {
+                    event.setCancelled(true);
+                    if (isClickInTopInventory(event))
+                        handleNetheriteGUI(event, player);
+                }
+                case "mob-manager-world-select" -> {
+                    event.setCancelled(true);
+                    if (isClickInTopInventory(event))
+                        handleWorldSelectGUI(event, player);
+                }
+                case "mob-manager" -> {
+                    event.setCancelled(true);
+                    if (isClickInTopInventory(event))
+                        handleMobManagerGUI(event, player);
+                }
+                case "mob-manager-spawn-reasons" -> {
+                    event.setCancelled(true);
+                    if (isClickInTopInventory(event))
+                        handleSpawnReasonsGUI(event, player);
+                }
+                case "mob-manager-settings" -> {
+                    event.setCancelled(true);
+                    if (isClickInTopInventory(event))
+                        handleMobManagerSettingsGUI(event, player);
+                }
+                case "shield-mechanics" -> {
+                    event.setCancelled(true);
+                    if (isClickInTopInventory(event))
+                        handleShieldMechanicsGUI(event, player);
+                }
+            }
+        } else if (holder instanceof MainMenu mainMenu) {
             mainMenu.handleClick(event);
         }
     }
@@ -159,17 +123,23 @@ public class MenuClickListener implements Listener {
             return;
         }
 
-        String title = event.getView().getTitle();
-
-        if (title.equals(ItemLimiterFeature.MAIN_GUI_TITLE) ||
-                title.equals(ItemLimiterFeature.ADD_GUI_TITLE) ||
-                title.equals(ItemLimiterFeature.VIEW_GUI_TITLE) ||
-                title.equals(ItemLimiterFeature.BANNED_GUI_TITLE)) {
-
+        InventoryHolder holder = event.getView().getTopInventory().getHolder();
+        if (holder instanceof GuiHolder gui && gui.getId().startsWith("item-limiter")) {
             ItemLimiterFeature feature = plugin.getFeatureManager().getFeature(ItemLimiterFeature.class);
             if (feature != null) {
-                feature.handleInventoryClose(player, title);
+                feature.handleInventoryClose(player, gui.getId());
             }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onInventoryDrag(InventoryDragEvent event) {
+        if (!(event.getWhoClicked() instanceof Player)) {
+            return;
+        }
+        InventoryHolder holder = event.getView().getTopInventory().getHolder();
+        if (holder instanceof GuiHolder || holder instanceof MainMenu) {
+            event.setCancelled(true);
         }
     }
 

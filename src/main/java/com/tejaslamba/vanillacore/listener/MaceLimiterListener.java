@@ -3,6 +3,7 @@ package com.tejaslamba.vanillacore.listener;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.MaceLimiterFeature;
 import com.tejaslamba.vanillacore.manager.MessageManager;
+import com.tejaslamba.vanillacore.menu.GuiHolder;
 import com.tejaslamba.vanillacore.menu.MainMenu;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
@@ -164,7 +165,8 @@ public class MaceLimiterListener implements Listener {
             return;
         }
 
-        if (!event.getView().title().equals(MaceLimiterFeature.GUI_TITLE)) {
+        if (!(event.getView().getTopInventory().getHolder() instanceof GuiHolder gh)
+                || !gh.getId().equals("mace-limiter")) {
             return;
         }
 

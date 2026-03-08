@@ -3,6 +3,7 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.MinimapControlListener;
+import com.tejaslamba.vanillacore.menu.GuiHolder;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -156,7 +157,7 @@ public class MinimapControlFeature extends BaseFeature {
     }
 
     public void openMainGUI(Player player) {
-        Inventory gui = Bukkit.createInventory(null, 36, GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("minimap-control"), 36, GUI_TITLE);
 
         ItemStack modeItem = createModeItem();
         gui.setItem(13, modeItem);
@@ -274,7 +275,8 @@ public class MinimapControlFeature extends BaseFeature {
         List<World> worlds = Bukkit.getWorlds();
         int size = Math.min(54, ((worlds.size() + 8) / 9 + 1) * 9);
         size = Math.max(27, size);
-        Inventory gui = Bukkit.createInventory(null, size, WORLD_SETTINGS_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("minimap-control-world-settings"), size,
+                WORLD_SETTINGS_GUI_TITLE);
 
         int slot = 0;
         for (World world : worlds) {

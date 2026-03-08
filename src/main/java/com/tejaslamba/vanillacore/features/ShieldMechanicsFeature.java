@@ -3,6 +3,7 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.ShieldMechanicsListener;
+import com.tejaslamba.vanillacore.menu.GuiHolder;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -104,7 +105,7 @@ public class ShieldMechanicsFeature extends BaseFeature {
     }
 
     public void openSettingsGUI(Player player) {
-        Inventory gui = plugin.getServer().createInventory(null, 27, GUI_TITLE);
+        Inventory gui = plugin.getServer().createInventory(new GuiHolder("shield-mechanics"), 27, GUI_TITLE);
 
         fillFiller(gui, 27);
 

@@ -5,6 +5,7 @@ import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.itemlimiter.ItemLimit;
 import com.tejaslamba.vanillacore.itemlimiter.ItemLimiterManager;
 import com.tejaslamba.vanillacore.listener.ItemLimiterListener;
+import com.tejaslamba.vanillacore.menu.GuiHolder;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -56,9 +57,8 @@ public class ItemLimiterFeature extends BaseFeature {
     @Override
     public void onDisable() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            String title = player.getOpenInventory().getTitle();
-            if (title.equals(MAIN_GUI_TITLE) || title.equals(ADD_GUI_TITLE) ||
-                    title.equals(VIEW_GUI_TITLE) || title.equals(BANNED_GUI_TITLE)) {
+            if (player.getOpenInventory().getTopInventory().getHolder() instanceof GuiHolder gh
+                    && gh.getId().startsWith("item-limiter")) {
                 player.closeInventory();
             }
         }
@@ -152,7 +152,7 @@ public class ItemLimiterFeature extends BaseFeature {
             return;
         }
 
-        Inventory gui = Bukkit.createInventory(null, 27, MAIN_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("item-limiter-main"), 27, MAIN_GUI_TITLE);
 
         ItemStack viewLimits = createGuiItem(Material.BOOK, "<!italic><green>View Item Limits",
                 "<gray>Click to view all",
@@ -194,7 +194,7 @@ public class ItemLimiterFeature extends BaseFeature {
 
         int size = Math.min(54, Math.max(27, (limits.size() / 9 + 1) * 9 + 9));
 
-        Inventory gui = Bukkit.createInventory(null, size, VIEW_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("item-limiter-view"), size, VIEW_GUI_TITLE);
 
         int slot = 0;
         for (Map.Entry<String, ItemLimit> entry : limits.entrySet()) {
@@ -254,7 +254,7 @@ public class ItemLimiterFeature extends BaseFeature {
 
         int size = Math.min(54, Math.max(27, (bannedItems.size() / 9 + 1) * 9 + 9));
 
-        Inventory gui = Bukkit.createInventory(null, size, BANNED_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("item-limiter-banned"), size, BANNED_GUI_TITLE);
 
         int slot = 0;
         for (Map.Entry<String, ItemLimit> entry : bannedItems.entrySet()) {
@@ -304,7 +304,7 @@ public class ItemLimiterFeature extends BaseFeature {
             return;
         }
 
-        Inventory gui = Bukkit.createInventory(null, 27, ADD_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("item-limiter-add"), 27, ADD_GUI_TITLE);
 
         GuiSession session = sessions.get(player.getUniqueId());
         if (session == null) {
@@ -700,8 +700,8 @@ public class ItemLimiterFeature extends BaseFeature {
         });
     }
 
-    public void handleInventoryClose(Player player, String title) {
-        if (title.equals(ADD_GUI_TITLE)) {
+    public void handleInventoryClose(Player player, String guiId) {
+        if (guiId.equals("item-limiter-add")) {
             if (keepSession.remove(player.getUniqueId()) == null) {
                 sessions.remove(player.getUniqueId());
             }

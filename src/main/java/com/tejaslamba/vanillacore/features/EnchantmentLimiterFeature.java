@@ -4,6 +4,7 @@ import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.enchantlimiter.EnchantmentLimiterManager;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.EnchantmentLimiterListener;
+import com.tejaslamba.vanillacore.menu.GuiHolder;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -76,8 +77,8 @@ public class EnchantmentLimiterFeature extends BaseFeature {
     @Override
     public void onDisable() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            String title = player.getOpenInventory().getTitle();
-            if (title.equals(GUI_TITLE) || title.startsWith(CONFIG_GUI_TITLE)) {
+            if (player.getOpenInventory().getTopInventory().getHolder() instanceof GuiHolder gh
+                    && gh.getId().startsWith("enchantment-limiter")) {
                 player.closeInventory();
             }
         }
@@ -145,7 +146,7 @@ public class EnchantmentLimiterFeature extends BaseFeature {
     public void openConfigGUI(Player player, int page) {
         int totalPages = getTotalPages();
         page = Math.clamp(page, 0, totalPages - 1);
-        Inventory gui = Bukkit.createInventory(null, 54, MessageManager.parse(
+        Inventory gui = Bukkit.createInventory(new GuiHolder("enchantment-limiter-config"), 54, MessageManager.parse(
                 "<gold>Configure Limits <gray>(" + (page + 1) + "/" + totalPages + ")"));
 
         int startIndex = page * CONTENT_SLOTS.length;

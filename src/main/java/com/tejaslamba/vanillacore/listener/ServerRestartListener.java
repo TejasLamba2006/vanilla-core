@@ -3,6 +3,7 @@ package com.tejaslamba.vanillacore.listener;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import com.tejaslamba.vanillacore.features.ServerRestartFeature;
+import com.tejaslamba.vanillacore.menu.GuiHolder;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -51,11 +52,12 @@ public class ServerRestartListener implements Listener {
         if (!(event.getWhoClicked() instanceof Player player))
             return;
 
-        Component title = event.getView().title();
-
-        if (title.equals(ServerRestartFeature.GUI_TITLE)) {
+        if (!(event.getView().getTopInventory().getHolder() instanceof GuiHolder gh)) {
+            return;
+        }
+        if (gh.getId().equals("server-restart")) {
             handleMainGUI(event, player);
-        } else if (title.equals(ServerRestartFeature.SCHEDULE_GUI_TITLE)) {
+        } else if (gh.getId().equals("server-restart-schedule")) {
             handleScheduleGUI(event, player);
         }
     }
