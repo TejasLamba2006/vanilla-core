@@ -19,7 +19,7 @@
 - [ ] Combat Restrictions
   - [ ] Anti-restock in combat
   - [ ] Anti-elytra in combat
-  - [ ] Ban breach swapping (hotbar swap prevention)
+  - [x] Ban breach swapping (hotbar swap prevention)
 - [x] Shield Mechanics
   - [x] Mace stun shield on hit
   - [x] Modify Shield disable duration
