@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `MinimapControlFeature.sendTellraw()`: replaced console `tellraw` dispatch with direct `player.sendMessage(...)` delivery so Xaero control strings are sent as chat text without Brigadier JSON parsing errors during GUI clicks
+
 ### Security
 
 - All plugin GUIs now use `GuiHolder` (a typed `InventoryHolder`) as the inventory holder instead of `null`; click and close dispatch in `MenuClickListener` and all individual feature listeners now identify plugin GUIs by holder type rather than title string, preventing spoofed inventory titles from triggering plugin GUI handlers
