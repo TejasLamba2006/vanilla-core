@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.1] - 2026-03-19
+
 ### Fixed
 
 - `MinimapControlFeature.sendTellraw()`: replaced console `tellraw` dispatch with direct `player.sendMessage(...)` delivery so Xaero control strings are sent as chat text without Brigadier JSON parsing errors during GUI clicks
