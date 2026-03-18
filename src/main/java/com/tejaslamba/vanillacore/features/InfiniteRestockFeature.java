@@ -3,6 +3,7 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.InfiniteRestockListener;
+import com.tejaslamba.vanillacore.menu.GuiHolder;
 import com.tejaslamba.vanillacore.infiniterestock.InfiniteRestockManager;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.Component;
@@ -117,7 +118,7 @@ public class InfiniteRestockFeature extends BaseFeature {
             return;
         }
 
-        Inventory gui = Bukkit.createInventory(null, 36, GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("infinite-restock"), 36, GUI_TITLE);
 
         ItemStack maxTrades = createGuiItem(Material.ANVIL, "<!italic><yellow>Set Max Trades",
                 "<gray>Current: <white>" + manager.getMaxTrades(),
@@ -167,7 +168,7 @@ public class InfiniteRestockFeature extends BaseFeature {
             return;
         }
 
-        Inventory gui = Bukkit.createInventory(null, 45, BLACKLIST_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("infinite-restock-blacklist"), 45, BLACKLIST_GUI_TITLE);
 
         int slot = 10;
         for (Villager.Profession profession : Villager.Profession.values()) {

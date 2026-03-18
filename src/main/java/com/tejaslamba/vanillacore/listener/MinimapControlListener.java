@@ -2,6 +2,7 @@ package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.MinimapControlFeature;
+import com.tejaslamba.vanillacore.menu.GuiHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -60,12 +61,13 @@ public class MinimapControlListener implements Listener {
         if (!(event.getWhoClicked() instanceof Player player))
             return;
 
-        String title = event.getView().getTitle();
-
-        if (title.equals(MinimapControlFeature.GUI_TITLE)) {
+        if (!(event.getView().getTopInventory().getHolder() instanceof GuiHolder gh)) {
+            return;
+        }
+        if (gh.getId().equals("minimap-control")) {
             event.setCancelled(true);
             handleMainGUIClick(player, event.getSlot(), event.getCurrentItem());
-        } else if (title.equals(MinimapControlFeature.WORLD_SETTINGS_GUI_TITLE)) {
+        } else if (gh.getId().equals("minimap-control-world-settings")) {
             event.setCancelled(true);
             handleWorldSettingsClick(player, event.getSlot(), event.getCurrentItem(), event.isRightClick());
         }

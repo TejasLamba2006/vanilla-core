@@ -2,6 +2,7 @@ package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.ItemLimiterFeature;
+import com.tejaslamba.vanillacore.menu.GuiHolder;
 import com.tejaslamba.vanillacore.itemlimiter.ItemLimit;
 import com.tejaslamba.vanillacore.itemlimiter.ItemLimiterManager;
 import org.bukkit.Bukkit;
@@ -114,10 +115,8 @@ public class ItemLimiterListener implements Listener {
             return;
         }
 
-        String inventoryTitle = event.getView().getTitle();
-        if (inventoryTitle.equals(ItemLimiterFeature.MAIN_GUI_TITLE) ||
-                inventoryTitle.equals(ItemLimiterFeature.ADD_GUI_TITLE) ||
-                inventoryTitle.equals(ItemLimiterFeature.VIEW_GUI_TITLE)) {
+        if (event.getView().getTopInventory().getHolder() instanceof GuiHolder gh
+                && gh.getId().startsWith("item-limiter")) {
             return;
         }
 

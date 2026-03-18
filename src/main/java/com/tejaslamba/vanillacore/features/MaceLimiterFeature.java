@@ -3,6 +3,7 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.MaceLimiterListener;
+import com.tejaslamba.vanillacore.menu.GuiHolder;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -105,7 +106,7 @@ public class MaceLimiterFeature extends BaseFeature {
     }
 
     public void openMaceGUI(Player player) {
-        Inventory gui = plugin.getServer().createInventory(null, 27, GUI_TITLE);
+        Inventory gui = plugin.getServer().createInventory(new GuiHolder("mace-limiter"), 27, GUI_TITLE);
 
         ItemStack decreaseItem = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         ItemMeta decreaseMeta = decreaseItem.getItemMeta();

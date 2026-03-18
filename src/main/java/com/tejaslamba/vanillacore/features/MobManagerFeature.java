@@ -3,6 +3,7 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.MobManagerListener;
+import com.tejaslamba.vanillacore.menu.GuiHolder;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -208,7 +209,7 @@ public class MobManagerFeature extends BaseFeature {
         List<World> worlds = Bukkit.getWorlds();
         int size = Math.min(54, ((worlds.size() + 8) / 9 + 1) * 9);
         size = Math.max(27, size);
-        Inventory gui = Bukkit.createInventory(null, size, WORLD_SELECT_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("mob-manager-world-select"), size, WORLD_SELECT_GUI_TITLE);
 
         int slot = 0;
         for (World world : worlds) {
@@ -298,7 +299,7 @@ public class MobManagerFeature extends BaseFeature {
         playerSelectedWorld.put(player.getUniqueId(), worldName);
 
         String titleWorld = worldName == null ? "All Worlds" : worldName;
-        Inventory gui = Bukkit.createInventory(null, 54, MessageManager.parse(
+        Inventory gui = Bukkit.createInventory(new GuiHolder("mob-manager"), 54, MessageManager.parse(
                 "<dark_gray>Mob Manager <gray>[<yellow>" + titleWorld + "<gray>] (" + (page + 1) + "/" + totalPages
                         + ")"));
 
@@ -612,7 +613,7 @@ public class MobManagerFeature extends BaseFeature {
     }
 
     public void openSpawnReasonsGUI(Player player) {
-        Inventory gui = Bukkit.createInventory(null, 54, SPAWN_REASONS_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("mob-manager-spawn-reasons"), 54, SPAWN_REASONS_GUI_TITLE);
 
         populateSpawnReasonItems(gui);
         addSpawnReasonNavigationButtons(gui);
@@ -810,7 +811,7 @@ public class MobManagerFeature extends BaseFeature {
     }
 
     public void openGlobalSettingsGUI(Player player) {
-        Inventory gui = Bukkit.createInventory(null, 27, SETTINGS_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("mob-manager-settings"), 27, SETTINGS_GUI_TITLE);
 
         ItemStack chunkCleanup = new ItemStack(
                 chunkCleanupEnabled ? Material.LIME_STAINED_GLASS_PANE : Material.RED_STAINED_GLASS_PANE);

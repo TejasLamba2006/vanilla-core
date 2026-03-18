@@ -3,6 +3,7 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.ServerRestartListener;
+import com.tejaslamba.vanillacore.menu.GuiHolder;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
@@ -118,7 +119,7 @@ public class ServerRestartFeature extends BaseFeature {
     }
 
     public void openMainGUI(Player player) {
-        Inventory gui = Bukkit.createInventory(null, 45, GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("server-restart"), 45, GUI_TITLE);
 
         gui.setItem(10, createRestartNowItem());
         gui.setItem(12, createStartCountdownItem());
@@ -136,7 +137,7 @@ public class ServerRestartFeature extends BaseFeature {
     }
 
     public void openScheduleGUI(Player player) {
-        Inventory gui = Bukkit.createInventory(null, 45, SCHEDULE_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("server-restart-schedule"), 45, SCHEDULE_GUI_TITLE);
 
         gui.setItem(4, createScheduleToggleItem());
 

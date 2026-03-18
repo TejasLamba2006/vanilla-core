@@ -1,9 +1,14 @@
 {
-    "latestVersion": "1.4.0",
+    "latestVersion": "1.4.1",
     "documentationUrl": "https://vanillacore.tejaslamba.com/docs",
     "modrinthUrl": "https://modrinth.com/plugin/vanillacorewastaken",
     "discordUrl": "https://discord.gg/7fQPG4Grwt",
     "versions": {
+        "1.4.1": {
+            "minPluginVersion": "1.4.1",
+            "releaseDate": "2026-03-19",
+            "changelog": "Minimap control dispatch fix and GUI holder hardening"
+        },
         "1.4.0": {
             "minPluginVersion": "1.4.0",
             "releaseDate": "2026-03-07",

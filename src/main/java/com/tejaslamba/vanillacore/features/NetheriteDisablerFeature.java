@@ -3,6 +3,7 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.NetheriteDisablerListener;
+import com.tejaslamba.vanillacore.menu.GuiHolder;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -110,7 +111,7 @@ public class NetheriteDisablerFeature extends BaseFeature {
     }
 
     public void openNetheriteGUI(Player player) {
-        Inventory gui = plugin.getServer().createInventory(null, 45, GUI_TITLE);
+        Inventory gui = plugin.getServer().createInventory(new GuiHolder("netherite-disabler"), 45, GUI_TITLE);
 
         for (Map.Entry<Integer, Material> entry : slotMapping.entrySet()) {
             int slot = entry.getKey();

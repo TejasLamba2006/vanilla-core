@@ -3,6 +3,7 @@ package com.tejaslamba.vanillacore.listener;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.enchantlimiter.EnchantmentLimiterManager;
 import com.tejaslamba.vanillacore.features.EnchantmentLimiterFeature;
+import com.tejaslamba.vanillacore.menu.GuiHolder;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -44,8 +45,8 @@ public class EnchantmentLimiterListener implements Listener {
             return;
         }
 
-        String title = event.getView().getTitle();
-        if (title.startsWith(EnchantmentLimiterFeature.CONFIG_GUI_TITLE)) {
+        if (event.getView().getTopInventory().getHolder() instanceof GuiHolder gh
+                && gh.getId().equals("enchantment-limiter-config")) {
             EnchantmentLimiterFeature feature = plugin.getFeatureManager().getFeature(EnchantmentLimiterFeature.class);
             if (feature != null) {
                 feature.cleanupPlayer(player.getUniqueId());
@@ -59,8 +60,8 @@ public class EnchantmentLimiterListener implements Listener {
             return;
         }
 
-        String title = event.getView().getTitle();
-        if (!title.startsWith(EnchantmentLimiterFeature.CONFIG_GUI_TITLE)) {
+        if (!(event.getView().getTopInventory().getHolder() instanceof GuiHolder gh)
+                || !gh.getId().equals("enchantment-limiter-config")) {
             return;
         }
 
