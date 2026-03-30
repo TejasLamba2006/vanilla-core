@@ -43,16 +43,17 @@ public class PearlRestrictionFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.ENDER_PEARL, "<!italic><aqua>Pearl Restriction",
-                "<!italic><gray>Disable ender pearl usage and teleports");
+        return createMenuItem(Material.ENDER_PEARL,
+                plugin.getMessageManager().getRaw("feature-menus.pearl-restriction.name"),
+                plugin.getMessageManager().getRaw("feature-menus.pearl-restriction.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
         return lore;
     }
 

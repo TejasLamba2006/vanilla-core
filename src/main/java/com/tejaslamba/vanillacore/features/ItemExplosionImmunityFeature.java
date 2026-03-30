@@ -3,7 +3,6 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.ItemExplosionImmunityListener;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -49,19 +48,20 @@ public class ItemExplosionImmunityFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.TNT, "<!italic><dark_purple>Item Explosion Immunity",
-                "<!italic><gray>Protect dropped items from explosions");
+        return createMenuItem(Material.TNT,
+                plugin.getMessageManager().getRaw("feature-menus.item-explosion-immunity.name"),
+                plugin.getMessageManager().getRaw("feature-menus.item-explosion-immunity.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<gray>Dropped items will not be");
-        lore.add("<gray>destroyed by explosions");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.item-explosion-immunity.lore-1"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.item-explosion-immunity.lore-2"));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
         return lore;
     }
 
@@ -72,16 +72,18 @@ public class ItemExplosionImmunityFeature extends BaseFeature {
 
     @Override
     public void onRightClick(Player player) {
-        player.sendMessage(MessageManager.parse("<gold><bold>=== Item Explosion Immunity ==="));
+        player.sendMessage(plugin.getMessageManager().get("item-explosion-immunity.info.title"));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gray>Status: " + (isEnabled() ? "<green>Enabled" : "<red>Disabled")));
+        player.sendMessage(plugin.getMessageManager().get(
+                isEnabled() ? "item-explosion-immunity.info.status-enabled"
+                        : "item-explosion-immunity.info.status-disabled"));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gray>When enabled, dropped items on"));
-        player.sendMessage(MessageManager.parse("<gray>the ground will be protected from"));
-        player.sendMessage(MessageManager.parse("<gray>TNT, creepers, crystals, and all"));
-        player.sendMessage(MessageManager.parse("<gray>other explosion damage."));
+        player.sendMessage(plugin.getMessageManager().get("item-explosion-immunity.info.line-1"));
+        player.sendMessage(plugin.getMessageManager().get("item-explosion-immunity.info.line-2"));
+        player.sendMessage(plugin.getMessageManager().get("item-explosion-immunity.info.line-3"));
+        player.sendMessage(plugin.getMessageManager().get("item-explosion-immunity.info.line-4"));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gray>Useful for preventing item loss"));
-        player.sendMessage(MessageManager.parse("<gray>during PvP or griefing attempts."));
+        player.sendMessage(plugin.getMessageManager().get("item-explosion-immunity.info.line-5"));
+        player.sendMessage(plugin.getMessageManager().get("item-explosion-immunity.info.line-6"));
     }
 }

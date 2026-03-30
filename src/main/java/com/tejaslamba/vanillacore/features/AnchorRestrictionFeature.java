@@ -43,16 +43,17 @@ public class AnchorRestrictionFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.RESPAWN_ANCHOR, "<!italic><gold>Anchor Restriction",
-                "<!italic><gray>Restrict respawn anchor charging outside Nether");
+        return createMenuItem(Material.RESPAWN_ANCHOR,
+                plugin.getMessageManager().getRaw("feature-menus.anchor-restriction.name"),
+                plugin.getMessageManager().getRaw("feature-menus.anchor-restriction.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
         return lore;
     }
 

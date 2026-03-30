@@ -2,7 +2,6 @@ package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.SpectatorOnDeathFeature;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,7 +27,7 @@ public class SpectatorOnDeathListener implements Listener {
         Player player = event.getPlayer();
         plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
             player.setGameMode(GameMode.SPECTATOR);
-            player.sendMessage(MessageManager.parse("<gray>You are now in <yellow>Spectator<gray> mode."));
+            player.sendMessage(plugin.getMessageManager().get("spectator-on-death.now-spectator"));
         }, 1L);
     }
 }

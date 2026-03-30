@@ -299,13 +299,14 @@ public class RitualManager {
 
         session.nameDisplay = world.spawn(starter.getEyeLocation(), TextDisplay.class, display -> {
             display.setBillboard(Display.Billboard.CENTER);
-            display.text(MessageManager.parse("<light_purple>" + session.itemName));
+            display.text(plugin.getMessageManager().get("ritual.display.name", "item", session.itemName));
         });
 
         session.timeDisplay = world.spawn(starter.getEyeLocation().clone().subtract(0.0, 0.3, 0.0), TextDisplay.class,
                 display -> {
                     display.setBillboard(Display.Billboard.CENTER);
-                    display.text(MessageManager.parse("<yellow>" + formatClock(session.remainingSeconds)));
+                    display.text(plugin.getMessageManager().get("ritual.display.time",
+                            "time", formatClock(session.remainingSeconds)));
                 });
 
         session.itemDisplay = world.spawn(session.center, ItemDisplay.class, display -> {
@@ -328,7 +329,8 @@ public class RitualManager {
         }
 
         if (session.timeDisplay != null && session.timeDisplay.isValid()) {
-            session.timeDisplay.text(MessageManager.parse("<yellow>" + formatClock(session.remainingSeconds)));
+            session.timeDisplay.text(plugin.getMessageManager().get("ritual.display.time",
+                    "time", formatClock(session.remainingSeconds)));
         }
     }
 
@@ -344,9 +346,12 @@ public class RitualManager {
 
         float progress = (float) session.remainingSeconds / (float) session.totalSeconds;
         activeBossBar.progress(Math.max(0.0F, Math.min(1.0F, progress)));
-        activeBossBar.name(MessageManager.parse(
-                "<light_purple>Ritual: <yellow>" + session.itemName + " <gray>(" + roundedX + ", " + roundedY + ", "
-                        + roundedZ + ") <yellow>- " + session.remainingSeconds + "s"));
+        activeBossBar.name(plugin.getMessageManager().get("ritual.display.bossbar",
+                "item", session.itemName,
+                "x", roundedX,
+                "y", roundedY,
+                "z", roundedZ,
+                "seconds", session.remainingSeconds));
 
         if (session.remainingSeconds > session.totalSeconds / 2) {
             activeBossBar.color(BossBar.Color.PURPLE);

@@ -23,10 +23,6 @@ import java.util.*;
 public class MobManagerFeature extends BaseFeature {
 
     public static final String GUI_TITLE_PLAIN = "Mob Manager";
-    public static final Component SPAWN_REASONS_GUI_TITLE = MessageManager
-            .parse("<!italic><dark_gray>Spawn Reasons Config");
-    public static final Component WORLD_SELECT_GUI_TITLE = MessageManager.parse("<!italic><dark_gray>Select World");
-    public static final Component SETTINGS_GUI_TITLE = MessageManager.parse("<!italic><dark_gray>Mob Manager Settings");
     private static final int[] CONTENT_SLOTS = calculateContentSlots();
     private static final String CONFIG_PATH_PREFIX = "features.mob-manager.worlds.";
     private static final String VERBOSE_PREFIX = "[VERBOSE] Mob Manager - ";
@@ -178,16 +174,17 @@ public class MobManagerFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.ZOMBIE_SPAWN_EGG, "<!italic><gold>Mob Manager",
-                "<!italic><gray>Control mob spawning per world");
+        return createMenuItem(Material.ZOMBIE_SPAWN_EGG,
+                plugin.getMessageManager().getRaw("feature-menus.mob-manager.name"),
+                plugin.getMessageManager().getRaw("feature-menus.mob-manager.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
-        lore.add("<yellow>Left Click: Toggle");
-        lore.add("<yellow>Right Click: Open GUI");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.right-click-open-gui"));
         return lore;
     }
 
@@ -209,7 +206,8 @@ public class MobManagerFeature extends BaseFeature {
         List<World> worlds = Bukkit.getWorlds();
         int size = Math.min(54, ((worlds.size() + 8) / 9 + 1) * 9);
         size = Math.max(27, size);
-        Inventory gui = Bukkit.createInventory(new GuiHolder("mob-manager-world-select"), size, WORLD_SELECT_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("mob-manager-world-select"), size,
+                plugin.getMessageManager().get("mob-manager.gui.world-select.title"));
 
         int slot = 0;
         for (World world : worlds) {
@@ -226,15 +224,18 @@ public class MobManagerFeature extends BaseFeature {
             ItemStack worldItem = new ItemStack(material);
             ItemMeta meta = worldItem.getItemMeta();
             if (meta != null) {
-                meta.displayName(MessageManager.parse("<!italic><green>" + world.getName()));
+                meta.displayName(plugin.getMessageManager().get("mob-manager.gui.world-select.world.name",
+                        "world", world.getName()));
                 List<Component> lore = new ArrayList<>();
                 lore.add(Component.empty());
-                lore.add(MessageManager.parse("<gray>Environment: <yellow>" + world.getEnvironment().name()));
+                lore.add(plugin.getMessageManager().get("mob-manager.gui.world-select.world.environment",
+                        "environment", world.getEnvironment().name()));
                 Map<EntityType, Boolean> worldMobs = worldDisabledMobs.get(world.getName());
                 long disabledCount = worldMobs != null ? worldMobs.values().stream().filter(b -> b).count() : 0;
-                lore.add(MessageManager.parse("<gray>Disabled Mobs: <yellow>" + disabledCount));
+                lore.add(plugin.getMessageManager().get("mob-manager.gui.world-select.world.disabled-mobs",
+                        "count", disabledCount));
                 lore.add(Component.empty());
-                lore.add(MessageManager.parse("<yellow>Click to manage!"));
+                lore.add(plugin.getMessageManager().get("mob-manager.gui.shared.manage-action"));
                 meta.lore(lore);
                 worldItem.setItemMeta(meta);
             }
@@ -244,13 +245,13 @@ public class MobManagerFeature extends BaseFeature {
         ItemStack allWorlds = new ItemStack(Material.NETHER_STAR);
         ItemMeta allMeta = allWorlds.getItemMeta();
         if (allMeta != null) {
-            allMeta.displayName(MessageManager.parse("<!italic><gold>\u2605 All Worlds"));
+            allMeta.displayName(plugin.getMessageManager().get("mob-manager.gui.world-select.all-worlds.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<gray>Manage mob spawning for"));
-            lore.add(MessageManager.parse("<gray>ALL worlds at once."));
+            lore.add(plugin.getMessageManager().get("mob-manager.gui.world-select.all-worlds.lore-1"));
+            lore.add(plugin.getMessageManager().get("mob-manager.gui.world-select.all-worlds.lore-2"));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<yellow>Click to manage!"));
+            lore.add(plugin.getMessageManager().get("mob-manager.gui.shared.manage-action"));
             allMeta.lore(lore);
             allWorlds.setItemMeta(allMeta);
         }
@@ -259,7 +260,7 @@ public class MobManagerFeature extends BaseFeature {
         ItemStack backItem = new ItemStack(Material.ARROW);
         ItemMeta backItemMeta = backItem.getItemMeta();
         if (backItemMeta != null) {
-            backItemMeta.displayName(MessageManager.parse("<!italic><yellow>Back to Main Menu"));
+            backItemMeta.displayName(plugin.getMessageManager().get("mob-manager.gui.shared.back-main"));
             backItem.setItemMeta(backItemMeta);
         }
         gui.setItem(size - 3, backItem);
@@ -267,7 +268,7 @@ public class MobManagerFeature extends BaseFeature {
         ItemStack closeItem = new ItemStack(Material.BARRIER);
         ItemMeta closeMeta = closeItem.getItemMeta();
         if (closeMeta != null) {
-            closeMeta.displayName(MessageManager.parse("<!italic><red>Close"));
+            closeMeta.displayName(plugin.getMessageManager().get("mob-manager.gui.shared.close"));
             closeItem.setItemMeta(closeMeta);
         }
         gui.setItem(size - 1, closeItem);
@@ -275,15 +276,19 @@ public class MobManagerFeature extends BaseFeature {
         ItemStack settingsItem = new ItemStack(Material.COMPARATOR);
         ItemMeta settingsMeta = settingsItem.getItemMeta();
         if (settingsMeta != null) {
-            settingsMeta.displayName(MessageManager.parse("<!italic><gold>Global Settings"));
+            settingsMeta.displayName(plugin.getMessageManager().get("mob-manager.gui.world-select.settings.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager
-                    .parse("<gray>Chunk Cleanup: " + (chunkCleanupEnabled ? "<green>Enabled" : "<red>Disabled")));
-            lore.add(MessageManager
-                    .parse("<gray>WorldGuard Bypass: " + (worldGuardBypass ? "<green>Enabled" : "<red>Disabled")));
+            lore.add(plugin.getMessageManager().get(
+                    chunkCleanupEnabled
+                            ? "mob-manager.gui.world-select.settings.chunk-cleanup-enabled"
+                            : "mob-manager.gui.world-select.settings.chunk-cleanup-disabled"));
+            lore.add(plugin.getMessageManager().get(
+                    worldGuardBypass
+                            ? "mob-manager.gui.world-select.settings.worldguard-enabled"
+                            : "mob-manager.gui.world-select.settings.worldguard-disabled"));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<yellow>Click to configure!"));
+            lore.add(plugin.getMessageManager().get("mob-manager.gui.world-select.settings.action"));
             settingsMeta.lore(lore);
             settingsItem.setItemMeta(settingsMeta);
         }
@@ -299,9 +304,11 @@ public class MobManagerFeature extends BaseFeature {
         playerSelectedWorld.put(player.getUniqueId(), worldName);
 
         String titleWorld = worldName == null ? "All Worlds" : worldName;
-        Inventory gui = Bukkit.createInventory(new GuiHolder("mob-manager"), 54, MessageManager.parse(
-                "<dark_gray>Mob Manager <gray>[<yellow>" + titleWorld + "<gray>] (" + (page + 1) + "/" + totalPages
-                        + ")"));
+        Inventory gui = Bukkit.createInventory(new GuiHolder("mob-manager"), 54,
+                plugin.getMessageManager().get("mob-manager.gui.main.title",
+                        "world", titleWorld,
+                        "page", page + 1,
+                        "total", totalPages));
 
         populateMobItems(gui, page, worldName);
         addMobGUINavigationButtons(gui, page, totalPages);
@@ -331,7 +338,9 @@ public class MobManagerFeature extends BaseFeature {
 
         if (meta != null) {
             String mobName = formatEntityName(entityType);
-            meta.displayName(MessageManager.parse("<!italic>" + (isDisabled ? "<red>" : "<green>") + mobName));
+            meta.displayName(plugin.getMessageManager().get(
+                    isDisabled ? "mob-manager.gui.main.mob.disabled-name" : "mob-manager.gui.main.mob.enabled-name",
+                    "mob", mobName));
             meta.lore(createMobItemLore(isDisabled, entityType));
             meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
             item.setItemMeta(meta);
@@ -344,18 +353,18 @@ public class MobManagerFeature extends BaseFeature {
         List<Component> lore = new ArrayList<>();
         lore.add(Component.empty());
         if (isDisabled) {
-            lore.add(MessageManager.parse("<red>Spawning: <dark_red>Disabled"));
+            lore.add(plugin.getMessageManager().get("mob-manager.gui.main.mob.spawning-disabled"));
         } else {
-            lore.add(MessageManager.parse("<green>Spawning: <dark_green>Enabled"));
+            lore.add(plugin.getMessageManager().get("mob-manager.gui.main.mob.spawning-enabled"));
         }
 
         if (!hasSpawnEgg(entityType)) {
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<gray><italic>(No spawn egg - special mob)"));
+            lore.add(plugin.getMessageManager().get("mob-manager.gui.main.mob.no-egg"));
         }
 
         lore.add(Component.empty());
-        lore.add(MessageManager.parse("<yellow>Click to toggle!"));
+        lore.add(plugin.getMessageManager().get("mob-manager.gui.shared.toggle-action"));
         return lore;
     }
 
@@ -370,47 +379,61 @@ public class MobManagerFeature extends BaseFeature {
 
     private void addMobGUINavigationButtons(Inventory gui, int page, int totalPages) {
         if (page > 0) {
-            gui.setItem(45, createButtonWithLore(Material.ARROW, "<!italic><green>\u00ab Previous Page",
-                    "<gray>Page <yellow>" + page + "<gray>/<yellow>" + totalPages));
+            gui.setItem(45, createButtonWithLore(Material.ARROW,
+                    "mob-manager.gui.main.navigation.previous.name",
+                    List.of(plugin.getMessageManager().get("mob-manager.gui.main.navigation.page",
+                            "page", page,
+                            "total", totalPages))));
         }
 
         if (page < totalPages - 1) {
-            gui.setItem(53, createButtonWithLore(Material.ARROW, "<!italic><green>Next Page \u00bb",
-                    "<gray>Page <yellow>" + (page + 2) + "<gray>/<yellow>" + totalPages));
+            gui.setItem(53, createButtonWithLore(Material.ARROW,
+                    "mob-manager.gui.main.navigation.next.name",
+                    List.of(plugin.getMessageManager().get("mob-manager.gui.main.navigation.page",
+                            "page", page + 2,
+                            "total", totalPages))));
         }
 
-        gui.setItem(49, createSimpleButton(Material.OAK_DOOR, "<!italic><yellow>Back to World Select"));
-        gui.setItem(50, createSimpleButton(Material.BARRIER, "<!italic><red>Close"));
-        gui.setItem(47, createButtonWithLore(Material.LIME_DYE, "<!italic><green>Enable All Mobs",
-                "<gray>Click to enable spawning", "<gray>for all mob types."));
-        gui.setItem(51, createButtonWithLore(Material.RED_DYE, "<!italic><red>Disable All Mobs",
-                "<gray>Click to disable spawning", "<gray>for all mob types."));
-        gui.setItem(48, createButtonWithLore(Material.SPAWNER, "<!italic><gold>Spawn Reasons Config",
-                "<gray>Configure which spawn reasons", "<gray>bypass mob blocking.", "",
-                "<yellow>Click to configure!"));
+        gui.setItem(49, createSimpleButton(Material.OAK_DOOR, "mob-manager.gui.main.navigation.back"));
+        gui.setItem(50, createSimpleButton(Material.BARRIER, "mob-manager.gui.shared.close"));
+        gui.setItem(47, createButtonWithLore(Material.LIME_DYE, "mob-manager.gui.main.navigation.enable-all.name",
+                List.of(
+                        plugin.getMessageManager().get("mob-manager.gui.main.navigation.enable-all.lore-1"),
+                        plugin.getMessageManager().get("mob-manager.gui.main.navigation.enable-all.lore-2"))));
+        gui.setItem(51,
+                createButtonWithLore(Material.RED_DYE, "mob-manager.gui.main.navigation.disable-all.name",
+                        List.of(
+                                plugin.getMessageManager().get("mob-manager.gui.main.navigation.disable-all.lore-1"),
+                                plugin.getMessageManager().get("mob-manager.gui.main.navigation.disable-all.lore-2"))));
+        gui.setItem(48,
+                createButtonWithLore(Material.SPAWNER, "mob-manager.gui.main.navigation.spawn-reasons.name",
+                        List.of(
+                                plugin.getMessageManager().get("mob-manager.gui.main.navigation.spawn-reasons.lore-1"),
+                                plugin.getMessageManager().get("mob-manager.gui.main.navigation.spawn-reasons.lore-2"),
+                                Component.empty(),
+                                plugin.getMessageManager()
+                                        .get("mob-manager.gui.main.navigation.spawn-reasons.action"))));
     }
 
-    private ItemStack createButtonWithLore(Material material, String displayName, String... loreLines) {
+    private ItemStack createButtonWithLore(Material material, String displayNamePath, List<Component> loreLines) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse(displayName));
+            meta.displayName(plugin.getMessageManager().get(displayNamePath));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            for (String line : loreLines) {
-                lore.add(MessageManager.parse(line));
-            }
+            lore.addAll(loreLines);
             meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
     }
 
-    private ItemStack createSimpleButton(Material material, String displayName) {
+    private ItemStack createSimpleButton(Material material, String displayNamePath) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse(displayName));
+            meta.displayName(plugin.getMessageManager().get(displayNamePath));
             item.setItemMeta(meta);
         }
         return item;
@@ -613,7 +636,8 @@ public class MobManagerFeature extends BaseFeature {
     }
 
     public void openSpawnReasonsGUI(Player player) {
-        Inventory gui = Bukkit.createInventory(new GuiHolder("mob-manager-spawn-reasons"), 54, SPAWN_REASONS_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("mob-manager-spawn-reasons"), 54,
+                plugin.getMessageManager().get("mob-manager.gui.spawn-reasons.title"));
 
         populateSpawnReasonItems(gui);
         addSpawnReasonNavigationButtons(gui);
@@ -640,7 +664,11 @@ public class MobManagerFeature extends BaseFeature {
 
         if (meta != null) {
             String reasonName = formatReasonName(reason);
-            meta.displayName(MessageManager.parse("<!italic>" + (isAllowed ? "<green>" : "<red>") + reasonName));
+            meta.displayName(plugin.getMessageManager().get(
+                    isAllowed
+                            ? "mob-manager.gui.spawn-reasons.reason.allowed-name"
+                            : "mob-manager.gui.spawn-reasons.reason.blocked-name",
+                    "reason", reasonName));
             meta.lore(createSpawnReasonLore(reason, isAllowed));
             item.setItemMeta(meta);
         }
@@ -653,20 +681,21 @@ public class MobManagerFeature extends BaseFeature {
         lore.add(Component.empty());
 
         String description = getSpawnReasonDescription(reason);
-        lore.add(MessageManager.parse("<dark_gray>" + description));
+        lore.add(plugin.getMessageManager().get("mob-manager.gui.spawn-reasons.reason.description",
+                "description", description));
         lore.add(Component.empty());
 
         if (isAllowed) {
-            lore.add(MessageManager.parse("<green>Bypass: <dark_green>Allowed"));
-            lore.add(MessageManager.parse("<gray>Mobs CAN spawn via this reason"));
-            lore.add(MessageManager.parse("<gray>even if mob type is disabled."));
+            lore.add(plugin.getMessageManager().get("mob-manager.gui.spawn-reasons.reason.allowed-status"));
+            lore.add(plugin.getMessageManager().get("mob-manager.gui.spawn-reasons.reason.allowed-lore-1"));
+            lore.add(plugin.getMessageManager().get("mob-manager.gui.spawn-reasons.reason.allowed-lore-2"));
         } else {
-            lore.add(MessageManager.parse("<red>Bypass: <dark_red>Blocked"));
-            lore.add(MessageManager.parse("<gray>Mobs CANNOT spawn via this"));
-            lore.add(MessageManager.parse("<gray>reason if mob type is disabled."));
+            lore.add(plugin.getMessageManager().get("mob-manager.gui.spawn-reasons.reason.blocked-status"));
+            lore.add(plugin.getMessageManager().get("mob-manager.gui.spawn-reasons.reason.blocked-lore-1"));
+            lore.add(plugin.getMessageManager().get("mob-manager.gui.spawn-reasons.reason.blocked-lore-2"));
         }
         lore.add(Component.empty());
-        lore.add(MessageManager.parse("<yellow>Click to toggle!"));
+        lore.add(plugin.getMessageManager().get("mob-manager.gui.shared.toggle-action"));
         return lore;
     }
 
@@ -721,7 +750,7 @@ public class MobManagerFeature extends BaseFeature {
         ItemStack backButton = new ItemStack(Material.OAK_DOOR);
         ItemMeta backMeta = backButton.getItemMeta();
         if (backMeta != null) {
-            backMeta.displayName(MessageManager.parse("<!italic><yellow>Back to Mob Manager"));
+            backMeta.displayName(plugin.getMessageManager().get("mob-manager.gui.spawn-reasons.back"));
             backButton.setItemMeta(backMeta);
         }
         gui.setItem(49, backButton);
@@ -729,7 +758,7 @@ public class MobManagerFeature extends BaseFeature {
         ItemStack barrier = new ItemStack(Material.BARRIER);
         ItemMeta barrierMeta = barrier.getItemMeta();
         if (barrierMeta != null) {
-            barrierMeta.displayName(MessageManager.parse("<!italic><red>Close"));
+            barrierMeta.displayName(plugin.getMessageManager().get("mob-manager.gui.shared.close"));
             barrier.setItemMeta(barrierMeta);
         }
         gui.setItem(50, barrier);
@@ -742,15 +771,15 @@ public class MobManagerFeature extends BaseFeature {
         ItemStack infoItem = new ItemStack(Material.BOOK);
         ItemMeta infoMeta = infoItem.getItemMeta();
         if (infoMeta != null) {
-            infoMeta.displayName(MessageManager.parse("<!italic><gold>Spawn Reasons Info"));
+            infoMeta.displayName(plugin.getMessageManager().get("mob-manager.gui.spawn-reasons.info.name"));
             List<Component> infoLore = new ArrayList<>();
             infoLore.add(Component.empty());
-            infoLore.add(MessageManager.parse("<gray>Allowed spawn reasons will"));
-            infoLore.add(MessageManager.parse("<gray>bypass mob blocking."));
+            infoLore.add(plugin.getMessageManager().get("mob-manager.gui.spawn-reasons.info.lore-1"));
+            infoLore.add(plugin.getMessageManager().get("mob-manager.gui.spawn-reasons.info.lore-2"));
             infoLore.add(Component.empty());
-            infoLore.add(MessageManager.parse("<gray>Example: If <green>SPAWNER_EGG <gray>is allowed,"));
-            infoLore.add(MessageManager.parse("<gray>disabled mobs can still spawn"));
-            infoLore.add(MessageManager.parse("<gray>from spawn eggs."));
+            infoLore.add(plugin.getMessageManager().get("mob-manager.gui.spawn-reasons.info.example-1"));
+            infoLore.add(plugin.getMessageManager().get("mob-manager.gui.spawn-reasons.info.example-2"));
+            infoLore.add(plugin.getMessageManager().get("mob-manager.gui.spawn-reasons.info.example-3"));
             infoMeta.lore(infoLore);
             infoItem.setItemMeta(infoMeta);
         }
@@ -811,25 +840,28 @@ public class MobManagerFeature extends BaseFeature {
     }
 
     public void openGlobalSettingsGUI(Player player) {
-        Inventory gui = Bukkit.createInventory(new GuiHolder("mob-manager-settings"), 27, SETTINGS_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("mob-manager-settings"), 27,
+                plugin.getMessageManager().get("mob-manager.gui.settings.title"));
 
         ItemStack chunkCleanup = new ItemStack(
                 chunkCleanupEnabled ? Material.LIME_STAINED_GLASS_PANE : Material.RED_STAINED_GLASS_PANE);
         ItemMeta chunkMeta = chunkCleanup.getItemMeta();
         if (chunkMeta != null) {
-            chunkMeta.displayName(MessageManager.parse("<!italic><gold>Chunk Cleanup"));
+            chunkMeta.displayName(plugin.getMessageManager().get("mob-manager.gui.settings.chunk-cleanup.name"));
             List<Component> chunkLore = new ArrayList<>();
             chunkLore.add(Component.empty());
-            chunkLore.add(MessageManager
-                    .parse("<gray>Status: " + (chunkCleanupEnabled ? "<green>Enabled" : "<red>Disabled")));
+            chunkLore.add(plugin.getMessageManager().get(
+                    chunkCleanupEnabled
+                            ? "mob-manager.gui.settings.chunk-cleanup.status-enabled"
+                            : "mob-manager.gui.settings.chunk-cleanup.status-disabled"));
             chunkLore.add(Component.empty());
-            chunkLore.add(MessageManager.parse("<gray>When enabled, removes disabled"));
-            chunkLore.add(MessageManager.parse("<gray>mobs from chunks when they load."));
+            chunkLore.add(plugin.getMessageManager().get("mob-manager.gui.settings.chunk-cleanup.lore-1"));
+            chunkLore.add(plugin.getMessageManager().get("mob-manager.gui.settings.chunk-cleanup.lore-2"));
             chunkLore.add(Component.empty());
-            chunkLore.add(MessageManager.parse("<red>⚠ Warning: This is destructive!"));
-            chunkLore.add(MessageManager.parse("<red>Existing mobs will be deleted."));
+            chunkLore.add(plugin.getMessageManager().get("mob-manager.gui.settings.chunk-cleanup.warning-1"));
+            chunkLore.add(plugin.getMessageManager().get("mob-manager.gui.settings.chunk-cleanup.warning-2"));
             chunkLore.add(Component.empty());
-            chunkLore.add(MessageManager.parse("<yellow>Click to toggle!"));
+            chunkLore.add(plugin.getMessageManager().get("mob-manager.gui.shared.toggle-action"));
             chunkMeta.lore(chunkLore);
             chunkCleanup.setItemMeta(chunkMeta);
         }
@@ -839,17 +871,19 @@ public class MobManagerFeature extends BaseFeature {
                 worldGuardBypass ? Material.LIME_STAINED_GLASS_PANE : Material.RED_STAINED_GLASS_PANE);
         ItemMeta wgMeta = worldGuardItem.getItemMeta();
         if (wgMeta != null) {
-            wgMeta.displayName(MessageManager.parse("<!italic><gold>WorldGuard Bypass"));
+            wgMeta.displayName(plugin.getMessageManager().get("mob-manager.gui.settings.worldguard.name"));
             List<Component> wgLore = new ArrayList<>();
             wgLore.add(Component.empty());
-            wgLore.add(
-                    MessageManager.parse("<gray>Status: " + (worldGuardBypass ? "<green>Enabled" : "<red>Disabled")));
+            wgLore.add(plugin.getMessageManager().get(
+                    worldGuardBypass
+                            ? "mob-manager.gui.settings.worldguard.status-enabled"
+                            : "mob-manager.gui.settings.worldguard.status-disabled"));
             wgLore.add(Component.empty());
-            wgLore.add(MessageManager.parse("<gray>When enabled, mobs can spawn"));
-            wgLore.add(MessageManager.parse("<gray>in WorldGuard protected regions"));
-            wgLore.add(MessageManager.parse("<gray>even if disabled in that world."));
+            wgLore.add(plugin.getMessageManager().get("mob-manager.gui.settings.worldguard.lore-1"));
+            wgLore.add(plugin.getMessageManager().get("mob-manager.gui.settings.worldguard.lore-2"));
+            wgLore.add(plugin.getMessageManager().get("mob-manager.gui.settings.worldguard.lore-3"));
             wgLore.add(Component.empty());
-            wgLore.add(MessageManager.parse("<yellow>Click to toggle!"));
+            wgLore.add(plugin.getMessageManager().get("mob-manager.gui.shared.toggle-action"));
             wgMeta.lore(wgLore);
             worldGuardItem.setItemMeta(wgMeta);
         }
@@ -858,7 +892,7 @@ public class MobManagerFeature extends BaseFeature {
         ItemStack backButton = new ItemStack(Material.OAK_DOOR);
         ItemMeta backMeta = backButton.getItemMeta();
         if (backMeta != null) {
-            backMeta.displayName(MessageManager.parse("<!italic><yellow>Back to World Select"));
+            backMeta.displayName(plugin.getMessageManager().get("mob-manager.gui.settings.back"));
             backButton.setItemMeta(backMeta);
         }
         gui.setItem(22, backButton);

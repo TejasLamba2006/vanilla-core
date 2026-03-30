@@ -23,8 +23,6 @@ import java.util.Locale;
 
 public class RitualFeature extends BaseFeature {
 
-    public static final Component GUI_TITLE = MessageManager.parse("<!italic><dark_purple>Ritual Settings");
-
     private static final List<String> SUPPORTED_PARTICLE_COLORS = List.of(
             "BLUE",
             "YELLOW",
@@ -207,22 +205,27 @@ public class RitualFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.ECHO_SHARD, "<!italic><dark_purple>Ritual",
-                "<!italic><gray>Create ritual events with particles and countdown");
+        return createMenuItem(Material.ECHO_SHARD,
+                plugin.getMessageManager().getRaw("feature-menus.ritual.name"),
+                plugin.getMessageManager().getRaw("feature-menus.ritual.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<gray>Duration: <yellow>" + durationMinutes + " minute(s)");
-        lore.add("<gray>Radius: <yellow>" + radius);
-        lore.add("<gray>Color: <yellow>" + getParticleColorName());
-        lore.add("<gray>End FX: <yellow>" + countEnabledEndEffects() + " enabled");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.ritual.duration")
+                .replace("<value>", String.valueOf(durationMinutes)));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.ritual.radius")
+                .replace("<value>", String.valueOf(radius)));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.ritual.color")
+                .replace("<value>", getParticleColorName()));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.ritual.end-effects")
+                .replace("<count>", String.valueOf(countEnabledEndEffects())));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
-        lore.add("<yellow>Right Click: Open Settings");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.right-click-open-settings"));
         return lore;
     }
 
@@ -237,7 +240,8 @@ public class RitualFeature extends BaseFeature {
     }
 
     public void openSettingsGUI(Player player) {
-        Inventory gui = Bukkit.createInventory(new GuiHolder("ritual-settings"), 45, GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("ritual-settings"), 45,
+                plugin.getMessageManager().get("ritual.gui.title"));
         fillFiller(gui, 45);
 
         gui.setItem(10, buildDurationItem());
@@ -362,14 +366,15 @@ public class RitualFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.CLOCK);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><yellow><bold>Default Duration"));
+            meta.displayName(plugin.getMessageManager().get("ritual.gui.duration.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Current: <yellow>" + formatDuration(durationMinutes)));
+            lore.add(plugin.getMessageManager().get("ritual.gui.duration.current",
+                    "value", formatDuration(durationMinutes)));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><green>Left Click: <gray>+1 minute"));
-            lore.add(MessageManager.parse("<!italic><red>Right Click: <gray>-1 minute"));
-            lore.add(MessageManager.parse("<!italic><yellow>Shift Click: <gray>+/-10 minutes"));
+            lore.add(plugin.getMessageManager().get("ritual.gui.duration.left-click"));
+            lore.add(plugin.getMessageManager().get("ritual.gui.duration.right-click"));
+            lore.add(plugin.getMessageManager().get("ritual.gui.duration.shift-click"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -380,14 +385,14 @@ public class RitualFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.ENDER_EYE);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><aqua><bold>Ritual Radius"));
+            meta.displayName(plugin.getMessageManager().get("ritual.gui.radius.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Current: <yellow>" + radius));
+            lore.add(plugin.getMessageManager().get("ritual.gui.radius.current", "value", radius));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><green>Left Click: <gray>+1"));
-            lore.add(MessageManager.parse("<!italic><red>Right Click: <gray>-1"));
-            lore.add(MessageManager.parse("<!italic><yellow>Shift Click: <gray>+/-5"));
+            lore.add(plugin.getMessageManager().get("ritual.gui.radius.left-click"));
+            lore.add(plugin.getMessageManager().get("ritual.gui.radius.right-click"));
+            lore.add(plugin.getMessageManager().get("ritual.gui.radius.shift-click"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -398,12 +403,12 @@ public class RitualFeature extends BaseFeature {
         ItemStack item = new ItemStack(getColorMaterial(getParticleColorName()));
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><light_purple><bold>Particle Color"));
+            meta.displayName(plugin.getMessageManager().get("ritual.gui.color.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Current: <yellow>" + getParticleColorName()));
+            lore.add(plugin.getMessageManager().get("ritual.gui.color.current", "value", getParticleColorName()));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Click: <gray>Cycle color"));
+            lore.add(plugin.getMessageManager().get("ritual.gui.color.action"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -414,14 +419,14 @@ public class RitualFeature extends BaseFeature {
         ItemStack item = new ItemStack(playStartSound ? Material.JUKEBOX : Material.NOTE_BLOCK);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><gold><bold>Start Sound"));
+            meta.displayName(plugin.getMessageManager().get("ritual.gui.start-sound.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse(
-                    "<!italic><gray>Status: " + (playStartSound ? "<green>Enabled" : "<red>Disabled")));
-            lore.add(MessageManager.parse("<!italic><gray>Sound: <yellow>" + startSound));
+            lore.add(plugin.getMessageManager().get(
+                    playStartSound ? "ritual.gui.shared.status-enabled" : "ritual.gui.shared.status-disabled"));
+            lore.add(plugin.getMessageManager().get("ritual.gui.start-sound.sound", "value", startSound));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Click: <gray>Toggle"));
+            lore.add(plugin.getMessageManager().get("ritual.gui.shared.toggle"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -429,26 +434,27 @@ public class RitualFeature extends BaseFeature {
     }
 
     private ItemStack buildLightningItem() {
-        return buildBooleanItem(Material.LIGHTNING_ROD, "<!italic><yellow><bold>Lightning End Effect",
+        return buildBooleanItem(Material.LIGHTNING_ROD, "ritual.gui.effects.lightning.name",
                 strikeLightning);
     }
 
     private ItemStack buildBeaconBeamItem() {
-        return buildBooleanItem(Material.BEACON, "<!italic><aqua><bold>Beacon Beam End Effect", beaconBeamEffect);
+        return buildBooleanItem(Material.BEACON, "ritual.gui.effects.beacon.name", beaconBeamEffect);
     }
 
     private ItemStack buildBeaconDurationItem() {
         ItemStack item = new ItemStack(Material.SEA_LANTERN);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><white><bold>Beacon Beam Duration"));
+            meta.displayName(plugin.getMessageManager().get("ritual.gui.beacon-duration.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Current: <yellow>" + beaconBeamDurationSeconds + "s"));
+            lore.add(plugin.getMessageManager().get("ritual.gui.beacon-duration.current",
+                    "value", beaconBeamDurationSeconds));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><green>Left Click: <gray>+1 second"));
-            lore.add(MessageManager.parse("<!italic><red>Right Click: <gray>-1 second"));
-            lore.add(MessageManager.parse("<!italic><yellow>Shift Click: <gray>+/-5 seconds"));
+            lore.add(plugin.getMessageManager().get("ritual.gui.beacon-duration.left-click"));
+            lore.add(plugin.getMessageManager().get("ritual.gui.beacon-duration.right-click"));
+            lore.add(plugin.getMessageManager().get("ritual.gui.beacon-duration.shift-click"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -456,25 +462,25 @@ public class RitualFeature extends BaseFeature {
     }
 
     private ItemStack buildFireworkItem() {
-        return buildBooleanItem(Material.FIREWORK_ROCKET, "<!italic><light_purple><bold>Firework End Effect",
+        return buildBooleanItem(Material.FIREWORK_ROCKET, "ritual.gui.effects.firework.name",
                 fireworkBurstEffect);
     }
 
     private ItemStack buildDropItemAtEndItem() {
-        return buildBooleanItem(Material.CHEST, "<!italic><green><bold>Drop Ritual Item At End", dropItemAtEnd);
+        return buildBooleanItem(Material.CHEST, "ritual.gui.effects.drop-item.name", dropItemAtEnd);
     }
 
-    private ItemStack buildBooleanItem(Material material, String title, boolean enabledValue) {
+    private ItemStack buildBooleanItem(Material material, String titlePath, boolean enabledValue) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse(title));
+            meta.displayName(plugin.getMessageManager().get(titlePath));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager
-                    .parse("<!italic><gray>Status: " + (enabledValue ? "<green>Enabled" : "<red>Disabled")));
+            lore.add(plugin.getMessageManager().get(
+                    enabledValue ? "ritual.gui.shared.status-enabled" : "ritual.gui.shared.status-disabled"));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Click: <gray>Toggle"));
+            lore.add(plugin.getMessageManager().get("ritual.gui.shared.toggle"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -485,7 +491,7 @@ public class RitualFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.ARROW);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><yellow>Back to Main Menu"));
+            meta.displayName(plugin.getMessageManager().get("ritual.gui.back"));
             item.setItemMeta(meta);
         }
         return item;

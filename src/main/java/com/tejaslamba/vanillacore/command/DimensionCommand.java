@@ -1,7 +1,6 @@
 package com.tejaslamba.vanillacore.command;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import com.tejaslamba.vanillacore.features.DimensionLockFeature;
 import com.tejaslamba.vanillacore.features.EndLockFeature;
 import com.tejaslamba.vanillacore.features.NetherLockFeature;
@@ -27,8 +26,7 @@ public class DimensionCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("vanillacore.dimension." + dimension)) {
-            sender.sendMessage(MessageManager.parse(
-                    "<dark_gray>[<gold>Vanilla Core<dark_gray>] <red>You don't have permission to use this command!"));
+            sender.sendMessage(plugin.getMessageManager().get("commands.dimension.no-permission"));
             return true;
         }
 
@@ -37,7 +35,7 @@ public class DimensionCommand implements CommandExecutor, TabCompleter {
                 : plugin.getFeatureManager().getFeature(NetherLockFeature.class);
 
         if (feature == null) {
-            sender.sendMessage(MessageManager.parse("<red>Dimension Lock feature not found!"));
+            sender.sendMessage(plugin.getMessageManager().get("commands.dimension.feature-not-found"));
             return true;
         }
 
@@ -45,8 +43,9 @@ public class DimensionCommand implements CommandExecutor, TabCompleter {
 
         if (args.length == 0) {
             boolean isLocked = feature.isLocked();
-            sender.sendMessage(MessageManager.parse("<dark_gray>[<gold>Vanilla Core<dark_gray>] <yellow>The "
-                    + dimensionName + " is currently " + (isLocked ? "<red>Locked" : "<green>Open")));
+            sender.sendMessage(plugin.getMessageManager().get(
+                    isLocked ? "commands.dimension.current-locked" : "commands.dimension.current-open",
+                    "dimension", dimensionName));
             return true;
         }
 
@@ -55,8 +54,8 @@ public class DimensionCommand implements CommandExecutor, TabCompleter {
         switch (action) {
             case "open":
                 feature.setLocked(false);
-                sender.sendMessage(MessageManager.parse("<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>The "
-                        + dimensionName + " has been opened!"));
+                sender.sendMessage(
+                        plugin.getMessageManager().get("commands.dimension.opened", "dimension", dimensionName));
                 if (plugin.isVerbose()) {
                     plugin.getLogger()
                             .info("[VERBOSE] Dimension Command - " + sender.getName() + " opened " + dimensionName);
@@ -64,8 +63,8 @@ public class DimensionCommand implements CommandExecutor, TabCompleter {
                 break;
             case "close":
                 feature.setLocked(true);
-                sender.sendMessage(MessageManager.parse(
-                        "<dark_gray>[<gold>Vanilla Core<dark_gray>] <red>The " + dimensionName + " has been closed!"));
+                sender.sendMessage(
+                        plugin.getMessageManager().get("commands.dimension.closed", "dimension", dimensionName));
                 if (plugin.isVerbose()) {
                     plugin.getLogger()
                             .info("[VERBOSE] Dimension Command - " + sender.getName() + " closed " + dimensionName);
@@ -73,12 +72,14 @@ public class DimensionCommand implements CommandExecutor, TabCompleter {
                 break;
             case "status":
                 boolean isLocked = feature.isLocked();
-                sender.sendMessage(MessageManager.parse("<yellow><bold>=== " + dimensionName + " Status ==="));
                 sender.sendMessage(
-                        MessageManager.parse("<yellow>Access: " + (isLocked ? "<red>Locked" : "<green>Open")));
+                        plugin.getMessageManager().get("commands.dimension.status.title", "dimension", dimensionName));
+                sender.sendMessage(plugin.getMessageManager().get(
+                        isLocked ? "commands.dimension.status.access-locked"
+                                : "commands.dimension.status.access-open"));
                 break;
             default:
-                sender.sendMessage(MessageManager.parse("<yellow>Usage: /" + dimension + " <open|close|status>"));
+                sender.sendMessage(plugin.getMessageManager().get("commands.dimension.usage", "dimension", dimension));
         }
 
         return true;

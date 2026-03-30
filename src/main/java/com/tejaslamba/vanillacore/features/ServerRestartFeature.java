@@ -27,9 +27,6 @@ import java.util.Set;
 
 public class ServerRestartFeature extends BaseFeature {
 
-    public static final Component GUI_TITLE = MessageManager.parse("<!italic><dark_gray>Server Restart Settings");
-    public static final Component SCHEDULE_GUI_TITLE = MessageManager.parse("<!italic><dark_gray>Scheduled Restarts");
-
     private ServerRestartListener listener;
     private int activeTaskId = -1;
     private int scheduledCheckerTaskId = -1;
@@ -90,21 +87,23 @@ public class ServerRestartFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.CLOCK, "<!italic><red><bold>Server Restart",
-                "<!italic><gray>Schedule and manage server restarts");
+        return createMenuItem(Material.CLOCK,
+                plugin.getMessageManager().getRaw("feature-menus.server-restart.name"),
+                plugin.getMessageManager().getRaw("feature-menus.server-restart.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         if (activeTaskId != -1) {
-            lore.add("<yellow>⚠ Restart in progress!");
-            lore.add("<gray>Time left: <red>" + countdownSeconds + "s");
+            lore.add(plugin.getMessageManager().getRaw("feature-menus.server-restart.active"));
+            lore.add(plugin.getMessageManager().getRaw("feature-menus.server-restart.time-left")
+                    .replace("<seconds>", String.valueOf(countdownSeconds)));
         }
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
-        lore.add("<yellow>Right Click: Open Settings");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.right-click-open-settings"));
         return lore;
     }
 
@@ -119,7 +118,8 @@ public class ServerRestartFeature extends BaseFeature {
     }
 
     public void openMainGUI(Player player) {
-        Inventory gui = Bukkit.createInventory(new GuiHolder("server-restart"), 45, GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("server-restart"), 45,
+                plugin.getMessageManager().get("server-restart.gui.main.title"));
 
         gui.setItem(10, createRestartNowItem());
         gui.setItem(12, createStartCountdownItem());
@@ -137,7 +137,8 @@ public class ServerRestartFeature extends BaseFeature {
     }
 
     public void openScheduleGUI(Player player) {
-        Inventory gui = Bukkit.createInventory(new GuiHolder("server-restart-schedule"), 45, SCHEDULE_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("server-restart-schedule"), 45,
+                plugin.getMessageManager().get("server-restart.gui.schedule.title"));
 
         gui.setItem(4, createScheduleToggleItem());
 
@@ -158,15 +159,15 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.REDSTONE_BLOCK);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><red><bold>Restart Now"));
+            meta.displayName(plugin.getMessageManager().get("server-restart.gui.main.restart-now.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Immediately restart the server"));
-            lore.add(MessageManager.parse("<!italic><gray>with a save-all command."));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.restart-now.lore-1"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.restart-now.lore-2"));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><red>⚠ This will kick all players!"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.restart-now.warning"));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Shift + Click to confirm"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.restart-now.action"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -178,16 +179,18 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.CLOCK);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><yellow><bold>Start Countdown"));
+            meta.displayName(plugin.getMessageManager().get("server-restart.gui.main.countdown.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Start a restart countdown"));
-            lore.add(MessageManager.parse("<!italic><gray>with warnings to players."));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.countdown.lore-1"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.countdown.lore-2"));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Default time: <yellow>" + defaultTime + " seconds"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.countdown.default-time",
+                    "seconds", defaultTime));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Left Click: Start (" + defaultTime + "s)"));
-            lore.add(MessageManager.parse("<!italic><yellow>Right Click: Custom time"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.countdown.left-click",
+                    "seconds", defaultTime));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.countdown.right-click"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -198,16 +201,17 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.BARRIER);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><red><bold>Cancel Restart"));
+            meta.displayName(plugin.getMessageManager().get("server-restart.gui.main.cancel.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
             if (activeTaskId != -1) {
-                lore.add(MessageManager.parse("<!italic><green>✔ Restart is active"));
-                lore.add(MessageManager.parse("<!italic><gray>Time remaining: <red>" + countdownSeconds + "s"));
+                lore.add(plugin.getMessageManager().get("server-restart.gui.main.cancel.active"));
+                lore.add(plugin.getMessageManager().get("server-restart.gui.main.cancel.remaining",
+                        "seconds", countdownSeconds));
                 lore.add(Component.empty());
-                lore.add(MessageManager.parse("<!italic><yellow>Click to cancel"));
+                lore.add(plugin.getMessageManager().get("server-restart.gui.main.cancel.action"));
             } else {
-                lore.add(MessageManager.parse("<!italic><gray>No restart in progress"));
+                lore.add(plugin.getMessageManager().get("server-restart.gui.main.cancel.inactive"));
             }
             meta.lore(lore);
             item.setItemMeta(meta);
@@ -222,13 +226,16 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.REPEATING_COMMAND_BLOCK);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><aqua><bold>Scheduled Restarts"));
+            meta.displayName(plugin.getMessageManager().get("server-restart.gui.main.scheduled.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse(scheduledEnabled ? "<!italic><green>Enabled" : "<!italic><red>Disabled"));
-            lore.add(MessageManager.parse("<!italic><gray>Configured times: <yellow>" + schedules.size()));
+            lore.add(plugin.getMessageManager().get(
+                    scheduledEnabled ? "server-restart.gui.shared.status-enabled"
+                            : "server-restart.gui.shared.status-disabled"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.scheduled.count",
+                    "count", schedules.size()));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Click to manage schedules"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.scheduled.action"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -240,20 +247,28 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.BELL);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><gold><bold>Notification Types"));
+            meta.displayName(plugin.getMessageManager().get("server-restart.gui.main.notifications.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Current notifications:"));
-            lore.add(MessageManager
-                    .parse("<!italic><green>• <gray>Chat: " + (types.contains("chat") ? "<green>✔" : "<red>✘")));
-            lore.add(MessageManager.parse(
-                    "<!italic><green>• <gray>ActionBar: " + (types.contains("actionbar") ? "<green>✔" : "<red>✘")));
-            lore.add(MessageManager
-                    .parse("<!italic><green>• <gray>BossBar: " + (types.contains("bossbar") ? "<green>✔" : "<red>✘")));
-            lore.add(MessageManager
-                    .parse("<!italic><green>• <gray>Title: " + (types.contains("title") ? "<green>✔" : "<red>✘")));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.notifications.header"));
+            lore.add(plugin.getMessageManager().get(
+                    types.contains("chat")
+                            ? "server-restart.gui.main.notifications.chat-enabled"
+                            : "server-restart.gui.main.notifications.chat-disabled"));
+            lore.add(plugin.getMessageManager().get(
+                    types.contains("actionbar")
+                            ? "server-restart.gui.main.notifications.actionbar-enabled"
+                            : "server-restart.gui.main.notifications.actionbar-disabled"));
+            lore.add(plugin.getMessageManager().get(
+                    types.contains("bossbar")
+                            ? "server-restart.gui.main.notifications.bossbar-enabled"
+                            : "server-restart.gui.main.notifications.bossbar-disabled"));
+            lore.add(plugin.getMessageManager().get(
+                    types.contains("title")
+                            ? "server-restart.gui.main.notifications.title-enabled"
+                            : "server-restart.gui.main.notifications.title-disabled"));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Click to cycle"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.shared.cycle"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -265,14 +280,15 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.COMPASS);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><yellow><bold>Countdown Time"));
+            meta.displayName(plugin.getMessageManager().get("server-restart.gui.main.countdown-time.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Default countdown: <yellow>" + time + " seconds"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.countdown-time.current",
+                    "seconds", time));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><green>Left Click: +10s"));
-            lore.add(MessageManager.parse("<!italic><red>Right Click: -10s"));
-            lore.add(MessageManager.parse("<!italic><yellow>Shift Click: ±60s"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.countdown-time.left-click"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.countdown-time.right-click"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.countdown-time.shift-click"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -287,19 +303,23 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.COMMAND_BLOCK);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><light_purple><bold>Pre-Restart Commands"));
+            meta.displayName(plugin.getMessageManager().get("server-restart.gui.main.pre-commands.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse(execute ? "<!italic><green>Enabled" : "<!italic><red>Disabled"));
-            lore.add(MessageManager.parse("<!italic><gray>Commands: <yellow>" + commands.size()));
+            lore.add(plugin.getMessageManager().get(
+                    execute ? "server-restart.gui.shared.status-enabled"
+                            : "server-restart.gui.shared.status-disabled"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.pre-commands.count",
+                    "count", commands.size()));
             if (!commands.isEmpty()) {
                 lore.add(Component.empty());
                 for (String cmd : commands) {
-                    lore.add(MessageManager.parse("<!italic><dark_gray>- <gray>/" + cmd));
+                    lore.add(plugin.getMessageManager().get("server-restart.gui.main.pre-commands.command",
+                            "command", cmd));
                 }
             }
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Click to toggle"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.shared.toggle"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -313,12 +333,13 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(dye);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><light_purple><bold>BossBar Color"));
+            meta.displayName(plugin.getMessageManager().get("server-restart.gui.main.bossbar-color.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Current: <yellow>" + color));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.bossbar-color.current",
+                    "color", color));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Click to cycle colors"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.main.bossbar-color.action"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -330,12 +351,14 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(enabled ? Material.LIME_DYE : Material.GRAY_DYE);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><yellow><bold>Scheduled Restarts"));
+            meta.displayName(plugin.getMessageManager().get("server-restart.gui.schedule.toggle.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse(enabled ? "<!italic><green>Enabled" : "<!italic><red>Disabled"));
+            lore.add(plugin.getMessageManager().get(
+                    enabled ? "server-restart.gui.shared.status-enabled"
+                            : "server-restart.gui.shared.status-disabled"));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Click to toggle"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.shared.toggle"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -346,12 +369,14 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.PAPER);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><yellow>" + schedule));
+            meta.displayName(plugin.getMessageManager().get("server-restart.gui.schedule.entry.name",
+                    "schedule", schedule));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Schedule #" + (index + 1)));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.schedule.entry.index",
+                    "index", index + 1));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><red>Shift + Click to remove"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.schedule.entry.remove"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -362,17 +387,17 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.EMERALD);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><green><bold>Add Schedule"));
+            meta.displayName(plugin.getMessageManager().get("server-restart.gui.schedule.add.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Add a new scheduled restart time."));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.schedule.add.lore-1"));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Formats supported:"));
-            lore.add(MessageManager.parse("<!italic><dark_gray>- <gray>HH:mm:ss <dark_gray>(daily)"));
-            lore.add(MessageManager.parse("<!italic><dark_gray>- <gray>MON HH:mm:ss <dark_gray>(weekly)"));
-            lore.add(MessageManager.parse("<!italic><dark_gray>- <gray>yyyy-MM-dd HH:mm:ss <dark_gray>(one-time)"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.schedule.add.formats"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.schedule.add.format-daily"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.schedule.add.format-weekly"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.schedule.add.format-once"));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Click to add via chat"));
+            lore.add(plugin.getMessageManager().get("server-restart.gui.schedule.add.action"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -383,7 +408,7 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.ARROW);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><yellow>Back to Main Menu"));
+            meta.displayName(plugin.getMessageManager().get("server-restart.gui.shared.back-main"));
             item.setItemMeta(meta);
         }
         return item;
@@ -393,7 +418,7 @@ public class ServerRestartFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.ARROW);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><yellow>Back to Restart Settings"));
+            meta.displayName(plugin.getMessageManager().get("server-restart.gui.shared.back-settings"));
             item.setItemMeta(meta);
         }
         return item;
@@ -580,7 +605,8 @@ public class ServerRestartFeature extends BaseFeature {
 
     private String getRestartMessage(String key, int seconds, String playerName) {
         String message = plugin.getConfigManager().get()
-                .getString(getConfigPath() + ".messages." + key, "<red>Server restarting in {time} seconds!");
+                .getString(getConfigPath() + ".messages." + key,
+                        plugin.getMessageManager().getRaw("server-restart.messages.default-countdown"));
         message = message.replace("{time}", String.valueOf(seconds));
         if (playerName != null) {
             message = message.replace("{player}", playerName);

@@ -26,8 +26,6 @@ import java.util.Set;
 
 public class PotionBansFeature extends BaseFeature {
 
-    public static final Component GUI_TITLE = MessageManager.parse("<!italic><dark_purple>Potion Bans Settings");
-
     private static final Map<String, String> EFFECT_ALIASES = Map.ofEntries(
             Map.entry("SWIFTNESS", "speed"),
             Map.entry("HEALING", "instant_health"),
@@ -298,21 +296,28 @@ public class PotionBansFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.SPLASH_POTION, "<!italic><light_purple>Potion Bans",
-                "<!italic><gray>Ban all potions, specific effects, or tier 2 potions");
+        return createMenuItem(Material.SPLASH_POTION,
+                plugin.getMessageManager().getRaw("feature-menus.potion-bans.name"),
+                plugin.getMessageManager().getRaw("feature-menus.potion-bans.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<gray>All Potions Banned: " + (isAllPotionsBanned() ? "<green>Yes" : "<red>No"));
-        lore.add("<gray>Tier 1 Disabled: <yellow>" + getTier1BlockedCount() + "<gray>/" + EFFECT_OPTIONS.size());
-        lore.add("<gray>Tier 2 Disabled: <yellow>" + getTier2BlockedCount() + "<gray>/" + EFFECT_OPTIONS.size());
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.potion-bans.all-banned")
+                .replace("<state>", plugin.getMessageManager().getRaw(
+                        isAllPotionsBanned() ? "feature-menus.shared.yes" : "feature-menus.shared.no")));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.potion-bans.tier1")
+                .replace("<count>", String.valueOf(getTier1BlockedCount()))
+                .replace("<total>", String.valueOf(EFFECT_OPTIONS.size())));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.potion-bans.tier2")
+                .replace("<count>", String.valueOf(getTier2BlockedCount()))
+                .replace("<total>", String.valueOf(EFFECT_OPTIONS.size())));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
-        lore.add("<yellow>Right Click: Open Settings");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.right-click-open-settings"));
         return lore;
     }
 
@@ -327,7 +332,8 @@ public class PotionBansFeature extends BaseFeature {
     }
 
     public void openSettingsGUI(Player player) {
-        Inventory gui = Bukkit.createInventory(new GuiHolder("potion-bans-settings"), 54, GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("potion-bans-settings"), 54,
+                plugin.getMessageManager().get("potion-bans.gui.title"));
         fillFiller(gui, 54);
 
         gui.setItem(45, buildAllPotionsItem());
@@ -426,37 +432,38 @@ public class PotionBansFeature extends BaseFeature {
     }
 
     private ItemStack buildAllPotionsItem() {
-        return buildToggleItem(Material.BARRIER, "<!italic><red>Ban All Potions", isAllPotionsBanned());
+        return buildToggleItem(Material.BARRIER, "potion-bans.gui.all-potions.name", isAllPotionsBanned());
     }
 
     private ItemStack buildClickGuideItem() {
         ItemStack item = new ItemStack(Material.WRITABLE_BOOK);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><yellow>Tier Click Guide"));
+            meta.displayName(plugin.getMessageManager().get("potion-bans.gui.click-guide.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Left Click effect: <yellow>Toggle Tier 2"));
-            lore.add(MessageManager.parse("<!italic><gray>Right Click effect: <yellow>Toggle Tier 1"));
+            lore.add(plugin.getMessageManager().get("potion-bans.gui.click-guide.left-click"));
+            lore.add(plugin.getMessageManager().get("potion-bans.gui.click-guide.right-click"));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Config format:"));
-            lore.add(MessageManager.parse("<!italic><yellow>effect:tier1:tier2"));
+            lore.add(plugin.getMessageManager().get("potion-bans.gui.click-guide.config-format-label"));
+            lore.add(plugin.getMessageManager().get("potion-bans.gui.click-guide.config-format-value"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
     }
 
-    private ItemStack buildToggleItem(Material material, String title, boolean value) {
+    private ItemStack buildToggleItem(Material material, String titlePath, boolean value) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse(title));
+            meta.displayName(plugin.getMessageManager().get(titlePath));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Status: " + (value ? "<green>Enabled" : "<red>Disabled")));
+            lore.add(plugin.getMessageManager().get(
+                    value ? "potion-bans.gui.shared.status-enabled" : "potion-bans.gui.shared.status-disabled"));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Click: <gray>Toggle"));
+            lore.add(plugin.getMessageManager().get("potion-bans.gui.shared.toggle"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -468,16 +475,19 @@ public class PotionBansFeature extends BaseFeature {
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             TierBlockState state = blockedEffects.computeIfAbsent(option.key(), k -> new TierBlockState());
-            meta.displayName(MessageManager.parse("<!italic><aqua>" + option.displayName()));
+            meta.displayName(
+                    plugin.getMessageManager().get("potion-bans.gui.effect.name", "effect", option.displayName()));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Tier 1: "
-                    + (state.isTier1Blocked() ? "<red>Disabled" : "<green>Allowed")));
-            lore.add(MessageManager.parse("<!italic><gray>Tier 2: "
-                    + (state.isTier2Blocked() ? "<red>Disabled" : "<green>Allowed")));
+            lore.add(plugin.getMessageManager().get(
+                    state.isTier1Blocked() ? "potion-bans.gui.effect.tier1-disabled"
+                            : "potion-bans.gui.effect.tier1-allowed"));
+            lore.add(plugin.getMessageManager().get(
+                    state.isTier2Blocked() ? "potion-bans.gui.effect.tier2-disabled"
+                            : "potion-bans.gui.effect.tier2-allowed"));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Left Click: <gray>Toggle Tier 2"));
-            lore.add(MessageManager.parse("<!italic><yellow>Right Click: <gray>Toggle Tier 1"));
+            lore.add(plugin.getMessageManager().get("potion-bans.gui.effect.left-click"));
+            lore.add(plugin.getMessageManager().get("potion-bans.gui.effect.right-click"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -488,13 +498,15 @@ public class PotionBansFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.MILK_BUCKET);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><yellow>Clear Effect Blocks"));
+            meta.displayName(plugin.getMessageManager().get("potion-bans.gui.clear-effects.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Tier 1 disabled: <yellow>" + getTier1BlockedCount()));
-            lore.add(MessageManager.parse("<!italic><gray>Tier 2 disabled: <yellow>" + getTier2BlockedCount()));
+            lore.add(plugin.getMessageManager().get("potion-bans.gui.clear-effects.tier1", "count",
+                    getTier1BlockedCount()));
+            lore.add(plugin.getMessageManager().get("potion-bans.gui.clear-effects.tier2", "count",
+                    getTier2BlockedCount()));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Click: <gray>Clear blocked effect list"));
+            lore.add(plugin.getMessageManager().get("potion-bans.gui.clear-effects.action"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -505,7 +517,7 @@ public class PotionBansFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.ARROW);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><yellow>Back to Main Menu"));
+            meta.displayName(plugin.getMessageManager().get("potion-bans.gui.back"));
             item.setItemMeta(meta);
         }
         return item;

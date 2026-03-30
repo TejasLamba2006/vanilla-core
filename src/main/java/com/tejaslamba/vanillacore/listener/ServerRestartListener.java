@@ -1,7 +1,6 @@
 package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import com.tejaslamba.vanillacore.features.ServerRestartFeature;
 import com.tejaslamba.vanillacore.menu.GuiHolder;
 import net.kyori.adventure.text.Component;
@@ -38,11 +37,10 @@ public class ServerRestartListener implements Listener {
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             if (feature.isRestartActive()) {
-                player.sendMessage(MessageManager.parse("<red><bold>\u26a0 SERVER RESTART ACTIVE \u26a0"));
-                player.sendMessage(MessageManager
-                        .parse("<gray>Time remaining: <red>" + feature.getCountdownSeconds() + " seconds"));
-                player.sendMessage(MessageManager
-                        .parse("<gray>Use <yellow>/vanilla menu <gray>\u2192 <red>Server Restart <gray>to cancel."));
+                player.sendMessage(plugin.getMessageManager().get("server-restart.messages.active-warning"));
+                player.sendMessage(plugin.getMessageManager().get("server-restart.messages.time-remaining",
+                        "seconds", feature.getCountdownSeconds()));
+                player.sendMessage(plugin.getMessageManager().get("server-restart.messages.cancel-hint"));
             }
         }, 60L);
     }
@@ -78,34 +76,33 @@ public class ServerRestartListener implements Listener {
                     player.closeInventory();
                     feature.restartNow(player);
                 } else {
-                    player.sendMessage(
-                            MessageManager.parse("<red>\u26a0 Hold Shift and click to confirm immediate restart!"));
+                    player.sendMessage(plugin.getMessageManager().get("server-restart.messages.shift-confirm"));
                     player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
                 }
             }
             case 12 -> {
                 if (clickType.isRightClick()) {
                     player.closeInventory();
-                    player.sendMessage(MessageManager.parse("<yellow>Enter countdown time in seconds (e.g., 120):"));
-                    player.sendMessage(MessageManager.parse("<gray>Type 'cancel' to cancel."));
+                    player.sendMessage(plugin.getMessageManager().get("server-restart.messages.countdown-input"));
+                    player.sendMessage(plugin.getMessageManager().get("server-restart.messages.cancel-input-hint"));
                     awaitingInput.put(player.getUniqueId(), ScheduleInputState.COUNTDOWN_TIME);
                 } else {
                     int defaultTime = plugin.getConfigManager().get()
                             .getInt(feature.getConfigPath() + ".countdown-time", 60);
                     feature.startCountdown(defaultTime);
                     player.closeInventory();
-                    player.sendMessage(
-                            MessageManager.parse("<green>Restart countdown started! (" + defaultTime + " seconds)"));
+                    player.sendMessage(plugin.getMessageManager().get("server-restart.messages.countdown-started",
+                            "seconds", defaultTime));
                 }
             }
             case 14 -> {
                 if (feature.isRestartActive()) {
                     feature.cancelRestart();
-                    player.sendMessage(MessageManager.parse("<green>Restart cancelled!"));
+                    player.sendMessage(plugin.getMessageManager().get("server-restart.messages.cancelled"));
                     player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
                     feature.openMainGUI(player);
                 } else {
-                    player.sendMessage(MessageManager.parse("<red>No restart is currently in progress."));
+                    player.sendMessage(plugin.getMessageManager().get("server-restart.messages.not-in-progress"));
                     player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
                 }
             }
@@ -166,10 +163,9 @@ public class ServerRestartListener implements Listener {
             }
             case 40 -> {
                 player.closeInventory();
-                player.sendMessage(MessageManager.parse("<yellow>Enter a restart schedule:"));
-                player.sendMessage(MessageManager.parse(
-                        "<gray>Formats: <white>HH:mm:ss <gray>(daily), <white>MON HH:mm:ss <gray>(weekly), <white>yyyy-MM-dd HH:mm:ss <gray>(one-time)"));
-                player.sendMessage(MessageManager.parse("<gray>Type 'cancel' to cancel."));
+                player.sendMessage(plugin.getMessageManager().get("server-restart.messages.schedule-input"));
+                player.sendMessage(plugin.getMessageManager().get("server-restart.messages.schedule-formats"));
+                player.sendMessage(plugin.getMessageManager().get("server-restart.messages.cancel-input-hint"));
                 awaitingInput.put(player.getUniqueId(), ScheduleInputState.ADD_SCHEDULE);
             }
             default -> {
@@ -177,7 +173,7 @@ public class ServerRestartListener implements Listener {
                     int index = slot - 19;
                     feature.removeScheduledTime(index);
                     feature.openScheduleGUI(player);
-                    player.sendMessage(MessageManager.parse("<green>Schedule removed!"));
+                    player.sendMessage(plugin.getMessageManager().get("server-restart.messages.schedule-removed"));
                     player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
                 }
             }
@@ -196,7 +192,7 @@ public class ServerRestartListener implements Listener {
             return;
 
         if (message.equalsIgnoreCase("cancel")) {
-            player.sendMessage(MessageManager.parse("<red>Cancelled."));
+            player.sendMessage(plugin.getMessageManager().get("general.cancelled"));
             return;
         }
 
@@ -209,29 +205,28 @@ public class ServerRestartListener implements Listener {
                 try {
                     int seconds = Integer.parseInt(message);
                     if (seconds < 10) {
-                        player.sendMessage(MessageManager.parse("<red>Minimum countdown time is 10 seconds."));
+                        player.sendMessage(plugin.getMessageManager().get("server-restart.messages.minimum-countdown"));
                         return;
                     }
                     org.bukkit.Bukkit.getScheduler().runTask(plugin, () -> {
                         feature.startCountdown(seconds);
-                        player.sendMessage(
-                                MessageManager.parse("<green>Restart countdown started! (" + seconds + " seconds)"));
+                        player.sendMessage(plugin.getMessageManager().get("server-restart.messages.countdown-started",
+                                "seconds", seconds));
                     });
                 } catch (NumberFormatException e) {
-                    player.sendMessage(
-                            MessageManager.parse("<red>Invalid number! Please enter a valid number of seconds."));
+                    player.sendMessage(plugin.getMessageManager().get("server-restart.messages.invalid-seconds"));
                 }
             }
             case ADD_SCHEDULE -> {
                 if (isValidScheduleFormat(message)) {
                     org.bukkit.Bukkit.getScheduler().runTask(plugin, () -> {
                         feature.addScheduledTime(message);
-                        player.sendMessage(MessageManager.parse("<green>Schedule added: <yellow>" + message));
+                        player.sendMessage(plugin.getMessageManager().get("server-restart.messages.schedule-added",
+                                "schedule", message));
                         feature.openScheduleGUI(player);
                     });
                 } else {
-                    player.sendMessage(MessageManager.parse(
-                            "<red>Invalid format! Use: <white>HH:mm:ss<red>, <white>MON HH:mm:ss<red>, or <white>yyyy-MM-dd HH:mm:ss"));
+                    player.sendMessage(plugin.getMessageManager().get("server-restart.messages.invalid-format"));
                 }
             }
         }

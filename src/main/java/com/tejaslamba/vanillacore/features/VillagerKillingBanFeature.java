@@ -43,16 +43,17 @@ public class VillagerKillingBanFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.VILLAGER_SPAWN_EGG, "<!italic><red>Villager Killing Ban",
-                "<!italic><gray>Prevent players from killing villagers");
+        return createMenuItem(Material.VILLAGER_SPAWN_EGG,
+                plugin.getMessageManager().getRaw("feature-menus.villager-killing-ban.name"),
+                plugin.getMessageManager().getRaw("feature-menus.villager-killing-ban.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
         return lore;
     }
 

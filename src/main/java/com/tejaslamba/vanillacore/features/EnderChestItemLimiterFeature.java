@@ -89,19 +89,22 @@ public class EnderChestItemLimiterFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.ENDER_CHEST, "<!italic><light_purple>Ender Chest Item Limiter",
-                "<gray>Blocks selected items from", "<gray>being stored in ender chests");
+        return createMenuItem(Material.ENDER_CHEST,
+                plugin.getMessageManager().getRaw("feature-menus.ender-chest-item-limiter.name"),
+                plugin.getMessageManager().getRaw("feature-menus.ender-chest-item-limiter.description-1"),
+                plugin.getMessageManager().getRaw("feature-menus.ender-chest-item-limiter.description-2"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<gray>Blocked Items: <yellow>" + (manager != null ? manager.getBlockedItemCount() : 0));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.ender-chest-item-limiter.count")
+                .replace("<count>", String.valueOf(manager != null ? manager.getBlockedItemCount() : 0)));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
-        lore.add("<yellow>Right Click: Open Manager");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.right-click-open-manager"));
         return lore;
     }
 

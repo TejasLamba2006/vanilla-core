@@ -114,7 +114,7 @@ public abstract class BaseFeature implements Feature {
             if (plugin.getCDNManager() != null) {
                 message = plugin.getCDNManager().getDisabledMessage();
             }
-            player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>" + message));
+            player.sendMessage(plugin.getMessageManager().get("general.remote-disabled", "message", message));
             return;
         }
 
@@ -123,7 +123,7 @@ public abstract class BaseFeature implements Feature {
             if (plugin.getCDNManager() != null) {
                 message = plugin.getCDNManager().getMaintenanceMessage();
             }
-            player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>" + message));
+            player.sendMessage(plugin.getMessageManager().get("general.maintenance", "message", message));
             return;
         }
 
@@ -141,17 +141,17 @@ public abstract class BaseFeature implements Feature {
         reload();
 
         String displayName = plugin.getMenuConfigManager().getDisplayNameForConfig(getConfigPath() + ".enabled");
-        player.sendMessage(MessageManager.parse(
-                "<gold>[Vanilla Core] <gray>Toggled " + displayName + " <gray>to "
-                        + (!current ? "<green>Enabled" : "<red>Disabled")));
+        player.sendMessage(plugin.getMessageManager().get(
+                !current ? "feature.toggled-enabled" : "feature.toggled-disabled",
+                "feature", displayName));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
         if (isRemotelyDisabled()) {
-            lore.add("<red><bold>REMOTELY DISABLED");
-            lore.add("<gray>(Critical issue detected)");
+            lore.add(plugin.getMessageManager().getRaw("menu.base.remote-disabled.title"));
+            lore.add(plugin.getMessageManager().getRaw("menu.base.remote-disabled.subtitle"));
         } else {
             lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
         }
@@ -193,7 +193,8 @@ public abstract class BaseFeature implements Feature {
                 loreComponents.add(MessageManager.parse(line));
             }
             loreComponents.add(Component.empty());
-            loreComponents.add(MessageManager.parse("<dark_gray>Config: <gray>" + getConfigPath() + ".enabled"));
+            loreComponents.add(plugin.getMessageManager().get("menu.base.toggle-item.config-line", "configPath",
+                    getConfigPath()));
 
             meta.lore(loreComponents);
             item.setItemMeta(meta);

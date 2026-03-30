@@ -3,7 +3,6 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.DimensionLockListener;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -74,17 +73,21 @@ public abstract class DimensionLockFeature extends BaseFeature {
     @Override
     public ItemStack getMenuItem() {
         Material material = dimension.equals("end") ? Material.END_PORTAL_FRAME : Material.NETHERRACK;
-        String name = "<!italic><dark_purple>" + getName();
+        String name = plugin.getMessageManager().getRaw("feature-menus.dimension-lock.name")
+                .replace("<dimension>", getName());
         return createMenuItem(material, name,
-                "<!italic><gray>Control access to the " + dimension);
+                plugin.getMessageManager().getRaw("feature-menus.dimension-lock.description")
+                        .replace("<dimension>", dimension));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<red>Currently: Locked" : "<green>Currently: Open");
+        lore.add(plugin.getMessageManager().getRaw(
+                enabled ? "feature-menus.dimension-lock.current-locked" : "feature-menus.dimension-lock.current-open"));
         lore.add("");
-        lore.add("<yellow>Click to " + (enabled ? "Unlock" : "Lock"));
+        lore.add(plugin.getMessageManager().getRaw(
+                enabled ? "feature-menus.dimension-lock.action-unlock" : "feature-menus.dimension-lock.action-lock"));
         return lore;
     }
 
@@ -104,7 +107,7 @@ public abstract class DimensionLockFeature extends BaseFeature {
             if (plugin.getCDNManager() != null && plugin.getCDNManager().getDisabledMessage() != null) {
                 message = MiniMessage.miniMessage().escapeTags(plugin.getCDNManager().getDisabledMessage());
             }
-            player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>" + message));
+            player.sendMessage(plugin.getMessageManager().get("general.remote-disabled", "message", message));
             return;
         }
 
@@ -113,7 +116,7 @@ public abstract class DimensionLockFeature extends BaseFeature {
             if (plugin.getCDNManager() != null && plugin.getCDNManager().getMaintenanceMessage() != null) {
                 message = MiniMessage.miniMessage().escapeTags(plugin.getCDNManager().getMaintenanceMessage());
             }
-            player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>" + message));
+            player.sendMessage(plugin.getMessageManager().get("general.maintenance", "message", message));
             return;
         }
 
@@ -122,8 +125,9 @@ public abstract class DimensionLockFeature extends BaseFeature {
         plugin.getConfigManager().save();
 
         String dimensionName = dimension.substring(0, 1).toUpperCase() + dimension.substring(1);
-        player.sendMessage(MessageManager.parse("<gold>[Vanilla Core] <gray>The " + dimensionName + " is now "
-                + (enabled ? "<red>Locked" : "<green>Open")));
+        player.sendMessage(plugin.getMessageManager().get(
+                enabled ? "dimension-lock.toggled-locked" : "dimension-lock.toggled-open",
+                "dimension", dimensionName));
 
         if (plugin.isVerbose()) {
             plugin.getLogger().info("[VERBOSE] Dimension Lock (" + dimension + ") - " + player.getName()

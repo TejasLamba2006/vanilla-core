@@ -3,7 +3,6 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.FasterHappyGhastsListener;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -65,18 +64,20 @@ public class FasterHappyGhastsFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.GHAST_TEAR, "<!italic><aqua>Faster Happy Ghasts",
-                "<!italic><gray>Increase flying speed of spawned happy ghasts");
+        return createMenuItem(Material.GHAST_TEAR,
+                plugin.getMessageManager().getRaw("feature-menus.faster-happy-ghasts.name"),
+                plugin.getMessageManager().getRaw("feature-menus.faster-happy-ghasts.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<gray>Flying Speed: <yellow>" + flyingSpeed);
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.faster-happy-ghasts.speed").replace("<speed>",
+                String.valueOf(flyingSpeed)));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
         return lore;
     }
 
@@ -87,12 +88,14 @@ public class FasterHappyGhastsFeature extends BaseFeature {
 
     @Override
     public void onRightClick(Player player) {
-        player.sendMessage(MessageManager.parse("<gold><bold>=== Faster Happy Ghasts ==="));
+        player.sendMessage(plugin.getMessageManager().get("faster-happy-ghasts.info.title"));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gray>Status: " + (isEnabled() ? "<green>Enabled" : "<red>Disabled")));
-        player.sendMessage(MessageManager.parse("<gray>Configured Flying Speed: <yellow>" + flyingSpeed));
+        player.sendMessage(plugin.getMessageManager().get(
+                isEnabled() ? "faster-happy-ghasts.info.status-enabled" : "faster-happy-ghasts.info.status-disabled"));
+        player.sendMessage(
+                plugin.getMessageManager().get("faster-happy-ghasts.info.flying-speed", "speed", flyingSpeed));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gray>When enabled, newly spawned"));
-        player.sendMessage(MessageManager.parse("<gray>happy ghasts get boosted flying speed."));
+        player.sendMessage(plugin.getMessageManager().get("faster-happy-ghasts.info.line-1"));
+        player.sendMessage(plugin.getMessageManager().get("faster-happy-ghasts.info.line-2"));
     }
 }

@@ -45,20 +45,21 @@ public abstract class BaseMenu implements InventoryHolder {
                 lore.add(MessageManager.parse("<!italic>" + desc));
             }
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><dark_gray>Config: <gray>features." + configPath + ".enabled"));
+            lore.add(plugin.getMessageManager().get("menu.base.toggle-item.config-line", "configPath", configPath));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse(enabled ? "<!italic><green>Enabled" : "<!italic><red>Disabled"));
+            lore.add(plugin.getMessageManager()
+                    .get(enabled ? "menu.base.toggle-item.enabled" : "menu.base.toggle-item.disabled"));
 
             if (configPath.equals("protection-limiter") || configPath.equals("sharpness-limiter")) {
                 String configKey = configPath.equals("protection-limiter") ? "enchantment-limits.protection"
                         : "enchantment-limits.sharpness";
                 int maxLevel = plugin.getConfigManager().get().getInt(configKey + ".max-level", 4);
-                lore.add(MessageManager.parse("<!italic><gray>Max Level: <yellow>" + maxLevel));
+                lore.add(plugin.getMessageManager().get("menu.base.toggle-item.max-level", "maxLevel", maxLevel));
                 lore.add(Component.empty());
-                lore.add(MessageManager.parse("<!italic><yellow>Left Click: Toggle On/Off"));
-                lore.add(MessageManager.parse("<!italic><yellow>Right Click: Set Level"));
+                lore.add(plugin.getMessageManager().get("menu.base.toggle-item.left-click-toggle"));
+                lore.add(plugin.getMessageManager().get("menu.base.toggle-item.right-click-set-level"));
             } else {
-                lore.add(MessageManager.parse("<!italic><yellow>Click to toggle"));
+                lore.add(plugin.getMessageManager().get("menu.base.toggle-item.click-to-toggle"));
             }
 
             meta.lore(lore);
@@ -97,9 +98,9 @@ public abstract class BaseMenu implements InventoryHolder {
         });
 
         String displayName = plugin.getMenuConfigManager().getDisplayNameForConfig(configPath);
-        player.sendMessage(MessageManager.parse(
-                "<gold>[Vanilla Core] <gray>Toggled " + displayName + " <gray>to "
-                        + (!current ? "<green>Enabled" : "<red>Disabled")));
+        player.sendMessage(plugin.getMessageManager().get(
+                !current ? "menu.base.toggle-feature.enabled" : "menu.base.toggle-feature.disabled",
+                "feature", displayName));
     }
 
     protected void handleEnchantmentLimiter(Player player, String configPath, boolean isRightClick) {
@@ -113,19 +114,18 @@ public abstract class BaseMenu implements InventoryHolder {
             plugin.getConfigManager().get().set(configKey + ".enabled", !current);
             plugin.getConfigManager().save();
             plugin.getConfigManager().load();
-            player.sendMessage(MessageManager.parse(
-                    "<gold>[Vanilla Core] <gray>Toggled " + enchantType + " Limiter <gray>to "
-                            + (!current ? "<green>Enabled" : "<red>Disabled")));
+            player.sendMessage(plugin.getMessageManager().get(
+                    !current ? "menu.base.enchant.toggle.enabled" : "menu.base.enchant.toggle.disabled",
+                    "enchant", enchantType));
             return;
         }
 
         player.closeInventory();
-        player.sendMessage(MessageManager
-                .parse("<gold>[Vanilla Core] <gray>Enter the max level for " + enchantType + " (1-10, or 'cancel'):"));
+        player.sendMessage(plugin.getMessageManager().get("enchant-input.prompt", "enchant", enchantType));
 
         VanillaCorePlugin.getInstance().getChatInputManager().requestInput(player, (p, input) -> {
             if (input.equalsIgnoreCase("cancel")) {
-                p.sendMessage(MessageManager.parse("<gold>[Vanilla Core] <red>Cancelled."));
+                p.sendMessage(plugin.getMessageManager().get("general.cancelled"));
                 plugin.getMenuManager().openMainMenu(p);
                 return;
             }
@@ -133,8 +133,7 @@ public abstract class BaseMenu implements InventoryHolder {
             try {
                 int level = Integer.parseInt(input);
                 if (level < 1 || level > 10) {
-                    p.sendMessage(
-                            MessageManager.parse("<gold>[Vanilla Core] <red>Invalid level! Must be between 1-10."));
+                    p.sendMessage(plugin.getMessageManager().get("enchant-input.invalid-level"));
                     plugin.getMenuManager().openMainMenu(p);
                     return;
                 }
@@ -145,12 +144,11 @@ public abstract class BaseMenu implements InventoryHolder {
                 plugin.getConfigManager().save();
                 plugin.getConfigManager().load();
 
-                p.sendMessage(MessageManager
-                        .parse("<gold>[Vanilla Core] <green>" + enchantType + " limited to level " + level));
+                p.sendMessage(plugin.getMessageManager().get("enchant-input.level-set", "enchant", enchantType,
+                        "level", level));
                 plugin.getMenuManager().openMainMenu(p);
             } catch (NumberFormatException e) {
-                p.sendMessage(
-                        MessageManager.parse("<gold>[Vanilla Core] <red>Invalid number! Please enter a valid level."));
+                p.sendMessage(plugin.getMessageManager().get("general.invalid-number"));
                 plugin.getMenuManager().openMainMenu(p);
             }
         });

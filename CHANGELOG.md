@@ -34,6 +34,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a full Ritual settings GUI in `/vanilla menu` (right-click Ritual) for duration, radius, particle color, start sound toggle, and end-effect toggles.
 - Reworked Potion Bans config and GUI: removed `ban-all`/`ban-tier2` keys and switched to per-effect tier entries (`effect:tier1:tier2`) with computed "Ban All Potions" behavior.
 - Main menu pagination now clamps page bounds and keeps feature slots dedicated to features so overflow moves to later pages automatically.
+- Removed the auto-generated `messages.yml` `codebase-string-catalog` section so `messages.yml` now contains only proper runtime message keys.
+- Centralized feature card/menu text into `messages.yml` under `feature-menus.*` and moved Infinite Restock/Netherite GUI title and control labels to message keys.
+- Updated docs to reflect runtime-only `messages.yml` keys and Ender Chest Item Limiter message keys.
 
 ## [1.4.1] - 2026-03-19
 

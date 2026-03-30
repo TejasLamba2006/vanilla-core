@@ -2,7 +2,6 @@ package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.AnchorRestrictionFeature;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
@@ -40,9 +39,7 @@ public class AnchorRestrictionListener implements Listener {
 
         if (event.getPlayer().getWorld().getEnvironment() != World.Environment.NETHER) {
             event.setCancelled(true);
-            event.getPlayer()
-                    .sendMessage(
-                            MessageManager.parse("<red>[Vanilla Core] <gray>Respawn anchors are restricted here."));
+            event.getPlayer().sendMessage(plugin.getMessageManager().get("anchor-restriction.blocked"));
         }
     }
 }

@@ -4,7 +4,6 @@ import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.NetheriteDisablerListener;
 import com.tejaslamba.vanillacore.menu.GuiHolder;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -20,8 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 public class NetheriteDisablerFeature extends BaseFeature {
-
-    public static final String GUI_TITLE = "§8Netherite Item Manager";
 
     private final Map<Material, Boolean> disabledItems = new HashMap<>();
     private final Map<Integer, Material> slotMapping = new HashMap<>();
@@ -83,16 +80,17 @@ public class NetheriteDisablerFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.NETHERITE_CHESTPLATE, "<!italic><dark_purple>Netherite Disabler",
-                "<!italic><gray>Disable specific netherite items");
+        return createMenuItem(Material.NETHERITE_CHESTPLATE,
+                plugin.getMessageManager().getRaw("feature-menus.netherite-disabler.name"),
+                plugin.getMessageManager().getRaw("feature-menus.netherite-disabler.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
-        lore.add("<yellow>Left Click: Toggle");
-        lore.add("<yellow>Right Click: Open GUI");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.right-click-open-gui"));
         return lore;
     }
 
@@ -104,14 +102,15 @@ public class NetheriteDisablerFeature extends BaseFeature {
     @Override
     public void onRightClick(Player player) {
         if (!isEnabled()) {
-            player.sendMessage(MessageManager.parse("<red>Netherite Disabler is disabled! Enable it first."));
+            player.sendMessage(plugin.getMessageManager().get("netherite-disabler.feature-disabled"));
             return;
         }
         openNetheriteGUI(player);
     }
 
     public void openNetheriteGUI(Player player) {
-        Inventory gui = plugin.getServer().createInventory(new GuiHolder("netherite-disabler"), 45, GUI_TITLE);
+        Inventory gui = plugin.getServer().createInventory(new GuiHolder("netherite-disabler"), 45,
+                plugin.getMessageManager().getRaw("netherite-disabler.gui.title"));
 
         for (Map.Entry<Integer, Material> entry : slotMapping.entrySet()) {
             int slot = entry.getKey();
@@ -124,17 +123,17 @@ public class NetheriteDisablerFeature extends BaseFeature {
                 String itemName = material.name().toLowerCase().replace("netherite_", "");
                 itemName = itemName.substring(0, 1).toUpperCase() + itemName.substring(1);
 
-                meta.displayName(MessageManager.parse("<!italic><dark_purple>Netherite " + itemName));
+                meta.displayName(plugin.getMessageManager().get("netherite-disabler.gui.item.name", "item", itemName));
 
                 List<Component> lore = new ArrayList<>();
                 lore.add(Component.empty());
                 if (isDisabled) {
-                    lore.add(MessageManager.parse("<red>Status: Disabled"));
+                    lore.add(plugin.getMessageManager().get("netherite-disabler.gui.item.status-disabled"));
                 } else {
-                    lore.add(MessageManager.parse("<green>Status: Enabled"));
+                    lore.add(plugin.getMessageManager().get("netherite-disabler.gui.item.status-enabled"));
                 }
                 lore.add(Component.empty());
-                lore.add(MessageManager.parse("<yellow>Click to toggle!"));
+                lore.add(plugin.getMessageManager().get("netherite-disabler.gui.item.click-toggle"));
                 meta.lore(lore);
 
                 meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -149,7 +148,7 @@ public class NetheriteDisablerFeature extends BaseFeature {
         ItemStack backButton = new ItemStack(Material.ARROW);
         ItemMeta backMeta = backButton.getItemMeta();
         if (backMeta != null) {
-            backMeta.displayName(MessageManager.parse("<!italic><yellow>Back to Main Menu"));
+            backMeta.displayName(plugin.getMessageManager().get("netherite-disabler.gui.back"));
             backButton.setItemMeta(backMeta);
         }
         gui.setItem(39, backButton);
@@ -157,7 +156,7 @@ public class NetheriteDisablerFeature extends BaseFeature {
         ItemStack barrier = new ItemStack(Material.BARRIER);
         ItemMeta barrierMeta = barrier.getItemMeta();
         if (barrierMeta != null) {
-            barrierMeta.displayName(MessageManager.parse("<!italic><red>Close"));
+            barrierMeta.displayName(plugin.getMessageManager().get("netherite-disabler.gui.close"));
             barrier.setItemMeta(barrierMeta);
         }
         gui.setItem(40, barrier);

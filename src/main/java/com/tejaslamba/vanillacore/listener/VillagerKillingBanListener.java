@@ -2,7 +2,6 @@ package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.VillagerKillingBanFeature;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
@@ -27,7 +26,7 @@ public class VillagerKillingBanListener implements Listener {
 
         if (event.getEntity() instanceof Villager && event.getDamager() instanceof Player player) {
             event.setCancelled(true);
-            player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Killing villagers is disabled."));
+            player.sendMessage(plugin.getMessageManager().get("villager-killing-ban.blocked"));
         }
     }
 }

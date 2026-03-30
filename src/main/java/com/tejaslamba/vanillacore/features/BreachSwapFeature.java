@@ -33,7 +33,7 @@ public class BreachSwapFeature extends BaseFeature {
     private void loadSettings() {
         deniedMessage = plugin.getConfigManager().get().getString(
                 getConfigPath() + ".denied-message",
-                "<red>Breach swapping is disabled.");
+                plugin.getMessageManager().getRaw("breach-swap.denied-default"));
     }
 
     public String getDeniedMessage() {
@@ -62,8 +62,9 @@ public class BreachSwapFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        ItemStack item = createMenuItem(Material.MACE, "<!italic><red>Breach Swap",
-                "<!italic><gray>Prevent swapping between Breach mace and sword/axe");
+        ItemStack item = createMenuItem(Material.MACE,
+                plugin.getMessageManager().getRaw("feature-menus.breach-swap.name"),
+                plugin.getMessageManager().getRaw("feature-menus.breach-swap.description"));
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             meta.setEnchantmentGlintOverride(true);
@@ -75,12 +76,12 @@ public class BreachSwapFeature extends BaseFeature {
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<gray>Blocks hotbar/hand swaps between");
-        lore.add("<gray>a Breach mace and a sword or axe.");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.breach-swap.lore-1"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.breach-swap.lore-2"));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
         return lore;
     }
 

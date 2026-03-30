@@ -3,7 +3,6 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.ItemCooldownsListener;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import com.tejaslamba.vanillacore.menu.GuiHolder;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -21,8 +20,6 @@ import java.util.Locale;
 import java.util.Map;
 
 public class ItemCooldownsFeature extends BaseFeature {
-
-    public static final Component GUI_TITLE = MessageManager.parse("<!italic><dark_aqua>Item Cooldowns");
 
     private static final Material[] GUI_ITEMS = {
             Material.GOLDEN_APPLE,
@@ -100,19 +97,21 @@ public class ItemCooldownsFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.CLOCK, "<!italic><aqua>Item Cooldowns",
-                "<!italic><gray>Configure cooldowns for pearls, apples, wind charges and more");
+        return createMenuItem(Material.CLOCK,
+                plugin.getMessageManager().getRaw("feature-menus.item-cooldowns.name"),
+                plugin.getMessageManager().getRaw("feature-menus.item-cooldowns.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<gray>Configured entries: <yellow>" + cooldownTicks.size());
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.item-cooldowns.entries")
+                .replace("<count>", String.valueOf(cooldownTicks.size())));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
-        lore.add("<yellow>Right Click: Open Settings");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.right-click-open-settings"));
         return lore;
     }
 
@@ -127,7 +126,8 @@ public class ItemCooldownsFeature extends BaseFeature {
     }
 
     public void openSettingsGUI(Player player) {
-        Inventory gui = Bukkit.createInventory(new GuiHolder("item-cooldowns"), 45, GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("item-cooldowns"), 45,
+                plugin.getMessageManager().get("item-cooldowns.gui.title"));
         fillFiller(gui, 45);
 
         gui.setItem(10, buildCooldownItem(Material.GOLDEN_APPLE));
@@ -189,14 +189,15 @@ public class ItemCooldownsFeature extends BaseFeature {
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             double seconds = getCooldownTicks(material) / 20.0D;
-            meta.displayName(MessageManager.parse("<!italic><yellow>" + prettyMaterial(material)));
+            meta.displayName(plugin.getMessageManager().get("item-cooldowns.gui.item.name", "item",
+                    prettyMaterial(material)));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Cooldown: <yellow>" + seconds + "s"));
+            lore.add(plugin.getMessageManager().get("item-cooldowns.gui.item.cooldown", "seconds", seconds));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><green>Left Click: <gray>+0.5s"));
-            lore.add(MessageManager.parse("<!italic><red>Right Click: <gray>-0.5s"));
-            lore.add(MessageManager.parse("<!italic><yellow>Shift Click: <gray>+/-5s"));
+            lore.add(plugin.getMessageManager().get("item-cooldowns.gui.item.left-click"));
+            lore.add(plugin.getMessageManager().get("item-cooldowns.gui.item.right-click"));
+            lore.add(plugin.getMessageManager().get("item-cooldowns.gui.item.shift-click"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -207,13 +208,13 @@ public class ItemCooldownsFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.BOOK);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><aqua>Versatile Cooldowns"));
+            meta.displayName(plugin.getMessageManager().get("item-cooldowns.gui.info.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>You can add any material in config:"));
-            lore.add(MessageManager.parse("<!italic><yellow>features.item-cooldowns.cooldowns"));
+            lore.add(plugin.getMessageManager().get("item-cooldowns.gui.info.lore-1"));
+            lore.add(plugin.getMessageManager().get("item-cooldowns.gui.info.lore-2"));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Values are in seconds."));
+            lore.add(plugin.getMessageManager().get("item-cooldowns.gui.info.lore-3"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -224,7 +225,7 @@ public class ItemCooldownsFeature extends BaseFeature {
         ItemStack back = new ItemStack(Material.ARROW);
         ItemMeta meta = back.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><yellow>Back to Main Menu"));
+            meta.displayName(plugin.getMessageManager().get("item-cooldowns.gui.back"));
             back.setItemMeta(meta);
         }
         return back;

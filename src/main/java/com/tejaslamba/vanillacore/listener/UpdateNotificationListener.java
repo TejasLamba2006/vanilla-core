@@ -2,7 +2,6 @@ package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.manager.CDNManager;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -79,11 +78,10 @@ public class UpdateNotificationListener implements Listener {
         String safeMessage = mm.escapeTags(message);
 
         player.sendMessage(Component.empty());
-        player.sendMessage(
-                MessageManager.parse("<dark_gray><strikethrough>                                              "));
-        player.sendMessage(MessageManager.parse("<gold><bold>  " + safeTitle + " <gray>- <yellow>Update Available!"));
+        player.sendMessage(plugin.getMessageManager().get("update-notification.separator"));
+        player.sendMessage(plugin.getMessageManager().get("update-notification.title-line", "title", safeTitle));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gray>  " + safeMessage));
+        player.sendMessage(plugin.getMessageManager().get("update-notification.message-line", "message", safeMessage));
         player.sendMessage(Component.empty());
 
         Component downloadBtn = Component.text("[DOWNLOAD]")
@@ -101,26 +99,26 @@ public class UpdateNotificationListener implements Listener {
 
         player.sendMessage(Component.text("  ").append(downloadBtn).append(changelogBtn));
 
-        player.sendMessage(
-                MessageManager.parse("<dark_gray><strikethrough>                                              "));
+        player.sendMessage(plugin.getMessageManager().get("update-notification.separator"));
         player.sendMessage(Component.empty());
     }
 
     private void sendDisabledFeaturesWarning(Player player, Set<String> disabledFeatures, CDNManager cdnManager) {
         String disabledMessage = cdnManager.getDisabledMessage();
-        player.sendMessage(MessageManager
-                .parse("<red><bold>[Vanilla Core] <yellow>Warning: <gray>Some features have been remotely disabled:"));
+        player.sendMessage(plugin.getMessageManager().get("update-notification.disabled-features-header"));
         for (String feature : disabledFeatures) {
-            player.sendMessage(MessageManager.parse("<gray>  - <red>" + feature));
+            player.sendMessage(plugin.getMessageManager().get("update-notification.disabled-feature-entry", "feature",
+                    feature));
         }
-        player.sendMessage(MessageManager.parse("<gray>" + disabledMessage));
+        player.sendMessage(plugin.getMessageManager().get("update-notification.disabled-features-message", "message",
+                disabledMessage));
     }
 
     private void sendMaintenanceWarning(Player player, CDNManager cdnManager) {
         String maintenanceMessage = cdnManager.getMaintenanceMessage();
-        player.sendMessage(MessageManager
-                .parse("<red><bold>[Vanilla Core] <yellow>Warning: <gray>Plugin is in maintenance mode."));
-        player.sendMessage(MessageManager.parse("<gray>" + maintenanceMessage));
+        player.sendMessage(plugin.getMessageManager().get("update-notification.maintenance-header"));
+        player.sendMessage(plugin.getMessageManager().get("update-notification.maintenance-message", "message",
+                maintenanceMessage));
     }
 
     public void clearNotifiedPlayer(UUID uuid) {

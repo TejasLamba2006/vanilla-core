@@ -43,16 +43,17 @@ public class BedBombingBanFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.RED_BED, "<!italic><red>Bed Bombing Ban",
-                "<!italic><gray>Disable bed explosions in Nether and End");
+        return createMenuItem(Material.RED_BED,
+                plugin.getMessageManager().getRaw("feature-menus.bed-bombing-ban.name"),
+                plugin.getMessageManager().getRaw("feature-menus.bed-bombing-ban.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
         return lore;
     }
 

@@ -10,11 +10,26 @@ Complete configuration reference for Vanilla Core.
 
 The main configuration file is located at:
 
-```
+```text
 plugins/Vanilla Core/config.yml
 ```
 
 All plugin settings are stored in this single file. The file is automatically created with default values on first server start.
+
+## Messages File Location
+
+All plugin message keys are stored in:
+
+```text
+plugins/Vanilla Core/messages.yml
+```
+
+Notes:
+
+- Runtime message keys are grouped by section (`general`, `commands`, `item-limiter`, `ender-chest-item-limiter`, etc.) and are used directly by the plugin.
+- Feature card names/descriptions/lore in `/vanilla menu` are now centralized under `feature-menus.*`.
+- Infinite Restock and Netherite manager GUI labels/titles are configurable under `infinite-restock.gui.*` and `netherite-disabler.gui.*`.
+- Customize runtime behavior by editing the normal feature/message sections.
 
 ## Configuration Structure
 
@@ -340,6 +355,8 @@ After editing `config.yml`, apply changes with:
 ```bash
 /vanilla reload
 ```
+
+If you edit `messages.yml`, use the same command to reload message keys.
 
 ## Backup Recommendations
 

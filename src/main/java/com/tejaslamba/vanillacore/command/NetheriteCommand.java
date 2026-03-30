@@ -1,7 +1,6 @@
 package com.tejaslamba.vanillacore.command;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import com.tejaslamba.vanillacore.features.NetheriteDisablerFeature;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -37,14 +36,13 @@ public class NetheriteCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("vanillacore.netherite")) {
-            sender.sendMessage(MessageManager.parse(
-                    "<dark_gray>[<gold>Vanilla Core<dark_gray>] <red>You don't have permission to use this command!"));
+            sender.sendMessage(plugin.getMessageManager().get("commands.netherite.no-permission"));
             return true;
         }
 
         if (args.length == 0) {
             if (!(sender instanceof Player player)) {
-                sender.sendMessage(MessageManager.parse("<red>Only players can open the GUI!"));
+                sender.sendMessage(plugin.getMessageManager().get("commands.netherite.player-only-gui"));
                 return true;
             }
             openGUI(player);
@@ -55,7 +53,7 @@ public class NetheriteCommand implements CommandExecutor, TabCompleter {
 
         if (subCommand.equals("gui")) {
             if (!(sender instanceof Player player)) {
-                sender.sendMessage(MessageManager.parse("<red>Only players can open the GUI!"));
+                sender.sendMessage(plugin.getMessageManager().get("commands.netherite.player-only-gui"));
                 return true;
             }
             openGUI(player);
@@ -71,14 +69,13 @@ public class NetheriteCommand implements CommandExecutor, TabCompleter {
         String item = args[1].toLowerCase();
 
         if (!netheriteItems.containsKey(item)) {
-            sender.sendMessage(MessageManager.parse(
-                    "<red>Invalid item! Valid items: sword, axe, pickaxe, shovel, hoe, helmet, chestplate, leggings, boots"));
+            sender.sendMessage(plugin.getMessageManager().get("commands.netherite.invalid-item"));
             return true;
         }
 
         NetheriteDisablerFeature feature = getFeature();
         if (feature == null) {
-            sender.sendMessage(MessageManager.parse("<red>Netherite Disabler feature not found!"));
+            sender.sendMessage(plugin.getMessageManager().get("commands.netherite.feature-not-found"));
             return true;
         }
 
@@ -93,8 +90,9 @@ public class NetheriteCommand implements CommandExecutor, TabCompleter {
         }
 
         String displayItem = item.substring(0, 1).toUpperCase() + item.substring(1);
-        sender.sendMessage(MessageManager.parse("<dark_gray>[<gold>Vanilla Core<dark_gray>] "
-                + (shouldDisable ? "<red>Disabled" : "<green>Enabled") + " <white>Netherite " + displayItem));
+        sender.sendMessage(plugin.getMessageManager().get(
+                shouldDisable ? "commands.netherite.disabled-item" : "commands.netherite.enabled-item",
+                "item", displayItem));
 
         return true;
     }
@@ -102,7 +100,7 @@ public class NetheriteCommand implements CommandExecutor, TabCompleter {
     private void openGUI(Player player) {
         NetheriteDisablerFeature feature = getFeature();
         if (feature == null) {
-            player.sendMessage(MessageManager.parse("<red>Netherite Disabler feature not found!"));
+            player.sendMessage(plugin.getMessageManager().get("commands.netherite.feature-not-found"));
             return;
         }
 
@@ -118,12 +116,10 @@ public class NetheriteCommand implements CommandExecutor, TabCompleter {
     }
 
     private void sendHelp(CommandSender sender) {
-        sender.sendMessage(MessageManager.parse("<gold><bold>=== Netherite Commands ==="));
-        sender.sendMessage(MessageManager.parse("<yellow>/vanilla netherite gui <gray>- Open netherite manager GUI"));
-        sender.sendMessage(
-                MessageManager.parse("<yellow>/vanilla netherite disable <item> <gray>- Disable netherite item"));
-        sender.sendMessage(
-                MessageManager.parse("<yellow>/vanilla netherite enable <item> <gray>- Enable netherite item"));
+        sender.sendMessage(plugin.getMessageManager().get("commands.netherite.help.title"));
+        sender.sendMessage(plugin.getMessageManager().get("commands.netherite.help.gui"));
+        sender.sendMessage(plugin.getMessageManager().get("commands.netherite.help.disable"));
+        sender.sendMessage(plugin.getMessageManager().get("commands.netherite.help.enable"));
     }
 
     @Override

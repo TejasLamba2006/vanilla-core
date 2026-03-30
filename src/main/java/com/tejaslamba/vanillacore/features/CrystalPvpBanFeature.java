@@ -43,16 +43,17 @@ public class CrystalPvpBanFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.END_CRYSTAL, "<!italic><light_purple>Crystal PvP Ban",
-                "<!italic><gray>Disable end crystal placement, damage, and explosions");
+        return createMenuItem(Material.END_CRYSTAL,
+                plugin.getMessageManager().getRaw("feature-menus.crystal-pvp-ban.name"),
+                plugin.getMessageManager().getRaw("feature-menus.crystal-pvp-ban.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
         return lore;
     }
 

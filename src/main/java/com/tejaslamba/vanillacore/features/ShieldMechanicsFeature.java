@@ -18,8 +18,6 @@ import java.util.List;
 
 public class ShieldMechanicsFeature extends BaseFeature {
 
-    public static final Component GUI_TITLE = MessageManager.parse("<!italic><dark_gray>Shield Mechanics Settings");
-
     private ShieldMechanicsListener listener;
 
     private boolean maceStunEnabled;
@@ -75,22 +73,27 @@ public class ShieldMechanicsFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.SHIELD, "<!italic><light_purple>Shield Mechanics",
-                "<!italic><gray>Customize shield stun and disable durations");
+        return createMenuItem(Material.SHIELD,
+                plugin.getMessageManager().getRaw("feature-menus.shield-mechanics.name"),
+                plugin.getMessageManager().getRaw("feature-menus.shield-mechanics.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<gray>Mace Stun: " + (maceStunEnabled ? "<green>On" : "<red>Off") + " <dark_gray>(<yellow>"
-                + maceStunDurationTicks + " ticks<dark_gray>)");
-        lore.add("<gray>Axe Stun:  " + (axeStunEnabled ? "<green>On" : "<red>Off") + " <dark_gray>(<yellow>"
-                + axeStunDurationTicks + " ticks<dark_gray>)");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shield-mechanics.mace")
+                .replace("<state>", plugin.getMessageManager().getRaw(
+                        maceStunEnabled ? "feature-menus.shared.on" : "feature-menus.shared.off"))
+                .replace("<ticks>", String.valueOf(maceStunDurationTicks)));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shield-mechanics.axe")
+                .replace("<state>", plugin.getMessageManager().getRaw(
+                        axeStunEnabled ? "feature-menus.shared.on" : "feature-menus.shared.off"))
+                .replace("<ticks>", String.valueOf(axeStunDurationTicks)));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
-        lore.add("<yellow>Right Click: Open Settings");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.right-click-open-settings"));
         return lore;
     }
 
@@ -105,22 +108,23 @@ public class ShieldMechanicsFeature extends BaseFeature {
     }
 
     public void openSettingsGUI(Player player) {
-        Inventory gui = plugin.getServer().createInventory(new GuiHolder("shield-mechanics"), 27, GUI_TITLE);
+        Inventory gui = plugin.getServer().createInventory(new GuiHolder("shield-mechanics"), 27,
+                plugin.getMessageManager().get("shield-mechanics.gui.title"));
 
         fillFiller(gui, 27);
 
         gui.setItem(4, buildMaceStunItem());
-        gui.setItem(3, buildDecreaseItem("<red>Decrease Mace Stun", maceStunDurationTicks));
-        gui.setItem(5, buildIncreaseItem("<green>Increase Mace Stun", maceStunDurationTicks));
+        gui.setItem(3, buildDecreaseItem("shield-mechanics.gui.mace.decrease-name", maceStunDurationTicks));
+        gui.setItem(5, buildIncreaseItem("shield-mechanics.gui.mace.increase-name", maceStunDurationTicks));
 
         gui.setItem(13, buildAxeStunItem());
-        gui.setItem(12, buildDecreaseItem("<red>Decrease Axe Stun", axeStunDurationTicks));
-        gui.setItem(14, buildIncreaseItem("<green>Increase Axe Stun", axeStunDurationTicks));
+        gui.setItem(12, buildDecreaseItem("shield-mechanics.gui.axe.decrease-name", axeStunDurationTicks));
+        gui.setItem(14, buildIncreaseItem("shield-mechanics.gui.axe.increase-name", axeStunDurationTicks));
 
         ItemStack backButton = new ItemStack(Material.ARROW);
         ItemMeta backMeta = backButton.getItemMeta();
         if (backMeta != null) {
-            backMeta.displayName(MessageManager.parse("<!italic><yellow>Back to Main Menu"));
+            backMeta.displayName(plugin.getMessageManager().get("shield-mechanics.gui.back"));
             backButton.setItemMeta(backMeta);
         }
         gui.setItem(22, backButton);
@@ -150,14 +154,17 @@ public class ShieldMechanicsFeature extends BaseFeature {
     private List<Component> buildStunLore(boolean enabled, int durationTicks) {
         List<Component> lore = new ArrayList<>();
         lore.add(Component.empty());
-        lore.add(MessageManager.parse("<!italic><gray>Hitting a blocking player with this weapon"));
-        lore.add(MessageManager.parse("<!italic><gray>will put their shield on cooldown."));
+        lore.add(plugin.getMessageManager().get("shield-mechanics.gui.shared.description-1"));
+        lore.add(plugin.getMessageManager().get("shield-mechanics.gui.shared.description-2"));
         lore.add(Component.empty());
-        lore.add(MessageManager.parse("<!italic><gray>Status: " + (enabled ? "<green>Enabled" : "<red>Disabled")));
-        lore.add(MessageManager.parse("<!italic><gray>Duration: <yellow>" + durationTicks + " ticks <dark_gray>(<gray>"
-                + String.format("%.1f", durationTicks / 20.0) + "s<dark_gray>)"));
+        lore.add(plugin.getMessageManager().get(
+                enabled ? "shield-mechanics.gui.shared.status-enabled"
+                        : "shield-mechanics.gui.shared.status-disabled"));
+        lore.add(plugin.getMessageManager().get("shield-mechanics.gui.shared.duration",
+                "ticks", durationTicks,
+                "seconds", String.format("%.1f", durationTicks / 20.0)));
         lore.add(Component.empty());
-        lore.add(MessageManager.parse("<!italic><yellow>Click: Toggle"));
+        lore.add(plugin.getMessageManager().get("shield-mechanics.gui.shared.toggle"));
         return lore;
     }
 
@@ -165,7 +172,7 @@ public class ShieldMechanicsFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.MACE);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><light_purple>Mace Shield Stun"));
+            meta.displayName(plugin.getMessageManager().get("shield-mechanics.gui.mace.name"));
             meta.lore(buildStunLore(maceStunEnabled, maceStunDurationTicks));
             item.setItemMeta(meta);
         }
@@ -176,41 +183,41 @@ public class ShieldMechanicsFeature extends BaseFeature {
         ItemStack item = new ItemStack(Material.DIAMOND_AXE);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><gold>Axe Shield Stun"));
+            meta.displayName(plugin.getMessageManager().get("shield-mechanics.gui.axe.name"));
             meta.lore(buildStunLore(axeStunEnabled, axeStunDurationTicks));
             item.setItemMeta(meta);
         }
         return item;
     }
 
-    private ItemStack buildDecreaseItem(String name, int current) {
+    private ItemStack buildDecreaseItem(String namePath, int current) {
         ItemStack item = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic>" + name));
+            meta.displayName(plugin.getMessageManager().get(namePath));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Current: <yellow>" + current + " ticks"));
+            lore.add(plugin.getMessageManager().get("shield-mechanics.gui.shared.current", "ticks", current));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Left Click: <gray>-5 ticks"));
-            lore.add(MessageManager.parse("<!italic><yellow>Shift Click: <gray>-20 ticks"));
+            lore.add(plugin.getMessageManager().get("shield-mechanics.gui.shared.decrease-left"));
+            lore.add(plugin.getMessageManager().get("shield-mechanics.gui.shared.decrease-shift"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
     }
 
-    private ItemStack buildIncreaseItem(String name, int current) {
+    private ItemStack buildIncreaseItem(String namePath, int current) {
         ItemStack item = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic>" + name));
+            meta.displayName(plugin.getMessageManager().get(namePath));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Current: <yellow>" + current + " ticks"));
+            lore.add(plugin.getMessageManager().get("shield-mechanics.gui.shared.current", "ticks", current));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Left Click: <gray>+5 ticks"));
-            lore.add(MessageManager.parse("<!italic><yellow>Shift Click: <gray>+20 ticks"));
+            lore.add(plugin.getMessageManager().get("shield-mechanics.gui.shared.increase-left"));
+            lore.add(plugin.getMessageManager().get("shield-mechanics.gui.shared.increase-shift"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }

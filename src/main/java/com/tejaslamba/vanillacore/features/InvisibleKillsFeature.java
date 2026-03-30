@@ -3,7 +3,6 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.InvisibleKillsListener;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -49,21 +48,22 @@ public class InvisibleKillsFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.POTION, "<!italic><dark_purple>Invisible Kills",
-                "<!italic><gray>Hide killer names when invisible");
+        return createMenuItem(Material.POTION,
+                plugin.getMessageManager().getRaw("feature-menus.invisible-kills.name"),
+                plugin.getMessageManager().getRaw("feature-menus.invisible-kills.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<gray>When an invisible player kills");
-        lore.add("<gray>someone, the death message will");
-        lore.add("<gray>hide the killer's name");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.invisible-kills.lore-1"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.invisible-kills.lore-2"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.invisible-kills.lore-3"));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
-        lore.add("<yellow>Right Click: Info");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.right-click-info"));
         return lore;
     }
 
@@ -77,17 +77,19 @@ public class InvisibleKillsFeature extends BaseFeature {
         String deathMessage = plugin.getConfigManager().get()
                 .getString("features.invisible-kills.death-message", "{victim} was killed by <obf>?????????");
 
-        player.sendMessage(MessageManager.parse("<gold><bold>=== Invisible Kills ==="));
+        player.sendMessage(plugin.getMessageManager().get("invisible-kills.info.title"));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gray>Status: " + (isEnabled() ? "<green>Enabled" : "<red>Disabled")));
+        player.sendMessage(plugin.getMessageManager().get(
+                isEnabled() ? "invisible-kills.info.status-enabled" : "invisible-kills.info.status-disabled"));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gray>When enabled, if an invisible player"));
-        player.sendMessage(MessageManager.parse("<gray>kills someone, the death message will"));
-        player.sendMessage(MessageManager.parse("<gray>be obfuscated to hide the killer's name."));
+        player.sendMessage(plugin.getMessageManager().get("invisible-kills.info.line-1"));
+        player.sendMessage(plugin.getMessageManager().get("invisible-kills.info.line-2"));
+        player.sendMessage(plugin.getMessageManager().get("invisible-kills.info.line-3"));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gold>Death Message Format:"));
-        player.sendMessage(MessageManager.parse("<gray>" + deathMessage.replace("{victim}", "PlayerName")));
+        player.sendMessage(plugin.getMessageManager().get("invisible-kills.info.format-title"));
+        player.sendMessage(plugin.getMessageManager().get("invisible-kills.info.format-value", "format",
+                deathMessage.replace("{victim}", "PlayerName")));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gray>Configure in <white>config.yml"));
+        player.sendMessage(plugin.getMessageManager().get("invisible-kills.info.config-hint"));
     }
 }

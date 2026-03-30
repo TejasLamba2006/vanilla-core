@@ -20,8 +20,6 @@ import java.util.*;
 
 public class MinimapControlFeature extends BaseFeature {
 
-    public static final String GUI_TITLE = "§8Minimap Control";
-    public static final String WORLD_SETTINGS_GUI_TITLE = "§8Minimap - World Settings";
     private static final String CONFIG_PATH_PREFIX = "features.minimap-control.";
     private static final String VERBOSE_PREFIX = "[VERBOSE] Minimap Control - ";
 
@@ -128,17 +126,19 @@ public class MinimapControlFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.FILLED_MAP, "<!italic><gold>Minimap Control",
-                "<!italic><gray>Control Xaero's minimap features");
+        return createMenuItem(Material.FILLED_MAP,
+                plugin.getMessageManager().getRaw("feature-menus.minimap-control.name"),
+                plugin.getMessageManager().getRaw("feature-menus.minimap-control.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
-        lore.add("<gray>Mode: <yellow>" + globalMode.name());
-        lore.add("<yellow>Left Click: Toggle");
-        lore.add("<yellow>Right Click: Open GUI");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.minimap-control.mode").replace("<mode>",
+                globalMode.name()));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.right-click-open-gui"));
         return lore;
     }
 
@@ -157,39 +157,41 @@ public class MinimapControlFeature extends BaseFeature {
     }
 
     public void openMainGUI(Player player) {
-        Inventory gui = Bukkit.createInventory(new GuiHolder("minimap-control"), 36, GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("minimap-control"), 36,
+                plugin.getMessageManager().getRaw("minimap-control.gui.main.title"));
 
         ItemStack modeItem = createModeItem();
         gui.setItem(13, modeItem);
 
-        ItemStack netherItem = createToggleItem(Material.NETHERRACK, "<gold>Nether Fair Mode",
+        ItemStack netherItem = createToggleItem(Material.NETHERRACK, "minimap-control.gui.main.toggles.nether.name",
                 netherFairMode,
-                "<gray>When in FAIR mode, sends extra",
-                "<gray>restrictions for the Nether.");
+                "minimap-control.gui.main.toggles.nether.lore-1",
+                "minimap-control.gui.main.toggles.nether.lore-2");
         gui.setItem(20, netherItem);
 
-        ItemStack joinItem = createToggleItem(Material.OAK_DOOR, "<gold>Send on Join",
+        ItemStack joinItem = createToggleItem(Material.OAK_DOOR, "minimap-control.gui.main.toggles.send-on-join.name",
                 sendOnJoin,
-                "<gray>Apply settings when",
-                "<gray>players join the server.");
+                "minimap-control.gui.main.toggles.send-on-join.lore-1",
+                "minimap-control.gui.main.toggles.send-on-join.lore-2");
         gui.setItem(22, joinItem);
 
-        ItemStack worldChangeItem = createToggleItem(Material.ENDER_PEARL, "<gold>Send on World Change",
+        ItemStack worldChangeItem = createToggleItem(Material.ENDER_PEARL,
+                "minimap-control.gui.main.toggles.send-on-world-change.name",
                 sendOnWorldChange,
-                "<gray>Apply settings when players",
-                "<gray>change worlds/dimensions.");
+                "minimap-control.gui.main.toggles.send-on-world-change.lore-1",
+                "minimap-control.gui.main.toggles.send-on-world-change.lore-2");
         gui.setItem(24, worldChangeItem);
 
         ItemStack worldSettings = new ItemStack(Material.GRASS_BLOCK);
         ItemMeta worldMeta = worldSettings.getItemMeta();
         if (worldMeta != null) {
-            worldMeta.displayName(MessageManager.parse("<!italic><gold>Per-World Settings"));
+            worldMeta.displayName(plugin.getMessageManager().get("minimap-control.gui.main.per-world.name"));
             List<Component> worldLore = new ArrayList<>();
             worldLore.add(Component.empty());
-            worldLore.add(MessageManager.parse("<!italic><gray>Configure different modes"));
-            worldLore.add(MessageManager.parse("<!italic><gray>for each world."));
+            worldLore.add(plugin.getMessageManager().get("minimap-control.gui.main.per-world.lore-1"));
+            worldLore.add(plugin.getMessageManager().get("minimap-control.gui.main.per-world.lore-2"));
             worldLore.add(Component.empty());
-            worldLore.add(MessageManager.parse("<!italic><yellow>Click to configure!"));
+            worldLore.add(plugin.getMessageManager().get("minimap-control.gui.main.per-world.action"));
             worldMeta.lore(worldLore);
             worldSettings.setItemMeta(worldMeta);
         }
@@ -198,13 +200,13 @@ public class MinimapControlFeature extends BaseFeature {
         ItemStack applyAll = new ItemStack(Material.LIME_DYE);
         ItemMeta applyMeta = applyAll.getItemMeta();
         if (applyMeta != null) {
-            applyMeta.displayName(MessageManager.parse("<!italic><green>Apply to All Online"));
+            applyMeta.displayName(plugin.getMessageManager().get("minimap-control.gui.main.apply-all.name"));
             List<Component> applyLore = new ArrayList<>();
             applyLore.add(Component.empty());
-            applyLore.add(MessageManager.parse("<!italic><gray>Send current settings to"));
-            applyLore.add(MessageManager.parse("<!italic><gray>all online players now."));
+            applyLore.add(plugin.getMessageManager().get("minimap-control.gui.main.apply-all.lore-1"));
+            applyLore.add(plugin.getMessageManager().get("minimap-control.gui.main.apply-all.lore-2"));
             applyLore.add(Component.empty());
-            applyLore.add(MessageManager.parse("<!italic><yellow>Click to apply!"));
+            applyLore.add(plugin.getMessageManager().get("minimap-control.gui.main.apply-all.action"));
             applyMeta.lore(applyLore);
             applyAll.setItemMeta(applyMeta);
         }
@@ -213,7 +215,7 @@ public class MinimapControlFeature extends BaseFeature {
         ItemStack closeItem = new ItemStack(Material.BARRIER);
         ItemMeta closeMeta = closeItem.getItemMeta();
         if (closeMeta != null) {
-            closeMeta.displayName(MessageManager.parse("<!italic><red>Close"));
+            closeMeta.displayName(plugin.getMessageManager().get("minimap-control.gui.shared.close"));
             closeItem.setItemMeta(closeMeta);
         }
         gui.setItem(35, closeItem);
@@ -231,40 +233,47 @@ public class MinimapControlFeature extends BaseFeature {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic><gold>Global Mode: <yellow>" + globalMode.name()));
+            meta.displayName(plugin.getMessageManager().get("minimap-control.gui.main.global-mode.name",
+                    "mode", globalMode.name()));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse(globalMode == MinimapMode.DISABLED
-                    ? "<!italic><green>\u00bb <red>DISABLED <gray>- Minimap fully disabled"
-                    : "<!italic><gray>  <dark_gray>DISABLED - Minimap fully disabled"));
-            lore.add(MessageManager.parse(globalMode == MinimapMode.FAIR
-                    ? "<!italic><green>\u00bb <yellow>FAIR <gray>- No cave map, no radar"
-                    : "<!italic><gray>  <dark_gray>FAIR - No cave map, no radar"));
-            lore.add(MessageManager.parse(globalMode == MinimapMode.FULL
-                    ? "<!italic><green>\u00bb <green>FULL <gray>- All features enabled"
-                    : "<!italic><gray>  <dark_gray>FULL - All features enabled"));
+            lore.add(plugin.getMessageManager().get(
+                    globalMode == MinimapMode.DISABLED
+                            ? "minimap-control.gui.main.global-mode.disabled-active"
+                            : "minimap-control.gui.main.global-mode.disabled-inactive"));
+            lore.add(plugin.getMessageManager().get(
+                    globalMode == MinimapMode.FAIR
+                            ? "minimap-control.gui.main.global-mode.fair-active"
+                            : "minimap-control.gui.main.global-mode.fair-inactive"));
+            lore.add(plugin.getMessageManager().get(
+                    globalMode == MinimapMode.FULL
+                            ? "minimap-control.gui.main.global-mode.full-active"
+                            : "minimap-control.gui.main.global-mode.full-inactive"));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Click to cycle modes!"));
+            lore.add(plugin.getMessageManager().get("minimap-control.gui.main.global-mode.action"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
         return item;
     }
 
-    private ItemStack createToggleItem(Material material, String name, boolean enabled, String... descriptionLines) {
+    private ItemStack createToggleItem(Material material, String namePath, boolean enabled,
+            String... descriptionPaths) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(MessageManager.parse("<!italic>" + name));
+            meta.displayName(plugin.getMessageManager().get(namePath));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><gray>Status: " + (enabled ? "<green>Enabled" : "<red>Disabled")));
+            lore.add(plugin.getMessageManager().get(
+                    enabled ? "minimap-control.gui.shared.status-enabled"
+                            : "minimap-control.gui.shared.status-disabled"));
             lore.add(Component.empty());
-            for (String line : descriptionLines) {
-                lore.add(MessageManager.parse("<!italic>" + line));
+            for (String path : descriptionPaths) {
+                lore.add(plugin.getMessageManager().get(path));
             }
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<!italic><yellow>Click to toggle!"));
+            lore.add(plugin.getMessageManager().get("minimap-control.gui.shared.toggle-action"));
             meta.lore(lore);
             item.setItemMeta(meta);
         }
@@ -276,7 +285,7 @@ public class MinimapControlFeature extends BaseFeature {
         int size = Math.min(54, ((worlds.size() + 8) / 9 + 1) * 9);
         size = Math.max(27, size);
         Inventory gui = Bukkit.createInventory(new GuiHolder("minimap-control-world-settings"), size,
-                WORLD_SETTINGS_GUI_TITLE);
+                plugin.getMessageManager().getRaw("minimap-control.gui.world-settings.title"));
 
         int slot = 0;
         for (World world : worlds) {
@@ -296,15 +305,17 @@ public class MinimapControlFeature extends BaseFeature {
             ItemMeta meta = worldItem.getItemMeta();
             if (meta != null) {
                 MiniMessage mm = MiniMessage.miniMessage();
-                meta.displayName(MessageManager.parse("<!italic><green>" + mm.escapeTags(world.getName())));
+                meta.displayName(plugin.getMessageManager().get("minimap-control.gui.world-settings.world.name",
+                        "world", mm.escapeTags(world.getName())));
                 List<Component> lore = new ArrayList<>();
                 lore.add(Component.empty());
-                lore.add(MessageManager
-                        .parse("<!italic><gray>Environment: <yellow>" + mm.escapeTags(world.getEnvironment().name())));
-                lore.add(MessageManager.parse("<!italic><gray>Mode: <yellow>" + mm.escapeTags(mode.name())));
+                lore.add(plugin.getMessageManager().get("minimap-control.gui.world-settings.world.environment",
+                        "environment", mm.escapeTags(world.getEnvironment().name())));
+                lore.add(plugin.getMessageManager().get("minimap-control.gui.world-settings.world.mode",
+                        "mode", mm.escapeTags(mode.name())));
                 lore.add(Component.empty());
-                lore.add(MessageManager.parse("<!italic><yellow>Left Click: Cycle mode"));
-                lore.add(MessageManager.parse("<!italic><yellow>Right Click: Use global"));
+                lore.add(plugin.getMessageManager().get("minimap-control.gui.world-settings.world.left-click"));
+                lore.add(plugin.getMessageManager().get("minimap-control.gui.world-settings.world.right-click"));
                 meta.lore(lore);
                 worldItem.setItemMeta(meta);
             }
@@ -314,7 +325,7 @@ public class MinimapControlFeature extends BaseFeature {
         ItemStack backItem = new ItemStack(Material.OAK_DOOR);
         ItemMeta backMeta = backItem.getItemMeta();
         if (backMeta != null) {
-            backMeta.displayName(MessageManager.parse("<!italic><yellow>Back"));
+            backMeta.displayName(plugin.getMessageManager().get("minimap-control.gui.shared.back"));
             backItem.setItemMeta(backMeta);
         }
         gui.setItem(size - 5, backItem);
@@ -322,7 +333,7 @@ public class MinimapControlFeature extends BaseFeature {
         ItemStack closeItem = new ItemStack(Material.BARRIER);
         ItemMeta closeMeta = closeItem.getItemMeta();
         if (closeMeta != null) {
-            closeMeta.displayName(MessageManager.parse("<!italic><red>Close"));
+            closeMeta.displayName(plugin.getMessageManager().get("minimap-control.gui.shared.close"));
             closeItem.setItemMeta(closeMeta);
         }
         gui.setItem(size - 1, closeItem);

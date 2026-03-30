@@ -3,7 +3,6 @@ package com.tejaslamba.vanillacore.features;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
 import com.tejaslamba.vanillacore.listener.OnePlayerSleepListener;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.GameRule;
 import org.bukkit.Material;
@@ -74,24 +73,29 @@ public class OnePlayerSleepFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.RED_BED, "<!italic><blue>One Player Sleep",
-                "<!italic><gray>Only one player needs to sleep");
+        return createMenuItem(Material.RED_BED,
+                plugin.getMessageManager().getRaw("feature-menus.one-player-sleep.name"),
+                plugin.getMessageManager().getRaw("feature-menus.one-player-sleep.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<gray>When enabled, only one player");
-        lore.add("<gray>needs to sleep to skip the night");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.one-player-sleep.lore-1"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.one-player-sleep.lore-2"));
         lore.add("");
         String sleepMsg = plugin.getConfigManager().get().getString("features.one-player-sleep.sleep-message", "");
         String skipMsg = plugin.getConfigManager().get().getString("features.one-player-sleep.skip-message", "");
-        lore.add("<gray>Sleep Message: " + (sleepMsg.isEmpty() ? "<dark_gray>None" : "<green>\u2713"));
-        lore.add("<gray>Skip Message: " + (skipMsg.isEmpty() ? "<dark_gray>None" : "<green>\u2713"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.one-player-sleep.sleep-message")
+                .replace("<state>", plugin.getMessageManager().getRaw(
+                        sleepMsg.isEmpty() ? "feature-menus.shared.none" : "feature-menus.shared.enabled-check")));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.one-player-sleep.skip-message")
+                .replace("<state>", plugin.getMessageManager().getRaw(
+                        skipMsg.isEmpty() ? "feature-menus.shared.none" : "feature-menus.shared.enabled-check")));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
         return lore;
     }
 
@@ -103,16 +107,17 @@ public class OnePlayerSleepFeature extends BaseFeature {
 
     @Override
     public void onRightClick(Player player) {
-        player.sendMessage(MessageManager.parse("<gold><bold>=== One Player Sleep ==="));
+        player.sendMessage(plugin.getMessageManager().get("one-player-sleep.info.title"));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gray>Status: " + (isEnabled() ? "<green>Enabled" : "<red>Disabled")));
+        player.sendMessage(plugin.getMessageManager().get(
+                isEnabled() ? "one-player-sleep.info.status-enabled" : "one-player-sleep.info.status-disabled"));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gray>When enabled:"));
-        player.sendMessage(MessageManager.parse("<green>\u2022 <gray>Only 1 player needs to sleep"));
-        player.sendMessage(MessageManager.parse("<green>\u2022 <gray>Night is skipped immediately"));
-        player.sendMessage(MessageManager.parse("<green>\u2022 <gray>Works in all overworld dimensions"));
+        player.sendMessage(plugin.getMessageManager().get("one-player-sleep.info.line-1"));
+        player.sendMessage(plugin.getMessageManager().get("one-player-sleep.info.line-2"));
+        player.sendMessage(plugin.getMessageManager().get("one-player-sleep.info.line-3"));
+        player.sendMessage(plugin.getMessageManager().get("one-player-sleep.info.line-4"));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gray>Uses Minecraft's built-in"));
-        player.sendMessage(MessageManager.parse("<gray>playersSleepingPercentage gamerule"));
+        player.sendMessage(plugin.getMessageManager().get("one-player-sleep.info.line-5"));
+        player.sendMessage(plugin.getMessageManager().get("one-player-sleep.info.line-6"));
     }
 }

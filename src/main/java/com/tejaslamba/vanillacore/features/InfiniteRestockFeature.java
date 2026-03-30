@@ -24,9 +24,6 @@ public class InfiniteRestockFeature extends BaseFeature {
     private InfiniteRestockListener listener;
     private InfiniteRestockManager manager;
 
-    public static final String GUI_TITLE = "§6Infinite Restock Manager";
-    public static final String BLACKLIST_GUI_TITLE = "§6Villager Blacklist";
-
     private static final Map<Villager.Profession, Material> PROFESSION_MATERIALS = new HashMap<>();
 
     static {
@@ -80,21 +77,22 @@ public class InfiniteRestockFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.EMERALD, "<!italic><dark_purple>Infinite Restock",
-                "<!italic><gray>Villagers never run out of trades");
+        return createMenuItem(Material.EMERALD,
+                plugin.getMessageManager().getRaw("feature-menus.infinite-restock.name"),
+                plugin.getMessageManager().getRaw("feature-menus.infinite-restock.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<gray>Villagers will always have");
-        lore.add("<gray>trades available and prices");
-        lore.add("<gray>won't increase from demand");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.infinite-restock.lore-1"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.infinite-restock.lore-2"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.infinite-restock.lore-3"));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
-        lore.add("<yellow>Right Click: Open Manager");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.right-click-open-manager"));
         return lore;
     }
 
@@ -102,9 +100,9 @@ public class InfiniteRestockFeature extends BaseFeature {
     public void onLeftClick(Player player) {
         toggleDefault(player);
         if (enabled) {
-            player.sendMessage(MessageManager.parse("<green>[Vanilla Core] <gray>Infinite Restock enabled"));
+            player.sendMessage(plugin.getMessageManager().get("infinite-restock.enabled"));
         } else {
-            player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Infinite Restock disabled"));
+            player.sendMessage(plugin.getMessageManager().get("infinite-restock.disabled"));
         }
     }
 
@@ -118,39 +116,48 @@ public class InfiniteRestockFeature extends BaseFeature {
             return;
         }
 
-        Inventory gui = Bukkit.createInventory(new GuiHolder("infinite-restock"), 36, GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("infinite-restock"), 36,
+                plugin.getMessageManager().getRaw("infinite-restock.gui.main.title"));
 
-        ItemStack maxTrades = createGuiItem(Material.ANVIL, "<!italic><yellow>Set Max Trades",
-                "<gray>Current: <white>" + manager.getMaxTrades(),
-                "<gray>0 = Unlimited",
+        ItemStack maxTrades = createGuiItem(Material.ANVIL,
+                plugin.getMessageManager().getRaw("infinite-restock.gui.main.max-trades.name"),
+                plugin.getMessageManager().getRaw("infinite-restock.gui.main.max-trades.current")
+                        .replace("<value>", String.valueOf(manager.getMaxTrades())),
+                plugin.getMessageManager().getRaw("infinite-restock.gui.main.max-trades.unlimited"),
                 "",
-                "<yellow>Click to change");
+                plugin.getMessageManager().getRaw("infinite-restock.gui.main.max-trades.action"));
 
         ItemStack pricePenalty = createToggleItem(
                 manager.isDisablePricePenalty(),
-                "<!italic><yellow>Disable Price Penalty",
-                new String[] { "<gray>Villager demand reset to 0" });
+                plugin.getMessageManager().getRaw("infinite-restock.gui.main.price-penalty.name"),
+                new String[] { plugin.getMessageManager().getRaw("infinite-restock.gui.main.price-penalty.lore-1") });
 
         ItemStack allowWT = createToggleItem(
                 manager.isAllowWanderingTraders(),
-                "<!italic><yellow>Allow Wandering Traders",
-                new String[] { "<gray>Apply to travelling merchants" });
+                plugin.getMessageManager().getRaw("infinite-restock.gui.main.allow-wt.name"),
+                new String[] { plugin.getMessageManager().getRaw("infinite-restock.gui.main.allow-wt.lore-1") });
 
-        ItemStack blacklist = createGuiItem(Material.BARRIER, "<!italic><yellow>Villager Blacklist",
-                "<gray>Exclude specific professions",
-                "<gray>from infinite restock",
+        ItemStack blacklist = createGuiItem(Material.BARRIER,
+                plugin.getMessageManager().getRaw("infinite-restock.gui.main.blacklist.name"),
+                plugin.getMessageManager().getRaw("infinite-restock.gui.main.blacklist.lore-1"),
+                plugin.getMessageManager().getRaw("infinite-restock.gui.main.blacklist.lore-2"),
                 "",
-                "<gray>Blacklisted: <red>" + manager.getBlacklistCount(),
+                plugin.getMessageManager().getRaw("infinite-restock.gui.main.blacklist.count")
+                        .replace("<count>", String.valueOf(manager.getBlacklistCount())),
                 "",
-                "<yellow>Click to manage");
+                plugin.getMessageManager().getRaw("infinite-restock.gui.main.blacklist.action"));
 
         ItemStack uninstall = createToggleItem(
                 manager.isUninstallMode(),
-                "<!italic><red>Uninstall Mode",
-                new String[] { "<gray>Restore original villager trades", "", "<red>\u26a0 Will reset all villagers!" });
+                plugin.getMessageManager().getRaw("infinite-restock.gui.main.uninstall.name"),
+                new String[] {
+                        plugin.getMessageManager().getRaw("infinite-restock.gui.main.uninstall.lore-1"),
+                        "",
+                        plugin.getMessageManager().getRaw("infinite-restock.gui.main.uninstall.warning") });
 
-        ItemStack back = createGuiItem(Material.ARROW, "<!italic><red>Back",
-                "<gray>Return to main menu");
+        ItemStack back = createGuiItem(Material.ARROW,
+                plugin.getMessageManager().getRaw("infinite-restock.gui.shared.back.name"),
+                plugin.getMessageManager().getRaw("infinite-restock.gui.shared.back.main-lore"));
 
         gui.setItem(10, maxTrades);
         gui.setItem(12, pricePenalty);
@@ -168,7 +175,8 @@ public class InfiniteRestockFeature extends BaseFeature {
             return;
         }
 
-        Inventory gui = Bukkit.createInventory(new GuiHolder("infinite-restock-blacklist"), 45, BLACKLIST_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("infinite-restock-blacklist"), 45,
+                plugin.getMessageManager().getRaw("infinite-restock.gui.blacklist.title"));
 
         int slot = 10;
         for (Villager.Profession profession : Villager.Profession.values()) {
@@ -180,27 +188,29 @@ public class InfiniteRestockFeature extends BaseFeature {
             Material material = PROFESSION_MATERIALS.getOrDefault(profession, Material.PLAYER_HEAD);
 
             String professionName = formatProfessionName(profession.name());
-            String statusColor = isBlacklisted ? "<red>" : "<green>";
-            String statusText = isBlacklisted ? "<red>Blacklisted" : "<green>Allowed";
 
             ItemStack item = new ItemStack(isBlacklisted ? Material.BARRIER : material);
             ItemMeta meta = item.getItemMeta();
             if (meta != null) {
-                meta.displayName(
-                        MessageManager.parse("<!italic>" + (isBlacklisted ? "<red>" : "<green>") + professionName));
+                meta.displayName(plugin.getMessageManager().get(
+                        isBlacklisted ? "infinite-restock.blacklist.item.name-blocked"
+                                : "infinite-restock.blacklist.item.name-allowed",
+                        "profession", professionName));
                 List<Component> lore = new ArrayList<>();
                 lore.add(Component.empty());
-                lore.add(MessageManager.parse("<gray>Status: " + statusText));
+                lore.add(plugin.getMessageManager().get(
+                        isBlacklisted ? "infinite-restock.blacklist.item.status-blocked"
+                                : "infinite-restock.blacklist.item.status-allowed"));
                 lore.add(Component.empty());
                 if (isBlacklisted) {
-                    lore.add(MessageManager.parse("<gray>This profession will NOT"));
-                    lore.add(MessageManager.parse("<gray>receive infinite restock"));
+                    lore.add(plugin.getMessageManager().get("infinite-restock.blacklist.item.blocked-line-1"));
+                    lore.add(plugin.getMessageManager().get("infinite-restock.blacklist.item.common-line-2"));
                 } else {
-                    lore.add(MessageManager.parse("<gray>This profession will"));
-                    lore.add(MessageManager.parse("<gray>receive infinite restock"));
+                    lore.add(plugin.getMessageManager().get("infinite-restock.blacklist.item.allowed-line-1"));
+                    lore.add(plugin.getMessageManager().get("infinite-restock.blacklist.item.common-line-2"));
                 }
                 lore.add(Component.empty());
-                lore.add(MessageManager.parse("<yellow>Click to toggle"));
+                lore.add(plugin.getMessageManager().get("infinite-restock.blacklist.item.action"));
                 meta.lore(lore);
                 item.setItemMeta(meta);
             }
@@ -215,7 +225,9 @@ public class InfiniteRestockFeature extends BaseFeature {
                 break;
         }
 
-        gui.setItem(40, createGuiItem(Material.ARROW, "<!italic><red>Back", "<gray>Return to Restock Manager"));
+        gui.setItem(40, createGuiItem(Material.ARROW,
+                plugin.getMessageManager().getRaw("infinite-restock.gui.shared.back.name"),
+                plugin.getMessageManager().getRaw("infinite-restock.gui.shared.back.blacklist-lore")));
 
         fillBorder(gui, Material.PURPLE_STAINED_GLASS_PANE);
         player.openInventory(gui);
@@ -324,15 +336,15 @@ public class InfiniteRestockFeature extends BaseFeature {
 
     private void openChatInput(Player player) {
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gold>Set Max Trades"));
+        player.sendMessage(plugin.getMessageManager().get("infinite-restock.input.title"));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<green>Enter the maximum trades per villager (0 = unlimited):"));
-        player.sendMessage(MessageManager.parse("<gray>Type <red>'cancel' <gray>to cancel"));
+        player.sendMessage(plugin.getMessageManager().get("infinite-restock.input.prompt"));
+        player.sendMessage(plugin.getMessageManager().get("infinite-restock.input.cancel-hint"));
         player.sendMessage(Component.empty());
 
         plugin.getChatInputManager().requestInput(player, (p, input) -> {
             if (input.equalsIgnoreCase("cancel")) {
-                p.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Input cancelled."));
+                p.sendMessage(plugin.getMessageManager().get("infinite-restock.input.cancelled"));
                 Bukkit.getScheduler().runTask(plugin, () -> openRestockGUI(p));
                 return;
             }
@@ -346,10 +358,10 @@ public class InfiniteRestockFeature extends BaseFeature {
                     return;
                 }
                 manager.setMaxTrades(value);
-                p.sendMessage(MessageManager.parse("<green>[Vanilla Core] <gray>Max trades set to: " + value));
+                p.sendMessage(plugin.getMessageManager().get("infinite-restock.max-trades-set", "value", value));
                 Bukkit.getScheduler().runTask(plugin, () -> openRestockGUI(p));
             } catch (NumberFormatException e) {
-                p.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Please enter a valid number!"));
+                p.sendMessage(plugin.getMessageManager().get("general.invalid-number"));
                 Bukkit.getScheduler().runTask(plugin, () -> openRestockGUI(p));
             }
         });

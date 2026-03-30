@@ -2,7 +2,6 @@ package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.BedBombingBanFeature;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.Tag;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
@@ -37,7 +36,7 @@ public class BedBombingBanListener implements Listener {
         World.Environment environment = event.getPlayer().getWorld().getEnvironment();
         if (environment == World.Environment.NETHER || environment == World.Environment.THE_END) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Bed bombing is disabled."));
+            event.getPlayer().sendMessage(plugin.getMessageManager().get("bed-bombing-ban.blocked"));
         }
     }
 }

@@ -56,6 +56,24 @@ features:
 |-------------|---------------|
 | `{item}` | The blocked item name |
 
+## Message Keys
+
+This feature uses the following `messages.yml` keys:
+
+- `ender-chest-item-limiter.feature-disabled`
+- `ender-chest-item-limiter.messages.item-blocked`
+- `ender-chest-item-limiter.messages.please-set-item`
+- `ender-chest-item-limiter.messages.item-selected`
+- `ender-chest-item-limiter.messages.item-removed`
+- `ender-chest-item-limiter.messages.blocked-item-removed`
+
+GUI labels/titles are under:
+
+- `ender-chest-item-limiter.gui.main.*`
+- `ender-chest-item-limiter.gui.view.*`
+- `ender-chest-item-limiter.gui.add.*`
+- `ender-chest-item-limiter.gui.shared.*`
+
 ## Using the GUI
 
 1. Run `/vanilla` to open the main menu

@@ -47,19 +47,20 @@ public class StopItemDespawnFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.CHEST, "<!italic><aqua>Stop Item Despawn",
-                "<!italic><gray>Death drops stay on the ground forever");
+        return createMenuItem(Material.CHEST,
+                plugin.getMessageManager().getRaw("feature-menus.stop-item-despawn.name"),
+                plugin.getMessageManager().getRaw("feature-menus.stop-item-despawn.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<gray>Items dropped on death don't");
-        lore.add("<gray>despawn. Ever.");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.stop-item-despawn.lore-1"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.stop-item-despawn.lore-2"));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
         return lore;
     }
 

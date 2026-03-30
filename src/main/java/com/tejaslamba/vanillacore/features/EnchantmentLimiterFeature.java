@@ -20,9 +20,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.*;
 
 public class EnchantmentLimiterFeature extends BaseFeature {
-
-    public static final String GUI_TITLE = "§6Enchantment Limiter";
-    public static final String CONFIG_GUI_TITLE = "§6Configure Limits";
     private static final int[] CONTENT_SLOTS = new int[45];
     private static final String VERBOSE_PREFIX = "[VERBOSE] Enchantment Limiter - ";
 
@@ -108,24 +105,27 @@ public class EnchantmentLimiterFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.ENCHANTED_BOOK, "<!italic><gold>Enchantment Limiter",
-                "<gray>Limit enchantment levels on items");
+        return createMenuItem(Material.ENCHANTED_BOOK,
+                plugin.getMessageManager().getRaw("feature-menus.enchantment-limiter.name"),
+                plugin.getMessageManager().getRaw("feature-menus.enchantment-limiter.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<gray>Enforces enchantment level caps");
-        lore.add("<gray>on all items automatically");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.enchantment-limiter.lore-1"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.enchantment-limiter.lore-2"));
         lore.add("");
         int limitsCount = manager != null ? manager.getLimitsCount() : 0;
-        lore.add("<gray>Configured Limits: <yellow>" + limitsCount);
-        lore.add("<gray>Available Enchants: <yellow>" + allEnchantments.size());
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.enchantment-limiter.configured-count")
+                .replace("<count>", String.valueOf(limitsCount)));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.enchantment-limiter.available-count")
+                .replace("<count>", String.valueOf(allEnchantments.size())));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
-        lore.add("<yellow>Right Click: Open Manager");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.right-click-open-manager"));
         return lore;
     }
 
@@ -137,7 +137,7 @@ public class EnchantmentLimiterFeature extends BaseFeature {
     @Override
     public void onRightClick(Player player) {
         if (!isEnabled()) {
-            player.sendMessage(MessageManager.parse("<red>Enchantment Limiter is disabled! Enable it first."));
+            player.sendMessage(plugin.getMessageManager().get("enchantment-limiter.feature-disabled"));
             return;
         }
         openConfigGUI(player, 0);
@@ -146,8 +146,9 @@ public class EnchantmentLimiterFeature extends BaseFeature {
     public void openConfigGUI(Player player, int page) {
         int totalPages = getTotalPages();
         page = Math.clamp(page, 0, totalPages - 1);
-        Inventory gui = Bukkit.createInventory(new GuiHolder("enchantment-limiter-config"), 54, MessageManager.parse(
-                "<gold>Configure Limits <gray>(" + (page + 1) + "/" + totalPages + ")"));
+        Inventory gui = Bukkit.createInventory(new GuiHolder("enchantment-limiter-config"), 54,
+                plugin.getMessageManager().get("enchantment-limiter.gui.title", "page", page + 1, "total",
+                        totalPages));
 
         int startIndex = page * CONTENT_SLOTS.length;
         int slotIndex = 0;
@@ -159,31 +160,39 @@ public class EnchantmentLimiterFeature extends BaseFeature {
         }
 
         if (page > 0) {
-            gui.setItem(45, createNavItem(Material.ARROW, "<!italic><green>\u00ab Previous Page",
-                    "<gray>Page <yellow>" + page + "<gray>/<yellow>" + totalPages));
+            gui.setItem(45, createNavItem(Material.ARROW,
+                    plugin.getMessageManager().getRaw("enchantment-limiter.gui.nav.previous"),
+                    plugin.getMessageManager().getRaw("enchantment-limiter.gui.nav.page").replace("<page>",
+                            String.valueOf(page)).replace("<total>", String.valueOf(totalPages))));
         }
 
         if (page < totalPages - 1) {
-            gui.setItem(53, createNavItem(Material.ARROW, "<!italic><green>Next Page \u00bb",
-                    "<gray>Page <yellow>" + (page + 2) + "<gray>/<yellow>" + totalPages));
+            gui.setItem(53, createNavItem(Material.ARROW,
+                    plugin.getMessageManager().getRaw("enchantment-limiter.gui.nav.next"),
+                    plugin.getMessageManager().getRaw("enchantment-limiter.gui.nav.page").replace("<page>",
+                            String.valueOf(page + 2)).replace("<total>", String.valueOf(totalPages))));
         }
 
-        gui.setItem(49, createNavItem(Material.OAK_DOOR, "<!italic><yellow>Back to Menu", "<gray>Return to main menu"));
-        gui.setItem(50, createNavItem(Material.BARRIER, "<!italic><red>Close", "<gray>Close this menu"));
+        gui.setItem(49, createNavItem(Material.OAK_DOOR,
+                plugin.getMessageManager().getRaw("enchantment-limiter.gui.shared.back.name"),
+                plugin.getMessageManager().getRaw("enchantment-limiter.gui.shared.back.lore-1")));
+        gui.setItem(50, createNavItem(Material.BARRIER,
+                plugin.getMessageManager().getRaw("enchantment-limiter.gui.shared.close.name"),
+                plugin.getMessageManager().getRaw("enchantment-limiter.gui.shared.close.lore-1")));
 
         ItemStack infoItem = new ItemStack(Material.BOOK);
         ItemMeta infoMeta = infoItem.getItemMeta();
         if (infoMeta != null) {
-            infoMeta.displayName(MessageManager.parse("<!italic><gold>How to Use"));
+            infoMeta.displayName(plugin.getMessageManager().get("enchantment-limiter.gui.info.name"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<green>Left Click: <gray>Increase limit by 1"));
-            lore.add(MessageManager.parse("<red>Right Click: <gray>Decrease limit by 1"));
-            lore.add(MessageManager.parse("<yellow>Shift + Left: <gray>Set to max level"));
-            lore.add(MessageManager.parse("<yellow>Shift + Right: <gray>Ban (set to 0)"));
-            lore.add(MessageManager.parse("<light_purple>Middle Click: <gray>Remove limit"));
+            lore.add(plugin.getMessageManager().get("enchantment-limiter.gui.info.left-click"));
+            lore.add(plugin.getMessageManager().get("enchantment-limiter.gui.info.right-click"));
+            lore.add(plugin.getMessageManager().get("enchantment-limiter.gui.info.shift-left"));
+            lore.add(plugin.getMessageManager().get("enchantment-limiter.gui.info.shift-right"));
+            lore.add(plugin.getMessageManager().get("enchantment-limiter.gui.info.middle-click"));
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<gray>Supports custom enchantments!"));
+            lore.add(plugin.getMessageManager().get("enchantment-limiter.gui.info.supports-custom"));
             infoMeta.lore(lore);
             infoItem.setItemMeta(infoMeta);
         }
@@ -222,26 +231,28 @@ public class EnchantmentLimiterFeature extends BaseFeature {
             lore.add(Component.empty());
 
             if (isCustom) {
-                lore.add(MessageManager.parse("<light_purple><italic>Custom Enchantment"));
-                lore.add(MessageManager.parse("<dark_gray>" + enchant.getKey().toString()));
+                lore.add(plugin.getMessageManager().get("enchantment-limiter.gui.item.custom"));
+                lore.add(plugin.getMessageManager().get("enchantment-limiter.gui.item.key", "key",
+                        enchant.getKey().toString()));
                 lore.add(Component.empty());
             }
 
             if (isBanned) {
-                lore.add(MessageManager.parse("<red>Status: <dark_red><bold>BANNED"));
+                lore.add(plugin.getMessageManager().get("enchantment-limiter.gui.item.status-banned"));
             } else if (hasLimit) {
-                lore.add(MessageManager
-                        .parse("<gray>Limit: <yellow>" + limit + " <dark_gray>(Max: " + enchant.getMaxLevel() + ")"));
+                lore.add(plugin.getMessageManager().get("enchantment-limiter.gui.item.limit", "limit", limit,
+                        "max", enchant.getMaxLevel()));
             } else {
-                lore.add(MessageManager.parse("<green>Status: <dark_green>No Limit"));
+                lore.add(plugin.getMessageManager().get("enchantment-limiter.gui.item.status-no-limit"));
             }
 
             lore.add(Component.empty());
-            lore.add(MessageManager.parse("<green>Left Click: <gray>+1 limit"));
-            lore.add(MessageManager.parse("<red>Right Click: <gray>-1 limit"));
-            lore.add(MessageManager.parse("<yellow>Shift+Left: <gray>Max (" + enchant.getMaxLevel() + ")"));
-            lore.add(MessageManager.parse("<yellow>Shift+Right: <gray>Ban"));
-            lore.add(MessageManager.parse("<light_purple>Middle Click: <gray>Remove"));
+            lore.add(plugin.getMessageManager().get("enchantment-limiter.gui.item.left-click"));
+            lore.add(plugin.getMessageManager().get("enchantment-limiter.gui.item.right-click"));
+            lore.add(plugin.getMessageManager().get("enchantment-limiter.gui.item.shift-left", "max",
+                    enchant.getMaxLevel()));
+            lore.add(plugin.getMessageManager().get("enchantment-limiter.gui.item.shift-right"));
+            lore.add(plugin.getMessageManager().get("enchantment-limiter.gui.item.middle-click"));
 
             meta.lore(lore);
             item.setItemMeta(meta);
@@ -313,21 +324,20 @@ public class EnchantmentLimiterFeature extends BaseFeature {
 
         if (isMiddleClick) {
             manager.setLimit(enchantName, -1);
-            player.sendMessage(MessageManager
-                    .parse("<green>[Vanilla Core] <gray>Removed limit for " + manager.getEnchantDisplayName(enchant)));
+            player.sendMessage(plugin.getMessageManager().get("enchantment-limiter.gui.messages.removed", "enchant",
+                    manager.getEnchantDisplayName(enchant)));
             return;
         }
 
         if (isShiftClick) {
             if (isLeftClick) {
                 manager.setLimit(enchantName, enchant.getMaxLevel());
-                player.sendMessage(
-                        MessageManager.parse("<green>[Vanilla Core] <gray>Set " + manager.getEnchantDisplayName(enchant)
-                                + " to max level: " + enchant.getMaxLevel()));
+                player.sendMessage(plugin.getMessageManager().get("enchantment-limiter.gui.messages.set-max", "enchant",
+                        manager.getEnchantDisplayName(enchant), "max", enchant.getMaxLevel()));
             } else if (isRightClick) {
                 manager.setLimit(enchantName, 0);
-                player.sendMessage(MessageManager
-                        .parse("<red>[Vanilla Core] <gray>Banned " + manager.getEnchantDisplayName(enchant)));
+                player.sendMessage(plugin.getMessageManager().get("enchantment-limiter.gui.messages.banned", "enchant",
+                        manager.getEnchantDisplayName(enchant)));
             }
             return;
         }
@@ -340,9 +350,8 @@ public class EnchantmentLimiterFeature extends BaseFeature {
                 newLimit = Math.min(currentLimit + 1, 255);
             }
             manager.setLimit(enchantName, newLimit);
-            player.sendMessage(MessageManager
-                    .parse("<green>[Vanilla Core] <gray>Increased " + manager.getEnchantDisplayName(enchant)
-                            + " limit to: " + newLimit));
+            player.sendMessage(plugin.getMessageManager().get("enchantment-limiter.gui.messages.increased", "enchant",
+                    manager.getEnchantDisplayName(enchant), "limit", newLimit));
         } else if (isRightClick) {
             if (currentLimit < 0) {
                 newLimit = enchant.getMaxLevel();
@@ -351,12 +360,12 @@ public class EnchantmentLimiterFeature extends BaseFeature {
             }
             manager.setLimit(enchantName, newLimit);
             if (newLimit == 0) {
-                player.sendMessage(MessageManager
-                        .parse("<red>[Vanilla Core] <gray>Banned " + manager.getEnchantDisplayName(enchant)));
+                player.sendMessage(plugin.getMessageManager().get("enchantment-limiter.gui.messages.banned", "enchant",
+                        manager.getEnchantDisplayName(enchant)));
             } else {
-                player.sendMessage(MessageManager
-                        .parse("<yellow>[Vanilla Core] <gray>Decreased " + manager.getEnchantDisplayName(enchant)
-                                + " limit to: " + newLimit));
+                player.sendMessage(
+                        plugin.getMessageManager().get("enchantment-limiter.gui.messages.decreased", "enchant",
+                                manager.getEnchantDisplayName(enchant), "limit", newLimit));
             }
         }
     }

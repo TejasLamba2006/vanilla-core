@@ -26,11 +26,6 @@ import java.util.UUID;
 
 public class ItemLimiterFeature extends BaseFeature {
 
-    public static final String MAIN_GUI_TITLE = "§6Item Cap Manager";
-    public static final String ADD_GUI_TITLE = "§6Add Item Limit";
-    public static final String VIEW_GUI_TITLE = "§6Configured Item Limits";
-    public static final String BANNED_GUI_TITLE = "§cBanned Items";
-
     private ItemLimiterListener listener;
     private ItemLimiterManager manager;
     private final Map<UUID, GuiSession> sessions = new HashMap<>();
@@ -110,22 +105,24 @@ public class ItemLimiterFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.HOPPER, "<!italic><red>Item Limiter",
-                "<gray>Limits item quantities in inventories");
+        return createMenuItem(Material.HOPPER,
+                plugin.getMessageManager().getRaw("feature-menus.item-limiter.name"),
+                plugin.getMessageManager().getRaw("feature-menus.item-limiter.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<gray>Limits how many of certain items");
-        lore.add("<gray>players can carry at once");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.item-limiter.lore-1"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.item-limiter.lore-2"));
         lore.add("");
-        lore.add("<gray>Limited Items: <yellow>" + (manager != null ? manager.getLimitsCount() : 0));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.item-limiter.count")
+                .replace("<count>", String.valueOf(manager != null ? manager.getLimitsCount() : 0)));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
-        lore.add("<yellow>Right Click: Open Manager");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.right-click-open-manager"));
         return lore;
     }
 
@@ -152,22 +149,27 @@ public class ItemLimiterFeature extends BaseFeature {
             return;
         }
 
-        Inventory gui = Bukkit.createInventory(new GuiHolder("item-limiter-main"), 27, MAIN_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("item-limiter-main"), 27,
+                plugin.getMessageManager().getRaw("item-limiter.gui.main.title"));
 
-        ItemStack viewLimits = createGuiItem(Material.BOOK, "<!italic><green>View Item Limits",
-                "<gray>Click to view all",
-                "<gray>configured item limits");
+        ItemStack viewLimits = createGuiItem(Material.BOOK,
+                plugin.getMessageManager().getRaw("item-limiter.gui.main.view-limits.name"),
+                plugin.getMessageManager().getRaw("item-limiter.gui.main.view-limits.lore-1"),
+                plugin.getMessageManager().getRaw("item-limiter.gui.main.view-limits.lore-2"));
 
-        ItemStack bannedItems = createGuiItem(Material.BARRIER, "<!italic><red>Banned Items",
-                "<gray>Click to view items",
-                "<gray>that are banned (limit: 0)");
+        ItemStack bannedItems = createGuiItem(Material.BARRIER,
+                plugin.getMessageManager().getRaw("item-limiter.gui.main.banned-items.name"),
+                plugin.getMessageManager().getRaw("item-limiter.gui.main.banned-items.lore-1"),
+                plugin.getMessageManager().getRaw("item-limiter.gui.main.banned-items.lore-2"));
 
-        ItemStack addLimit = createGuiItem(Material.EMERALD, "<!italic><aqua>Add New Limit",
-                "<gray>Click to add a new",
-                "<gray>item limit or ban");
+        ItemStack addLimit = createGuiItem(Material.EMERALD,
+                plugin.getMessageManager().getRaw("item-limiter.gui.main.add-limit.name"),
+                plugin.getMessageManager().getRaw("item-limiter.gui.main.add-limit.lore-1"),
+                plugin.getMessageManager().getRaw("item-limiter.gui.main.add-limit.lore-2"));
 
-        ItemStack back = createGuiItem(Material.ARROW, "<!italic><red>Back",
-                "<gray>Return to main menu");
+        ItemStack back = createGuiItem(Material.ARROW,
+                plugin.getMessageManager().getRaw("item-limiter.gui.shared.back.name"),
+                plugin.getMessageManager().getRaw("item-limiter.gui.shared.back.lore-1"));
 
         gui.setItem(10, viewLimits);
         gui.setItem(12, bannedItems);
@@ -194,7 +196,8 @@ public class ItemLimiterFeature extends BaseFeature {
 
         int size = Math.min(54, Math.max(27, (limits.size() / 9 + 1) * 9 + 9));
 
-        Inventory gui = Bukkit.createInventory(new GuiHolder("item-limiter-view"), size, VIEW_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("item-limiter-view"), size,
+                plugin.getMessageManager().getRaw("item-limiter.gui.view.title"));
 
         int slot = 0;
         for (Map.Entry<String, ItemLimit> entry : limits.entrySet()) {
@@ -208,21 +211,25 @@ public class ItemLimiterFeature extends BaseFeature {
 
             if (meta != null) {
                 List<Component> lore = new ArrayList<>();
-                lore.add(MessageManager.parse("<gray>Limit: <yellow>" + limit.getLimit()));
+                lore.add(plugin.getMessageManager().get("item-limiter.gui.view.item.limit", "limit", limit.getLimit()));
 
                 if (limit.getCustomModelData() != null) {
-                    lore.add(MessageManager.parse("<gray>Custom Model Data: <aqua>" + limit.getCustomModelData()));
+                    lore.add(plugin.getMessageManager().get("item-limiter.gui.view.item.custom-model-data",
+                            "customModelData",
+                            limit.getCustomModelData()));
                 }
                 if (limit.getDisplayName() != null) {
-                    lore.add(MessageManager.parse("<gray>Display Name: <white>" + limit.getDisplayName()));
+                    lore.add(plugin.getMessageManager().get("item-limiter.gui.view.item.display-name", "displayName",
+                            limit.getDisplayName()));
                 }
                 if (limit.getPotionType() != null) {
-                    lore.add(MessageManager.parse("<gray>Potion Type: <light_purple>" + limit.getPotionType().name()));
+                    lore.add(plugin.getMessageManager().get("item-limiter.gui.view.item.potion-type", "potionType",
+                            limit.getPotionType().name()));
                 }
 
                 lore.add(Component.empty());
-                lore.add(MessageManager.parse("<green>Left Click <gray>to edit limit"));
-                lore.add(MessageManager.parse("<red>Shift + Left Click <gray>to delete"));
+                lore.add(plugin.getMessageManager().get("item-limiter.gui.view.item.edit-hint"));
+                lore.add(plugin.getMessageManager().get("item-limiter.gui.view.item.delete-hint"));
 
                 meta.lore(lore);
                 displayItem.setItemMeta(meta);
@@ -232,8 +239,9 @@ public class ItemLimiterFeature extends BaseFeature {
             slot++;
         }
 
-        ItemStack back = createGuiItem(Material.ARROW, "<!italic><red>Back",
-                "<gray>Return to main menu");
+        ItemStack back = createGuiItem(Material.ARROW,
+                plugin.getMessageManager().getRaw("item-limiter.gui.shared.back.name"),
+                plugin.getMessageManager().getRaw("item-limiter.gui.shared.back.lore-1"));
         gui.setItem(size - 5, back);
 
         player.openInventory(gui);
@@ -254,7 +262,8 @@ public class ItemLimiterFeature extends BaseFeature {
 
         int size = Math.min(54, Math.max(27, (bannedItems.size() / 9 + 1) * 9 + 9));
 
-        Inventory gui = Bukkit.createInventory(new GuiHolder("item-limiter-banned"), size, BANNED_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("item-limiter-banned"), size,
+                plugin.getMessageManager().getRaw("item-limiter.gui.banned.title"));
 
         int slot = 0;
         for (Map.Entry<String, ItemLimit> entry : bannedItems.entrySet()) {
@@ -268,21 +277,25 @@ public class ItemLimiterFeature extends BaseFeature {
 
             if (meta != null) {
                 List<Component> lore = new ArrayList<>();
-                lore.add(MessageManager.parse("<red><bold>BANNED"));
+                lore.add(plugin.getMessageManager().get("item-limiter.gui.banned.item.label"));
 
                 if (limit.getCustomModelData() != null) {
-                    lore.add(MessageManager.parse("<gray>Custom Model Data: <aqua>" + limit.getCustomModelData()));
+                    lore.add(plugin.getMessageManager().get("item-limiter.gui.banned.item.custom-model-data",
+                            "customModelData",
+                            limit.getCustomModelData()));
                 }
                 if (limit.getDisplayName() != null) {
-                    lore.add(MessageManager.parse("<gray>Display Name: <white>" + limit.getDisplayName()));
+                    lore.add(plugin.getMessageManager().get("item-limiter.gui.banned.item.display-name", "displayName",
+                            limit.getDisplayName()));
                 }
                 if (limit.getPotionType() != null) {
-                    lore.add(MessageManager.parse("<gray>Potion Type: <light_purple>" + limit.getPotionType().name()));
+                    lore.add(plugin.getMessageManager().get("item-limiter.gui.banned.item.potion-type", "potionType",
+                            limit.getPotionType().name()));
                 }
 
                 lore.add(Component.empty());
-                lore.add(MessageManager.parse("<green>Left Click <gray>to set a limit (unban)"));
-                lore.add(MessageManager.parse("<red>Shift + Left Click <gray>to delete"));
+                lore.add(plugin.getMessageManager().get("item-limiter.gui.banned.item.unban-hint"));
+                lore.add(plugin.getMessageManager().get("item-limiter.gui.banned.item.delete-hint"));
 
                 meta.lore(lore);
                 displayItem.setItemMeta(meta);
@@ -292,8 +305,9 @@ public class ItemLimiterFeature extends BaseFeature {
             slot++;
         }
 
-        ItemStack back = createGuiItem(Material.ARROW, "<!italic><red>Back",
-                "<gray>Return to main menu");
+        ItemStack back = createGuiItem(Material.ARROW,
+                plugin.getMessageManager().getRaw("item-limiter.gui.shared.back.name"),
+                plugin.getMessageManager().getRaw("item-limiter.gui.shared.back.lore-1"));
         gui.setItem(size - 5, back);
 
         player.openInventory(gui);
@@ -304,7 +318,8 @@ public class ItemLimiterFeature extends BaseFeature {
             return;
         }
 
-        Inventory gui = Bukkit.createInventory(new GuiHolder("item-limiter-add"), 27, ADD_GUI_TITLE);
+        Inventory gui = Bukkit.createInventory(new GuiHolder("item-limiter-add"), 27,
+                plugin.getMessageManager().getRaw("item-limiter.gui.add.title"));
 
         GuiSession session = sessions.get(player.getUniqueId());
         if (session == null) {
@@ -314,26 +329,31 @@ public class ItemLimiterFeature extends BaseFeature {
 
         ItemStack anvil;
         if (session.banMode) {
-            anvil = createGuiItem(Material.ANVIL, "<!italic><dark_gray>Set Limit Amount",
-                    "<gray>Current: <red>0 (BANNED)",
-                    "<dark_gray>Disabled - Ban mode active");
+            anvil = createGuiItem(Material.ANVIL,
+                    plugin.getMessageManager().getRaw("item-limiter.gui.add.limit.title-disabled"),
+                    plugin.getMessageManager().getRaw("item-limiter.gui.add.limit.current-banned"),
+                    plugin.getMessageManager().getRaw("item-limiter.gui.add.limit.disabled-note"));
         } else {
-            anvil = createGuiItem(Material.ANVIL, "<!italic><yellow>Set Limit Amount",
-                    "<gray>Current: <white>" + session.limit,
-                    "<gray>Click to set amount");
+            anvil = createGuiItem(Material.ANVIL,
+                    plugin.getMessageManager().getRaw("item-limiter.gui.add.limit.title"),
+                    plugin.getMessageManager().getRaw("item-limiter.gui.add.limit.current").replace("<limit>",
+                            String.valueOf(session.limit)),
+                    plugin.getMessageManager().getRaw("item-limiter.gui.add.limit.click"));
         }
 
         ItemStack banToggle;
         if (session.banMode) {
-            banToggle = createGuiItem(Material.BARRIER, "<!italic><red><bold>BAN MODE: ON",
-                    "<gray>Item will be <red>banned <gray>(limit: 0)",
+            banToggle = createGuiItem(Material.BARRIER,
+                    plugin.getMessageManager().getRaw("item-limiter.gui.add.ban-mode.on.name"),
+                    plugin.getMessageManager().getRaw("item-limiter.gui.add.ban-mode.on.lore-1"),
                     "",
-                    "<yellow>Click to switch to limit mode");
+                    plugin.getMessageManager().getRaw("item-limiter.gui.add.ban-mode.on.action"));
         } else {
-            banToggle = createGuiItem(Material.LIME_DYE, "<!italic><green><bold>BAN MODE: OFF",
-                    "<gray>Item will have a normal limit",
+            banToggle = createGuiItem(Material.LIME_DYE,
+                    plugin.getMessageManager().getRaw("item-limiter.gui.add.ban-mode.off.name"),
+                    plugin.getMessageManager().getRaw("item-limiter.gui.add.ban-mode.off.lore-1"),
                     "",
-                    "<yellow>Click to ban this item instead");
+                    plugin.getMessageManager().getRaw("item-limiter.gui.add.ban-mode.off.action"));
         }
 
         ItemStack barrier;
@@ -343,34 +363,38 @@ public class ItemLimiterFeature extends BaseFeature {
             if (meta != null) {
                 List<Component> lore = meta.lore() != null ? new ArrayList<>(meta.lore()) : new ArrayList<>();
                 lore.add(Component.empty());
-                lore.add(MessageManager.parse("<gray>Click to remove"));
+                lore.add(plugin.getMessageManager().get("item-limiter.gui.add.item-slot.remove-hint"));
                 meta.lore(lore);
                 barrier.setItemMeta(meta);
             }
         } else {
-            barrier = createGuiItem(Material.BARRIER, "<!italic><red>Drag Item Here",
-                    "<gray>Place your item here",
-                    "<gray>to set its limit or ban it");
+            barrier = createGuiItem(Material.BARRIER,
+                    plugin.getMessageManager().getRaw("item-limiter.gui.add.item-slot.empty.name"),
+                    plugin.getMessageManager().getRaw("item-limiter.gui.add.item-slot.empty.lore-1"),
+                    plugin.getMessageManager().getRaw("item-limiter.gui.add.item-slot.empty.lore-2"));
         }
 
         boolean canConfirm = session.item != null && (session.banMode || session.limit >= 0);
-        String confirmName = canConfirm ? "<!italic><green>Confirm" : "<!italic><red>Incomplete";
+        String confirmName = canConfirm ? plugin.getMessageManager().getRaw("item-limiter.gui.add.confirm.ready.name")
+                : plugin.getMessageManager().getRaw("item-limiter.gui.add.confirm.incomplete.name");
         Material confirmMaterial = canConfirm ? Material.LIME_STAINED_GLASS_PANE : Material.RED_STAINED_GLASS_PANE;
 
         List<String> confirmLore = new ArrayList<>();
         if (canConfirm) {
             if (session.banMode) {
-                confirmLore.add("<gray>Click to <red>ban <gray>this item");
+                confirmLore.add(plugin.getMessageManager().getRaw("item-limiter.gui.add.confirm.ready.ban-lore"));
             } else {
-                confirmLore.add("<gray>Click to add this");
-                confirmLore.add("<gray>item to the config");
+                confirmLore.add(plugin.getMessageManager().getRaw("item-limiter.gui.add.confirm.ready.limit-lore-1"));
+                confirmLore.add(plugin.getMessageManager().getRaw("item-limiter.gui.add.confirm.ready.limit-lore-2"));
             }
         } else {
-            confirmLore.add("<gray>Set an item first");
+            confirmLore.add(plugin.getMessageManager().getRaw("item-limiter.gui.add.confirm.incomplete.lore-1"));
         }
 
         ItemStack confirm = createGuiItem(confirmMaterial, confirmName, confirmLore.toArray(new String[0]));
-        ItemStack back = createGuiItem(Material.ARROW, "<!italic><red>Back", "<gray>Return to main menu");
+        ItemStack back = createGuiItem(Material.ARROW,
+                plugin.getMessageManager().getRaw("item-limiter.gui.shared.back.name"),
+                plugin.getMessageManager().getRaw("item-limiter.gui.shared.back.lore-1"));
 
         gui.setItem(10, anvil);
         gui.setItem(12, banToggle);
@@ -439,17 +463,15 @@ public class ItemLimiterFeature extends BaseFeature {
                     int limitToUse = session.banMode ? 0 : session.limit;
                     manager.addItemLimit(session.item, limitToUse);
                     if (session.banMode) {
-                        player.sendMessage(
-                                MessageManager.parse("<green>[Vanilla Core] <gray>Item banned successfully!"));
+                        player.sendMessage(plugin.getMessageManager().get("item-limiter.item-banned"));
                     } else {
-                        player.sendMessage(
-                                MessageManager.parse("<green>[Vanilla Core] <gray>Item limit added successfully!"));
+                        player.sendMessage(plugin.getMessageManager().get("item-limiter.item-limit-added"));
                     }
                     player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
                     sessions.remove(player.getUniqueId());
                     player.closeInventory();
                 } else {
-                    player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Please set an item first!"));
+                    player.sendMessage(plugin.getMessageManager().get("item-limiter.please-set-item"));
                     player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0F, 1.0F);
                 }
             }
@@ -471,11 +493,9 @@ public class ItemLimiterFeature extends BaseFeature {
             keepSession.put(player.getUniqueId(), true);
             openAddItemGui(player);
             if (session.banMode) {
-                player.sendMessage(
-                        MessageManager.parse("<green>[Vanilla Core] <gray>Item placed! Click confirm to ban it."));
+                player.sendMessage(plugin.getMessageManager().get("item-limiter.item-placed-ban"));
             } else {
-                player.sendMessage(
-                        MessageManager.parse("<green>[Vanilla Core] <gray>Item placed! Now set the limit amount."));
+                player.sendMessage(plugin.getMessageManager().get("item-limiter.item-placed-limit"));
             }
             player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 0.5F, 1.0F);
         } else if (currentItem != null && currentItem.getType() != Material.AIR
@@ -486,7 +506,7 @@ public class ItemLimiterFeature extends BaseFeature {
                 session.item = null;
                 keepSession.put(player.getUniqueId(), true);
                 openAddItemGui(player);
-                player.sendMessage(MessageManager.parse("<yellow>[Vanilla Core] <gray>Item removed."));
+                player.sendMessage(plugin.getMessageManager().get("item-limiter.item-removed"));
                 player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 0.5F, 1.0F);
             }
         } else {
@@ -518,7 +538,7 @@ public class ItemLimiterFeature extends BaseFeature {
 
         if (isShiftClick && isLeftClick) {
             manager.removeItemLimit(key);
-            player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Item limit removed!"));
+            player.sendMessage(plugin.getMessageManager().get("item-limiter.limit-removed"));
             player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
             openViewLimits(player);
         } else if (isLeftClick) {
@@ -552,7 +572,7 @@ public class ItemLimiterFeature extends BaseFeature {
 
         if (isShiftClick && isLeftClick) {
             manager.removeItemLimit(key);
-            player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Banned item removed!"));
+            player.sendMessage(plugin.getMessageManager().get("item-limiter.banned-item-removed"));
             player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
             openBannedItems(player);
         } else if (isLeftClick) {
@@ -565,24 +585,24 @@ public class ItemLimiterFeature extends BaseFeature {
     private void openEditBannedChatInput(Player player, String key) {
         ItemLimit limit = manager.getItemLimit(key);
         if (limit == null) {
-            player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Banned item not found!"));
+            player.sendMessage(plugin.getMessageManager().get("item-limiter.banned-item-not-found"));
             openBannedItems(player);
             return;
         }
 
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gold>Unban Item - Set Limit"));
-        player.sendMessage(MessageManager.parse("<gray>Current: <red>BANNED (0)"));
+        player.sendMessage(plugin.getMessageManager().get("item-limiter.input.unban-title"));
+        player.sendMessage(plugin.getMessageManager().get("item-limiter.input.unban-current"));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<green>Enter a limit to unban (1-64000):"));
-        player.sendMessage(MessageManager.parse("<gray>Type <red>'cancel' <gray>to cancel"));
+        player.sendMessage(plugin.getMessageManager().get("item-limiter.input.unban-prompt"));
+        player.sendMessage(plugin.getMessageManager().get("item-limiter.input.cancel-hint"));
         player.sendMessage(Component.empty());
 
         plugin.getChatInputManager().requestInput(player, (p, input) -> {
             editingSessions.remove(p.getUniqueId());
 
             if (input.equalsIgnoreCase("cancel")) {
-                p.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Input cancelled."));
+                p.sendMessage(plugin.getMessageManager().get("item-limiter.input.cancelled"));
                 Bukkit.getScheduler().runTask(plugin, () -> openBannedItems(p));
                 return;
             }
@@ -590,23 +610,21 @@ public class ItemLimiterFeature extends BaseFeature {
             try {
                 int newLimit = Integer.parseInt(input.trim());
                 if (newLimit < 0 || newLimit > 64000) {
-                    p.sendMessage(MessageManager
-                            .parse("<red>[Vanilla Core] <gray>Invalid number! Must be between 0 and 64000"));
+                    p.sendMessage(plugin.getMessageManager().get("item-limiter.input.invalid-range"));
                     Bukkit.getScheduler().runTask(plugin, () -> openBannedItems(p));
                     return;
                 }
 
                 manager.updateItemLimit(key, newLimit);
                 if (newLimit == 0) {
-                    p.sendMessage(MessageManager.parse("<green>[Vanilla Core] <gray>Item remains banned"));
+                    p.sendMessage(plugin.getMessageManager().get("item-limiter.item-remains-banned"));
                 } else {
-                    p.sendMessage(
-                            MessageManager.parse("<green>[Vanilla Core] <gray>Item unbanned with limit: " + newLimit));
+                    p.sendMessage(plugin.getMessageManager().get("item-limiter.item-unbanned", "limit", newLimit));
                 }
                 p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
                 Bukkit.getScheduler().runTask(plugin, () -> openBannedItems(p));
             } catch (NumberFormatException e) {
-                p.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Please enter a valid number!"));
+                p.sendMessage(plugin.getMessageManager().get("general.invalid-number"));
                 Bukkit.getScheduler().runTask(plugin, () -> openBannedItems(p));
             }
         });
@@ -614,15 +632,15 @@ public class ItemLimiterFeature extends BaseFeature {
 
     private void openChatInput(Player player, GuiSession session) {
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gold>Set Item Limit"));
+        player.sendMessage(plugin.getMessageManager().get("item-limiter.input.set-limit-title"));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<green>Enter the maximum amount (0-64000):"));
-        player.sendMessage(MessageManager.parse("<gray>Type <red>'cancel' <gray>to cancel"));
+        player.sendMessage(plugin.getMessageManager().get("item-limiter.input.set-limit-prompt"));
+        player.sendMessage(plugin.getMessageManager().get("item-limiter.input.cancel-hint"));
         player.sendMessage(Component.empty());
 
         plugin.getChatInputManager().requestInput(player, (p, input) -> {
             if (input.equalsIgnoreCase("cancel")) {
-                p.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Input cancelled."));
+                p.sendMessage(plugin.getMessageManager().get("item-limiter.input.cancelled"));
                 Bukkit.getScheduler().runTask(plugin, () -> openAddItemGui(p));
                 return;
             }
@@ -630,8 +648,7 @@ public class ItemLimiterFeature extends BaseFeature {
             try {
                 int limit = Integer.parseInt(input.trim());
                 if (limit < 0 || limit > 64000) {
-                    p.sendMessage(MessageManager
-                            .parse("<red>[Vanilla Core] <gray>Invalid number! Must be between 0 and 64000"));
+                    p.sendMessage(plugin.getMessageManager().get("item-limiter.input.invalid-range"));
                     Bukkit.getScheduler().runTask(plugin, () -> openAddItemGui(p));
                     return;
                 }
@@ -646,10 +663,10 @@ public class ItemLimiterFeature extends BaseFeature {
                 }
                 currentSession.limit = limit;
 
-                p.sendMessage(MessageManager.parse("<green>[Vanilla Core] <gray>Limit set to: " + limit));
+                p.sendMessage(plugin.getMessageManager().get("item-limiter.limit-set", "limit", limit));
                 Bukkit.getScheduler().runTask(plugin, () -> openAddItemGui(p));
             } catch (NumberFormatException e) {
-                p.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Please enter a valid number!"));
+                p.sendMessage(plugin.getMessageManager().get("general.invalid-number"));
                 Bukkit.getScheduler().runTask(plugin, () -> openAddItemGui(p));
             }
         });
@@ -658,24 +675,25 @@ public class ItemLimiterFeature extends BaseFeature {
     private void openEditChatInput(Player player, String key) {
         ItemLimit limit = manager.getItemLimit(key);
         if (limit == null) {
-            player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Item limit not found!"));
+            player.sendMessage(plugin.getMessageManager().get("item-limiter.limit-not-found"));
             openViewLimits(player);
             return;
         }
 
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<gold>Edit Limit Amount"));
-        player.sendMessage(MessageManager.parse("<gray>Current: <white>" + limit.getLimit()));
+        player.sendMessage(plugin.getMessageManager().get("item-limiter.input.edit-limit-title"));
+        player.sendMessage(plugin.getMessageManager().get("item-limiter.input.edit-limit-current", "limit",
+                limit.getLimit()));
         player.sendMessage(Component.empty());
-        player.sendMessage(MessageManager.parse("<green>Enter the new limit amount (0-64000):"));
-        player.sendMessage(MessageManager.parse("<gray>Type <red>'cancel' <gray>to cancel"));
+        player.sendMessage(plugin.getMessageManager().get("item-limiter.input.edit-limit-prompt"));
+        player.sendMessage(plugin.getMessageManager().get("item-limiter.input.cancel-hint"));
         player.sendMessage(Component.empty());
 
         plugin.getChatInputManager().requestInput(player, (p, input) -> {
             editingSessions.remove(p.getUniqueId());
 
             if (input.equalsIgnoreCase("cancel")) {
-                p.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Input cancelled."));
+                p.sendMessage(plugin.getMessageManager().get("item-limiter.input.cancelled"));
                 Bukkit.getScheduler().runTask(plugin, () -> openViewLimits(p));
                 return;
             }
@@ -683,18 +701,17 @@ public class ItemLimiterFeature extends BaseFeature {
             try {
                 int newLimit = Integer.parseInt(input.trim());
                 if (newLimit < 0 || newLimit > 64000) {
-                    p.sendMessage(MessageManager
-                            .parse("<red>[Vanilla Core] <gray>Invalid number! Must be between 0 and 64000"));
+                    p.sendMessage(plugin.getMessageManager().get("item-limiter.input.invalid-range"));
                     Bukkit.getScheduler().runTask(plugin, () -> openViewLimits(p));
                     return;
                 }
 
                 manager.updateItemLimit(key, newLimit);
-                p.sendMessage(MessageManager.parse("<green>[Vanilla Core] <gray>Limit updated to " + newLimit));
+                p.sendMessage(plugin.getMessageManager().get("item-limiter.limit-updated", "limit", newLimit));
                 p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
                 Bukkit.getScheduler().runTask(plugin, () -> openViewLimits(p));
             } catch (NumberFormatException e) {
-                p.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Please enter a valid number!"));
+                p.sendMessage(plugin.getMessageManager().get("general.invalid-number"));
                 Bukkit.getScheduler().runTask(plugin, () -> openViewLimits(p));
             }
         });

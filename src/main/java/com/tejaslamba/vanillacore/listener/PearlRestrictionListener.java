@@ -2,7 +2,6 @@ package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.PearlRestrictionFeature;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -35,7 +34,7 @@ public class PearlRestrictionListener implements Listener {
         }
 
         event.setCancelled(true);
-        event.getPlayer().sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Ender pearls are restricted."));
+        event.getPlayer().sendMessage(plugin.getMessageManager().get("pearl-restriction.blocked"));
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -48,7 +47,7 @@ public class PearlRestrictionListener implements Listener {
         if (event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
             event.setCancelled(true);
             event.getPlayer()
-                    .sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Ender pearls are restricted."));
+                    .sendMessage(plugin.getMessageManager().get("pearl-restriction.blocked"));
         }
     }
 }

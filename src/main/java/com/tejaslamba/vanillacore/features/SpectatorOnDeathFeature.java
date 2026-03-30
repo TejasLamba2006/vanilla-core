@@ -43,16 +43,17 @@ public class SpectatorOnDeathFeature extends BaseFeature {
 
     @Override
     public ItemStack getMenuItem() {
-        return createMenuItem(Material.SKELETON_SKULL, "<!italic><gray>Spectator On Death",
-                "<!italic><gray>Respawn players in spectator mode after death");
+        return createMenuItem(Material.SKELETON_SKULL,
+                plugin.getMessageManager().getRaw("feature-menus.spectator-on-death.name"),
+                plugin.getMessageManager().getRaw("feature-menus.spectator-on-death.description"));
     }
 
     @Override
     public List<String> getMenuLore() {
         List<String> lore = new ArrayList<>();
-        lore.add(enabled ? "<green>Enabled" : "<red>Disabled");
+        lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
-        lore.add("<yellow>Left Click: Toggle");
+        lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
         return lore;
     }
 

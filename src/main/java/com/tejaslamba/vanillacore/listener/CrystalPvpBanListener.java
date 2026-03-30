@@ -2,7 +2,6 @@ package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.features.CrystalPvpBanFeature;
-import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.Material;
 import org.bukkit.entity.EnderCrystal;
 import org.bukkit.entity.Player;
@@ -35,7 +34,7 @@ public class CrystalPvpBanListener implements Listener {
 
         if (event.getItem() != null && event.getItem().getType() == Material.END_CRYSTAL) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Crystal PvP is disabled."));
+            event.getPlayer().sendMessage(plugin.getMessageManager().get("crystal-pvp-ban.blocked"));
         }
     }
 
@@ -49,10 +48,10 @@ public class CrystalPvpBanListener implements Listener {
         if (event.getDamager() instanceof EnderCrystal || event.getEntity() instanceof EnderCrystal) {
             event.setCancelled(true);
             if (event.getDamager() instanceof Player player) {
-                player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Crystal PvP is disabled."));
+                player.sendMessage(plugin.getMessageManager().get("crystal-pvp-ban.blocked"));
             }
             if (event.getEntity() instanceof Player player) {
-                player.sendMessage(MessageManager.parse("<red>[Vanilla Core] <gray>Crystal PvP is disabled."));
+                player.sendMessage(plugin.getMessageManager().get("crystal-pvp-ban.blocked"));
             }
         }
     }
