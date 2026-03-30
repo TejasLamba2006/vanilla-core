@@ -9,9 +9,6 @@
 # Full documentation: https://vanillacore.tejaslamba.com/docs
 # ============================================
 
-# Do not change the config-version unless instructed or config would reset.
-config-version: 3
-
 # ============================================
 # Plugin Settings
 # ============================================
@@ -230,6 +227,28 @@ features:
         potionType: STRONG_SWIFTNESS
 
   # ------------------------------------------
+  # Ender Chest Item Limiter
+  # ------------------------------------------
+  # Blocks configured items from being stored in ender chests.
+  # Supports custom model data, display name, and potion type matching.
+  # Manage blocked items via GUI with /vanilla menu -> Ender Chest Item Limiter -> Right Click
+  ender-chest-item-limiter:
+    enabled: false
+    # Whether to notify the player when blocked placement is prevented
+    notify-player: true
+    # Message shown when a blocked item is placed into an ender chest
+    # Placeholder: {item} = item name
+    notify-message: "<red>[Vanilla Core] <gray>You cannot put <yellow>{item}<gray> in an ender chest"
+    # Blocked items configuration
+    # Advanced format:
+    #   custom_key:
+    #     material: MATERIAL_NAME
+    #     customModelData: number (optional)
+    #     displayName: "<red>Custom Name" (optional)
+    #     potionType: POTION_TYPE (optional, for potions only)
+    blocked-items: {}
+
+  # ------------------------------------------
   # One Player Sleep
   # ------------------------------------------
   # Only one player needs to sleep to skip the night.
@@ -372,6 +391,36 @@ features:
       cancelled-message: "<green>✔ Server restart has been cancelled."
 
   # ------------------------------------------
+  # Ritual
+  # ------------------------------------------
+  # Start ritual events using /ritual while holding an item.
+  # Shows particles, ritual displays, and a global countdown bar.
+  ritual:
+    enabled: false
+    # Ritual duration in minutes
+    duration-minutes: 1
+    # Visual radius value (effective particle ring is radius / 2)
+    radius: 5
+    # Particle color options:
+    # BLUE, YELLOW, AQUA, FUCHSIA, LIME, ORANGE,
+    # PURPLE, WHITE, BLACK, GRAY, RED, GREEN
+    particle-color: BLUE
+    # Strike lightning effect at ritual end
+    strike-lightning: true
+    # Show a vertical beacon-style beam at ritual end
+    end-effect-beacon-beam: false
+    # Beacon beam duration in seconds
+    beacon-beam-duration-seconds: 8
+    # Launch a burst of fireworks at ritual end
+    end-effect-firework-burst: false
+    # Drop a copy of the held ritual item at ritual end
+    drop-item-at-end: false
+    # Play a sound to all players when ritual starts
+    play-start-sound: true
+    # Bukkit Sound enum name
+    start-sound: "ENTITY_WITHER_SPAWN"
+
+  # ------------------------------------------
   # Breach Swap
   # ------------------------------------------
   # Prevents players from quickly swapping between a Breach-enchanted
@@ -404,10 +453,94 @@ features:
       duration-ticks: 100
 
   # ------------------------------------------
+  # Potion Bans
+  # ------------------------------------------
+  # Configure potion bans per effect and tier.
+  # Format for each entry in blocked-effects:
+  # effect:tier1:tier2
+  # Example: strength:true:false
+  potion-bans:
+    enabled: false
+    # Use lowercase effect names (strength, speed, regeneration, etc.)
+    blocked-effects: []
+
+  # ------------------------------------------
+  # Bed Bombing Ban
+  # ------------------------------------------
+  # Disable bed explosions in Nether and End.
+  bed-bombing-ban:
+    enabled: false
+
+  # ------------------------------------------
+  # TNT Minecart Ban
+  # ------------------------------------------
+  # Disable TNT minecart explosion damage and explosions.
+  tnt-minecart-ban:
+    enabled: false
+
+  # ------------------------------------------
+  # Villager Killing Ban
+  # ------------------------------------------
+  # Prevent players from killing villagers.
+  villager-killing-ban:
+    enabled: false
+
+  # ------------------------------------------
+  # Crystal PvP Ban
+  # ------------------------------------------
+  # Disable end crystal placement, crystal damage, and crystal explosions.
+  crystal-pvp-ban:
+    enabled: false
+
+  # ------------------------------------------
+  # Anchor Restriction
+  # ------------------------------------------
+  # Restrict respawn anchor charging outside Nether.
+  anchor-restriction:
+    enabled: false
+
+  # ------------------------------------------
+  # Pearl Restriction
+  # ------------------------------------------
+  # Disable ender pearl usage and ender pearl teleporting.
+  pearl-restriction:
+    enabled: false
+
+  # ------------------------------------------
+  # Item Cooldowns
+  # ------------------------------------------
+  # Generic configurable cooldowns by material.
+  # Values are in seconds (supports decimals).
+  # Configure common values via GUI and add extra materials manually.
+  item-cooldowns:
+    enabled: false
+    cooldowns:
+      GOLDEN_APPLE: 0.0
+      ENCHANTED_GOLDEN_APPLE: 0.0
+      ENDER_PEARL: 0.0
+      WIND_CHARGE: 0.5
+
+  # ------------------------------------------
+  # Spectator On Death
+  # ------------------------------------------
+  # Respawns players into spectator mode after death.
+  spectator-on-death:
+    enabled: false
+
+  # ------------------------------------------
   # Stop Item Despawn
   # ------------------------------------------
   # Prevents items dropped when a player dies from despawning naturally.
   # Items will persist indefinitely until picked up.
   stop-item-despawn:
     enabled: false
+
+  # ------------------------------------------
+  # Faster Happy Ghasts
+  # ------------------------------------------
+  # Increase flying speed for newly spawned happy ghasts.
+  faster-happy-ghasts:
+    enabled: false
+    # Vanilla-like base is around 0.05, Skript-style boosted value is 0.10
+    flying-speed: 0.10
 # ============================================

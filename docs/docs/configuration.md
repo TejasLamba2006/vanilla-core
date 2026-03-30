@@ -198,6 +198,15 @@ features:
         potionType: STRONG_SWIFTNESS
 
   # ------------------------------------------
+  # Ender Chest Item Limiter
+  # ------------------------------------------
+  ender-chest-item-limiter:
+    enabled: false
+    notify-player: true
+    notify-message: "<red>[Vanilla Core] <gray>You cannot put <yellow>{item}<gray> in an ender chest"
+    blocked-items: {}
+
+  # ------------------------------------------
   # One Player Sleep
   # ------------------------------------------
   one-player-sleep:
@@ -279,15 +288,22 @@ features:
 |---------|------------|-------------|
 | [Enchantment Limiter](/docs/features/enchantment-limiter) | `enchantment-limiter` | Limit enchantment levels |
 | [Item Limiter](/docs/features/item-limiter) | `item-limiter` | Limit item quantities |
+| [Ender Chest Item Limiter](/docs/features/ender-chest-item-limiter) | `ender-chest-item-limiter` | Block selected items from ender chest storage |
 | [Mace Limiter](/docs/features/mace-limiter) | `mace-limiter` | Limit total maces craftable |
+| [Combat Restrictions](/docs/features/combat-restrictions) | `bed-bombing-ban`, `tnt-minecart-ban`, `villager-killing-ban`, `crystal-pvp-ban`, `anchor-restriction`, `pearl-restriction` | Separate toggles for each combat restriction |
+| [Item Cooldowns](/docs/features/item-cooldowns) | `item-cooldowns` | Configurable cooldowns for pearls, apples, wind charges, and more |
+| [Potion Bans](/docs/features/potion-bans) | `potion-bans` | Per-effect Tier 1 and Tier 2 potion bans via `effect:tier1:tier2` |
 | [Netherite Disabler](/docs/features/netherite-disabler) | `netherite-disabler` | Block netherite item crafting |
 | [Dimension Locks](/docs/features/dimension-locks) | `dimension-lock-end`, `dimension-lock-nether` | Lock dimensions |
 | [One Player Sleep](/docs/features/one-player-sleep) | `one-player-sleep` | One player sleep to skip night |
 | [Mob Manager](/docs/features/mob-manager) | `mob-manager` | Control mob spawning |
 | [Infinite Restock](/docs/features/infinite-restock) | `infinite-restock` | Unlimited villager trades |
+| [Ritual](/docs/features/ritual) | `ritual` | Timed ritual events with particles and countdown |
 | [Invisible Kills](/docs/features/invisible-kills) | `invisible-kills` | Hide killer name when invisible |
 | [Item Explosion Immunity](/docs/features/item-explosion-immunity) | `item-explosion-immunity` | Protect items from explosions |
 | [Minimap Control](/docs/features/minimap-control) | `minimap-control` | Control minimap mod features |
+| [Faster Happy Ghasts](/docs/features/faster-happy-ghasts) | `faster-happy-ghasts` | Increase happy ghast flying speed |
+| [Spectator On Death](/docs/features/spectator-on-death) | `spectator-on-death` | Respawn players in spectator mode after death |
 | [Server Restart](/docs/features/server-restart) | `server-restart` | Scheduled restarts with countdown |
 
 ## Color Tags (MiniMessage)

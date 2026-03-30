@@ -64,29 +64,16 @@ public class MainMenu extends BaseMenu {
         List<ItemStack> items = plugin.getFeatureManager().getMenuItems();
 
         int totalPages = getTotalPages(items.size());
+        currentPage = Math.max(0, Math.min(currentPage, totalPages - 1));
         int startIndex = currentPage * SLOTS_PER_PAGE;
 
         int itemIndex = 0;
-        int lastUsedSlot = -1;
         for (int slot : VALID_SLOTS) {
             int actualIndex = startIndex + itemIndex;
             if (actualIndex >= items.size())
                 break;
             inventory.setItem(slot, items.get(actualIndex));
-            lastUsedSlot = slot;
             itemIndex++;
-        }
-
-        int itemsOnThisPage = Math.min(items.size() - startIndex, SLOTS_PER_PAGE);
-        if (itemsOnThisPage < SLOTS_PER_PAGE && itemsOnThisPage > 0) {
-            int nextSlotIndex = itemsOnThisPage;
-            if (nextSlotIndex < VALID_SLOTS.length) {
-                inventory.setItem(VALID_SLOTS[nextSlotIndex], createComingSoonItem());
-                nextSlotIndex++;
-            }
-            if (nextSlotIndex < VALID_SLOTS.length) {
-                inventory.setItem(VALID_SLOTS[nextSlotIndex], createDonateItem());
-            }
         }
 
         CDNManager cdnManager = plugin.getCDNManager();

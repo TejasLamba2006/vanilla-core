@@ -31,7 +31,8 @@ A Minecraft plugin for Vanilla servers focused on PvP balance, custom mechanics,
 ### Bans
 
 - Item Bans: Ban maces, anchors, crystals, pearls, netherite items
-- Potion Effect Bans: Config-driven list of banned potion effects
+- Potion Effect Bans: GUI-configurable all/effect/tier2 potion bans
+- Combat Restriction Features: Bed bombing ban, TNT minecart ban, villager killing ban, crystal PvP ban, anchor restriction, and pearl restriction
 
 ### Dimensions
 
@@ -40,10 +41,14 @@ A Minecraft plugin for Vanilla servers focused on PvP balance, custom mechanics,
 
 ### Custom Mechanics
 
+- Ritual: Start timed ritual events using held items
+- Item Cooldowns: GUI-configurable cooldowns for pearls, gaps, egaps, wind charges, and more
 - Invisible Kills: Hide killer name in death messages when invisible
 - Item Explosion Immunity: Protect dropped items from explosions
 - Infinite Restock: Villagers never run out of trades
 - One Player Sleep: Only one player needs to sleep to skip night
+- Faster Happy Ghasts: Increase happy ghast flying speed
+- Spectator On Death: Respawn players directly into spectator mode
 
 ### GUI System
 
@@ -63,6 +68,8 @@ A Minecraft plugin for Vanilla servers focused on PvP balance, custom mechanics,
 | `/vanilla enchant <sub>` | Enchantment management | `vanillacore.enchant` |
 | `/vanilla mace <sub>` | Mace limiter commands | `vanillacore.mace` |
 | `/vanilla netherite <sub>` | Netherite disabler commands | `vanillacore.netherite` |
+| `/vanilla ritual <sub>` | Ritual management | `vanillacore.ritual` |
+| `/ritual <sub>` | Ritual management shortcut | `vanillacore.ritual` |
 
 ### Enchantment Subcommands
 

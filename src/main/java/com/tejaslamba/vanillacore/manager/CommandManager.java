@@ -5,6 +5,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.tejaslamba.vanillacore.commands.VanillaCommand;
 import com.tejaslamba.vanillacore.command.DimensionCommand;
+import com.tejaslamba.vanillacore.command.RitualCommand;
 
 public class CommandManager {
 
@@ -16,6 +17,7 @@ public class CommandManager {
 
     public void registerDefaults() {
         registerCommand("vanilla", new VanillaCommand());
+        registerCommand("ritual", new RitualCommand((VanillaCorePlugin) plugin));
 
         registerCommand("nether", new DimensionCommand((VanillaCorePlugin) plugin, "nether"));
         registerCommand("end", new DimensionCommand((VanillaCorePlugin) plugin, "end"));

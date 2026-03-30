@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added Faster Happy Ghasts (`features.faster-happy-ghasts`) with configurable flying speed for newly spawned happy ghasts.
+- Added Potion Bans (`features.potion-bans`) with per-effect tier flags in `blocked-effects` (`effect:tier1:tier2`) and GUI controls for Tier 1/Tier 2 toggles.
+- Added Ritual (`features.ritual`) with `/ritual start`, `/ritual status`, and `/ritual cancel`, plus optional end effects:
+  - Beacon beam (`features.ritual.end-effect-beacon-beam`)
+  - Beacon beam duration (`features.ritual.beacon-beam-duration-seconds`)
+  - Firework burst (`features.ritual.end-effect-firework-burst`)
+- Added standalone combat restriction features:
+  - Bed Bombing Ban (`features.bed-bombing-ban`)
+  - TNT Minecart Ban (`features.tnt-minecart-ban`)
+  - Villager Killing Ban (`features.villager-killing-ban`)
+  - Crystal PvP Ban (`features.crystal-pvp-ban`)
+  - Anchor Restriction (`features.anchor-restriction`)
+  - Pearl Restriction (`features.pearl-restriction`)
+- Added Item Cooldowns (`features.item-cooldowns`) for GUI-managed cooldowns (golden apple, enchanted golden apple, ender pearl, wind charge) with optional extra material entries via config.
+- Added Spectator On Death (`features.spectator-on-death`) to move players into spectator mode after death.
+- Added Ender Chest Item Limiter (`features.ender-chest-item-limiter`) with Item Limiter-style GUI management and support for custom item matching (`customModelData`, `displayName`, `potionType`) to block specific items from being stored in ender chests.
+
+### Changed
+
+- Bumped config version to `9` so new defaults and migrations are applied automatically.
+- Split combat restrictions into separate features instead of one combined settings screen.
+- Extended `/ritual start` to support runtime overrides: `/ritual start [time] [color]` with durations like `30s`, `1m`, `1h`, `1d`, and `1h30m`, plus color tab completion.
+- Added a full Ritual settings GUI in `/vanilla menu` (right-click Ritual) for duration, radius, particle color, start sound toggle, and end-effect toggles.
+- Reworked Potion Bans config and GUI: removed `ban-all`/`ban-tier2` keys and switched to per-effect tier entries (`effect:tier1:tier2`) with computed "Ban All Potions" behavior.
+- Main menu pagination now clamps page bounds and keeps feature slots dedicated to features so overflow moves to later pages automatically.
+
 ## [1.4.1] - 2026-03-19
 
 ### Fixed

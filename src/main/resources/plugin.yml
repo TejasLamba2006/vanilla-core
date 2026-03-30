@@ -6,8 +6,11 @@ softdepend: [WorldGuard]
 commands:
   vanilla:
     description: Vanilla Core command
-    usage: /vanilla [menu|reload|enchant|mace|netherite|infiniterestock]
+    usage: /vanilla [menu|reload|enchant|mace|netherite|infiniterestock|ritual]
     aliases: [vc, vpt]
+  ritual:
+    description: Start and manage ritual events
+    usage: /ritual [start [time] [color]|status|cancel]
   end:
     description: End dimension lock commands
     usage: /end [open|close|status]
@@ -29,6 +32,9 @@ permissions:
       vanillacore.dimension.bypass: true
       vanillacore.netherite: true
       vanillacore.infiniterestock: true
+      vanillacore.ritual: true
+      vanillacore.ritual.cancel: true
+      vanillacore.enderchestlimiter.bypass: true
   vanillacore.reload:
     description: Reload plugin configuration
     default: op
@@ -64,6 +70,15 @@ permissions:
     default: op
   vanillacore.infiniterestock:
     description: Manage Infinite Restock feature and open GUI
+    default: op
+  vanillacore.ritual:
+    description: Start and view ritual events
+    default: op
+  vanillacore.ritual.cancel:
+    description: Cancel active ritual events
+    default: op
+  vanillacore.enderchestlimiter.bypass:
+    description: Bypass Ender Chest Item Limiter restrictions
     default: op
   vanillacore.netherite.craft.*:
     description: Bypass netherite crafting restrictions

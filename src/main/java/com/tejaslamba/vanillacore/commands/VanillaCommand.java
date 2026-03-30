@@ -4,6 +4,7 @@ import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.command.EnchantCommand;
 import com.tejaslamba.vanillacore.command.MaceCommand;
 import com.tejaslamba.vanillacore.command.NetheriteCommand;
+import com.tejaslamba.vanillacore.command.RitualCommand;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,6 +22,7 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
     private final MaceCommand maceCommand;
     private final NetheriteCommand netheriteCommand;
     private final com.tejaslamba.vanillacore.command.InfiniteRestockCommand infiniteRestockCommand;
+    private final RitualCommand ritualCommand;
 
     public VanillaCommand() {
         this.enchantCommand = new EnchantCommand(VanillaCorePlugin.getInstance());
@@ -28,6 +30,7 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
         this.netheriteCommand = new NetheriteCommand(VanillaCorePlugin.getInstance());
         this.infiniteRestockCommand = new com.tejaslamba.vanillacore.command.InfiniteRestockCommand(
                 VanillaCorePlugin.getInstance());
+        this.ritualCommand = new RitualCommand(VanillaCorePlugin.getInstance());
     }
 
     private MessageManager msg() {
@@ -87,6 +90,16 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
             String[] irArgs = new String[args.length - 1];
             System.arraycopy(args, 1, irArgs, 0, args.length - 1);
             return infiniteRestockCommand.onCommand(sender, command, label, irArgs);
+        }
+
+        if (args[0].equalsIgnoreCase("ritual")) {
+            if (!sender.hasPermission("vanillacore.ritual")) {
+                msg().sendPrefixed(sender, "commands.ritual.no-permission");
+                return true;
+            }
+            String[] ritualArgs = new String[args.length - 1];
+            System.arraycopy(args, 1, ritualArgs, 0, args.length - 1);
+            return ritualCommand.onCommand(sender, command, label, ritualArgs);
         }
 
         if (args[0].equalsIgnoreCase("menu")) {
@@ -151,6 +164,9 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
             if (sender.hasPermission("vanillacore.infiniterestock")) {
                 completions.add("infiniterestock");
             }
+            if (sender.hasPermission("vanillacore.ritual")) {
+                completions.add("ritual");
+            }
             if (sender.hasPermission("vanillacore.reload")) {
                 completions.add("reload");
             }
@@ -183,6 +199,13 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
             String[] irArgs = new String[args.length - 1];
             System.arraycopy(args, 1, irArgs, 0, args.length - 1);
             return infiniteRestockCommand.onTabComplete(sender, command, alias, irArgs);
+        }
+
+        if (args.length >= 2 && args[0].equalsIgnoreCase("ritual")
+                && sender.hasPermission("vanillacore.ritual")) {
+            String[] ritualArgs = new String[args.length - 1];
+            System.arraycopy(args, 1, ritualArgs, 0, args.length - 1);
+            return ritualCommand.onTabComplete(sender, command, alias, ritualArgs);
         }
 
         return Collections.emptyList();

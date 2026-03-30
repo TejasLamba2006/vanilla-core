@@ -163,6 +163,6 @@
 - [x] MenuConfigManager - Menu config
 - [x] ChatInputManager - Chat input handling
 - [x] CommandManager - Command registration
-- [ ] RitualManager - Ritual system (NOT IMPLEMENTED)
+- [x] RitualManager - Ritual system
 - [ ] RecipeManager - Custom recipes (NOT IMPLEMENTED)
 - [ ] SMPStateManager - SMP start state (NOT IMPLEMENTED)

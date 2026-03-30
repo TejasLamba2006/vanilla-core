@@ -2,10 +2,14 @@ package com.tejaslamba.vanillacore.listener;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.feature.BaseFeature;
+import com.tejaslamba.vanillacore.features.EnderChestItemLimiterFeature;
 import com.tejaslamba.vanillacore.features.ItemLimiterFeature;
+import com.tejaslamba.vanillacore.features.ItemCooldownsFeature;
 import com.tejaslamba.vanillacore.features.MobManagerFeature;
 import com.tejaslamba.vanillacore.features.NetheriteDisablerFeature;
 import com.tejaslamba.vanillacore.features.InfiniteRestockFeature;
+import com.tejaslamba.vanillacore.features.PotionBansFeature;
+import com.tejaslamba.vanillacore.features.RitualFeature;
 import com.tejaslamba.vanillacore.features.ShieldMechanicsFeature;
 import com.tejaslamba.vanillacore.menu.GuiHolder;
 import com.tejaslamba.vanillacore.menu.MainMenu;
@@ -71,6 +75,17 @@ public class MenuClickListener implements Listener {
                     if (isClickInTopInventory(event))
                         handleItemLimiterBannedGUI(event, player);
                 }
+                case "ender-chest-limiter-main" -> {
+                    event.setCancelled(true);
+                    if (isClickInTopInventory(event))
+                        handleEnderChestLimiterMainGUI(event, player);
+                }
+                case "ender-chest-limiter-add" -> handleEnderChestLimiterAddGUI(event, player);
+                case "ender-chest-limiter-view" -> {
+                    event.setCancelled(true);
+                    if (isClickInTopInventory(event))
+                        handleEnderChestLimiterViewGUI(event, player);
+                }
                 case "infinite-restock" -> {
                     event.setCancelled(true);
                     if (isClickInTopInventory(event))
@@ -111,6 +126,21 @@ public class MenuClickListener implements Listener {
                     if (isClickInTopInventory(event))
                         handleShieldMechanicsGUI(event, player);
                 }
+                case "potion-bans-settings" -> {
+                    event.setCancelled(true);
+                    if (isClickInTopInventory(event))
+                        handlePotionBansSettingsGUI(event, player);
+                }
+                case "ritual-settings" -> {
+                    event.setCancelled(true);
+                    if (isClickInTopInventory(event))
+                        handleRitualSettingsGUI(event, player);
+                }
+                case "item-cooldowns" -> {
+                    event.setCancelled(true);
+                    if (isClickInTopInventory(event))
+                        handleItemCooldownsGUI(event, player);
+                }
             }
         } else if (holder instanceof MainMenu mainMenu) {
             mainMenu.handleClick(event);
@@ -126,6 +156,12 @@ public class MenuClickListener implements Listener {
         InventoryHolder holder = event.getView().getTopInventory().getHolder();
         if (holder instanceof GuiHolder gui && gui.getId().startsWith("item-limiter")) {
             ItemLimiterFeature feature = plugin.getFeatureManager().getFeature(ItemLimiterFeature.class);
+            if (feature != null) {
+                feature.handleInventoryClose(player, gui.getId());
+            }
+        } else if (holder instanceof GuiHolder gui && gui.getId().startsWith("ender-chest-limiter")) {
+            EnderChestItemLimiterFeature feature = plugin.getFeatureManager()
+                    .getFeature(EnderChestItemLimiterFeature.class);
             if (feature != null) {
                 feature.handleInventoryClose(player, gui.getId());
             }
@@ -208,6 +244,55 @@ public class MenuClickListener implements Listener {
         }
 
         feature.handleBannedItemsClick(
+                event.getSlot(),
+                event.getInventory().getSize(),
+                event.isShiftClick(),
+                event.isLeftClick(),
+                player);
+    }
+
+    private void handleEnderChestLimiterMainGUI(InventoryClickEvent event, Player player) {
+        if (event.getCurrentItem() == null || event.getCurrentItem().getType() == Material.AIR) {
+            return;
+        }
+
+        EnderChestItemLimiterFeature feature = getEnabledFeature(EnderChestItemLimiterFeature.class, player,
+                "ender-chest-item-limiter.feature-disabled");
+        if (feature == null)
+            return;
+
+        feature.handleMainMenuClick(event.getSlot(), player);
+    }
+
+    private void handleEnderChestLimiterAddGUI(InventoryClickEvent event, Player player) {
+        if (event.getRawSlot() >= event.getView().getTopInventory().getSize()) {
+            return;
+        }
+
+        EnderChestItemLimiterFeature feature = getEnabledFeature(EnderChestItemLimiterFeature.class, player,
+                "ender-chest-item-limiter.feature-disabled");
+        if (feature == null)
+            return;
+
+        feature.handleAddItemClick(event, player);
+    }
+
+    private void handleEnderChestLimiterViewGUI(InventoryClickEvent event, Player player) {
+        if (event.getCurrentItem() == null || event.getCurrentItem().getType() == Material.AIR) {
+            return;
+        }
+
+        EnderChestItemLimiterFeature feature = getEnabledFeature(EnderChestItemLimiterFeature.class, player,
+                "ender-chest-item-limiter.feature-disabled");
+        if (feature == null)
+            return;
+
+        Material clickedType = event.getCurrentItem().getType();
+        if (clickedType == Material.GRAY_STAINED_GLASS_PANE) {
+            return;
+        }
+
+        feature.handleViewBlockedItemsClick(
                 event.getSlot(),
                 event.getInventory().getSize(),
                 event.isShiftClick(),
@@ -502,5 +587,42 @@ public class MenuClickListener implements Listener {
             return;
 
         feature.handleSettingsGUIClick(event.getRawSlot(), event.isShiftClick(), player);
+    }
+
+    private void handleRitualSettingsGUI(InventoryClickEvent event, Player player) {
+        if (event.getCurrentItem() == null || event.getCurrentItem().getType() == Material.AIR) {
+            return;
+        }
+
+        RitualFeature feature = getEnabledFeature(RitualFeature.class, player, "ritual.feature-disabled");
+        if (feature == null)
+            return;
+
+        feature.handleSettingsGUIClick(event.getRawSlot(), event.isShiftClick(), event.isRightClick(), player);
+    }
+
+    private void handlePotionBansSettingsGUI(InventoryClickEvent event, Player player) {
+        if (event.getCurrentItem() == null || event.getCurrentItem().getType() == Material.AIR) {
+            return;
+        }
+
+        PotionBansFeature feature = getEnabledFeature(PotionBansFeature.class, player, "potion-bans.feature-disabled");
+        if (feature == null)
+            return;
+
+        feature.handleSettingsGUIClick(event.getRawSlot(), event.isRightClick(), player);
+    }
+
+    private void handleItemCooldownsGUI(InventoryClickEvent event, Player player) {
+        if (event.getCurrentItem() == null || event.getCurrentItem().getType() == Material.AIR) {
+            return;
+        }
+
+        ItemCooldownsFeature feature = getEnabledFeature(ItemCooldownsFeature.class, player,
+                "item-cooldowns.feature-disabled");
+        if (feature == null)
+            return;
+
+        feature.handleSettingsGUIClick(event.getRawSlot(), event.isShiftClick(), event.isRightClick(), player);
     }
 }

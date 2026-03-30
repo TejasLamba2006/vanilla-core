@@ -16,6 +16,18 @@ The `/vanilla` command is the primary entry point for plugin management.
 | `/vanilla reload` | Reloads all configuration files from disk | `vanillacore.reload` |
 | `/vanilla help` | Displays help information and available commands | `vanillacore.admin` |
 
+## Ritual Commands
+
+| Command | Description | Permission |
+|---------|-------------|------------|
+| `/ritual` or `/ritual start` | Starts a ritual using your held item with the default time and color from config | `vanillacore.ritual` |
+| `/ritual start <time>` | Starts a ritual with custom duration (`30s`, `1m`, `1h`, `1d`, `1h30m`) | `vanillacore.ritual` |
+| `/ritual start <time> <color>` | Starts a ritual with custom duration and particle color | `vanillacore.ritual` |
+| `/ritual status` | Shows currently active ritual status | `vanillacore.ritual` |
+| `/ritual cancel` | Cancels the active ritual | `vanillacore.ritual.cancel` |
+
+Ritual color values support tab completion.
+
 ### Reload Behavior
 
 When you run `/vanilla reload`:
@@ -25,7 +37,7 @@ When you run `/vanilla reload`:
 3. Cached data is refreshed
 4. Any pending changes are applied
 
-Note: If you have both made changes in the GUI and edited the config file manually, the reload will use the file on disk.
+Note: If you changed values in both the GUI and the config file, reload uses the file on disk.
 
 ## Dimension Lock Commands
 

@@ -48,6 +48,8 @@ Warning: Giving players bypass permissions undermines your server's balance sett
 |------------|-------------|---------|
 | `vanillacore.command.smp` | Use the `/vanilla` command | OP |
 | `vanillacore.command.reload` | Use the `/vanilla reload` command | OP |
+| `vanillacore.ritual` | Use `/ritual` and `/vanilla ritual` | OP |
+| `vanillacore.ritual.cancel` | Cancel active ritual events | OP |
 
 ### Dimension Lock Commands
 
@@ -173,4 +175,3 @@ Always assign permissions through groups rather than directly to players. This m
 ---
 
 Next: Explore [Features](./category/features) in detail.
-

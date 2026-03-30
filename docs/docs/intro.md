@@ -36,11 +36,15 @@ Vanilla Core addresses common issues when running an SMP:
 
 - Enchantment Limiter: Cap enchantment levels (like Sharpness 3 max instead of 5)
 - Mace Limiter: Keep mace damage under control
+- Combat Restriction Features: Toggle bed bombing ban, TNT minecart ban, villager killing ban, crystal PvP ban, anchor restriction, and pearl restriction independently
+- Item Cooldowns: Configure cooldowns for pearls, apples, wind charges, and any other material
+- Potion Bans: Ban all potions, tier 2 potions, or specific potion effects
 - Netherite Disabler: Block netherite crafting entirely if you want diamond meta back
 
 ### Item Control
 
 - Item Limiter: Set max quantities per player for any item
+- Ender Chest Item Limiter: Block selected items from being stored in ender chests
 - Item Explosion Immunity: Stop creepers and TNT from destroying dropped items
 
 ### Dimension Management
@@ -59,9 +63,12 @@ Use dimension locks to create progression for your server. Keep the Nether locke
 
 ### Quality of Life
 
+- Ritual: Start timed ritual events using held items
 - Infinite Restock: Villagers never run out of trades
 - Invisible Kills: Hide death messages when the killer is invisible
 - Minimap Control: Block or limit minimap mod features
+- Faster Happy Ghasts: Increase flying speed for happy ghasts
+- Spectator On Death: Respawn dead players directly into spectator mode
 
 ## Requirements
 

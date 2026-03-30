@@ -1,10 +1,5 @@
 package com.tejaslamba.vanillacore;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bstats.bukkit.Metrics;
 import com.tejaslamba.vanillacore.manager.CommandManager;
@@ -37,8 +32,6 @@ public class VanillaCorePlugin extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        migrateDataFolderIfNeeded();
-
         int bStatsId = 29512;
         new Metrics(this, bStatsId);
 
@@ -69,65 +62,6 @@ public class VanillaCorePlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(updateNotificationListener, this);
 
         getLogger().info("Vanilla Core has been enabled!");
-    }
-
-    private void migrateDataFolderIfNeeded() {
-        File newDataFolder = getDataFolder();
-        File newConfigFile = new File(newDataFolder, "config.yml");
-        if (newConfigFile.exists()) {
-            return;
-        }
-
-        File pluginsFolder = newDataFolder.getParentFile();
-        if (pluginsFolder == null || !pluginsFolder.isDirectory()) {
-            return;
-        }
-
-        String[] oldFolderNames = { "smp-core", "SMP-Core", "SMPCore", "vanillacore" };
-        File oldDataFolder = null;
-        for (String oldFolderName : oldFolderNames) {
-            File candidate = new File(pluginsFolder, oldFolderName);
-            if (candidate.isDirectory() && new File(candidate, "config.yml").exists()) {
-                oldDataFolder = candidate;
-                break;
-            }
-        }
-
-        if (oldDataFolder == null) {
-            return;
-        }
-
-        try {
-            Path sourceRoot = oldDataFolder.toPath();
-            Path targetRoot = newDataFolder.toPath();
-
-            try (var paths = Files.walk(sourceRoot)) {
-                paths.forEach(sourcePath -> {
-                    try {
-                        Path relative = sourceRoot.relativize(sourcePath);
-                        Path targetPath = targetRoot.resolve(relative);
-
-                        if (Files.isDirectory(sourcePath)) {
-                            Files.createDirectories(targetPath);
-                            return;
-                        }
-
-                        if (Files.exists(targetPath)) {
-                            return;
-                        }
-
-                        Files.createDirectories(targetPath.getParent());
-                        Files.copy(sourcePath, targetPath);
-                    } catch (IOException e) {
-                        getLogger().warning("Failed migrating file: " + sourcePath + " (" + e.getMessage() + ")");
-                    }
-                });
-            }
-
-            getLogger().info("Migrated data folder from " + oldDataFolder.getName() + " to " + newDataFolder.getName());
-        } catch (IOException e) {
-            getLogger().warning("Failed migrating plugin data folder (" + e.getMessage() + ")");
-        }
     }
 
     @Override
