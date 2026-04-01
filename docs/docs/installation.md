@@ -4,17 +4,17 @@ sidebar_position: 2
 
 # Installation
 
-This guide covers everything you need to install and configure Vanilla Core on your Minecraft server.
+This guide covers everything you need to install and configure SMP Watchdog on your Minecraft server.
 
 ## Server Requirements
 
-Before installing Vanilla Core, verify your server meets these requirements:
+Before installing SMP Watchdog, verify your server meets these requirements:
 
 | Component | Minimum | Recommended | Notes |
 |-----------|---------|-------------|-------|
 | Server Software | Spigot 1.21.1 | Paper 1.21.1+ | Paper provides better performance and additional API features |
 | Java Version | Java 21 | Java 21+ | Minecraft 1.21.1 requires Java 21 |
-| RAM | 2GB | 4GB+ | Vanilla Core itself uses minimal memory |
+| RAM | 2GB | 4GB+ | SMP Watchdog itself uses minimal memory |
 | WorldGuard | 7.0 | 7.0.9+ | Optional - only needed for Mob Manager region features |
 | WorldEdit | 7.3 | 7.3+ | Required if using WorldGuard |
 
@@ -24,7 +24,7 @@ Before installing Vanilla Core, verify your server meets these requirements:
 
 ### Step 1: Download the Plugin
 
-Download the latest version of Vanilla Core from one of these sources:
+Download the latest version of SMP Watchdog from one of these sources:
 
 - [Modrinth](https://modrinth.com/plugin/vanillacorewastaken) (Recommended)
 
@@ -39,7 +39,7 @@ Before adding new plugins, always stop your server properly:
 ```
 
 :::warning Never Hot-Load Plugins
-Do not use plugin managers to load Vanilla Core while the server is running. Always stop the server, add the plugin, then start again. Hot-loading can cause memory leaks and unexpected behavior.
+Do not use plugin managers to load SMP Watchdog while the server is running. Always stop the server, add the plugin, then start again. Hot-loading can cause memory leaks and unexpected behavior.
 tip WorldGuard Not Required
 The Mob Manager feature works without WorldGuard, but you can only control global mob spawning. Region-specific controls require WorldGuard.
 info Breaking Changes
@@ -50,7 +50,7 @@ Major version updates (like 1.x to 2.x) may include breaking changes. Always rea
 
 ### Plugin Doesn't Load
 
-**Symptom:** Vanilla Core doesn't appear in `/plugins` or appears in red
+**Symptom:** SMP Watchdog doesn't appear in `/plugins` or appears in red
 
 **Solutions:**
 
@@ -62,7 +62,7 @@ Major version updates (like 1.x to 2.x) may include breaking changes. Always rea
 
 ### Console Shows Errors on Startup
 
-**Symptom:** Red error messages mentioning Vanilla Core during startup
+**Symptom:** Red error messages mentioning SMP Watchdog during startup
 
 **Solutions:**
 
@@ -101,7 +101,7 @@ Major version updates (like 1.x to 2.x) may include breaking changes. Always rea
 **Solutions:**
 
 1. Stop the server properly with `/stop` (don't kill the process)
-2. Check file permissions on `plugins/Vanilla Core/`
+2. Check file permissions on `plugins/SMP Watchdog/`
 3. Verify disk space is available
 4. Look for write errors in the console during shutdown
 
@@ -119,7 +119,7 @@ Major version updates (like 1.x to 2.x) may include breaking changes. Always rea
 
 ### Known Plugin Conflicts
 
-Vanilla Core is designed to be compatible with most plugins. However, conflicts may occur with:
+SMP Watchdog is designed to be compatible with most plugins. However, conflicts may occur with:
 
 - Other enchantment limiting plugins
 - Other item restriction plugins

@@ -4,21 +4,21 @@ sidebar_position: 12
 
 # FAQ
 
-Frequently asked questions about Vanilla Core.
+Frequently asked questions about SMP Watchdog.
 
 ## General
 
-### What versions does Vanilla Core support?
+### What versions does SMP Watchdog support?
 
-Vanilla Core supports **Paper/Spigot 1.21.1+** with **Java 21+**.
+SMP Watchdog supports **Paper/Spigot 1.21.1+** with **Java 21+**.
 
 ### Does it work with Spigot?
 
 Yes, but **Paper is recommended** for better performance and more features.
 
-### Is Vanilla Core free?
+### Is SMP Watchdog free?
 
-Yes! Vanilla Core is completely free and open source.
+Yes! SMP Watchdog is completely free and open source.
 
 ### Where can I download it?
 
@@ -42,7 +42,7 @@ Check the following:
 The config is generated on first run. Ensure:
 
 1. The plugin loaded successfully
-2. Check `plugins/Vanilla Core/` folder
+2. Check `plugins/SMP Watchdog/` folder
 3. Look for console errors during startup
 
 ### How do I update?
@@ -69,7 +69,7 @@ Yes! Every feature can be individually enabled/disabled.
 
 ### Does it conflict with other plugins?
 
-Vanilla Core is designed to be compatible with most plugins. Known compatible plugins:
+SMP Watchdog is designed to be compatible with most plugins. Known compatible plugins:
 
 - EssentialsX
 - LuckPerms
@@ -89,7 +89,7 @@ Open an issue on [GitHub](https://github.com/TejasLamba2006/vanilla-core/issues)
 
 ### Will this lag my server?
 
-No! Vanilla Core is optimized for performance:
+No! SMP Watchdog is optimized for performance:
 
 - Event listeners use early returns
 - Cooldowns prevent spam checks
@@ -98,7 +98,7 @@ No! Vanilla Core is optimized for performance:
 
 ### How much RAM does it use?
 
-Vanilla Core has a minimal memory footprint, typically under 10MB.
+SMP Watchdog has a minimal memory footprint, typically under 10MB.
 
 ---
 
@@ -148,7 +148,7 @@ Using LuckPerms:
 
 ## Development
 
-### Is Vanilla Core open source?
+### Is SMP Watchdog open source?
 
 Yes! View the source on [GitHub](https://github.com/TejasLamba2006/vanilla-core).
 

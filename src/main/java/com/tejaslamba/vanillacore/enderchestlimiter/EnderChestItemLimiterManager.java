@@ -30,7 +30,7 @@ public class EnderChestItemLimiterManager {
     private final Map<UUID, Long> lastMessageTime = new ConcurrentHashMap<>();
     private static final long MESSAGE_COOLDOWN = 5000L;
     private boolean notifyPlayer = true;
-    private String notifyMessage = "<red>[Vanilla Core] <gray>You cannot put <yellow>{item}<gray> in an ender chest";
+    private String notifyMessage = "<red>[SMP Watchdog] <gray>You cannot put <yellow>{item}<gray> in an ender chest";
 
     public EnderChestItemLimiterManager(VanillaCorePlugin plugin) {
         this.plugin = plugin;
@@ -43,7 +43,7 @@ public class EnderChestItemLimiterManager {
         notifyPlayer = plugin.getConfigManager().get().getBoolean("features.ender-chest-item-limiter.notify-player",
                 true);
         notifyMessage = plugin.getConfigManager().get().getString("features.ender-chest-item-limiter.notify-message",
-                "<red>[Vanilla Core] <gray>You cannot put <yellow>{item}<gray> in an ender chest");
+                "<red>[SMP Watchdog] <gray>You cannot put <yellow>{item}<gray> in an ender chest");
 
         ConfigurationSection blockedSection = plugin.getConfigManager().get()
                 .getConfigurationSection("features.ender-chest-item-limiter.blocked-items");

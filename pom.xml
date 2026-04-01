@@ -104,7 +104,7 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Built-By>Vanilla Core</Built-By>
+                            <Built-By>SMP Watchdog</Built-By>
                         </manifestEntries>
                     </archive>
                 </configuration>

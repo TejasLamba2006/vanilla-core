@@ -83,7 +83,7 @@ public class ItemCooldownsListener implements Listener {
     private void sendCooldownMessage(Player player, Material material) {
         double remaining = Math.ceil(player.getCooldown(material) / 20.0D * 10.0D) / 10.0D;
         player.sendMessage(MessageManager.parse(
-                "<red>[Vanilla Core] <gray>This item is on cooldown for <yellow>" + remaining + "s<gray>."));
+                "<red>[SMP Watchdog] <gray>This item is on cooldown for <yellow>" + remaining + "s<gray>."));
     }
 
     private ItemCooldownsFeature getFeature() {

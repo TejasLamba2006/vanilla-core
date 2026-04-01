@@ -23,7 +23,7 @@ features:
   item-limiter:
     enabled: false
     notify-player: true
-    notify-message: "§c[Vanilla Core] §7Excess items removed: {item} x{amount} (limit: {limit})"
+    notify-message: "§c[SMP Watchdog] §7Excess items removed: {item} x{amount} (limit: {limit})"
     drop-excess: true
     limits:
       GOLDEN_APPLE:

@@ -7,12 +7,12 @@ import { LatestVersion, ModrinthStats } from '@site/src/components/ModrinthVersi
 
 # Introduction
 
-Vanilla Core is a Minecraft plugin for SMP servers. It handles PvP balance, custom mechanics, and server management without needing a dozen separate plugins.
+SMP Watchdog is a Minecraft plugin for SMP servers. It handles PvP balance, custom mechanics, and server management without needing a dozen separate plugins.
 
 <ModrinthStats />
 
 <div style={{textAlign: 'center', margin: '1.5rem 0'}}>
-  <img src="/gifs/main-gui.gif" alt="Vanilla Core main GUI demo" style={{maxWidth: '720px', width: '100%', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.35)'}} />
+  <img src="/gifs/main-gui.gif" alt="SMP Watchdog main GUI demo" style={{maxWidth: '720px', width: '100%', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.35)'}} />
 </div>
 
 ## Latest Version
@@ -21,7 +21,7 @@ Vanilla Core is a Minecraft plugin for SMP servers. It handles PvP balance, cust
 
 ## What Does It Do?
 
-Vanilla Core addresses common issues when running an SMP:
+SMP Watchdog addresses common issues when running an SMP:
 
 - Players hoarding stacks of totems or golden apples
 - Enchantments getting out of hand and ruining PvP
@@ -93,7 +93,7 @@ Everything is off by default. Just enable what you need.
 
 ## Support
 
-Vanilla Core is free to use. If it's helpful, consider [donating via PayPal](https://paypal.me/tejaslamba) to support development.
+SMP Watchdog is free to use. If it's helpful, consider [donating via PayPal](https://paypal.me/tejaslamba) to support development.
 
 Need help? [Join the Discord](https://discord.gg/7fQPG4Grwt?utm_source=vanillacore.tejaslamba.com).
 

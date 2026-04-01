@@ -1,4 +1,4 @@
-# Vanilla Core
+# SMP Watchdog
 
 [![Build Status](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/build.yml/badge.svg)](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/build.yml)
 [![CodeQL](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/codeql.yml/badge.svg)](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/codeql.yml)

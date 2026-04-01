@@ -1,6 +1,6 @@
 # License
 
-Vanilla Core is licensed under the **MIT License**, a permissive open-source license that allows you to freely use, modify, and distribute the software.
+SMP Watchdog is licensed under the **MIT License**, a permissive open-source license that allows you to freely use, modify, and distribute the software.
 
 
 
@@ -57,7 +57,7 @@ SOFTWARE.
 
 ## Contributing
 
-When you contribute to Vanilla Core:
+When you contribute to SMP Watchdog:
 
 - Your contributions will be licensed under the MIT License
 - You retain copyright to your contributions

@@ -77,7 +77,7 @@ function ChangelogPage() {
     };
 
     return (
-        <Layout title="Changelog" description="Track all updates and improvements to Vanilla Core">
+        <Layout title="Changelog" description="Track all updates and improvements to SMP Watchdog">
             <section className={styles.changelogSection}>
                 <div className={styles.bgGradient} />
                 <div className={styles.bgGlow} />
@@ -85,7 +85,7 @@ function ChangelogPage() {
                 <div className="container">
                     <div className={styles.header}>
                         <h1 className={styles.title}>Changelog</h1>
-                        <p className={styles.subtitle}>Track all updates and improvements to Vanilla Core.</p>
+                        <p className={styles.subtitle}>Track all updates and improvements to SMP Watchdog.</p>
                     </div>
 
                     {loading ? (

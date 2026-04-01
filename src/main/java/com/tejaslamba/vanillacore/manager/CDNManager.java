@@ -48,10 +48,10 @@ public class CDNManager {
         this.disabledFeatures = ConcurrentHashMap.newKeySet();
         this.maintenanceMode = false;
         this.disabledMessage = "This feature has been temporarily disabled by the plugin author.";
-        this.maintenanceMessage = "Vanilla Core is currently in maintenance mode. Please try again later.";
+        this.maintenanceMessage = "SMP Watchdog is currently in maintenance mode. Please try again later.";
         this.updateNotificationEnabled = true;
         this.updateNotificationPermission = "vanillacore.admin";
-        this.updateNotificationTitle = "Vanilla Core Update";
+        this.updateNotificationTitle = "SMP Watchdog Update";
         this.updateNotificationMessage = "A new version is available! Current: {current}, Latest: {latest}";
         this.updateNotificationActionMessage = "Visit {url} to download";
         this.lastFetch = 0;
@@ -261,7 +261,7 @@ public class CDNManager {
             conn.setRequestMethod("GET");
             conn.setConnectTimeout(TIMEOUT_MS);
             conn.setReadTimeout(TIMEOUT_MS);
-            conn.setRequestProperty("User-Agent", "VanillaCore/" + plugin.getPluginMeta().getVersion());
+            conn.setRequestProperty("User-Agent", "SMPWatchdog/" + plugin.getPluginMeta().getVersion());
 
             if (conn.getResponseCode() != 200) {
                 return null;

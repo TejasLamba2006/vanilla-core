@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Vanilla Core will be documented in this file.
+All notable changes to SMP Watchdog will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Bumped config version to `9` so new defaults and migrations are applied automatically.
+- Rebranded the plugin display name and user-facing branding from "Vanilla Core" to "SMP Watchdog" across `plugin.yml`, runtime messages, logs, and documentation while keeping existing command labels and `vanillacore.*` permissions for compatibility.
 - Upgraded `/vanilla reload` to support module-scoped hot reload targets: `all`, `config`, `messages`, `menus`, and `features`, with elapsed-time feedback and per-module failure reporting.
 - Added `/vanilla version` with `vanillacore.version` permission for quick in-game/admin version checks.
 - Update checks now fetch the latest release version directly from Modrinth (`vanillacorewastaken`) while keeping CDN-backed remote feature-control and maintenance messaging.

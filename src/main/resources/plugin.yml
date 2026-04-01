@@ -1,11 +1,11 @@
-name: VanillaCore
+name: SMP Watchdog
 main: com.tejaslamba.vanillacore.VanillaCorePlugin
 version: ${project.version}
 api-version: ${minecraft.version}
 softdepend: [WorldGuard]
 commands:
   vanilla:
-    description: Vanilla Core command
+    description: SMP Watchdog command
     usage: /vanilla [menu|reload [all|config|messages|menus|features]|version|enchant|mace|netherite|infiniterestock|ritual]
     aliases: [vc, vpt]
   ritual:
@@ -19,7 +19,7 @@ commands:
     usage: /nether [open|close|status]
 permissions:
   vanillacore.admin:
-    description: Full access to all Vanilla Core features and GUI
+    description: Full access to all SMP Watchdog features and GUI
     default: op
     children:
       vanillacore.reload: true

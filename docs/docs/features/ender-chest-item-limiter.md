@@ -28,7 +28,7 @@ features:
   ender-chest-item-limiter:
     enabled: false
     notify-player: true
-    notify-message: "<red>[Vanilla Core] <gray>You cannot put <yellow>{item}<gray> in an ender chest"
+    notify-message: "<red>[SMP Watchdog] <gray>You cannot put <yellow>{item}<gray> in an ender chest"
     blocked-items:
       TOTEM_OF_UNDYING:
         material: TOTEM_OF_UNDYING

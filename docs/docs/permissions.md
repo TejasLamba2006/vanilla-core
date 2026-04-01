@@ -4,14 +4,14 @@ sidebar_position: 4
 
 # Permissions
 
-Vanilla Core uses a hierarchical permission system. All permissions default to OP only, meaning regular players cannot access any features without explicit permission grants.
+SMP Watchdog uses a hierarchical permission system. All permissions default to OP only, meaning regular players cannot access any features without explicit permission grants.
 
 ## Permission Defaults
 
-By default, Vanilla Core uses these permission levels:
+By default, SMP Watchdog uses these permission levels:
 
 - **OP Players** - Full access to all commands and bypass permissions
-- **Regular Players** - No access to any Vanilla Core commands or bypasses
+- **Regular Players** - No access to any SMP Watchdog commands or bypasses
 
 To change this behavior, use a permissions plugin like LuckPerms.
 
@@ -21,7 +21,7 @@ These permissions control access to the main plugin functions:
 
 | Permission | Description | Default |
 |------------|-------------|---------|
-| `vanillacore.admin` | Full access to all Vanilla Core features and GUI | OP |
+| `vanillacore.admin` | Full access to all SMP Watchdog features and GUI | OP |
 | `vanillacore.reload` | Ability to reload configuration files | OP |
 | `vanillacore.version` | Ability to view the running plugin version | OP |
 | `vanillacore.menu` | Ability to open the main configuration GUI | OP |
@@ -88,7 +88,7 @@ Wildcard permissions grant all child permissions in a category:
 
 | Permission | Grants |
 |------------|--------|
-| `vanillacore.*` | All Vanilla Core permissions |
+| `vanillacore.*` | All SMP Watchdog permissions |
 | `vanillacore.bypass.*` | All bypass permissions |
 | `vanillacore.nether.*` | All Nether-related permissions |
 | `vanillacore.end.*` | All End-related permissions |
@@ -99,7 +99,7 @@ Wildcard permissions grant all child permissions in a category:
 
 ### Full Staff Access
 
-Give staff members complete access to manage Vanilla Core:
+Give staff members complete access to manage SMP Watchdog:
 
 ```
 /lp group staff permission set vanillacore.admin true

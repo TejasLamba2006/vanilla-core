@@ -63,7 +63,7 @@ function DownloadsPage() {
     };
 
     return (
-        <Layout title="Downloads" description="Download Vanilla Core for your Minecraft server">
+        <Layout title="Downloads" description="Download SMP Watchdog for your Minecraft server">
             <section className={styles.downloadsSection}>
                 <div className={styles.bgGradient} />
                 <div className={styles.bgGlow} />

@@ -86,7 +86,7 @@ export function LatestVersion({ showDownloadButton = true }) {
 
     useEffect(() => {
         fetch(`${API_BASE}/project/${PROJECT_ID}/version`, {
-            headers: { 'User-Agent': 'TejasLamba2006/Vanilla Core-docs' }
+            headers: { 'User-Agent': 'TejasLamba2006/SMP Watchdog-docs' }
         })
             .then(res => res.json())
             .then(data => {
@@ -157,7 +157,7 @@ export function VersionHistory() {
 
     useEffect(() => {
         fetch(`${API_BASE}/project/${PROJECT_ID}/version`, {
-            headers: { 'User-Agent': 'TejasLamba2006/Vanilla Core-docs' }
+            headers: { 'User-Agent': 'TejasLamba2006/SMP Watchdog-docs' }
         })
             .then(res => res.json())
             .then(data => {
@@ -223,7 +223,7 @@ export function VersionChangelog() {
 
     useEffect(() => {
         fetch(`${API_BASE}/project/${PROJECT_ID}/version`, {
-            headers: { 'User-Agent': 'TejasLamba2006/Vanilla Core-docs' }
+            headers: { 'User-Agent': 'TejasLamba2006/SMP Watchdog-docs' }
         })
             .then(res => res.json())
             .then(data => {

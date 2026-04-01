@@ -2,7 +2,7 @@ import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-    title: 'Vanilla Core',
+    title: 'SMP Watchdog',
     tagline: 'The Ultimate SMP Management Plugin for Minecraft',
     favicon: 'img/logo.png',
 
@@ -42,9 +42,9 @@ const config = {
         ({
             image: 'img/logo.png',
             navbar: {
-                title: 'Vanilla Core',
+                title: 'SMP Watchdog',
                 logo: {
-                    alt: 'Vanilla Core Logo',
+                    alt: 'SMP Watchdog Logo',
                     src: 'img/logo.png',
                 },
                 items: [
@@ -122,7 +122,7 @@ const config = {
                         ],
                     },
                 ],
-                copyright: `Copyright ${new Date().getFullYear()} Vanilla Core by Tejas Lamba. Licensed under the MIT License.`,
+                copyright: `Copyright ${new Date().getFullYear()} SMP Watchdog by Tejas Lamba. Licensed under the MIT License.`,
             },
             prism: {
                 theme: prismThemes.github,

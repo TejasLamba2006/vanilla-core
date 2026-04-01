@@ -1,4 +1,4 @@
-# Vanilla Core - Feature Implementation Checklist
+# SMP Watchdog - Feature Implementation Checklist
 
 ## Core Features (Must Implement)
 

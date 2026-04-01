@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Commands
 
-This page documents all commands available in Vanilla Core.
+This page documents all commands available in SMP Watchdog.
 
 ## Main Commands
 
