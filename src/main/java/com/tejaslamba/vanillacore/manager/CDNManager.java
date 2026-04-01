@@ -2,42 +2,50 @@ package com.tejaslamba.vanillacore.manager;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CDNManager {
 
     private static final String CDN_BASE = "https://vanillacore.tejaslamba.com/cdn";
     private static final String MANIFEST_URL = CDN_BASE + "/manifest.json";
+    private static final String MODRINTH_PROJECT_SLUG = "vanillacorewastaken";
+    private static final String MODRINTH_PROJECT_URL = "https://modrinth.com/plugin/" + MODRINTH_PROJECT_SLUG;
+    private static final String MODRINTH_VERSIONS_URL = "https://api.modrinth.com/v2/project/"
+            + MODRINTH_PROJECT_SLUG + "/version";
     private static final int TIMEOUT_MS = 5000;
     private static final long CACHE_DURATION_MS = 5 * 60 * 1000;
 
     private final VanillaCorePlugin plugin;
 
-    private String latestVersion;
-    private String documentationUrl;
+    private volatile String latestVersion;
+    private volatile String latestCdnVersion;
+    private volatile String documentationUrl;
     private Set<String> disabledFeatures;
-    private boolean maintenanceMode;
-    private String disabledMessage;
-    private String maintenanceMessage;
-    private boolean updateNotificationEnabled;
-    private String updateNotificationPermission;
-    private String updateNotificationTitle;
-    private String updateNotificationMessage;
-    private String updateNotificationActionMessage;
-    private long lastFetch;
+    private volatile boolean maintenanceMode;
+    private volatile String disabledMessage;
+    private volatile String maintenanceMessage;
+    private volatile boolean updateNotificationEnabled;
+    private volatile String updateNotificationPermission;
+    private volatile String updateNotificationTitle;
+    private volatile String updateNotificationMessage;
+    private volatile String updateNotificationActionMessage;
+    private volatile long lastFetch;
 
     public CDNManager(VanillaCorePlugin plugin) {
         this.plugin = plugin;
-        this.disabledFeatures = new HashSet<>();
+        this.disabledFeatures = ConcurrentHashMap.newKeySet();
         this.maintenanceMode = false;
         this.disabledMessage = "This feature has been temporarily disabled by the plugin author.";
         this.maintenanceMessage = "Vanilla Core is currently in maintenance mode. Please try again later.";
@@ -50,15 +58,24 @@ public class CDNManager {
     }
 
     public void initialize() {
-        fetchManifestAsync().thenAccept(success -> {
-            if (success) {
-                fetchMenuConfigAsync();
-                if (plugin.isVerbose()) {
-                    plugin.getLogger().info("[VERBOSE] CDN data fetched successfully");
-                    plugin.getLogger().info("[VERBOSE] Latest version: " + latestVersion);
-                }
+        refreshNowAsync().thenRun(() -> {
+            if (plugin.isVerbose()) {
+                plugin.getLogger().info("[VERBOSE] CDN/Modrinth data fetched successfully");
+                plugin.getLogger().info("[VERBOSE] Latest version: " + latestVersion);
             }
         });
+    }
+
+    private CompletableFuture<Void> refreshNowAsync() {
+        CompletableFuture<Boolean> manifestFuture = fetchManifestAsync();
+        CompletableFuture<Boolean> modrinthFuture = fetchLatestVersionFromModrinthAsync();
+        CompletableFuture<Boolean> menuFuture = manifestFuture.thenCompose(success -> {
+            if (success) {
+                return fetchMenuConfigAsync();
+            }
+            return CompletableFuture.completedFuture(false);
+        });
+        return CompletableFuture.allOf(menuFuture, modrinthFuture);
     }
 
     public CompletableFuture<Boolean> fetchManifestAsync() {
@@ -69,7 +86,10 @@ public class CDNManager {
                     return false;
 
                 JsonObject manifest = JsonParser.parseString(json).getAsJsonObject();
-                latestVersion = manifest.has("latestVersion") ? manifest.get("latestVersion").getAsString() : null;
+                latestCdnVersion = manifest.has("latestVersion") ? manifest.get("latestVersion").getAsString() : null;
+                if (latestVersion == null || latestVersion.isBlank()) {
+                    latestVersion = latestCdnVersion;
+                }
                 documentationUrl = manifest.has("documentationUrl") ? manifest.get("documentationUrl").getAsString()
                         : "https://vanillacore.tejaslamba.com/docs";
                 lastFetch = System.currentTimeMillis();
@@ -86,7 +106,7 @@ public class CDNManager {
     public CompletableFuture<Boolean> fetchMenuConfigAsync() {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                String version = latestVersion != null ? latestVersion : "1.2.0";
+                String version = latestCdnVersion != null ? latestCdnVersion : "1.2.0";
                 String menuUrl = CDN_BASE + "/config/" + version + "/menu.json";
                 String json = fetchUrl(menuUrl);
                 if (json == null)
@@ -152,14 +172,96 @@ public class CDNManager {
         });
     }
 
+    public CompletableFuture<Boolean> fetchLatestVersionFromModrinthAsync() {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                String json = fetchUrl(MODRINTH_VERSIONS_URL);
+                if (json == null)
+                    return false;
+
+                JsonArray versions = JsonParser.parseString(json).getAsJsonArray();
+                String resolvedVersion = resolveLatestModrinthVersion(versions);
+                if (resolvedVersion == null || resolvedVersion.isBlank()) {
+                    return false;
+                }
+
+                latestVersion = resolvedVersion;
+                lastFetch = System.currentTimeMillis();
+                return true;
+            } catch (Exception e) {
+                if (plugin.isVerbose()) {
+                    plugin.getLogger().warning("[VERBOSE] Failed to fetch Modrinth versions: " + e.getMessage());
+                }
+                return false;
+            }
+        });
+    }
+
+    private String resolveLatestModrinthVersion(JsonArray versions) {
+        String fallbackVersion = null;
+        for (int i = 0; i < versions.size(); i++) {
+            JsonElement versionElement = versions.get(i);
+            String versionNumber = extractListedVersionNumber(versionElement);
+            if (versionNumber != null) {
+                if (fallbackVersion == null) {
+                    fallbackVersion = versionNumber;
+                }
+                if (isReleaseVersion(versionElement)) {
+                    return versionNumber;
+                }
+            }
+        }
+
+        return fallbackVersion;
+    }
+
+    private String extractListedVersionNumber(JsonElement versionElement) {
+        if (!versionElement.isJsonObject()) {
+            return null;
+        }
+
+        JsonObject versionObj = versionElement.getAsJsonObject();
+        if (!versionObj.has("version_number") || !isListedStatus(versionObj)) {
+            return null;
+        }
+
+        String versionNumber = versionObj.get("version_number").getAsString();
+        if (versionNumber == null || versionNumber.isBlank()) {
+            return null;
+        }
+
+        return versionNumber;
+    }
+
+    private boolean isReleaseVersion(JsonElement versionElement) {
+        if (!versionElement.isJsonObject()) {
+            return false;
+        }
+
+        JsonObject versionObj = versionElement.getAsJsonObject();
+        return versionObj.has("version_type")
+                && "release".equalsIgnoreCase(versionObj.get("version_type").getAsString());
+    }
+
+    private boolean isListedStatus(JsonObject versionObj) {
+        if (!versionObj.has("status")) {
+            return true;
+        }
+
+        String status = versionObj.get("status").getAsString();
+        return "listed".equalsIgnoreCase(status)
+                || "approved".equalsIgnoreCase(status)
+                || "archived".equalsIgnoreCase(status);
+    }
+
     private String fetchUrl(String urlString) {
         try {
-            URL url = new URL(urlString);
+            URL url = URI.create(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setConnectTimeout(TIMEOUT_MS);
             conn.setReadTimeout(TIMEOUT_MS);
-            conn.setRequestProperty("User-Agent", "Vanilla Core/" + plugin.getDescription().getVersion());
+            conn.setRequestProperty("User-Agent", "VanillaCore/" + plugin.getPluginMeta().getVersion());
 
             if (conn.getResponseCode() != 200) {
                 return null;
@@ -178,14 +280,11 @@ public class CDNManager {
         }
     }
 
-    public void refreshIfNeeded() {
+    public CompletableFuture<Void> refreshIfNeededAsync() {
         if (System.currentTimeMillis() - lastFetch > CACHE_DURATION_MS) {
-            fetchManifestAsync().thenAccept(success -> {
-                if (success) {
-                    fetchMenuConfigAsync();
-                }
-            });
+            return refreshNowAsync();
         }
+        return CompletableFuture.completedFuture(null);
     }
 
     public String getLatestVersion() {
@@ -193,7 +292,11 @@ public class CDNManager {
     }
 
     public String getCurrentVersion() {
-        return plugin.getDescription().getVersion();
+        return plugin.getPluginMeta().getVersion();
+    }
+
+    public String getUpdateDownloadUrl() {
+        return MODRINTH_PROJECT_URL;
     }
 
     public boolean isUpdateAvailable() {

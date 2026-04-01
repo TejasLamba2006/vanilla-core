@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bumped config version to `9` so new defaults and migrations are applied automatically.
 - Upgraded `/vanilla reload` to support module-scoped hot reload targets: `all`, `config`, `messages`, `menus`, and `features`, with elapsed-time feedback and per-module failure reporting.
 - Added `/vanilla version` with `vanillacore.version` permission for quick in-game/admin version checks.
+- Update checks now fetch the latest release version directly from Modrinth (`vanillacorewastaken`) while keeping CDN-backed remote feature-control and maintenance messaging.
 - Split combat restrictions into separate features instead of one combined settings screen.
 - Extended `/ritual start` to support runtime overrides: `/ritual start [time] [color]` with durations like `30s`, `1m`, `1h`, `1d`, and `1h30m`, plus color tab completion.
 - Added a full Ritual settings GUI in `/vanilla menu` (right-click Ritual) for duration, radius, particle color, start sound toggle, and end-effect toggles.

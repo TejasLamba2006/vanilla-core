@@ -93,8 +93,6 @@ Right-clicking on a feature item toggles it on or off immediately without openin
 
 Shift + left-clicking on a feature resets all of its settings to the default values. A confirmation message appears in chat before the reset is applied.
 
-
-
 ## Feature Settings Menus
 
 Each feature has its own settings menu that opens when you left-click on it in the main menu.
@@ -188,8 +186,6 @@ To cancel a chat input prompt without making changes:
 - Type `cancel` and press Enter
 - Or wait 30 seconds for the prompt to expire
 
-
-
 ## Settings Menu
 
 Access global plugin settings by clicking the Settings button in the main menu.
@@ -199,14 +195,12 @@ Access global plugin settings by clicking the Settings button in the main menu.
 | Setting | Description |
 |---------|-------------|
 | Debug Mode | Enables verbose logging for troubleshooting |
-| Update Checks | Checks for new versions on startup |
+| Update Checks | Checks Modrinth for new plugin versions on startup and notifies admins |
 | Metrics | Sends anonymous usage statistics |
 
 ## Reload Button
 
 The Reload button in the main menu reloads all configuration files from disk. Use this after manually editing `config.yml`.
-
-
 
 ## Troubleshooting
 
@@ -233,4 +227,3 @@ If your changes don't persist after server restart:
 1. Ensure the server shuts down properly (use `/stop`, not kill)
 2. Check that the config file is not read-only
 3. Look for error messages in the console during shutdown
-

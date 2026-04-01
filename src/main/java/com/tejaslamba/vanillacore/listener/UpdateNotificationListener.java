@@ -19,6 +19,8 @@ import java.util.UUID;
 
 public class UpdateNotificationListener implements Listener {
 
+    private static final String PLACEHOLDER_MESSAGE = "message";
+
     private final VanillaCorePlugin plugin;
     private final Set<UUID> notifiedPlayers;
 
@@ -36,9 +38,7 @@ public class UpdateNotificationListener implements Listener {
             if (cdnManager == null)
                 return;
 
-            cdnManager.refreshIfNeeded();
-
-            plugin.getServer().getScheduler().runTask(plugin, () -> {
+            cdnManager.refreshIfNeededAsync().thenRun(() -> plugin.getServer().getScheduler().runTask(plugin, () -> {
                 if (!player.isOnline())
                     return;
 
@@ -61,7 +61,7 @@ public class UpdateNotificationListener implements Listener {
                 if (cdnManager.isMaintenanceMode()) {
                     sendMaintenanceWarning(player, cdnManager);
                 }
-            });
+            }));
         }, 60L);
     }
 
@@ -72,29 +72,37 @@ public class UpdateNotificationListener implements Listener {
         String message = cdnManager.getUpdateNotificationMessage()
                 .replace("{current}", currentVersion)
                 .replace("{latest}", latestVersion);
+        String downloadUrl = cdnManager.getUpdateDownloadUrl();
+        String actionMessage = cdnManager.getUpdateNotificationActionMessage().replace("{url}", downloadUrl);
+        String changelogUrl = cdnManager.getDocumentationUrl().contains("docs")
+                ? cdnManager.getDocumentationUrl().replace("docs", "changelog")
+                : cdnManager.getDocumentationUrl() + "/changelog";
 
         MiniMessage mm = MiniMessage.miniMessage();
         String safeTitle = mm.escapeTags(title);
         String safeMessage = mm.escapeTags(message);
+        String safeActionMessage = mm.escapeTags(actionMessage);
 
         player.sendMessage(Component.empty());
         player.sendMessage(plugin.getMessageManager().get("update-notification.separator"));
         player.sendMessage(plugin.getMessageManager().get("update-notification.title-line", "title", safeTitle));
         player.sendMessage(Component.empty());
-        player.sendMessage(plugin.getMessageManager().get("update-notification.message-line", "message", safeMessage));
+        player.sendMessage(
+                plugin.getMessageManager().get("update-notification.message-line", PLACEHOLDER_MESSAGE, safeMessage));
+        player.sendMessage(plugin.getMessageManager().get("update-notification.message-line", PLACEHOLDER_MESSAGE,
+                safeActionMessage));
         player.sendMessage(Component.empty());
 
         Component downloadBtn = Component.text("[DOWNLOAD]")
                 .color(NamedTextColor.GREEN)
                 .decorate(TextDecoration.BOLD)
-                .clickEvent(ClickEvent.openUrl("https://modrinth.com/plugin/vanillacorewastaken"))
+                .clickEvent(ClickEvent.openUrl(downloadUrl))
                 .hoverEvent(HoverEvent.showText(Component.text("Click to open Modrinth").color(NamedTextColor.GRAY)));
 
         Component changelogBtn = Component.text(" [CHANGELOG]")
                 .color(NamedTextColor.YELLOW)
                 .decorate(TextDecoration.BOLD)
-                .clickEvent(ClickEvent.openUrl(
-                        cdnManager.getDocumentationUrl().replace("docs", "changelog")))
+                .clickEvent(ClickEvent.openUrl(changelogUrl))
                 .hoverEvent(HoverEvent.showText(Component.text("Click to view changelog").color(NamedTextColor.GRAY)));
 
         player.sendMessage(Component.text("  ").append(downloadBtn).append(changelogBtn));
@@ -110,15 +118,17 @@ public class UpdateNotificationListener implements Listener {
             player.sendMessage(plugin.getMessageManager().get("update-notification.disabled-feature-entry", "feature",
                     feature));
         }
-        player.sendMessage(plugin.getMessageManager().get("update-notification.disabled-features-message", "message",
+        player.sendMessage(plugin.getMessageManager().get("update-notification.disabled-features-message",
+                PLACEHOLDER_MESSAGE,
                 disabledMessage));
     }
 
     private void sendMaintenanceWarning(Player player, CDNManager cdnManager) {
         String maintenanceMessage = cdnManager.getMaintenanceMessage();
         player.sendMessage(plugin.getMessageManager().get("update-notification.maintenance-header"));
-        player.sendMessage(plugin.getMessageManager().get("update-notification.maintenance-message", "message",
-                maintenanceMessage));
+        player.sendMessage(
+                plugin.getMessageManager().get("update-notification.maintenance-message", PLACEHOLDER_MESSAGE,
+                        maintenanceMessage));
     }
 
     public void clearNotifiedPlayer(UUID uuid) {
