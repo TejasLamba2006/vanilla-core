@@ -5,18 +5,35 @@ import com.tejaslamba.vanillacore.command.EnchantCommand;
 import com.tejaslamba.vanillacore.command.MaceCommand;
 import com.tejaslamba.vanillacore.command.NetheriteCommand;
 import com.tejaslamba.vanillacore.command.RitualCommand;
+import com.tejaslamba.vanillacore.feature.Feature;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class VanillaCommand implements CommandExecutor, TabCompleter {
+
+    private static final String SUBCOMMAND_RELOAD = "reload";
+    private static final String SUBCOMMAND_VERSION = "version";
+    private static final String PERMISSION_RELOAD = "vanillacore.reload";
+    private static final String PERMISSION_VERSION = "vanillacore.version";
+    private static final String PLACEHOLDER_MODULE = "module";
+    private static final String MODULE_ALL = "all";
+    private static final String MODULE_CONFIG = "config";
+    private static final String MODULE_MESSAGES = "messages";
+    private static final String MODULE_MENUS = "menus";
+    private static final String MODULE_FEATURES = "features";
+    private static final List<String> RELOAD_MODULES = List.of(MODULE_ALL, MODULE_CONFIG, MODULE_MESSAGES,
+            MODULE_MENUS,
+            MODULE_FEATURES);
 
     private final EnchantCommand enchantCommand;
     private final MaceCommand maceCommand;
@@ -115,29 +132,22 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        if (args[0].equalsIgnoreCase("reload")) {
-            if (!sender.hasPermission("vanillacore.reload")) {
+        if (args[0].equalsIgnoreCase(SUBCOMMAND_RELOAD)) {
+            if (!sender.hasPermission(PERMISSION_RELOAD)) {
                 msg().sendPrefixed(sender, "commands.reload.no-permission");
                 return true;
             }
-            VanillaCorePlugin.getInstance().getConfigManager().load();
-            VanillaCorePlugin.getInstance().getMessageManager().reload();
-            VanillaCorePlugin.getInstance().getMenuConfigManager().load();
-            VanillaCorePlugin.getInstance().refreshVerbose();
-            Collection<com.tejaslamba.vanillacore.feature.Feature> features = VanillaCorePlugin.getInstance()
-                    .getFeatureManager().getFeatures();
-            if (features != null) {
-                features.forEach(feature -> {
-                    try {
-                        feature.reload();
-                    } catch (Exception e) {
-                        VanillaCorePlugin.getInstance().getLogger().warning(
-                                "Failed to reload feature " + feature.getClass().getSimpleName() + ": "
-                                        + e.getMessage());
-                    }
-                });
+            handleReload(sender, args);
+            return true;
+        }
+
+        if (args[0].equalsIgnoreCase(SUBCOMMAND_VERSION)) {
+            if (!sender.hasPermission(PERMISSION_VERSION)) {
+                msg().sendPrefixed(sender, "commands.version.no-permission");
+                return true;
             }
-            msg().sendPrefixed(sender, "commands.reload.success");
+            String version = VanillaCorePlugin.getInstance().getPluginMeta().getVersion();
+            msg().sendPrefixed(sender, "commands.version.current", SUBCOMMAND_VERSION, version);
             return true;
         }
 
@@ -167,11 +177,21 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
             if (sender.hasPermission("vanillacore.ritual")) {
                 completions.add("ritual");
             }
-            if (sender.hasPermission("vanillacore.reload")) {
-                completions.add("reload");
+            if (sender.hasPermission(PERMISSION_RELOAD)) {
+                completions.add(SUBCOMMAND_RELOAD);
+            }
+            if (sender.hasPermission(PERMISSION_VERSION)) {
+                completions.add(SUBCOMMAND_VERSION);
             }
             return completions.stream()
                     .filter(s -> s.toLowerCase().startsWith(args[0].toLowerCase()))
+                    .toList();
+        }
+
+        if (args.length == 2 && args[0].equalsIgnoreCase(SUBCOMMAND_RELOAD)
+                && sender.hasPermission(PERMISSION_RELOAD)) {
+            return RELOAD_MODULES.stream()
+                    .filter(s -> s.startsWith(args[1].toLowerCase(Locale.ROOT)))
                     .toList();
         }
 
@@ -209,6 +229,113 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
         }
 
         return Collections.emptyList();
+    }
+
+    private void handleReload(CommandSender sender, String[] args) {
+        String target = args.length > 1 ? args[1].toLowerCase(Locale.ROOT) : MODULE_ALL;
+        if (!RELOAD_MODULES.contains(target)) {
+            msg().sendPrefixed(sender, "commands.reload.invalid-module", PLACEHOLDER_MODULE, target);
+            msg().sendPrefixed(sender, "commands.reload.usage");
+            return;
+        }
+
+        long startNanos = System.nanoTime();
+        List<String> successfulModules = new ArrayList<>();
+        List<String> failedModules = new ArrayList<>();
+
+        switch (target) {
+            case MODULE_CONFIG -> reloadConfigModule(successfulModules, failedModules);
+            case MODULE_MESSAGES -> reloadMessagesModule(successfulModules, failedModules);
+            case MODULE_MENUS -> reloadMenusModule(successfulModules, failedModules);
+            case MODULE_FEATURES -> reloadFeaturesModule(successfulModules, failedModules);
+            case MODULE_ALL -> {
+                reloadConfigModule(successfulModules, failedModules);
+                reloadMessagesModule(successfulModules, failedModules);
+                reloadMenusModule(successfulModules, failedModules);
+                reloadFeaturesModule(successfulModules, failedModules);
+            }
+            default -> {
+                msg().sendPrefixed(sender, "commands.reload.usage");
+                return;
+            }
+        }
+
+        long elapsedMs = (System.nanoTime() - startNanos) / 1_000_000L;
+        if (MODULE_ALL.equals(target)) {
+            msg().sendPrefixed(sender, "commands.reload.summary",
+                    "successful", String.valueOf(successfulModules.size()),
+                    "failed", String.valueOf(failedModules.size()),
+                    "time", String.valueOf(elapsedMs));
+        } else if (failedModules.isEmpty()) {
+            msg().sendPrefixed(sender, "commands.reload.module-success",
+                    PLACEHOLDER_MODULE, target,
+                    "time", String.valueOf(elapsedMs));
+        } else {
+            msg().sendPrefixed(sender, "commands.reload.module-failed",
+                    PLACEHOLDER_MODULE, target,
+                    "time", String.valueOf(elapsedMs));
+        }
+
+        if (!failedModules.isEmpty()) {
+            msg().sendPrefixed(sender, "commands.reload.failed-list", "modules", String.join(", ", failedModules));
+        }
+    }
+
+    private void reloadConfigModule(List<String> successfulModules, List<String> failedModules) {
+        runReloadModule(MODULE_CONFIG, successfulModules, failedModules, () -> {
+            VanillaCorePlugin.getInstance().getConfigManager().load();
+            VanillaCorePlugin.getInstance().refreshVerbose();
+        });
+    }
+
+    private void reloadMessagesModule(List<String> successfulModules, List<String> failedModules) {
+        runReloadModule(MODULE_MESSAGES, successfulModules, failedModules,
+                () -> VanillaCorePlugin.getInstance().getMessageManager().reload());
+    }
+
+    private void reloadMenusModule(List<String> successfulModules, List<String> failedModules) {
+        runReloadModule(MODULE_MENUS, successfulModules, failedModules, () -> {
+            VanillaCorePlugin.getInstance().getMenuConfigManager().load();
+            VanillaCorePlugin.getInstance().getMenuManager().load();
+        });
+    }
+
+    private void reloadFeaturesModule(List<String> successfulModules, List<String> failedModules) {
+        runReloadModule(MODULE_FEATURES, successfulModules, failedModules, this::reloadFeatures);
+    }
+
+    private void runReloadModule(String module, List<String> successfulModules, List<String> failedModules,
+            Runnable action) {
+        try {
+            action.run();
+            successfulModules.add(module);
+        } catch (Exception e) {
+            failedModules.add(module);
+            VanillaCorePlugin.getInstance().getLogger().warning(
+                    "Failed to reload module '" + module + "': " + e.getMessage());
+        }
+    }
+
+    private void reloadFeatures() {
+        Collection<Feature> features = VanillaCorePlugin.getInstance().getFeatureManager().getFeatures();
+        if (features == null || features.isEmpty()) {
+            return;
+        }
+
+        List<String> failedFeatures = new ArrayList<>();
+        for (Feature feature : features) {
+            try {
+                feature.reload();
+            } catch (Exception e) {
+                failedFeatures.add(feature.getClass().getSimpleName());
+                VanillaCorePlugin.getInstance().getLogger().warning(
+                        "Failed to reload feature " + feature.getClass().getSimpleName() + ": " + e.getMessage());
+            }
+        }
+
+        if (!failedFeatures.isEmpty()) {
+            throw new IllegalStateException("Failed features: " + String.join(", ", failedFeatures));
+        }
     }
 
 }

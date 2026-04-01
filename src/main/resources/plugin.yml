@@ -6,7 +6,7 @@ softdepend: [WorldGuard]
 commands:
   vanilla:
     description: Vanilla Core command
-    usage: /vanilla [menu|reload|enchant|mace|netherite|infiniterestock|ritual]
+    usage: /vanilla [menu|reload [all|config|messages|menus|features]|version|enchant|mace|netherite|infiniterestock|ritual]
     aliases: [vc, vpt]
   ritual:
     description: Start and manage ritual events
@@ -23,6 +23,7 @@ permissions:
     default: op
     children:
       vanillacore.reload: true
+      vanillacore.version: true
       vanillacore.menu: true
       vanillacore.enchant: true
       vanillacore.mace: true
@@ -37,6 +38,9 @@ permissions:
       vanillacore.enderchestlimiter.bypass: true
   vanillacore.reload:
     description: Reload plugin configuration
+    default: op
+  vanillacore.version:
+    description: View plugin version
     default: op
   vanillacore.menu:
     description: Open settings menu

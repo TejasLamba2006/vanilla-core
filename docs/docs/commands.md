@@ -13,8 +13,9 @@ The `/vanilla` command is the primary entry point for plugin management.
 | Command | Description | Permission |
 |---------|-------------|------------|
 | `/vanilla` | Opens the main configuration GUI | `vanillacore.admin` |
-| `/vanilla reload` | Reloads all configuration files from disk | `vanillacore.reload` |
-| `/vanilla help` | Displays help information and available commands | `vanillacore.admin` |
+| `/vanilla reload` | Reloads all reloadable modules (`config`, `messages`, `menus`, `features`) | `vanillacore.reload` |
+| `/vanilla reload <module>` | Reloads one module only: `all`, `config`, `messages`, `menus`, or `features` | `vanillacore.reload` |
+| `/vanilla version` | Displays the currently running plugin version | `vanillacore.version` |
 
 ## Ritual Commands
 
@@ -32,10 +33,17 @@ Ritual color values support tab completion.
 
 When you run `/vanilla reload`:
 
-1. All configuration files are re-read from disk
-2. Feature settings are updated immediately
-3. Cached data is refreshed
-4. Any pending changes are applied
+1. `config` is reloaded and verbose logging is refreshed
+2. `messages.yml` is reloaded and message cache is rebuilt
+3. Menu config and menu instances are rebuilt
+4. Every loaded feature receives `reload()`
+5. You get a summary with module success/failure counts and elapsed time
+
+When you run `/vanilla reload <module>`:
+
+1. Only that module is reloaded
+2. You get per-module timing feedback
+3. If a module fails, the failure is reported without masking other module states
 
 Note: If you changed values in both the GUI and the config file, reload uses the file on disk.
 

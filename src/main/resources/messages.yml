@@ -20,7 +20,7 @@ general:
   player-only: "<red>This command can only be used by players!"
   remote-disabled: "<red>[Vanilla Core] <gray><message>"
   maintenance: "<red>[Vanilla Core] <gray><message>"
-  unknown-command: "<red>Unknown subcommand. Usage: /vanilla [menu|reload|enchant|mace|netherite|infiniterestock|ritual]"
+  unknown-command: "<red>Unknown subcommand. Usage: /vanilla [menu|reload [module]|version|enchant|mace|netherite|infiniterestock|ritual]"
   cancelled: "<red>Cancelled."
   invalid-number: "<red>Please enter a valid number!"
 
@@ -30,7 +30,15 @@ commands:
     no-permission: "<red>You don't have permission to open the settings menu!"
   reload:
     no-permission: "<red>You don't have permission to reload!"
-    success: "<green>Configuration reloaded."
+    usage: "<yellow>Usage: /vanilla reload [all|config|messages|menus|features]"
+    invalid-module: "<red>Unknown reload module: <module>"
+    module-success: "<green>Reloaded <yellow><module><green> in <yellow><time>ms<green>."
+    module-failed: "<red>Reload of <yellow><module><red> failed after <yellow><time>ms<red>."
+    summary: "<green>Reload complete: <yellow><successful><green> succeeded, <red><failed><green> failed in <yellow><time>ms<green>."
+    failed-list: "<red>Failed modules: <yellow><modules>"
+  version:
+    no-permission: "<red>You don't have permission to view plugin version!"
+    current: "<green>Vanilla Core version: <yellow><version>"
   enchant:
     no-permission: "<red>You don't have permission to use enchant commands!"
   mace:

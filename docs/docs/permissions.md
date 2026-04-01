@@ -23,7 +23,8 @@ These permissions control access to the main plugin functions:
 |------------|-------------|---------|
 | `vanillacore.admin` | Full access to all Vanilla Core features and GUI | OP |
 | `vanillacore.reload` | Ability to reload configuration files | OP |
-| `vanillacore.gui` | Ability to open the main configuration GUI | OP |
+| `vanillacore.version` | Ability to view the running plugin version | OP |
+| `vanillacore.menu` | Ability to open the main configuration GUI | OP |
 
 ## Bypass Permissions
 
@@ -46,8 +47,9 @@ Warning: Giving players bypass permissions undermines your server's balance sett
 
 | Permission | Description | Default |
 |------------|-------------|---------|
-| `vanillacore.command.smp` | Use the `/vanilla` command | OP |
-| `vanillacore.command.reload` | Use the `/vanilla reload` command | OP |
+| `vanillacore.menu` | Use `/vanilla` and `/vanilla menu` | OP |
+| `vanillacore.reload` | Use `/vanilla reload` and `/vanilla reload <module>` | OP |
+| `vanillacore.version` | Use `/vanilla version` | OP |
 | `vanillacore.ritual` | Use `/ritual` and `/vanilla ritual` | OP |
 | `vanillacore.ritual.cancel` | Cancel active ritual events | OP |
 
