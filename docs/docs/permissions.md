@@ -36,6 +36,10 @@ These permissions control access to the main plugin functions:
 | `smp.infiniterestock` | Open/manage Infinite Restock | OP |
 | `smp.ritual` | Start/view ritual events | OP |
 | `smp.ritual.cancel` | Cancel active ritual events | OP |
+| `smp.msg` | Send private messages | OP |
+| `smp.reply` | Reply to private messages | OP |
+| `smp.socialspy` | Use social spy | OP |
+| `smp.announcements` | Manage announcements engine | OP |
 
 ## Command Permissions
 
@@ -48,6 +52,16 @@ These permissions control access to the main plugin functions:
 | `smp.version` | Use `/smp version` | OP |
 | `smp.ritual` | Use `/ritual` and `/smp ritual` | OP |
 | `smp.ritual.cancel` | Cancel active ritual events | OP |
+| `smp.msg` | Use `/smp msg` | OP |
+| `smp.reply` | Use `/smp reply` | OP |
+| `smp.socialspy` | Use `/smp socialspy` | OP |
+| `smp.toggle.chat` | Use `/smp togglechat` | true |
+| `smp.toggle.pm` | Use `/smp togglepm` | true |
+| `smp.toggle.mentions` | Use `/smp togglementions` | true |
+| `smp.block` | Use `/smp block` | true |
+| `smp.unblock` | Use `/smp unblock` | true |
+| `smp.blocklist` | Use `/smp blocked` | true |
+| `smp.announcements` | Use `/smp announcements reload` | OP |
 
 ### Dimension Lock Commands
 

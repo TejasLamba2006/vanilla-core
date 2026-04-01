@@ -12,6 +12,10 @@ import com.tejaslamba.vanillacore.manager.ChatInputManager;
 import com.tejaslamba.vanillacore.manager.FeatureManager;
 import com.tejaslamba.vanillacore.manager.CDNManager;
 import com.tejaslamba.vanillacore.listener.UpdateNotificationListener;
+import com.tejaslamba.vanillacore.database.DatabaseManager;
+import com.tejaslamba.vanillacore.social.AnnouncementsManager;
+import com.tejaslamba.vanillacore.social.SocialListener;
+import com.tejaslamba.vanillacore.social.SocialManager;
 
 public class VanillaCorePlugin extends JavaPlugin {
 
@@ -26,6 +30,9 @@ public class VanillaCorePlugin extends JavaPlugin {
     private FeatureManager featureManager;
     private CDNManager cdnManager;
     private UpdateNotificationListener updateNotificationListener;
+    private DatabaseManager databaseManager;
+    private SocialManager socialManager;
+    private AnnouncementsManager announcementsManager;
     private boolean verboseLogging = false;
 
     @Override
@@ -38,6 +45,10 @@ public class VanillaCorePlugin extends JavaPlugin {
         configManager = new ConfigManager(this);
         configManager.load();
         refreshVerbose();
+        databaseManager = new DatabaseManager(this);
+        databaseManager.initialize();
+        socialManager = new SocialManager(this, databaseManager);
+        announcementsManager = new AnnouncementsManager(this);
         messageManager = new MessageManager(this);
         messageManager.load();
         menuConfigManager = new MenuConfigManager(this);
@@ -55,9 +66,11 @@ public class VanillaCorePlugin extends JavaPlugin {
                 this);
         getServer().getPluginManager().registerEvents(new com.tejaslamba.vanillacore.listener.ChatInputListener(this),
                 this);
+        getServer().getPluginManager().registerEvents(new SocialListener(this), this);
 
         cdnManager = new CDNManager(this);
         cdnManager.initialize();
+        announcementsManager.start();
         updateNotificationListener = new UpdateNotificationListener(this);
         getServer().getPluginManager().registerEvents(updateNotificationListener, this);
 
@@ -74,6 +87,12 @@ public class VanillaCorePlugin extends JavaPlugin {
         }
         if (menuManager != null) {
             menuManager.shutdown();
+        }
+        if (announcementsManager != null) {
+            announcementsManager.stop();
+        }
+        if (databaseManager != null) {
+            databaseManager.shutdown();
         }
         getLogger().info("SMP Watchdog has been disabled!");
     }
@@ -128,6 +147,18 @@ public class VanillaCorePlugin extends JavaPlugin {
 
     public UpdateNotificationListener getUpdateNotificationListener() {
         return updateNotificationListener;
+    }
+
+    public DatabaseManager getDatabaseManager() {
+        return databaseManager;
+    }
+
+    public SocialManager getSocialManager() {
+        return socialManager;
+    }
+
+    public AnnouncementsManager getAnnouncementsManager() {
+        return announcementsManager;
     }
 
 }

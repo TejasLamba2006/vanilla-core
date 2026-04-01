@@ -20,9 +20,57 @@ general:
   player-only: "<red>This command can only be used by players!"
   remote-disabled: "<red>[SMP Watchdog] <gray><message>"
   maintenance: "<red>[SMP Watchdog] <gray><message>"
-  unknown-command: "<red>Unknown subcommand. Usage: /smp [menu|reload [module]|version|enchant|mace|netherite|infiniterestock|ritual]"
+  unknown-command: "<red>Unknown subcommand. Usage: /smp [menu|reload [module]|version|enchant|mace|netherite|infiniterestock|ritual|msg|reply|socialspy|togglechat|togglepm|togglementions|block|unblock|blocked|announcements]"
   cancelled: "<red>Cancelled."
   invalid-number: "<red>Please enter a valid number!"
+
+social:
+  command-disabled: "<red>This command is disabled in config: <yellow><command>"
+  cooldown: "<red>You're doing that too fast. Try again in <yellow><seconds>s<red>."
+  announcement:
+    line: "<message>"
+  announcements:
+    no-permission: "<red>You don't have permission to manage announcements!"
+    usage: "<yellow>Usage: /smp announcements reload"
+    reloaded: "<green>Announcements reloaded."
+  chat:
+    no-permission: "<red>You don't have permission to toggle chat!"
+    disabled: "<red>You have chat disabled. Use /smp togglechat to enable it."
+    toggled-on: "<green>Chat is now enabled."
+    toggled-off: "<yellow>Chat is now disabled."
+  mentions:
+    no-permission: "<red>You don't have permission to toggle mentions!"
+    toggled-on: "<green>Mentions are now enabled."
+    toggled-off: "<yellow>Mentions are now disabled."
+    notified: "<yellow>You were mentioned by <white><player><yellow>."
+  pm:
+    no-permission: "<red>You don't have permission to use private messaging!"
+    usage: "<yellow>Usage: /smp msg <player> <message>"
+    target-offline: "<red>That player is not online."
+    target-disabled: "<red>That player has private messages disabled."
+    self: "<red>You cannot message yourself."
+    blocked: "<red>Message blocked due to player block settings."
+    toggled-on: "<green>Private messages are now enabled."
+    toggled-off: "<yellow>Private messages are now disabled."
+    spy: "<dark_gray>[Spy] <yellow><sender> <gray>-> <yellow><target><gray>: <white><message>"
+  reply:
+    usage: "<yellow>Usage: /smp reply <message>"
+    no-target: "<red>No one to reply to."
+  socialspy:
+    no-permission: "<red>You don't have permission to use social spy!"
+    enabled: "<green>Social spy enabled."
+    disabled: "<yellow>Social spy disabled."
+  block:
+    no-permission: "<red>You don't have permission to manage blocks!"
+    usage: "<yellow>Usage: /smp block <player>"
+    target-offline: "<red>That player is not online."
+    self: "<red>You cannot block yourself."
+    added: "<green>You blocked <yellow><player><green>."
+    list: "<gray>Blocked players: <yellow><players>"
+    none: "<gray>You have no blocked players."
+  unblock:
+    usage: "<yellow>Usage: /smp unblock <player>"
+    removed: "<green>You unblocked <yellow><player><green>."
 
 # Command messages
 commands:

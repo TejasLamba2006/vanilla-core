@@ -6,7 +6,7 @@ softdepend: [WorldGuard]
 commands:
   smp:
     description: SMP Watchdog command
-    usage: /smp [menu|reload [all|config|messages|menus|features]|version|enchant|mace|netherite|infiniterestock|ritual]
+    usage: /smp [menu|reload [all|config|messages|menus|features]|version|enchant|mace|netherite|infiniterestock|ritual|msg|reply|socialspy|togglechat|togglepm|togglementions|block|unblock|blocked|announcements reload]
   ritual:
     description: Start and manage ritual events
     usage: /ritual [start [time] [color]|status|cancel]
@@ -40,6 +40,16 @@ permissions:
       smp.enderchestlimiter.bypass: true
       smp.itemlimiter.bypass: true
       smp.netherite.craft.*: true
+      smp.msg: true
+      smp.reply: true
+      smp.socialspy: true
+      smp.toggle.chat: true
+      smp.toggle.pm: true
+      smp.toggle.mentions: true
+      smp.block: true
+      smp.unblock: true
+      smp.blocklist: true
+      smp.announcements: true
   smp.admin:
     description: Full access to all SMP Watchdog features and GUI
     default: op
@@ -60,6 +70,16 @@ permissions:
       smp.enderchestlimiter.bypass: true
       smp.itemlimiter.bypass: true
       smp.netherite.craft.*: true
+      smp.msg: true
+      smp.reply: true
+      smp.socialspy: true
+      smp.toggle.chat: true
+      smp.toggle.pm: true
+      smp.toggle.mentions: true
+      smp.block: true
+      smp.unblock: true
+      smp.blocklist: true
+      smp.announcements: true
   smp.reload:
     description: Reload plugin configuration
     default: op
@@ -114,3 +134,33 @@ permissions:
   smp.netherite.craft.*:
     description: Bypass netherite crafting restrictions
     default: false
+  smp.msg:
+    description: Send private messages
+    default: op
+  smp.reply:
+    description: Reply to last private message
+    default: op
+  smp.socialspy:
+    description: View private messages between players
+    default: op
+  smp.toggle.chat:
+    description: Toggle own chat visibility
+    default: true
+  smp.toggle.pm:
+    description: Toggle own private messages
+    default: true
+  smp.toggle.mentions:
+    description: Toggle mention notifications
+    default: true
+  smp.block:
+    description: Block players from contacting you
+    default: true
+  smp.unblock:
+    description: Unblock previously blocked players
+    default: true
+  smp.blocklist:
+    description: View blocked players list
+    default: true
+  smp.announcements:
+    description: Manage announcements engine
+    default: op

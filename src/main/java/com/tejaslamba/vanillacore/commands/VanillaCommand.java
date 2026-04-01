@@ -40,6 +40,7 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
     private final NetheriteCommand netheriteCommand;
     private final com.tejaslamba.vanillacore.command.InfiniteRestockCommand infiniteRestockCommand;
     private final RitualCommand ritualCommand;
+    private final SocialCommand socialCommand;
 
     public VanillaCommand() {
         this.enchantCommand = new EnchantCommand(VanillaCorePlugin.getInstance());
@@ -48,6 +49,7 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
         this.infiniteRestockCommand = new com.tejaslamba.vanillacore.command.InfiniteRestockCommand(
                 VanillaCorePlugin.getInstance());
         this.ritualCommand = new RitualCommand(VanillaCorePlugin.getInstance());
+        this.socialCommand = new SocialCommand(VanillaCorePlugin.getInstance());
     }
 
     private MessageManager msg() {
@@ -151,6 +153,10 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
+        if (socialCommand.onCommand(sender, args)) {
+            return true;
+        }
+
         msg().sendPrefixed(sender, "general.unknown-command");
         return true;
     }
@@ -182,6 +188,36 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
             }
             if (sender.hasPermission(PERMISSION_VERSION)) {
                 completions.add(SUBCOMMAND_VERSION);
+            }
+            if (sender.hasPermission("smp.msg")) {
+                completions.add("msg");
+            }
+            if (sender.hasPermission("smp.reply")) {
+                completions.add("reply");
+            }
+            if (sender.hasPermission("smp.socialspy")) {
+                completions.add("socialspy");
+            }
+            if (sender.hasPermission("smp.toggle.chat")) {
+                completions.add("togglechat");
+            }
+            if (sender.hasPermission("smp.toggle.pm")) {
+                completions.add("togglepm");
+            }
+            if (sender.hasPermission("smp.toggle.mentions")) {
+                completions.add("togglementions");
+            }
+            if (sender.hasPermission("smp.block")) {
+                completions.add("block");
+            }
+            if (sender.hasPermission("smp.unblock")) {
+                completions.add("unblock");
+            }
+            if (sender.hasPermission("smp.blocklist")) {
+                completions.add("blocked");
+            }
+            if (sender.hasPermission("smp.announcements")) {
+                completions.add("announcements");
             }
             return completions.stream()
                     .filter(s -> s.toLowerCase().startsWith(args[0].toLowerCase()))
@@ -226,6 +262,11 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
             String[] ritualArgs = new String[args.length - 1];
             System.arraycopy(args, 1, ritualArgs, 0, args.length - 1);
             return ritualCommand.onTabComplete(sender, command, alias, ritualArgs);
+        }
+
+        List<String> socialCompletions = socialCommand.onTabComplete(args);
+        if (!socialCompletions.isEmpty()) {
+            return socialCompletions;
         }
 
         return Collections.emptyList();

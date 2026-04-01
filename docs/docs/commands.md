@@ -24,6 +24,16 @@ This page documents all commands available in SMP Watchdog.
 | `/smp netherite <subcommand>` | Netherite disabler management | `smp.netherite` |
 | `/smp infiniterestock` | Opens Infinite Restock GUI | `smp.infiniterestock` |
 | `/smp ritual <subcommand>` | Ritual management | `smp.ritual` |
+| `/smp msg <player> <message>` | Send private message | `smp.msg` |
+| `/smp reply <message>` | Reply to last private message | `smp.reply` |
+| `/smp socialspy` | Toggle social spy mode | `smp.socialspy` |
+| `/smp togglechat` | Toggle own chat visibility | `smp.toggle.chat` |
+| `/smp togglepm` | Toggle own private messages | `smp.toggle.pm` |
+| `/smp togglementions` | Toggle mention notifications | `smp.toggle.mentions` |
+| `/smp block <player>` | Block a player | `smp.block` |
+| `/smp unblock <player>` | Unblock a player | `smp.unblock` |
+| `/smp blocked` | List blocked players | `smp.blocklist` |
+| `/smp announcements reload` | Reload announcements engine | `smp.announcements` |
 
 ## Ritual Command
 

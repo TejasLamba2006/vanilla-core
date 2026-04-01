@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Item Cooldowns (`features.item-cooldowns`) for GUI-managed cooldowns (golden apple, enchanted golden apple, ender pearl, wind charge) with optional extra material entries via config.
 - Added Spectator On Death (`features.spectator-on-death`) to move players into spectator mode after death.
 - Added Ender Chest Item Limiter (`features.ender-chest-item-limiter`) with Item Limiter-style GUI management and support for custom item matching (`customModelData`, `displayName`, `potionType`) to block specific items from being stored in ender chests.
+- Added persistent social data layer with SQLite-backed player preferences and player blocking storage.
+- Added Folia-aware scheduler utility used for async/sync/repeating task safety.
+- Added social/communication engine under `/smp` including PM/reply, mentions with notifications, URL formatting, social spy, chat/PM/mention toggles, player block/unblock/list, and command-level toggles/cooldowns from config.
+- Added announcements engine with configurable interval and messages.
 
 ### Changed
 

@@ -18,6 +18,62 @@ plugin:
   # Enable verbose logging for debugging (shows detailed info in console)
   verbose: false
 
+database:
+  enabled: true
+  path: "data/watchdog.db"
+
+social:
+  announcements:
+    enabled: false
+    interval-seconds: 300
+    messages:
+      - "<gold>Welcome to SMP Watchdog powered server."
+      - "<yellow>Use /smp for plugin controls."
+  lifecycle:
+    auto-spawn-on-respawn: false
+  spawn:
+    world: "world"
+    x: 0.5
+    y: 64.0
+    z: 0.5
+    yaw: 0.0
+    pitch: 0.0
+  chat:
+    enabled: true
+    default-format: "<gray><name><dark_gray>: <white>{message}"
+    groups:
+      admin:
+        permission: "group.admin"
+        format: "<red>[Admin] <white><name><dark_gray>: <white>{message}"
+      mod:
+        permission: "group.mod"
+        format: "<blue>[Mod] <white><name><dark_gray>: <white>{message}"
+    mentions:
+      enabled: true
+      prefix: "@"
+      style: "<yellow>{mention}</yellow>"
+      sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+    url-formatting:
+      enabled: true
+      style: "<aqua><underlined>{url}</underlined></aqua>"
+  pm:
+    socialspy-enabled: true
+    format-sender: "<gray>[to <yellow>{target}<gray>] <white>{message}"
+    format-target: "<gray>[from <yellow>{sender}<gray>] <white>{message}"
+  commands:
+    msg:
+      enabled: true
+      cooldown-seconds: 1
+    reply:
+      enabled: true
+      cooldown-seconds: 1
+    block:
+      enabled: true
+      cooldown-seconds: 0
+    unblock:
+      enabled: true
+      cooldown-seconds: 0
+
 # ============================================
 # Features
 # ============================================
