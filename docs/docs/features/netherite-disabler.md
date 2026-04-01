@@ -63,7 +63,7 @@ When an item is disabled, players can't upgrade to it at the smithing table and 
 
 ## Using the GUI
 
-1. Run `/vanilla` to open the main menu
+1. Run `/smp` to open the main menu
 2. Click on the Netherite Disabler option
 3. Toggle individual items on/off
 4. Changes take effect immediately
@@ -77,7 +77,7 @@ The GUI displays each netherite item type with its current status:
 
 | Command | Permission | Description |
 |---------|------------|-------------|
-| `/netherite` | `vanillacore.command.netherite` | View netherite disabler status |
+| `/netherite` | `smp.netherite` | View netherite disabler status |
 
 ## Presets
 

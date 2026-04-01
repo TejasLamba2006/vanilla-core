@@ -16,7 +16,7 @@ features:
 
 ## In-Game Usage
 
-- Open `/vanilla` menu
+- Open `/smp` menu
 - Find `Spectator On Death`
 - Left-click to enable or disable
 

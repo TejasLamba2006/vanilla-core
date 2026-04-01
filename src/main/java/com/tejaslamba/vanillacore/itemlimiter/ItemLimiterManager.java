@@ -119,7 +119,7 @@ public class ItemLimiterManager {
             if (playerCheckIndex >= players.size())
                 playerCheckIndex = 0;
             Player player = players.get(playerCheckIndex++);
-            if (!player.hasPermission("vanillacore.itemlimiter.bypass")) {
+            if (!player.hasPermission("smp.itemlimiter.bypass")) {
                 checkAndEnforceLimits(player);
             }
         }, 0L, 1L).getTaskId();

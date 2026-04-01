@@ -123,7 +123,7 @@ scheduled-times:
 
 Access the Server Restart GUI by:
 
-1. Opening the main menu (`/vanilla menu`)
+1. Opening the main menu (`/smp menu`)
 2. Finding the **Server Restart** feature (clock icon)
 3. **Right-click** to open settings
 
@@ -158,7 +158,7 @@ The Server Restart feature integrates with the main menu and doesn't have standa
 
 | Permission | Description | Default |
 |------------|-------------|---------|
-| `vanillacore.menu` | Access main menu (required for restart GUI) | `op` |
+| `smp.menu` | Access main menu (required for restart GUI) | `op` |
 
 ## How It Works
 

@@ -71,7 +71,7 @@ Supported values:
 
 ## In-Game Menu
 
-Ritual appears in the main `/vanilla` menu like any other feature toggle.
+Ritual appears in the main `/smp` menu like any other feature toggle.
 
 - Left-click: enable or disable Ritual
 - Right-click: open the Ritual settings GUI

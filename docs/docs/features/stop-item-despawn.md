@@ -30,7 +30,7 @@ features:
 
 ## Using the GUI
 
-1. Run `/vanilla` to open the main menu
+1. Run `/smp` to open the main menu
 2. Click Stop Item Despawn (Chest icon)
 3. **Left Click**: Toggle on/off
 

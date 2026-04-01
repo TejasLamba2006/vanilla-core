@@ -23,8 +23,8 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
 
     private static final String SUBCOMMAND_RELOAD = "reload";
     private static final String SUBCOMMAND_VERSION = "version";
-    private static final String PERMISSION_RELOAD = "vanillacore.reload";
-    private static final String PERMISSION_VERSION = "vanillacore.version";
+    private static final String PERMISSION_RELOAD = "smp.reload";
+    private static final String PERMISSION_VERSION = "smp.version";
     private static final String PLACEHOLDER_MODULE = "module";
     private static final String MODULE_ALL = "all";
     private static final String MODULE_CONFIG = "config";
@@ -61,7 +61,7 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
                 msg().sendPrefixed(sender, "general.player-only");
                 return true;
             }
-            if (!p.hasPermission("vanillacore.menu")) {
+            if (!p.hasPermission("smp.menu")) {
                 msg().sendPrefixed(p, "commands.menu.no-permission");
                 return true;
             }
@@ -70,7 +70,7 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args[0].equalsIgnoreCase("enchant")) {
-            if (!sender.hasPermission("vanillacore.enchant")) {
+            if (!sender.hasPermission("smp.enchant")) {
                 msg().sendPrefixed(sender, "commands.enchant.no-permission");
                 return true;
             }
@@ -80,7 +80,7 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args[0].equalsIgnoreCase("mace")) {
-            if (!sender.hasPermission("vanillacore.mace")) {
+            if (!sender.hasPermission("smp.mace")) {
                 msg().sendPrefixed(sender, "commands.mace.no-permission");
                 return true;
             }
@@ -90,7 +90,7 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args[0].equalsIgnoreCase("netherite")) {
-            if (!sender.hasPermission("vanillacore.netherite")) {
+            if (!sender.hasPermission("smp.netherite")) {
                 msg().sendPrefixed(sender, "commands.netherite.no-permission");
                 return true;
             }
@@ -100,7 +100,7 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args[0].equalsIgnoreCase("infiniterestock")) {
-            if (!sender.hasPermission("vanillacore.infiniterestock")) {
+            if (!sender.hasPermission("smp.infiniterestock")) {
                 msg().sendPrefixed(sender, "commands.infinite-restock.no-permission");
                 return true;
             }
@@ -110,7 +110,7 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args[0].equalsIgnoreCase("ritual")) {
-            if (!sender.hasPermission("vanillacore.ritual")) {
+            if (!sender.hasPermission("smp.ritual")) {
                 msg().sendPrefixed(sender, "commands.ritual.no-permission");
                 return true;
             }
@@ -124,7 +124,7 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
                 msg().sendPrefixed(sender, "general.player-only");
                 return true;
             }
-            if (!p.hasPermission("vanillacore.menu")) {
+            if (!p.hasPermission("smp.menu")) {
                 msg().sendPrefixed(p, "commands.menu.no-permission");
                 return true;
             }
@@ -159,22 +159,22 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
             List<String> completions = new ArrayList<>();
-            if (sender.hasPermission("vanillacore.menu")) {
+            if (sender.hasPermission("smp.menu")) {
                 completions.add("menu");
             }
-            if (sender.hasPermission("vanillacore.enchant")) {
+            if (sender.hasPermission("smp.enchant")) {
                 completions.add("enchant");
             }
-            if (sender.hasPermission("vanillacore.mace")) {
+            if (sender.hasPermission("smp.mace")) {
                 completions.add("mace");
             }
-            if (sender.hasPermission("vanillacore.netherite")) {
+            if (sender.hasPermission("smp.netherite")) {
                 completions.add("netherite");
             }
-            if (sender.hasPermission("vanillacore.infiniterestock")) {
+            if (sender.hasPermission("smp.infiniterestock")) {
                 completions.add("infiniterestock");
             }
-            if (sender.hasPermission("vanillacore.ritual")) {
+            if (sender.hasPermission("smp.ritual")) {
                 completions.add("ritual");
             }
             if (sender.hasPermission(PERMISSION_RELOAD)) {
@@ -195,34 +195,34 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
                     .toList();
         }
 
-        if (args.length >= 2 && args[0].equalsIgnoreCase("enchant") && sender.hasPermission("vanillacore.enchant")) {
+        if (args.length >= 2 && args[0].equalsIgnoreCase("enchant") && sender.hasPermission("smp.enchant")) {
             String[] enchantArgs = new String[args.length - 1];
             System.arraycopy(args, 1, enchantArgs, 0, args.length - 1);
             return enchantCommand.onTabComplete(sender, command, alias, enchantArgs);
         }
 
-        if (args.length >= 2 && args[0].equalsIgnoreCase("mace") && sender.hasPermission("vanillacore.mace")) {
+        if (args.length >= 2 && args[0].equalsIgnoreCase("mace") && sender.hasPermission("smp.mace")) {
             String[] maceArgs = new String[args.length - 1];
             System.arraycopy(args, 1, maceArgs, 0, args.length - 1);
             return maceCommand.onTabComplete(sender, command, alias, maceArgs);
         }
 
         if (args.length >= 2 && args[0].equalsIgnoreCase("netherite")
-                && sender.hasPermission("vanillacore.netherite")) {
+                && sender.hasPermission("smp.netherite")) {
             String[] netheriteArgs = new String[args.length - 1];
             System.arraycopy(args, 1, netheriteArgs, 0, args.length - 1);
             return netheriteCommand.onTabComplete(sender, command, alias, netheriteArgs);
         }
 
         if (args.length >= 2 && args[0].equalsIgnoreCase("infiniterestock")
-                && sender.hasPermission("vanillacore.infiniterestock")) {
+                && sender.hasPermission("smp.infiniterestock")) {
             String[] irArgs = new String[args.length - 1];
             System.arraycopy(args, 1, irArgs, 0, args.length - 1);
             return infiniteRestockCommand.onTabComplete(sender, command, alias, irArgs);
         }
 
         if (args.length >= 2 && args[0].equalsIgnoreCase("ritual")
-                && sender.hasPermission("vanillacore.ritual")) {
+                && sender.hasPermission("smp.ritual")) {
             String[] ritualArgs = new String[args.length - 1];
             System.arraycopy(args, 1, ritualArgs, 0, args.length - 1);
             return ritualCommand.onTabComplete(sender, command, alias, ritualArgs);

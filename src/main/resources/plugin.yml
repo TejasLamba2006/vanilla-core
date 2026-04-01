@@ -4,10 +4,9 @@ version: ${project.version}
 api-version: ${minecraft.version}
 softdepend: [WorldGuard]
 commands:
-  vanilla:
+  smp:
     description: SMP Watchdog command
-    usage: /vanilla [menu|reload [all|config|messages|menus|features]|version|enchant|mace|netherite|infiniterestock|ritual]
-    aliases: [vc, vpt]
+    usage: /smp [menu|reload [all|config|messages|menus|features]|version|enchant|mace|netherite|infiniterestock|ritual]
   ritual:
     description: Start and manage ritual events
     usage: /ritual [start [time] [color]|status|cancel]
@@ -18,72 +17,100 @@ commands:
     description: Nether dimension lock commands
     usage: /nether [open|close|status]
 permissions:
-  vanillacore.admin:
+  smp.*:
+    description: All SMP Watchdog permissions
+    default: op
+    children:
+      smp.admin: true
+      smp.reload: true
+      smp.version: true
+      smp.menu: true
+      smp.enchant: true
+      smp.mace: true
+      smp.mace.reset: true
+      smp.dimension.end: true
+      smp.dimension.nether: true
+      smp.dimension.bypass: true
+      smp.dimension.bypass.end: true
+      smp.dimension.bypass.nether: true
+      smp.netherite: true
+      smp.infiniterestock: true
+      smp.ritual: true
+      smp.ritual.cancel: true
+      smp.enderchestlimiter.bypass: true
+      smp.itemlimiter.bypass: true
+      smp.netherite.craft.*: true
+  smp.admin:
     description: Full access to all SMP Watchdog features and GUI
     default: op
     children:
-      vanillacore.reload: true
-      vanillacore.version: true
-      vanillacore.menu: true
-      vanillacore.enchant: true
-      vanillacore.mace: true
-      vanillacore.mace.reset: true
-      vanillacore.dimension.end: true
-      vanillacore.dimension.nether: true
-      vanillacore.dimension.bypass: true
-      vanillacore.netherite: true
-      vanillacore.infiniterestock: true
-      vanillacore.ritual: true
-      vanillacore.ritual.cancel: true
-      vanillacore.enderchestlimiter.bypass: true
-  vanillacore.reload:
+      smp.reload: true
+      smp.version: true
+      smp.menu: true
+      smp.enchant: true
+      smp.mace: true
+      smp.mace.reset: true
+      smp.dimension.end: true
+      smp.dimension.nether: true
+      smp.dimension.bypass: true
+      smp.netherite: true
+      smp.infiniterestock: true
+      smp.ritual: true
+      smp.ritual.cancel: true
+      smp.enderchestlimiter.bypass: true
+      smp.itemlimiter.bypass: true
+      smp.netherite.craft.*: true
+  smp.reload:
     description: Reload plugin configuration
     default: op
-  vanillacore.version:
+  smp.version:
     description: View plugin version
     default: op
-  vanillacore.menu:
+  smp.menu:
     description: Open settings menu
     default: op
-  vanillacore.enchant:
+  smp.enchant:
     description: Manage enchantment limits
     default: op
-  vanillacore.mace:
+  smp.mace:
     description: Use mace commands
     default: op
-  vanillacore.mace.reset:
+  smp.mace.reset:
     description: Reset mace limiter
     default: op
-  vanillacore.dimension.end:
+  smp.dimension.end:
     description: Manage end dimension lock
     default: op
-  vanillacore.dimension.nether:
+  smp.dimension.nether:
     description: Manage nether dimension lock
     default: op
-  vanillacore.dimension.bypass:
+  smp.dimension.bypass:
     description: Bypass all dimension locks
     default: op
-  vanillacore.dimension.bypass.end:
+  smp.dimension.bypass.end:
     description: Bypass end dimension lock
     default: false
-  vanillacore.dimension.bypass.nether:
+  smp.dimension.bypass.nether:
     description: Bypass nether dimension lock
     default: false
-  vanillacore.netherite:
+  smp.netherite:
     description: Manage netherite disabler
     default: op
-  vanillacore.infiniterestock:
+  smp.infiniterestock:
     description: Manage Infinite Restock feature and open GUI
     default: op
-  vanillacore.ritual:
+  smp.ritual:
     description: Start and view ritual events
     default: op
-  vanillacore.ritual.cancel:
+  smp.ritual.cancel:
     description: Cancel active ritual events
     default: op
-  vanillacore.enderchestlimiter.bypass:
+  smp.enderchestlimiter.bypass:
     description: Bypass Ender Chest Item Limiter restrictions
     default: op
-  vanillacore.netherite.craft.*:
+  smp.itemlimiter.bypass:
+    description: Bypass Item Limiter restrictions
+    default: op
+  smp.netherite.craft.*:
     description: Bypass netherite crafting restrictions
     default: false

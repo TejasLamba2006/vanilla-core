@@ -39,7 +39,7 @@ public class ItemLimiterListener implements Listener {
             return;
         }
 
-        if (player.hasPermission("vanillacore.itemlimiter.bypass")) {
+        if (player.hasPermission("smp.itemlimiter.bypass")) {
             return;
         }
 
@@ -111,7 +111,7 @@ public class ItemLimiterListener implements Listener {
             return;
         }
 
-        if (player.hasPermission("vanillacore.itemlimiter.bypass")) {
+        if (player.hasPermission("smp.itemlimiter.bypass")) {
             return;
         }
 
@@ -175,7 +175,7 @@ public class ItemLimiterListener implements Listener {
             return;
         }
 
-        if (player.hasPermission("vanillacore.itemlimiter.bypass")) {
+        if (player.hasPermission("smp.itemlimiter.bypass")) {
             return;
         }
 

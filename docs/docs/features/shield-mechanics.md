@@ -42,7 +42,7 @@ features:
 
 ## In-Game GUI
 
-Open via `/vanilla menu` → **Shield Mechanics** → Right Click.
+Open via `/smp menu` → **Shield Mechanics** → Right Click.
 
 | Slot | Item | Action |
 |------|------|--------|

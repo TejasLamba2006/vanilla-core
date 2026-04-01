@@ -52,7 +52,7 @@ A Minecraft plugin for Vanilla servers focused on PvP balance, custom mechanics,
 
 ### GUI System
 
-- Main Menu: `/vanilla` opens a paginated GUI showing all features
+- Main Menu: `/smp` opens a paginated GUI showing all features
 - Dynamic Feature Items: Toggle features with left-click, configure with right-click
 - Menu Pagination: Automatically handles many features across multiple pages
 
@@ -62,24 +62,24 @@ A Minecraft plugin for Vanilla servers focused on PvP balance, custom mechanics,
 
 | Command | Description | Permission |
 |---------|-------------|------------|
-| `/vanilla` | Opens the main settings menu | - |
-| `/vanilla menu` | Opens the main settings menu | - |
-| `/vanilla reload` | Reloads all configurations | `vanillacore.reload` |
-| `/vanilla enchant <sub>` | Enchantment management | `vanillacore.enchant` |
-| `/vanilla mace <sub>` | Mace limiter commands | `vanillacore.mace` |
-| `/vanilla netherite <sub>` | Netherite disabler commands | `vanillacore.netherite` |
-| `/vanilla ritual <sub>` | Ritual management | `vanillacore.ritual` |
-| `/ritual <sub>` | Ritual management shortcut | `vanillacore.ritual` |
+| `/smp` | Opens the main settings menu | - |
+| `/smp menu` | Opens the main settings menu | - |
+| `/smp reload` | Reloads all configurations | `smp.reload` |
+| `/smp enchant <sub>` | Enchantment management | `smp.enchant` |
+| `/smp mace <sub>` | Mace limiter commands | `smp.mace` |
+| `/smp netherite <sub>` | Netherite disabler commands | `smp.netherite` |
+| `/smp ritual <sub>` | Ritual management | `smp.ritual` |
+| `/ritual <sub>` | Ritual management shortcut | `smp.ritual` |
 
 ### Enchantment Subcommands
 
-- `/vanilla enchant limit <enchant> <level> [anvil|replacement|both]`
-- `/vanilla enchant unlimit <enchant> [anvil|replacement|both]`
-- `/vanilla enchant block <enchant> [anvil|replacement|both]`
-- `/vanilla enchant unblock <enchant> [anvil|replacement|both]`
-- `/vanilla enchant list`
-- `/vanilla enchant scan`
-- `/vanilla enchant whitelist`
+- `/smp enchant limit <enchant> <level> [anvil|replacement|both]`
+- `/smp enchant unlimit <enchant> [anvil|replacement|both]`
+- `/smp enchant block <enchant> [anvil|replacement|both]`
+- `/smp enchant unblock <enchant> [anvil|replacement|both]`
+- `/smp enchant list`
+- `/smp enchant scan`
+- `/smp enchant whitelist`
 
 ---
 
@@ -91,7 +91,7 @@ A Minecraft plugin for Vanilla servers focused on PvP balance, custom mechanics,
 2. Place the JAR in your server's `plugins` folder
 3. Restart or reload your server
 4. Configure features in your plugin folder `config.yml`
-5. Use `/vanilla reload` to apply changes or `/vanilla` to use the GUI
+5. Use `/smp reload` to apply changes or `/smp` to use the GUI
 
 ### For Developers
 

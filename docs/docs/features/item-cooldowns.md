@@ -27,7 +27,7 @@ features:
 
 ## In-Game Usage
 
-- Open `/vanilla` menu
+- Open `/smp` menu
 - Find `Item Cooldowns`
 - Left-click to enable or disable the feature
 - Right-click to open settings GUI

@@ -109,7 +109,7 @@ SMP Watchdog has a minimal memory footprint, typically under 10MB.
 Check for these common issues:
 
 1. Player has OP (OPs bypass by default)
-2. Player has `vanillacore.bypass.*` permission
+2. Player has a bypass permission like `smp.dimension.bypass`, `smp.itemlimiter.bypass`, or `smp.enderchestlimiter.bypass`
 3. Player has specific bypass permission
 4. Permission plugin misconfiguration
 
@@ -128,14 +128,14 @@ Using LuckPerms:
 ### Commands say "Unknown command"
 
 1. Check plugin is loaded: `/plugins`
-2. Ensure correct command: `/vanilla` not `/vanillacore`
+2. Ensure correct command: `/smp` not `/smpwatchdog`
 3. Check permissions
 
 ### GUI is empty or broken
 
 1. Update to latest version
 2. Check console for errors
-3. Try `/vanilla reload`
+3. Try `/smp reload`
 4. Delete config and regenerate
 
 ### Features reset after restart

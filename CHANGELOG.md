@@ -29,13 +29,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Bumped config version to `9` so new defaults and migrations are applied automatically.
-- Rebranded the plugin display name and user-facing branding from "Vanilla Core" to "SMP Watchdog" across `plugin.yml`, runtime messages, logs, and documentation while keeping existing command labels and `vanillacore.*` permissions for compatibility.
-- Upgraded `/vanilla reload` to support module-scoped hot reload targets: `all`, `config`, `messages`, `menus`, and `features`, with elapsed-time feedback and per-module failure reporting.
-- Added `/vanilla version` with `vanillacore.version` permission for quick in-game/admin version checks.
+- Rebranded the plugin display name and user-facing branding from "Vanilla Core" to "SMP Watchdog" across `plugin.yml`, runtime messages, logs, and documentation.
+- Switched the admin command to `/smp` only and removed the `/vanilla` alias.
+- Removed legacy `vanillacore.*` permission mapping and standardized permission checks on `smp.*` nodes.
+- Upgraded `/smp reload` to support module-scoped hot reload targets: `all`, `config`, `messages`, `menus`, and `features`, with elapsed-time feedback and per-module failure reporting.
+- Added `/smp version` with `smp.version` permission for quick in-game/admin version checks.
 - Update checks now fetch the latest release version directly from Modrinth (`vanillacorewastaken`) while keeping CDN-backed remote feature-control and maintenance messaging.
 - Split combat restrictions into separate features instead of one combined settings screen.
 - Extended `/ritual start` to support runtime overrides: `/ritual start [time] [color]` with durations like `30s`, `1m`, `1h`, `1d`, and `1h30m`, plus color tab completion.
-- Added a full Ritual settings GUI in `/vanilla menu` (right-click Ritual) for duration, radius, particle color, start sound toggle, and end-effect toggles.
+- Added a full Ritual settings GUI in `/smp menu` (right-click Ritual) for duration, radius, particle color, start sound toggle, and end-effect toggles.
 - Reworked Potion Bans config and GUI: removed `ban-all`/`ban-tier2` keys and switched to per-effect tier entries (`effect:tier1:tier2`) with computed "Ban All Potions" behavior.
 - Main menu pagination now clamps page bounds and keeps feature slots dedicated to features so overflow moves to later pages automatically.
 - Removed the auto-generated `messages.yml` `codebase-string-catalog` section so `messages.yml` now contains only proper runtime message keys.

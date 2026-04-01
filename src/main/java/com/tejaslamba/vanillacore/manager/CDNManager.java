@@ -50,7 +50,7 @@ public class CDNManager {
         this.disabledMessage = "This feature has been temporarily disabled by the plugin author.";
         this.maintenanceMessage = "SMP Watchdog is currently in maintenance mode. Please try again later.";
         this.updateNotificationEnabled = true;
-        this.updateNotificationPermission = "vanillacore.admin";
+        this.updateNotificationPermission = "smp.admin";
         this.updateNotificationTitle = "SMP Watchdog Update";
         this.updateNotificationMessage = "A new version is available! Current: {current}, Latest: {latest}";
         this.updateNotificationActionMessage = "Visit {url} to download";

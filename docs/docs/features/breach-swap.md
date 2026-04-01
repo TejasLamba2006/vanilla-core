@@ -36,7 +36,7 @@ features:
 
 ## In-game GUI
 
-`/vanilla menu` → **Breach Swap** → Left Click to toggle.
+`/smp menu` → **Breach Swap** → Left Click to toggle.
 
 ## How it works
 

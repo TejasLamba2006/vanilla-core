@@ -77,7 +77,7 @@
 ### Server Management
 
 - [ ] SMP Start Command
-  - [ ] /vanilla start command
+  - [ ] /smp start command
   - [ ] Grace period system
   - [ ] Scheduled start time
   - [ ] Pre-start countdown

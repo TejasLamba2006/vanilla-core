@@ -55,7 +55,7 @@ When enabled, the feature blocks potion effects at application time and covers:
 
 ## In-Game Usage
 
-- Open `/vanilla` menu
+- Open `/smp` menu
 - Find `Potion Bans`
 - Left-click to toggle feature
 - Right-click to open Potion Bans settings GUI

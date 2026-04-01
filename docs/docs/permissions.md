@@ -6,6 +6,10 @@ sidebar_position: 4
 
 SMP Watchdog uses a hierarchical permission system. All permissions default to OP only, meaning regular players cannot access any features without explicit permission grants.
 
+Primary namespace:
+
+- `smp.*`
+
 ## Permission Defaults
 
 By default, SMP Watchdog uses these permission levels:
@@ -21,25 +25,17 @@ These permissions control access to the main plugin functions:
 
 | Permission | Description | Default |
 |------------|-------------|---------|
-| `vanillacore.admin` | Full access to all SMP Watchdog features and GUI | OP |
-| `vanillacore.reload` | Ability to reload configuration files | OP |
-| `vanillacore.version` | Ability to view the running plugin version | OP |
-| `vanillacore.menu` | Ability to open the main configuration GUI | OP |
-
-## Bypass Permissions
-
-Bypass permissions allow players to ignore specific restrictions. Use these carefully, as they defeat the purpose of the features they bypass.
-
-| Permission | Description | Default |
-|------------|-------------|---------|
-| `vanillacore.bypass.itemlimit` | Carry unlimited items, ignoring limits | OP |
-| `vanillacore.bypass.enchantlimit` | Use items with any enchantment level | OP |
-| `vanillacore.bypass.mace` | Use maces without any restrictions | OP |
-| `vanillacore.bypass.netherite` | Obtain and use netherite items | OP |
-| `vanillacore.bypass.nether` | Enter the Nether when it is locked | OP |
-| `vanillacore.bypass.end` | Enter the End when it is locked | OP |
-
-Warning: Giving players bypass permissions undermines your server's balance settings.
+| `smp.admin` | Full access to all SMP Watchdog features and GUI | OP |
+| `smp.reload` | Ability to reload configuration files | OP |
+| `smp.version` | Ability to view the running plugin version | OP |
+| `smp.menu` | Ability to open the main configuration GUI | OP |
+| `smp.enchant` | Manage enchantment limiter commands | OP |
+| `smp.mace` | Manage mace limiter commands | OP |
+| `smp.mace.reset` | Reset mace limiter counts | OP |
+| `smp.netherite` | Manage netherite disabler commands | OP |
+| `smp.infiniterestock` | Open/manage Infinite Restock | OP |
+| `smp.ritual` | Start/view ritual events | OP |
+| `smp.ritual.cancel` | Cancel active ritual events | OP |
 
 ## Command Permissions
 
@@ -47,40 +43,29 @@ Warning: Giving players bypass permissions undermines your server's balance sett
 
 | Permission | Description | Default |
 |------------|-------------|---------|
-| `vanillacore.menu` | Use `/vanilla` and `/vanilla menu` | OP |
-| `vanillacore.reload` | Use `/vanilla reload` and `/vanilla reload <module>` | OP |
-| `vanillacore.version` | Use `/vanilla version` | OP |
-| `vanillacore.ritual` | Use `/ritual` and `/vanilla ritual` | OP |
-| `vanillacore.ritual.cancel` | Cancel active ritual events | OP |
+| `smp.menu` | Use `/smp` and `/smp menu` | OP |
+| `smp.reload` | Use `/smp reload` and `/smp reload <module>` | OP |
+| `smp.version` | Use `/smp version` | OP |
+| `smp.ritual` | Use `/ritual` and `/smp ritual` | OP |
+| `smp.ritual.cancel` | Cancel active ritual events | OP |
 
 ### Dimension Lock Commands
 
 | Permission | Description | Default |
 |------------|-------------|---------|
-| `vanillacore.nether` | View Nether lock status | OP |
-| `vanillacore.nether.open` | Unlock the Nether dimension | OP |
-| `vanillacore.nether.close` | Lock the Nether dimension | OP |
-| `vanillacore.end` | View End lock status | OP |
-| `vanillacore.end.open` | Unlock the End dimension | OP |
-| `vanillacore.end.close` | Lock the End dimension | OP |
+| `smp.dimension.nether` | Manage Nether lock status/open/close | OP |
+| `smp.dimension.end` | Manage End lock status/open/close | OP |
 
-### Item Limiter Commands
+### Bypass and Exception Permissions
 
 | Permission | Description | Default |
 |------------|-------------|---------|
-| `vanillacore.itemlimit` | Open the item limiter GUI | OP |
-| `vanillacore.itemlimit.set` | Create and modify item limits | OP |
-| `vanillacore.itemlimit.remove` | Remove existing item limits | OP |
-| `vanillacore.itemlimit.list` | View all configured item limits | OP |
-
-### Enchantment Limiter Commands
-
-| Permission | Description | Default |
-|------------|-------------|---------|
-| `vanillacore.enchantlimit` | Open the enchantment limiter GUI | OP |
-| `vanillacore.enchantlimit.set` | Set enchantment level caps | OP |
-| `vanillacore.enchantlimit.remove` | Remove enchantment caps | OP |
-| `vanillacore.enchantlimit.list` | View all enchantment caps | OP |
+| `smp.dimension.bypass` | Bypass all dimension locks | OP |
+| `smp.dimension.bypass.end` | Bypass End lock only | false |
+| `smp.dimension.bypass.nether` | Bypass Nether lock only | false |
+| `smp.itemlimiter.bypass` | Bypass Item Limiter restrictions | OP |
+| `smp.enderchestlimiter.bypass` | Bypass Ender Chest Item Limiter restrictions | OP |
+| `smp.netherite.craft.*` | Bypass netherite crafting restrictions | false |
 
 ## Wildcard Permissions
 
@@ -88,12 +73,8 @@ Wildcard permissions grant all child permissions in a category:
 
 | Permission | Grants |
 |------------|--------|
-| `vanillacore.*` | All SMP Watchdog permissions |
-| `vanillacore.bypass.*` | All bypass permissions |
-| `vanillacore.nether.*` | All Nether-related permissions |
-| `vanillacore.end.*` | All End-related permissions |
-| `vanillacore.itemlimit.*` | All item limiter permissions |
-| `vanillacore.enchantlimit.*` | All enchantment limiter permissions |
+| `smp.*` | All SMP Watchdog permissions |
+| `smp.netherite.craft.*` | Bypass all netherite craft restrictions |
 
 ## LuckPerms Configuration Examples
 
@@ -102,14 +83,14 @@ Wildcard permissions grant all child permissions in a category:
 Give staff members complete access to manage SMP Watchdog:
 
 ```
-/lp group staff permission set vanillacore.admin true
-/lp group staff permission set vanillacore.reload true
+/lp group staff permission set smp.admin true
+/lp group staff permission set smp.reload true
 ```
 
 Or use the wildcard:
 
 ```
-/lp group staff permission set vanillacore.* true
+/lp group staff permission set smp.* true
 ```
 
 ### Moderator Access (Limited)
@@ -117,9 +98,9 @@ Or use the wildcard:
 Allow moderators to manage dimensions without bypassing limits:
 
 ```
-/lp group moderator permission set vanillacore.nether.* true
-/lp group moderator permission set vanillacore.end.* true
-/lp group moderator permission set vanillacore.itemlimit.list true
+/lp group moderator permission set smp.dimension.nether true
+/lp group moderator permission set smp.dimension.end true
+/lp group moderator permission set smp.menu true
 ```
 
 ### VIP Bypass (Item Limits Only)
@@ -127,7 +108,7 @@ Allow moderators to manage dimensions without bypassing limits:
 Allow VIP players to bypass item limits but still respect other restrictions:
 
 ```
-/lp group vip permission set vanillacore.bypass.itemlimit true
+/lp group vip permission set smp.itemlimiter.bypass true
 ```
 
 Note: Plan your permissions carefully if using group inheritance.
@@ -139,7 +120,8 @@ To prevent OP players from automatically having bypass permissions:
 1. Set the permissions explicitly to false:
 
 ```
-/lp group default permission set vanillacore.bypass.* false
+/lp group default permission set smp.itemlimiter.bypass false
+/lp group default permission set smp.enderchestlimiter.bypass false
 ```
 
 1. Then grant specific bypasses only to intended groups.
@@ -152,12 +134,12 @@ Staff should be able to manage features without bypassing them. Consider this se
 
 **Admin Group:**
 
-- `vanillacore.admin` - Can manage all features
+- `smp.admin` - Can manage all features
 - No bypass permissions - Subject to same limits as players
 
 **Helper Group:**
 
-- `vanillacore.itemlimit.list` - Can view limits to help players
+- `smp.menu` - Can open the settings menu and inspect feature states
 - No other permissions
 
 ### Audit Bypass Permissions
@@ -168,7 +150,11 @@ Regularly review who has bypass permissions:
 /lp user <playername> permission info
 ```
 
-Look for any `vanillacore.bypass.*` entries that shouldn't be there.
+Look for any bypass entries that shouldn't be there, such as:
+
+- `smp.itemlimiter.bypass`
+- `smp.enderchestlimiter.bypass`
+- `smp.dimension.bypass`
 
 ### Use Groups, Not Individual Permissions
 

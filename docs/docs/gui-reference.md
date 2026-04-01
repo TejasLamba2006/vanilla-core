@@ -11,10 +11,10 @@ This page provides a complete guide to using the in-game configuration GUI. The 
 To open the main configuration menu, run the following command:
 
 ```
-/vanilla
+/smp
 ```
 
-**Required Permission:** `vanillacore.admin`
+**Required Permission:** `smp.admin`
 
 When you run this command, a chest-like inventory window opens displaying all available features as clickable items.
 
@@ -206,9 +206,9 @@ The Reload button in the main menu reloads all configuration files from disk. Us
 
 ### Menu Not Opening
 
-If the menu doesn't open when you run `/vanilla`:
+If the menu doesn't open when you run `/smp`:
 
-1. Check that you have the `vanillacore.admin` permission
+1. Check that you have the `smp.admin` permission
 2. Verify the plugin is loaded with `/plugins`
 3. Check the console for error messages
 
@@ -218,7 +218,7 @@ If some feature items are missing:
 
 1. The feature may be disabled in the config
 2. A required dependency (like WorldGuard) may be missing
-3. Try running `/vanilla reload` to refresh the menu
+3. Try running `/smp reload` to refresh the menu
 
 ### Changes Not Saving
 

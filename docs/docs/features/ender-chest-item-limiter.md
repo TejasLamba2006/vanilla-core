@@ -76,7 +76,7 @@ GUI labels/titles are under:
 
 ## Using the GUI
 
-1. Run `/vanilla` to open the main menu
+1. Run `/smp` to open the main menu
 2. Find **Ender Chest Item Limiter**
 3. **Left Click** to toggle the feature
 4. **Right Click** to open the manager GUI
@@ -104,5 +104,5 @@ The feature blocks insertion attempts into ender chest slots, including:
 
 ## Notes
 
-- To bypass restrictions for specific staff or roles, grant `vanillacore.enderchestlimiter.bypass`.
+- To bypass restrictions for specific staff or roles, grant `smp.enderchestlimiter.bypass`.
 - Matching is exact for custom item fields. If you include `displayName` or `customModelData`, only items with that exact metadata match.

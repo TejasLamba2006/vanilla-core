@@ -74,25 +74,25 @@ Major version updates (like 1.x to 2.x) may include breaking changes. Always rea
 
 ### Commands Don't Work
 
-**Symptom:** `/vanilla` returns "Unknown command"
+**Symptom:** `/smp` returns "Unknown command"
 
 **Solutions:**
 
 1. Verify the plugin loaded: `/plugins`
-2. Check permissions: You need `vanillacore.admin` for `/vanilla`
+2. Check permissions: You need `smp.admin` for `/smp`
 3. If you're OP, commands should work automatically
 4. Check for conflicting plugins that might intercept the command
 
 ### GUI Doesn't Open
 
-**Symptom:** `/vanilla` runs but no GUI appears
+**Symptom:** `/smp` runs but no GUI appears
 
 **Solutions:**
 
 1. Check console for inventory-related errors
 2. Verify you're not in spectator mode
 3. Check if another plugin is blocking inventory opens
-4. Try running `/vanilla reload` first
+4. Try running `/smp reload` first
 
 ### Configuration Not Saving
 

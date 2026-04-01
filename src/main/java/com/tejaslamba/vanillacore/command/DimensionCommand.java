@@ -25,7 +25,7 @@ public class DimensionCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission("vanillacore.dimension." + dimension)) {
+        if (!sender.hasPermission("smp.dimension." + dimension)) {
             sender.sendMessage(plugin.getMessageManager().get("commands.dimension.no-permission"));
             return true;
         }

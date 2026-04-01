@@ -66,7 +66,7 @@ public class RitualCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        if (!player.hasPermission("vanillacore.ritual")) {
+        if (!player.hasPermission("smp.ritual")) {
             plugin.getMessageManager().sendPrefixed(player, "commands.ritual.no-permission");
             return true;
         }
@@ -194,7 +194,7 @@ public class RitualCommand implements CommandExecutor, TabCompleter {
     }
 
     private boolean handleCancel(CommandSender sender, RitualFeature feature) {
-        if (!sender.hasPermission("vanillacore.ritual.cancel")) {
+        if (!sender.hasPermission("smp.ritual.cancel")) {
             plugin.getMessageManager().sendPrefixed(sender, "ritual.no-cancel-permission");
             return true;
         }
@@ -220,7 +220,7 @@ public class RitualCommand implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
             List<String> completions = new ArrayList<>(Arrays.asList("start", "status"));
-            if (sender.hasPermission("vanillacore.ritual.cancel")) {
+            if (sender.hasPermission("smp.ritual.cancel")) {
                 completions.add("cancel");
             }
 

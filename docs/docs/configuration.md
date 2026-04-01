@@ -27,7 +27,7 @@ plugins/SMP Watchdog/messages.yml
 Notes:
 
 - Runtime message keys are grouped by section (`general`, `commands`, `item-limiter`, `ender-chest-item-limiter`, etc.) and are used directly by the plugin.
-- Feature card names/descriptions/lore in `/vanilla menu` are now centralized under `feature-menus.*`.
+- Feature card names/descriptions/lore in `/smp menu` are now centralized under `feature-menus.*`.
 - Infinite Restock and Netherite manager GUI labels/titles are configurable under `infinite-restock.gui.*` and `netherite-disabler.gui.*`.
 - Customize runtime behavior by editing the normal feature/message sections.
 
@@ -353,7 +353,7 @@ All messages use [MiniMessage](https://docs.advntr.dev/minimessage/format.html) 
 After editing `config.yml`, apply changes with:
 
 ```bash
-/vanilla reload
+/smp reload
 ```
 
 If you edit `messages.yml`, use the same command to reload message keys.
@@ -378,7 +378,7 @@ cp plugins/SMP Watchdog/config.yml plugins/SMP Watchdog/config.yml.backup
 
 ### Changes not taking effect
 
-1. Run `/vanilla reload` after editing
+1. Run `/smp reload` after editing
 2. Check you edited the correct file (not a backup)
 3. Use the GUI for most changes - it handles validation automatically
 

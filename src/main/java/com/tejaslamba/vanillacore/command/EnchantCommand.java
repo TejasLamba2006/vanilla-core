@@ -29,7 +29,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission("vanillacore.enchant")) {
+        if (!sender.hasPermission("smp.enchant")) {
             sender.sendMessage(plugin.getMessageManager().get("commands.enchant.no-permission"));
             return true;
         }

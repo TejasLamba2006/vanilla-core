@@ -27,7 +27,7 @@ public class InfiniteRestockCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        if (!p.hasPermission("vanillacore.infiniterestock")) {
+        if (!p.hasPermission("smp.infiniterestock")) {
             p.sendMessage(plugin.getMessageManager().get("commands.infinite-restock.no-permission"));
             return true;
         }
@@ -44,7 +44,7 @@ public class InfiniteRestockCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (!(sender instanceof Player) || !sender.hasPermission("vanillacore.infiniterestock")) {
+        if (!(sender instanceof Player) || !sender.hasPermission("smp.infiniterestock")) {
             return Collections.emptyList();
         }
         return new ArrayList<>();

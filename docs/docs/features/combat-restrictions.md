@@ -37,5 +37,5 @@ features:
 
 ## In-Game Usage
 
-- Open `/vanilla` menu
+- Open `/smp` menu
 - Toggle each combat restriction on its own

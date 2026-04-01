@@ -20,7 +20,7 @@ general:
   player-only: "<red>This command can only be used by players!"
   remote-disabled: "<red>[SMP Watchdog] <gray><message>"
   maintenance: "<red>[SMP Watchdog] <gray><message>"
-  unknown-command: "<red>Unknown subcommand. Usage: /vanilla [menu|reload [module]|version|enchant|mace|netherite|infiniterestock|ritual]"
+  unknown-command: "<red>Unknown subcommand. Usage: /smp [menu|reload [module]|version|enchant|mace|netherite|infiniterestock|ritual]"
   cancelled: "<red>Cancelled."
   invalid-number: "<red>Please enter a valid number!"
 
@@ -30,7 +30,7 @@ commands:
     no-permission: "<red>You don't have permission to open the settings menu!"
   reload:
     no-permission: "<red>You don't have permission to reload!"
-    usage: "<yellow>Usage: /vanilla reload [all|config|messages|menus|features]"
+    usage: "<yellow>Usage: /smp reload [all|config|messages|menus|features]"
     invalid-module: "<red>Unknown reload module: <module>"
     module-success: "<green>Reloaded <yellow><module><green> in <yellow><time>ms<green>."
     module-failed: "<red>Reload of <yellow><module><red> failed after <yellow><time>ms<red>."
@@ -52,9 +52,9 @@ commands:
     enabled-item: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Enabled <white>Netherite <item>"
     help:
       title: "<gold><bold>=== Netherite Commands ==="
-      gui: "<yellow>/vanilla netherite gui <gray>- Open netherite manager GUI"
-      disable: "<yellow>/vanilla netherite disable <item> <gray>- Disable netherite item"
-      enable: "<yellow>/vanilla netherite enable <item> <gray>- Enable netherite item"
+      gui: "<yellow>/smp netherite gui <gray>- Open netherite manager GUI"
+      disable: "<yellow>/smp netherite disable <item> <gray>- Disable netherite item"
+      enable: "<yellow>/smp netherite enable <item> <gray>- Enable netherite item"
   infinite-restock:
     no-permission: "<red>You don't have permission to manage Infinite Restock!"
     feature-not-found: "<red>[SMP Watchdog] Infinite Restock feature not found"
@@ -77,9 +77,9 @@ commands:
       can-craft-no: "<yellow>Can Craft More: <red>No"
     help:
       title: "<gold><bold>=== Mace Commands ==="
-      whitelist: "<yellow>/vanilla mace whitelist <gray>- Toggle whitelist on held mace"
-      reset: "<yellow>/vanilla mace reset <gray>- Reset mace limiter (admin)"
-      status: "<yellow>/vanilla mace status <gray>- Check mace limiter status"
+      whitelist: "<yellow>/smp mace whitelist <gray>- Toggle whitelist on held mace"
+      reset: "<yellow>/smp mace reset <gray>- Reset mace limiter (admin)"
+      status: "<yellow>/smp mace status <gray>- Check mace limiter status"
   dimension:
     no-permission: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <red>You don't have permission to use this command!"
     feature-not-found: "<red>Dimension Lock feature not found!"
@@ -99,17 +99,17 @@ commands:
     blocked: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Blocked enchantment: <white><enchant> <gray>(<option>)"
     no-permission: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <red>You don't have permission to use this command!"
     limit:
-      usage: "<red>Usage: /vanilla enchant limit <enchant> <maxLevel> [anvil|replacement|both]"
+      usage: "<red>Usage: /smp enchant limit <enchant> <maxLevel> [anvil|replacement|both]"
       max-level-min: "<red>Max level must be 0 or greater!"
       set: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Set enchantment limit: <white><enchant> <gray>→ <yellow><maxLevel> <gray>(<option>)"
     unlimit:
-      usage: "<red>Usage: /vanilla enchant unlimit <enchant> [anvil|replacement|both]"
+      usage: "<red>Usage: /smp enchant unlimit <enchant> [anvil|replacement|both]"
       no-anvil: "<red>No anvil limit set for: <enchant>"
       no-replacement: "<red>No replacement limit set for: <enchant>"
       no-limit: "<red>No limit set for: <enchant>"
       removed: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Removed limit for: <white><enchant> <gray>(<option>)"
     block:
-      usage: "<red>Usage: /vanilla enchant block <enchant> [anvil|replacement|both]"
+      usage: "<red>Usage: /smp enchant block <enchant> [anvil|replacement|both]"
     list:
       title: "<gold><bold>=== Enchantment Limits ==="
       spacer: ""
@@ -128,13 +128,13 @@ commands:
       added: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Whitelisted item from enchantment scans"
     help:
       title: "<gold><bold>=== Enchantment Commands ==="
-      limit: "<yellow>/vanilla enchant limit <enchant> <maxLevel> [option] <gray>- Set enchantment limit"
-      unlimit: "<yellow>/vanilla enchant unlimit <enchant> [option] <gray>- Remove enchantment limit"
-      list: "<yellow>/vanilla enchant list <gray>- Show all limits"
-      block: "<yellow>/vanilla enchant block <enchant> [option] <gray>- Block enchantment completely"
-      unblock: "<yellow>/vanilla enchant unblock <enchant> [option] <gray>- Unblock enchantment"
-      scan: "<yellow>/vanilla enchant scan <gray>- Manually scan your inventory"
-      whitelist: "<yellow>/vanilla enchant whitelist <gray>- Toggle whitelist on held item"
+      limit: "<yellow>/smp enchant limit <enchant> <maxLevel> [option] <gray>- Set enchantment limit"
+      unlimit: "<yellow>/smp enchant unlimit <enchant> [option] <gray>- Remove enchantment limit"
+      list: "<yellow>/smp enchant list <gray>- Show all limits"
+      block: "<yellow>/smp enchant block <enchant> [option] <gray>- Block enchantment completely"
+      unblock: "<yellow>/smp enchant unblock <enchant> [option] <gray>- Unblock enchantment"
+      scan: "<yellow>/smp enchant scan <gray>- Manually scan your inventory"
+      whitelist: "<yellow>/smp enchant whitelist <gray>- Toggle whitelist on held item"
       options: "<gray>Options: <white>anvil <gray>| <white>replacement <gray>| <white>both <gray>(default)"
 
 # Menu messages
@@ -773,7 +773,7 @@ server-restart:
   messages:
     active-warning: "<red><bold>⚠ SERVER RESTART ACTIVE ⚠"
     time-remaining: "<gray>Time remaining: <red><seconds> seconds"
-    cancel-hint: "<gray>Use <yellow>/vanilla menu <gray>→ <red>Server Restart <gray>to cancel."
+    cancel-hint: "<gray>Use <yellow>/smp menu <gray>→ <red>Server Restart <gray>to cancel."
     shift-confirm: "<red>⚠ Hold Shift and click to confirm immediate restart!"
     countdown-input: "<yellow>Enter countdown time in seconds (e.g., 120):"
     cancel-input-hint: "<gray>Type 'cancel' to cancel."

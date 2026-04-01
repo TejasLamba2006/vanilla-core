@@ -30,7 +30,7 @@ features:
 
 ## In-Game Usage
 
-- Open `/vanilla` menu
+- Open `/smp` menu
 - Find `Faster Happy Ghasts`
 - Left-click to toggle
 - Right-click to view status and configured speed

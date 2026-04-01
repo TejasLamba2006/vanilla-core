@@ -16,7 +16,7 @@ public class CommandManager {
     }
 
     public void registerDefaults() {
-        registerCommand("vanilla", new VanillaCommand());
+        registerCommand("smp", new VanillaCommand());
         registerCommand("ritual", new RitualCommand((VanillaCorePlugin) plugin));
 
         registerCommand("nether", new DimensionCommand((VanillaCorePlugin) plugin, "nether"));

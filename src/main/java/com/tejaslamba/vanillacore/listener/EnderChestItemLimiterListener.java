@@ -36,7 +36,7 @@ public class EnderChestItemLimiterListener implements Listener {
             return;
         }
 
-        if (player.hasPermission("vanillacore.enderchestlimiter.bypass")) {
+        if (player.hasPermission("smp.enderchestlimiter.bypass")) {
             return;
         }
 
@@ -65,7 +65,7 @@ public class EnderChestItemLimiterListener implements Listener {
             return;
         }
 
-        if (player.hasPermission("vanillacore.enderchestlimiter.bypass")) {
+        if (player.hasPermission("smp.enderchestlimiter.bypass")) {
             return;
         }
 

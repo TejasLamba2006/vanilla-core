@@ -80,7 +80,7 @@ locked-message: "§c§lACCESS DENIED! §7The Nether opens on §eJanuary 15th§7.
 
 ### Opening Dimension Lock Settings
 
-1. Run `/vanilla` to open the main menu
+1. Run `/smp` to open the main menu
 2. Click on "Nether Lock" or "End Lock"
 
 ### Toggling the Lock
@@ -97,17 +97,17 @@ In the dimension lock menu:
 
 | Command | Description | Permission |
 |---------|-------------|------------|
-| `/nether` | Display current Nether lock status | `vanillacore.nether` |
-| `/nether open` | Unlock the Nether | `vanillacore.nether.open` |
-| `/nether close` | Lock the Nether | `vanillacore.nether.close` |
+| `/nether` | Display current Nether lock status | `smp.dimension.nether` |
+| `/nether open` | Unlock the Nether | `smp.dimension.nether` |
+| `/nether close` | Lock the Nether | `smp.dimension.nether` |
 
 ### End Commands
 
 | Command | Description | Permission |
 |---------|-------------|------------|
-| `/end` | Display current End lock status | `vanillacore.end` |
-| `/end open` | Unlock the End | `vanillacore.end.open` |
-| `/end close` | Lock the End | `vanillacore.end.close` |
+| `/end` | Display current End lock status | `smp.dimension.end` |
+| `/end open` | Unlock the End | `smp.dimension.end` |
+| `/end close` | Lock the End | `smp.dimension.end` |
 
 ## Bypass Permissions
 
@@ -115,8 +115,8 @@ Staff members may need to enter locked dimensions for testing or administration:
 
 | Permission | Description |
 |------------|-------------|
-| `vanillacore.bypass.nether` | Enter the Nether even when locked |
-| `vanillacore.bypass.end` | Enter the End even when locked |
+| `smp.dimension.bypass.nether` | Enter the Nether even when locked |
+| `smp.dimension.bypass.end` | Enter the End even when locked |
 
 ## Progression Strategies
 
