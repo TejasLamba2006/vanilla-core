@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Permissions
 
-SMP Watchdog uses a hierarchical permission system. Most management and bypass permissions default to OP, while selected social/player-preference permissions default to true.
+Vanilla Core uses a hierarchical permission system. Most management and bypass permissions default to OP, while selected social/player-preference permissions default to true.
 
 Primary namespace:
 
@@ -12,7 +12,7 @@ Primary namespace:
 
 ## Permission Defaults
 
-By default, SMP Watchdog uses these permission levels:
+By default, Vanilla Core uses these permission levels:
 
 - **OP Players** - Full access to all commands and bypass permissions
 - **Regular Players** - Access to permissions that default to `true` (for example `smp.msg`, `smp.reply`, and social toggle/block commands)
@@ -25,7 +25,7 @@ These permissions control access to the main plugin functions:
 
 | Permission | Description | Default |
 |------------|-------------|---------|
-| `smp.admin` | Full access to all SMP Watchdog features and GUI | OP |
+| `smp.admin` | Full access to all Vanilla Core features and GUI | OP |
 | `smp.reload` | Ability to reload configuration files | OP |
 | `smp.version` | Ability to view the running plugin version | OP |
 | `smp.menu` | Ability to open the main configuration GUI | OP |
@@ -174,14 +174,14 @@ Wildcard permissions grant all child permissions in a category:
 
 | Permission | Grants |
 |------------|--------|
-| `smp.*` | All SMP Watchdog permissions |
+| `smp.*` | All Vanilla Core permissions |
 | `smp.netherite.craft.*` | Bypass all netherite craft restrictions |
 
 ## LuckPerms Configuration Examples
 
 ### Full Staff Access
 
-Give staff members complete access to manage SMP Watchdog:
+Give staff members complete access to manage Vanilla Core:
 
 ```
 /lp group staff permission set smp.admin true

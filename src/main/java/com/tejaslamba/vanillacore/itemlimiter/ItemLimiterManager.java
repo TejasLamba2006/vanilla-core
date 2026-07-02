@@ -29,7 +29,7 @@ public class ItemLimiterManager {
     private int taskId = -1;
     private int playerCheckIndex = 0;
     private boolean notifyPlayer = true;
-    private String notifyMessage = "<red>[SMP Watchdog] <gray>Excess items removed: <yellow>{item} x{amount} <gray>(limit: {limit})";
+    private String notifyMessage = "<red>[Vanilla Core] <gray>Excess items removed: <yellow>{item} x{amount} <gray>(limit: {limit})";
     private boolean dropExcess = true;
 
     public ItemLimiterManager(VanillaCorePlugin plugin) {
@@ -42,7 +42,7 @@ public class ItemLimiterManager {
 
         notifyPlayer = plugin.getConfigManager().get().getBoolean("features.item-limiter.notify-player", true);
         notifyMessage = plugin.getConfigManager().get().getString("features.item-limiter.notify-message",
-                "<red>[SMP Watchdog] <gray>Excess items removed: <yellow>{item} x{amount} <gray>(limit: {limit})");
+                "<red>[Vanilla Core] <gray>Excess items removed: <yellow>{item} x{amount} <gray>(limit: {limit})");
         dropExcess = plugin.getConfigManager().get().getBoolean("features.item-limiter.drop-excess", true);
 
         ConfigurationSection limitsSection = plugin.getConfigManager().get()

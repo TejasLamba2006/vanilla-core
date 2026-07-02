@@ -4,14 +4,14 @@ sidebar_position: 10
 
 # Configuration
 
-Complete configuration reference for SMP Watchdog.
+Complete configuration reference for Vanilla Core.
 
 ## Config File Location
 
 The main configuration file is located at:
 
 ```text
-plugins/SMPWatchdog/config.yml
+plugins/VanillaCore/config.yml
 ```
 
 All plugin settings are stored in this single file. The file is automatically created with default values on first server start.
@@ -21,7 +21,7 @@ All plugin settings are stored in this single file. The file is automatically cr
 All plugin message keys are stored in:
 
 ```text
-plugins/SMPWatchdog/messages.yml
+plugins/VanillaCore/messages.yml
 ```
 
 Notes:
@@ -44,14 +44,14 @@ The configuration is organized into logical sections:
 
 ```yaml
 plugin:
-  name: "SMP Watchdog"
+  name: "Vanilla Core"
   prefix: "<dark_gray>[<gold>SMP<dark_gray>]<reset>"
   verbose: false
 ```
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `name` | string | "SMP Watchdog" | Plugin display name |
+| `name` | string | "Vanilla Core" | Plugin display name |
 | `prefix` | string | `"<dark_gray>[<gold>SMP<dark_gray>]<reset>"` | Prefix for chat messages (MiniMessage format) |
 | `verbose` | boolean | false | Enable verbose logging for debugging |
 
@@ -72,12 +72,12 @@ Below is the complete default configuration with all options:
 
 ```yaml
 # ============================================
-# SMP Watchdog Configuration
+# Vanilla Core Configuration
 # ============================================
 config-version: 2
 
 plugin:
-  name: "SMP Watchdog"
+  name: "Vanilla Core"
   prefix: "<dark_gray>[<gold>SMP<dark_gray>]<reset>"
   verbose: false
 
@@ -182,7 +182,7 @@ features:
   item-limiter:
     enabled: false
     notify-player: true
-    notify-message: "<red>[SMP Watchdog] <gray>Excess items removed: {item} x{amount} (limit: {limit})"
+    notify-message: "<red>[Vanilla Core] <gray>Excess items removed: {item} x{amount} (limit: {limit})"
     drop-excess: true
     limits:
       GOLDEN_APPLE:
@@ -218,7 +218,7 @@ features:
   ender-chest-item-limiter:
     enabled: false
     notify-player: true
-    notify-message: "<red>[SMP Watchdog] <gray>You cannot put <yellow>{item}<gray> in an ender chest"
+    notify-message: "<red>[Vanilla Core] <gray>You cannot put <yellow>{item}<gray> in an ender chest"
     blocked-items: {}
 
   # ------------------------------------------
@@ -365,7 +365,7 @@ Before making significant changes:
 ### Manual Backup
 
 ```bash
-cp plugins/SMPWatchdog/config.yml plugins/SMPWatchdog/config.yml.backup
+cp plugins/VanillaCore/config.yml plugins/VanillaCore/config.yml.backup
 ```
 
 ## Troubleshooting Config Issues

@@ -35,7 +35,7 @@ public class MainMenu extends BaseMenu {
 
     private static final String DISCORD_URL = "https://discord.gg/7fQPG4Grwt";
     private static final String WIKI_URL = "https://vanillacore.tejaslamba.com";
-    private static final String MODRINTH_URL = "https://modrinth.com/plugin/smpwatchdog";
+    private static final String MODRINTH_URL = "https://modrinth.com/plugin/vanillacorewastaken";
     private static final String PAYPAL_URL = "https://paypal.me/TejasLamba2006";
 
     private int currentPage = 0;

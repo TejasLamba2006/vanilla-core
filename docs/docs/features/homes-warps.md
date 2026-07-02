@@ -4,7 +4,7 @@ sidebar_position: 32
 
 # Homes And Warps
 
-SMP Watchdog supports persistent homes and warps with GUI access.
+Vanilla Core supports persistent homes and warps with GUI access.
 
 ## Homes
 

@@ -4,7 +4,7 @@ sidebar_position: 30
 
 # Social Engine
 
-SMP Watchdog includes a social engine for chat and player messaging workflows.
+Vanilla Core includes a social engine for chat and player messaging workflows.
 
 ## Included Features
 

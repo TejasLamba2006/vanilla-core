@@ -97,7 +97,7 @@ public class VanillaCorePlugin extends JavaPlugin {
         updateNotificationListener = new UpdateNotificationListener(this);
         getServer().getPluginManager().registerEvents(updateNotificationListener, this);
 
-        getLogger().info("SMP Watchdog has been enabled!");
+        getLogger().info("Vanilla Core has been enabled!");
     }
 
     @Override
@@ -129,7 +129,7 @@ public class VanillaCorePlugin extends JavaPlugin {
         if (utilityManager != null) {
             utilityManager.clear();
         }
-        getLogger().info("SMP Watchdog has been disabled!");
+        getLogger().info("Vanilla Core has been disabled!");
     }
 
     public void refreshVerbose() {

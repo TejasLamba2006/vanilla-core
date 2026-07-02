@@ -174,7 +174,7 @@ function HomepageHeader() {
             <div className={styles.heroContent}>
                 <div className={styles.heroRow}>
                     <div className={styles.heroLeft}>
-                        <h1 className={styles.heroTitle}>SMP Watchdog</h1>
+                        <h1 className={styles.heroTitle}>Vanilla Core</h1>
                         <p className={styles.heroSubtitle}>{siteConfig.tagline}</p>
                         <ModrinthStats />
                         <div className={styles.heroButtons}>
@@ -184,7 +184,7 @@ function HomepageHeader() {
                                     <path d="M5 12h14M12 5l7 7-7 7" />
                                 </svg>
                             </Link>
-                            <Link className={styles.btnOutline} href="https://modrinth.com/plugin/smpwatchdog">
+                            <Link className={styles.btnOutline} href="https://modrinth.com/plugin/vanillacorewastaken">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
                                 </svg>
@@ -198,7 +198,7 @@ function HomepageHeader() {
                             <div className={styles.screenshotCard}>
                                 <img
                                     src="/gifs/main-gui.gif"
-                                    alt="SMP Watchdog Minecraft GUI"
+                                    alt="Vanilla Core Minecraft GUI"
                                     className={styles.screenshotImg}
                                 />
                                 <div className={styles.screenshotOverlay} />
@@ -266,7 +266,7 @@ function StatsSection() {
 
     useEffect(() => {
         fetch('https://api.modrinth.com/v2/project/GH4H8ndx', {
-            headers: { 'User-Agent': 'TejasLamba2006/SMP Watchdog-docs' }
+            headers: { 'User-Agent': 'TejasLamba2006/Vanilla Core-docs' }
         })
             .then(res => res.json())
             .then(data => {
@@ -317,7 +317,7 @@ function StatsSection() {
             <div className="container">
                 <div className={styles.sectionHeader}>
                     <h2 className={styles.sectionTitle}>Trusted by Server Owners</h2>
-                    <p className={styles.sectionSubtitle}>Join the growing community using SMP Watchdog.</p>
+                    <p className={styles.sectionSubtitle}>Join the growing community using Vanilla Core.</p>
                 </div>
                 <div className={styles.statsGrid}>
                     {statItems.map((stat, index) => (
@@ -364,9 +364,9 @@ function WhySection() {
             <div className="container">
                 <div className={styles.whyGrid}>
                     <div className={styles.whyContent}>
-                        <h2 className={styles.sectionTitle}>Why SMP Watchdog?</h2>
+                        <h2 className={styles.sectionTitle}>Why Vanilla Core?</h2>
                         <p className={styles.whyText}>
-                            Running an SMP server shouldn't require 20 different plugins. SMP Watchdog combines
+                            Running an SMP server shouldn't require 20 different plugins. Vanilla Core combines
                             all the essential features you need into one lightweight, well-optimized package.
                         </p>
                         <ul className={styles.whyList}>
@@ -420,7 +420,7 @@ function CTASection() {
                 <div className={styles.ctaContent}>
                     <h2 className={styles.ctaTitle}>Support Development</h2>
                     <p className={styles.ctaText}>
-                        SMP Watchdog is free. If you find it useful, consider supporting development
+                        Vanilla Core is free. If you find it useful, consider supporting development
                         to get early access to new features and priority feature requests.
                     </p>
                     <Link className={styles.ctaButton} href="https://paypal.me/tejaslamba">
@@ -437,13 +437,13 @@ function CTASection() {
 
 const faqs = [
     {
-        question: "What versions does SMP Watchdog support?",
-        answer: "SMP Watchdog supports Paper/Spigot 1.21.1+ with Java 21+. Paper is recommended for better performance.",
+        question: "What versions does Vanilla Core support?",
+        answer: "Vanilla Core supports Paper/Spigot 1.21.1+ with Java 21+. Paper is recommended for better performance.",
         category: "general"
     },
     {
-        question: "Is SMP Watchdog free?",
-        answer: "Yes! SMP Watchdog is completely free. You can download it from Modrinth.",
+        question: "Is Vanilla Core free?",
+        answer: "Yes! Vanilla Core is completely free. You can download it from Modrinth.",
         category: "general"
     },
     {
@@ -453,12 +453,12 @@ const faqs = [
     },
     {
         question: "Does it conflict with other plugins?",
-        answer: "SMP Watchdog is designed to be compatible with most plugins including EssentialsX, LuckPerms, WorldGuard, and Vault.",
+        answer: "Vanilla Core is designed to be compatible with most plugins including EssentialsX, LuckPerms, WorldGuard, and Vault.",
         category: "features"
     },
     {
         question: "Will this lag my server?",
-        answer: "No! SMP Watchdog is optimized for performance with efficient event listeners, cooldown systems, and minimal memory usage (typically under 10MB).",
+        answer: "No! Vanilla Core is optimized for performance with efficient event listeners, cooldown systems, and minimal memory usage (typically under 10MB).",
         category: "performance"
     },
     {
@@ -482,7 +482,7 @@ function FAQSection() {
             <div className="container">
                 <div className={styles.sectionHeader}>
                     <h2 className={styles.sectionTitle}>Frequently Asked Questions</h2>
-                    <p className={styles.sectionSubtitle}>Quick answers to common questions about SMP Watchdog.</p>
+                    <p className={styles.sectionSubtitle}>Quick answers to common questions about Vanilla Core.</p>
                 </div>
                 <div className={styles.faqContainer}>
                     {faqs.map((faq, index) => {

@@ -1,5 +1,5 @@
 # ============================================
-# SMP Watchdog Configuration
+# Vanilla Core Configuration
 # ============================================
 # A comprehensive SMP plugin for PvP balance,
 # custom mechanics, and server management.
@@ -13,8 +13,8 @@
 # Plugin Settings
 # ============================================
 plugin:
-  name: "SMP Watchdog"
-  prefix: "<dark_gray>[<gold>SMP Watchdog<dark_gray>]<reset>"
+  name: "Vanilla Core"
+  prefix: "<dark_gray>[<gold>Vanilla Core<dark_gray>]<reset>"
   # Enable verbose logging for debugging (shows detailed info in console)
   verbose: false
 
@@ -27,7 +27,7 @@ social:
     enabled: false
     interval-seconds: 300
     messages:
-      - "<gold>Welcome to SMP Watchdog powered server."
+      - "<gold>Welcome to Vanilla Core powered server."
       - "<yellow>Use /smp for plugin controls."
   lifecycle:
     auto-spawn-on-respawn: false
@@ -259,7 +259,7 @@ features:
     notify-player: true
     # Message shown when excess items are removed
     # Placeholders: {item} = item name, {amount} = amount removed, {limit} = configured limit
-    notify-message: "<red>[SMP Watchdog] <gray>Excess items removed: <yellow>{item} x{amount} <gray>(limit: {limit})"
+    notify-message: "<red>[Vanilla Core] <gray>Excess items removed: <yellow>{item} x{amount} <gray>(limit: {limit})"
     # Whether to drop excess items at player's feet (true) or delete them (false)
     drop-excess: true
     # Item limits configuration
@@ -313,7 +313,7 @@ features:
     notify-player: true
     # Message shown when a blocked item is placed into an ender chest
     # Placeholder: {item} = item name
-    notify-message: "<red>[SMP Watchdog] <gray>You cannot put <yellow>{item}<gray> in an ender chest"
+    notify-message: "<red>[Vanilla Core] <gray>You cannot put <yellow>{item}<gray> in an ender chest"
     # Blocked items configuration
     # Advanced format:
     #   custom_key:

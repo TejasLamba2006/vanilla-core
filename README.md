@@ -1,9 +1,9 @@
-# SMP Watchdog
+# Vanilla Core
 
 [![Build Status](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/build.yml/badge.svg)](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/build.yml)
 [![CodeQL](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/codeql.yml/badge.svg)](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/codeql.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Modrinth](https://img.shields.io/modrinth/dt/GH4H8ndx?logo=modrinth&label=downloads)](https://modrinth.com/plugin/smpwatchdog)
+[![Modrinth](https://img.shields.io/modrinth/dt/GH4H8ndx?logo=modrinth&label=downloads)](https://modrinth.com/plugin/vanillacorewastaken)
 [![Discord](https://img.shields.io/discord/1380092469613432912?logo=discord&label=discord)](https://discord.gg/7fQPG4Grwt)
 [![CodeFactor](https://www.codefactor.io/repository/github/tejaslamba2006/vanilla-core/badge)](https://www.codefactor.io/repository/github/tejaslamba2006/vanilla-core)
 
@@ -15,7 +15,7 @@ A Minecraft plugin for Vanilla servers focused on PvP balance, custom mechanics,
 
 ## 🌟 Features
 
-SMP Watchdog is packed with over 25 meticulously designed features to give you total control over your Vanilla survival server. Below is a complete breakdown of what you can tweak and enforce!
+Vanilla Core is packed with over 25 meticulously designed features to give you total control over your Vanilla survival server. Below is a complete breakdown of what you can tweak and enforce!
 
 ### Combat & PvP
 
@@ -65,7 +65,7 @@ SMP Watchdog is packed with over 25 meticulously designed features to give you t
 
 ### Core & Essentials (AirCore Features)
 
-We've integrated the best features from AirCore directly into SMP Watchdog, completely eliminating the need for bulky third-party essentials plugins!
+We've integrated the best features from AirCore directly into Vanilla Core, completely eliminating the need for bulky third-party essentials plugins!
 
 - **Teleportation**: Comprehensive TPA system (`/tpa`, `/tpahere`, `/tpaccept`, `/tpdeny`), along with `/spawn`, `/setspawn`, and `/back`.
 - **Homes & Warps**: Let players set multiple homes (`/sethome`, `/home`, `/homes`) and admins set server-wide warps (`/setwarp`, `/warp`, `/warps`), complete with beautiful interactive GUIs!
@@ -111,7 +111,7 @@ We've integrated the best features from AirCore directly into SMP Watchdog, comp
 
 ### For Server Owners
 
-1. Download from [Modrinth](https://modrinth.com/plugin/smpwatchdog)
+1. Download from [Modrinth](https://modrinth.com/plugin/vanillacorewastaken)
 2. Place the JAR in your server's `plugins` folder
 3. Restart or reload your server
 4. Configure features in your plugin folder `config.yml`

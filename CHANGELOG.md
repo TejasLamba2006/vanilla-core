@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to SMP Watchdog will be documented in this file.
+All notable changes to Vanilla Core will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -41,7 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bumped config version to `9` so new defaults and migrations are applied automatically.
 - Registered standalone social commands `/msg`, `/reply`, and `/socialspy` while keeping `/smp msg`, `/smp reply`, and `/smp socialspy` available.
 - Updated permission defaults so `smp.msg` and `smp.reply` now default to `true` (no OP required).
-- Rebranded the plugin display name and user-facing branding to "SMP Watchdog" across `plugin.yml`, runtime messages, logs, and documentation.
+- Rebranded the plugin display name and user-facing branding to "Vanilla Core" across `plugin.yml`, runtime messages, logs, and documentation.
 - Switched the admin command to `/smp` only and removed the `/vanilla` alias.
 - Removed legacy `vanillacore.*` permission mapping and standardized permission checks on `smp.*` nodes.
 - Upgraded `/smp reload` to support module-scoped hot reload targets: `all`, `config`, `messages`, `menus`, and `features`, with elapsed-time feedback and per-module failure reporting.
@@ -208,7 +208,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Permission nodes** remain unchanged (`vanillacore.*`) for backward compatibility
   - **Documentation URLs updated**:
     - Docs: <https://vanillacore.tejaslamba.com>
-    - Modrinth: <https://modrinth.com/plugin/smpwatchdog>
+    - Modrinth: <https://modrinth.com/plugin/vanillacorewastaken>
     - GitHub: <https://github.com/TejasLamba2006/vanilla-core>
   - **Automatic data migration**: Existing plugin data automatically migrated from old folder names
     - Supports migration from multiple historical folder aliases

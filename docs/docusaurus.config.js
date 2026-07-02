@@ -2,12 +2,12 @@ import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-    title: 'SMP Watchdog',
+    title: 'Vanilla Core',
     tagline: 'The Ultimate SMP Management Plugin for Minecraft',
     favicon: 'img/logo.png',
 
-    url: 'https://tejaslamba2006.github.io/vanilla-core',
-    baseUrl: '/',
+    url: 'https://tejaslamba2006.github.io',
+    baseUrl: 'vanilla-core',
 
     organizationName: 'TejasLamba2006',
     projectName: 'vanilla-core',
@@ -42,9 +42,9 @@ const config = {
         ({
             image: 'img/logo.png',
             navbar: {
-                title: 'SMP Watchdog',
+                title: 'Vanilla Core',
                 logo: {
-                    alt: 'SMP Watchdog Logo',
+                    alt: 'Vanilla Core Logo',
                     src: 'img/logo.png',
                 },
                 items: [
@@ -55,12 +55,12 @@ const config = {
                         label: 'Documentation',
                     },
                     {
-                        href: 'https://modrinth.com/plugin/smpwatchdog',
+                        href: 'https://modrinth.com/plugin/vanillacorewastaken',
                         label: 'Modrinth',
                         position: 'right',
                     },
                     {
-                        href: 'https://discord.gg/7fQPG4Grwt?utm_source=smpwatchdog',
+                        href: 'https://discord.gg/7fQPG4Grwt?utm_source=vanillacore',
                         label: 'Discord',
                         position: 'right',
                     },
@@ -91,7 +91,7 @@ const config = {
                         items: [
                             {
                                 label: 'Discord',
-                                href: 'https://discord.gg/7fQPG4Grwt?utm_source=smpwatchdog',
+                                href: 'https://discord.gg/7fQPG4Grwt?utm_source=vanillacore',
                             },
                         ],
                     },
@@ -100,7 +100,7 @@ const config = {
                         items: [
                             {
                                 label: 'Modrinth',
-                                href: 'https://modrinth.com/plugin/smpwatchdog',
+                                href: 'https://modrinth.com/plugin/vanillacorewastaken',
                             },
                             {
                                 label: 'Downloads Page',
@@ -122,7 +122,7 @@ const config = {
                         ],
                     },
                 ],
-                copyright: `Copyright ${new Date().getFullYear()} SMP Watchdog by Tejas Lamba. Licensed under the MIT License.`,
+                copyright: `Copyright ${new Date().getFullYear()} Vanilla Core by Tejas Lamba. Licensed under the MIT License.`,
             },
             prism: {
                 theme: prismThemes.github,

@@ -1,11 +1,12 @@
-name: SMPWatchdog
+name: VanillaCore
 main: com.tejaslamba.vanillacore.VanillaCorePlugin
 version: ${project.version}
 api-version: ${minecraft.version}
 softdepend: [WorldGuard]
 commands:
   smp:
-    description: SMP Watchdog command
+    description: Vanilla Core command
+    aliases: [vanilla]
     usage: /smp [menu|reload [all|config|messages|menus|features]|version|enchant|mace|netherite|infiniterestock|ritual|msg|reply|socialspy|togglechat|togglepm|togglementions|block|unblock|blocked|announcements reload]
   msg:
     description: Send a private message
@@ -114,7 +115,7 @@ commands:
     usage: /clearinv [player]
 permissions:
   smp.*:
-    description: All SMP Watchdog permissions
+    description: All Vanilla Core permissions
     default: op
     children:
       smp.admin: true
@@ -183,7 +184,7 @@ permissions:
       smp.clearinv: true
       smp.clearinv.others: true
   smp.admin:
-    description: Full access to all SMP Watchdog features and GUI
+    description: Full access to all Vanilla Core features and GUI
     default: op
     children:
       smp.reload: true

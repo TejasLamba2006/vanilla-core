@@ -1,5 +1,5 @@
 # ============================================
-# SMP Watchdog Messages Configuration
+# Vanilla Core Messages Configuration
 # ============================================
 # All plugin messages can be customized here.
 # Uses MiniMessage format for colors and formatting.
@@ -14,12 +14,12 @@
 
 # General messages
 general:
-  prefix: "<dark_gray>[<gold>SMP Watchdog<dark_gray>]<reset>"
+  prefix: "<dark_gray>[<gold>Vanilla Core<dark_gray>]<reset>"
   reload: "<green>Configuration reloaded."
   no-permission: "<red>You don't have permission to do that!"
   player-only: "<red>This command can only be used by players!"
-  remote-disabled: "<red>[SMP Watchdog] <gray><message>"
-  maintenance: "<red>[SMP Watchdog] <gray><message>"
+  remote-disabled: "<red>[Vanilla Core] <gray><message>"
+  maintenance: "<red>[Vanilla Core] <gray><message>"
   unknown-command: "<red>Unknown subcommand. Usage: /smp [menu|reload [module]|version|enchant|mace|netherite|infiniterestock|ritual|msg|reply|socialspy|togglechat|togglepm|togglementions|block|unblock|blocked|announcements] (or use /msg, /reply, /socialspy)"
   cancelled: "<red>Cancelled."
   invalid-number: "<red>Please enter a valid number!"
@@ -186,7 +186,7 @@ commands:
     failed-list: "<red>Failed modules: <yellow><modules>"
   version:
     no-permission: "<red>You don't have permission to view plugin version!"
-    current: "<green>SMP Watchdog version: <yellow><version>"
+    current: "<green>Vanilla Core version: <yellow><version>"
   enchant:
     no-permission: "<red>You don't have permission to use enchant commands!"
   mace:
@@ -196,8 +196,8 @@ commands:
     player-only-gui: "<red>Only players can open the GUI!"
     invalid-item: "<red>Invalid item! Valid items: sword, axe, pickaxe, shovel, hoe, helmet, chestplate, leggings, boots"
     feature-not-found: "<red>Netherite Disabler feature not found!"
-    disabled-item: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <red>Disabled <white>Netherite <item>"
-    enabled-item: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Enabled <white>Netherite <item>"
+    disabled-item: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <red>Disabled <white>Netherite <item>"
+    enabled-item: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>Enabled <white>Netherite <item>"
     help:
       title: "<gold><bold>=== Netherite Commands ==="
       gui: "<yellow>/smp netherite gui <gray>- Open netherite manager GUI"
@@ -205,17 +205,17 @@ commands:
       enable: "<yellow>/smp netherite enable <item> <gray>- Enable netherite item"
   infinite-restock:
     no-permission: "<red>You don't have permission to manage Infinite Restock!"
-    feature-not-found: "<red>[SMP Watchdog] Infinite Restock feature not found"
+    feature-not-found: "<red>[Vanilla Core] Infinite Restock feature not found"
   ritual:
     no-permission: "<red>You don't have permission to use ritual commands!"
   mace:
     reset-no-permission: "<red>You don't have permission to reset the mace limiter!"
     must-hold-mace: "<red>You must be holding a Mace!"
     feature-not-found: "<red>Mace Limiter feature not found!"
-    reset-success: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Reset mace craft count! Maces can now be crafted again."
+    reset-success: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>Reset mace craft count! Maces can now be crafted again."
     whitelist:
-      added: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Whitelisted mace from limiter"
-      removed: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <red>Removed mace limiter whitelist from item"
+      added: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>Whitelisted mace from limiter"
+      removed: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <red>Removed mace limiter whitelist from item"
     status:
       title: "<gold><bold>=== Mace Limiter Status ==="
       enabled-yes: "<yellow>Feature Enabled: <green>Yes"
@@ -229,12 +229,12 @@ commands:
       reset: "<yellow>/smp mace reset <gray>- Reset mace limiter (admin)"
       status: "<yellow>/smp mace status <gray>- Check mace limiter status"
   dimension:
-    no-permission: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <red>You don't have permission to use this command!"
+    no-permission: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <red>You don't have permission to use this command!"
     feature-not-found: "<red>Dimension Lock feature not found!"
-    current-locked: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <yellow>The <dimension> is currently <red>Locked"
-    current-open: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <yellow>The <dimension> is currently <green>Open"
-    opened: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>The <dimension> has been opened!"
-    closed: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <red>The <dimension> has been closed!"
+    current-locked: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <yellow>The <dimension> is currently <red>Locked"
+    current-open: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <yellow>The <dimension> is currently <green>Open"
+    opened: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>The <dimension> has been opened!"
+    closed: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <red>The <dimension> has been closed!"
     usage: "<yellow>Usage: /<dimension> <open|close|status>"
     status:
       title: "<yellow><bold>=== <dimension> Status ==="
@@ -244,18 +244,18 @@ commands:
     invalid-enchantment: "<red>Invalid enchantment: <enchant>"
     invalid-number: "<red>Invalid number: <value>"
     invalid-option: "<red>Invalid option! Use: anvil, replacement, or both"
-    blocked: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Blocked enchantment: <white><enchant> <gray>(<option>)"
-    no-permission: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <red>You don't have permission to use this command!"
+    blocked: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>Blocked enchantment: <white><enchant> <gray>(<option>)"
+    no-permission: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <red>You don't have permission to use this command!"
     limit:
       usage: "<red>Usage: /smp enchant limit <enchant> <max_level> [anvil|replacement|both]"
       max-level-min: "<red>Max level must be 0 or greater!"
-      set: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Set enchantment limit: <white><enchant> <gray>→ <yellow><max_level> <gray>(<option>)"
+      set: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>Set enchantment limit: <white><enchant> <gray>→ <yellow><max_level> <gray>(<option>)"
     unlimit:
       usage: "<red>Usage: /smp enchant unlimit <enchant> [anvil|replacement|both]"
       no-anvil: "<red>No anvil limit set for: <enchant>"
       no-replacement: "<red>No replacement limit set for: <enchant>"
       no-limit: "<red>No limit set for: <enchant>"
-      removed: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Removed limit for: <white><enchant> <gray>(<option>)"
+      removed: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>Removed limit for: <white><enchant> <gray>(<option>)"
     block:
       usage: "<red>Usage: /smp enchant block <enchant> [anvil|replacement|both]"
     list:
@@ -269,11 +269,11 @@ commands:
       entry-limit: "  <gray>• <white><enchant> <gray>→ <yellow><limit>"
     scan:
       replacement-disabled: "<red>Enchantment Replacement feature is not enabled!"
-      result: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Scanned <yellow><scanned> <green>items, modified <yellow><modified>"
+      result: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>Scanned <yellow><scanned> <green>items, modified <yellow><modified>"
     whitelist:
       must-hold-item: "<red>You must be holding an item!"
-      removed: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <red>Removed enchantment scan whitelist from item"
-      added: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Whitelisted item from enchantment scans"
+      removed: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <red>Removed enchantment scan whitelist from item"
+      added: "<dark_gray>[<gold>Vanilla Core<dark_gray>] <green>Whitelisted item from enchantment scans"
     help:
       title: "<gold><bold>=== Enchantment Commands ==="
       limit: "<yellow>/smp enchant limit <enchant> <max_level> [option] <gray>- Set enchantment limit"
@@ -300,14 +300,14 @@ menu:
       right-click-set-level: "<!italic><yellow>Right Click: Set Level"
       click-to-toggle: "<!italic><yellow>Click to toggle"
     toggle-feature:
-      enabled: "<gold>[SMP Watchdog] <gray>Toggled <feature> <gray>to <green>Enabled"
-      disabled: "<gold>[SMP Watchdog] <gray>Toggled <feature> <gray>to <red>Disabled"
+      enabled: "<gold>[Vanilla Core] <gray>Toggled <feature> <gray>to <green>Enabled"
+      disabled: "<gold>[Vanilla Core] <gray>Toggled <feature> <gray>to <red>Disabled"
     enchant:
       toggle:
-        enabled: "<gold>[SMP Watchdog] <gray>Toggled <enchant> Limiter <gray>to <green>Enabled"
-        disabled: "<gold>[SMP Watchdog] <gray>Toggled <enchant> Limiter <gray>to <red>Disabled"
+        enabled: "<gold>[Vanilla Core] <gray>Toggled <enchant> Limiter <gray>to <green>Enabled"
+        disabled: "<gold>[Vanilla Core] <gray>Toggled <enchant> Limiter <gray>to <red>Disabled"
   main:
-    title: "<gold><bold>SMP Watchdog Settings"
+    title: "<gold><bold>Vanilla Core Settings"
     close:
       name: "<red><bold>Close Menu"
       lore-1: "<gray>Close this menu"
@@ -331,7 +331,7 @@ menu:
     wiki:
       name: "<!italic><green><bold>Wiki / Documentation"
       lore-1: "<!italic><gray>View the full documentation"
-      lore-2: "<!italic><gray>for SMP Watchdog plugin."
+      lore-2: "<!italic><gray>for Vanilla Core plugin."
       lore-3: "<!italic><gray>Features, commands, configs,"
       lore-4: "<!italic><gray>permissions and more!"
       action: "<!italic><yellow>Click to open!"
@@ -344,13 +344,13 @@ menu:
     coming-soon:
       name: "<!italic><yellow><bold>More Features Coming Soon!"
       lore-1: "<!italic><gray>We're always working on new"
-      lore-2: "<!italic><gray>features for SMP Watchdog!"
+      lore-2: "<!italic><gray>features for Vanilla Core!"
       lore-3: "<!italic><gray>Have a suggestion? Join our"
       lore-4: "<!italic><gray>Discord and let us know!"
       action: "<!italic><light_purple><italic>Donate to speed up development!"
     donate:
       name: "<!italic><gold><bold>Donate"
-      lore-1: "<!italic><gray>Support SMP Watchdog development!"
+      lore-1: "<!italic><gray>Support Vanilla Core development!"
       lore-2: "<!italic><gray>Your donations help us:"
       lore-3: "<!italic><green>• <gray>Add new features faster"
       lore-4: "<!italic><green>• <gray>Fix bugs quicker"
@@ -364,21 +364,21 @@ menu:
       action: "<!italic><yellow>Click to open download page"
       config-builder: "<!italic><gray>Config Builder:"
     chat:
-      download: "<gold><bold>[SMP Watchdog] <gray>Download: <aqua><url>"
-      discord: "<aqua><bold>[SMP Watchdog] <gray>Discord: <aqua><url>"
-      wiki: "<green><bold>[SMP Watchdog] <gray>Wiki: <green><url>"
-      modrinth: "<dark_green><bold>[SMP Watchdog] <gray>Modrinth: <dark_green><url>"
-      donate-thanks: "<gold><bold>[SMP Watchdog] <gray>Thank you for considering a donation!"
-      paypal: "<gold><bold>[SMP Watchdog] <gray>PayPal: <yellow><url>"
-      support: "<gray>Your support helps keep SMP Watchdog free and updated! <red>❤"
+      download: "<gold><bold>[Vanilla Core] <gray>Download: <aqua><url>"
+      discord: "<aqua><bold>[Vanilla Core] <gray>Discord: <aqua><url>"
+      wiki: "<green><bold>[Vanilla Core] <gray>Wiki: <green><url>"
+      modrinth: "<dark_green><bold>[Vanilla Core] <gray>Modrinth: <dark_green><url>"
+      donate-thanks: "<gold><bold>[Vanilla Core] <gray>Thank you for considering a donation!"
+      paypal: "<gold><bold>[Vanilla Core] <gray>PayPal: <yellow><url>"
+      support: "<gray>Your support helps keep Vanilla Core free and updated! <red>❤"
 
 # Feature toggle messages
 feature:
   toggled: "<gray>Toggled <feature> to <state>"
   enabled: "<green>Enabled"
   disabled: "<red>Disabled"
-  toggled-enabled: "<gold>[SMP Watchdog] <gray>Toggled <feature> <gray>to <green>Enabled"
-  toggled-disabled: "<gold>[SMP Watchdog] <gray>Toggled <feature> <gray>to <red>Disabled"
+  toggled-enabled: "<gold>[Vanilla Core] <gray>Toggled <feature> <gray>to <green>Enabled"
+  toggled-disabled: "<gold>[Vanilla Core] <gray>Toggled <feature> <gray>to <red>Disabled"
 
 feature-menus:
   shared:
@@ -561,11 +561,11 @@ enchantment-limiter:
       shift-right: "<yellow>Shift+Right: <gray>Ban"
       middle-click: "<light_purple>Middle Click: <gray>Remove"
     messages:
-      removed: "<green>[SMP Watchdog] <gray>Removed limit for <enchant>"
-      set-max: "<green>[SMP Watchdog] <gray>Set <enchant> to max level: <max>"
-      banned: "<red>[SMP Watchdog] <gray>Banned <enchant>"
-      increased: "<green>[SMP Watchdog] <gray>Increased <enchant> limit to: <limit>"
-      decreased: "<yellow>[SMP Watchdog] <gray>Decreased <enchant> limit to: <limit>"
+      removed: "<green>[Vanilla Core] <gray>Removed limit for <enchant>"
+      set-max: "<green>[Vanilla Core] <gray>Set <enchant> to max level: <max>"
+      banned: "<red>[Vanilla Core] <gray>Banned <enchant>"
+      increased: "<green>[Vanilla Core] <gray>Increased <enchant> limit to: <limit>"
+      decreased: "<yellow>[Vanilla Core] <gray>Decreased <enchant> limit to: <limit>"
 
 # Mace Limiter
 mace-limiter:
@@ -602,8 +602,8 @@ dimension-lock:
   feature-disabled: "<red>Dimension Lock is disabled! Enable it first."
   end-locked: "<red>The End is currently locked!"
   nether-locked: "<red>The Nether is currently locked!"
-  toggled-locked: "<gold>[SMP Watchdog] <gray>The <dimension> is now <red>Locked"
-  toggled-open: "<gold>[SMP Watchdog] <gray>The <dimension> is now <green>Open"
+  toggled-locked: "<gold>[Vanilla Core] <gray>The <dimension> is now <red>Locked"
+  toggled-open: "<gold>[Vanilla Core] <gray>The <dimension> is now <green>Open"
 
 # Netherite Disabler
 netherite-disabler:
@@ -852,7 +852,7 @@ enchant-input:
   level-set: "<green><enchant> limited to level <level>"
 
 anchor-restriction:
-  blocked: "<red>[SMP Watchdog] <gray>Respawn anchors are restricted here."
+  blocked: "<red>[Vanilla Core] <gray>Respawn anchors are restricted here."
 
 # Minimap Control
 minimap-control:
@@ -983,24 +983,24 @@ ritual:
 
 # Restriction listeners
 bed-bombing-ban:
-  blocked: "<red>[SMP Watchdog] <gray>Bed bombing is disabled."
+  blocked: "<red>[Vanilla Core] <gray>Bed bombing is disabled."
 
 crystal-pvp-ban:
-  blocked: "<red>[SMP Watchdog] <gray>Crystal PvP is disabled."
+  blocked: "<red>[Vanilla Core] <gray>Crystal PvP is disabled."
 
 pearl-restriction:
-  blocked: "<red>[SMP Watchdog] <gray>Ender pearls are restricted."
+  blocked: "<red>[Vanilla Core] <gray>Ender pearls are restricted."
 
 villager-killing-ban:
-  blocked: "<red>[SMP Watchdog] <gray>Killing villagers is disabled."
+  blocked: "<red>[Vanilla Core] <gray>Killing villagers is disabled."
 
 update-notification:
   separator: "<dark_gray><strikethrough>                                              "
   title-line: "<gold><bold>  <title> <gray>- <yellow>Update Available!"
   message-line: "<gray>  <message>"
-  disabled-features-header: "<red><bold>[SMP Watchdog] <yellow>Warning: <gray>Some features have been remotely disabled:"
+  disabled-features-header: "<red><bold>[Vanilla Core] <yellow>Warning: <gray>Some features have been remotely disabled:"
   disabled-feature-entry: "<gray>  - <red><feature>"
   disabled-features-message: "<gray><message>"
-  maintenance-header: "<red><bold>[SMP Watchdog] <yellow>Warning: <gray>Plugin is in maintenance mode."
+  maintenance-header: "<red><bold>[Vanilla Core] <yellow>Warning: <gray>Plugin is in maintenance mode."
   maintenance-message: "<gray><message>"
 

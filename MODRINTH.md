@@ -1,4 +1,4 @@
-# SMP Watchdog
+# Vanilla Core
 
 <center>
 Open-source plugin for SMP servers. Handles PvP balance, item limits, mob control, and server management.
@@ -8,9 +8,9 @@ Open-source plugin for SMP servers. Handles PvP balance, item limits, mob contro
 
 ---
 
-## What is SMP Watchdog?
+## What is Vanilla Core?
 
-Instead of running 10+ different plugins, SMP Watchdog handles most of what you need for an SMP:
+Instead of running 10+ different plugins, Vanilla Core handles most of what you need for an SMP:
 
 - PvP Balance: Gap limits, mace limits, enchantment caps
 - Gear Control: Disable netherite, limit enchantments

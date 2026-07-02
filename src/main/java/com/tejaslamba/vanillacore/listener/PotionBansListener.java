@@ -51,14 +51,14 @@ public class PotionBansListener implements Listener {
 
         if (feature.isAllPotionsBanned()) {
             event.setCancelled(true);
-            sendMessage(player, "<red>[SMP Watchdog] <gray>All potion effects are disabled on this server");
+            sendMessage(player, "<red>[Vanilla Core] <gray>All potion effects are disabled on this server");
             return;
         }
 
         if (feature.isEffectBlocked(newEffect.getType(), tier2)) {
             event.setCancelled(true);
             sendMessage(player,
-                    "<red>[SMP Watchdog] <gray>This potion effect is disabled: <yellow>"
+                    "<red>[Vanilla Core] <gray>This potion effect is disabled: <yellow>"
                             + newEffect.getType().getKey().getKey());
             return;
         }
@@ -81,19 +81,19 @@ public class PotionBansListener implements Listener {
 
         if (isGlowstone(event.getCursor())) {
             event.setCancelled(true);
-            sendMessage(player, "<red>[SMP Watchdog] <gray>Tier 2 potion brewing is disabled");
+            sendMessage(player, "<red>[Vanilla Core] <gray>Tier 2 potion brewing is disabled");
             return;
         }
 
         if (event.isShiftClick() && isGlowstone(event.getCurrentItem())) {
             event.setCancelled(true);
-            sendMessage(player, "<red>[SMP Watchdog] <gray>Tier 2 potion brewing is disabled");
+            sendMessage(player, "<red>[Vanilla Core] <gray>Tier 2 potion brewing is disabled");
             return;
         }
 
         if (event.getClick() == ClickType.SWAP_OFFHAND && isGlowstone(player.getInventory().getItemInOffHand())) {
             event.setCancelled(true);
-            sendMessage(player, "<red>[SMP Watchdog] <gray>Tier 2 potion brewing is disabled");
+            sendMessage(player, "<red>[Vanilla Core] <gray>Tier 2 potion brewing is disabled");
             return;
         }
 
@@ -103,7 +103,7 @@ public class PotionBansListener implements Listener {
                 ItemStack hotbarItem = player.getInventory().getItem(hotbarButton);
                 if (isGlowstone(hotbarItem)) {
                     event.setCancelled(true);
-                    sendMessage(player, "<red>[SMP Watchdog] <gray>Tier 2 potion brewing is disabled");
+                    sendMessage(player, "<red>[Vanilla Core] <gray>Tier 2 potion brewing is disabled");
                 }
             }
         }
@@ -123,14 +123,14 @@ public class PotionBansListener implements Listener {
 
         if (feature.isAllPotionsBanned()) {
             event.setCancelled(true);
-            sendMessage(event.getPlayer(), "<red>[SMP Watchdog] <gray>All potions are disabled on this server");
+            sendMessage(event.getPlayer(), "<red>[Vanilla Core] <gray>All potions are disabled on this server");
             return;
         }
 
         PotionType potionType = potionMeta.getBasePotionType();
         if (potionType != null && feature.isPotionTypeBlocked(potionType)) {
             event.setCancelled(true);
-            sendMessage(event.getPlayer(), "<red>[SMP Watchdog] <gray>This potion type is disabled on this server");
+            sendMessage(event.getPlayer(), "<red>[Vanilla Core] <gray>This potion type is disabled on this server");
             return;
         }
 
@@ -139,7 +139,7 @@ public class PotionBansListener implements Listener {
             if (feature.isEffectBlocked(customEffect.getType(), tier2)) {
                 event.setCancelled(true);
                 sendMessage(event.getPlayer(),
-                        "<red>[SMP Watchdog] <gray>This potion effect is disabled on this server");
+                        "<red>[Vanilla Core] <gray>This potion effect is disabled on this server");
                 return;
             }
         }

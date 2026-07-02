@@ -4,7 +4,7 @@ sidebar_position: 31
 
 # Teleport Stack
 
-SMP Watchdog now includes a full teleport workflow with request-based teleports, direct teleports, spawn, and back support.
+Vanilla Core now includes a full teleport workflow with request-based teleports, direct teleports, spawn, and back support.
 
 ## Commands
 

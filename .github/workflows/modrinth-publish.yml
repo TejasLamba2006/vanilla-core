@@ -76,7 +76,7 @@ jobs:
 
           files: ${{ steps.find_jar.outputs.jar_file }}
 
-          name: SMP Watchdog ${{ steps.get_version.outputs.version }}
+          name: Vanilla Core ${{ steps.get_version.outputs.version }}
           version: ${{ steps.get_version.outputs.version }}
           version-type: release
 

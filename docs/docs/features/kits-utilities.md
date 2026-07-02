@@ -4,7 +4,7 @@ sidebar_position: 33
 
 # Kits And Utilities
 
-SMP Watchdog includes persistent kits and an admin utility command pack.
+Vanilla Core includes persistent kits and an admin utility command pack.
 
 ## Kits
 

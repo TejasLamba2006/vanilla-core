@@ -4,7 +4,7 @@ import Link from '@docusaurus/Link';
 import styles from './downloads.module.css';
 
 const PROJECT_ID = 'GH4H8ndx';
-const PROJECT_SLUG = 'smpwatchdog';
+const PROJECT_SLUG = 'vanillacorewastaken';
 const API_BASE = 'https://api.modrinth.com/v2';
 
 function formatDate(dateString) {
@@ -63,7 +63,7 @@ function DownloadsPage() {
     };
 
     return (
-        <Layout title="Downloads" description="Download SMP Watchdog for your Minecraft server">
+        <Layout title="Downloads" description="Download Vanilla Core for your Minecraft server">
             <section className={styles.downloadsSection}>
                 <div className={styles.bgGradient} />
                 <div className={styles.bgGlow} />

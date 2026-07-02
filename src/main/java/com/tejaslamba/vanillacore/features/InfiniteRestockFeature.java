@@ -356,7 +356,7 @@ public class InfiniteRestockFeature extends BaseFeature {
                 int value = Integer.parseInt(input.trim());
                 if (value < 0 || value > 64000) {
                     p.sendMessage(MessageManager
-                            .parse("<red>[SMP Watchdog] <gray>Invalid number! Must be between 0 and 64000"));
+                            .parse("<red>[Vanilla Core] <gray>Invalid number! Must be between 0 and 64000"));
                     Bukkit.getScheduler().runTask(plugin, () -> openRestockGUI(p));
                     return;
                 }
