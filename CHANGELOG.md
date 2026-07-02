@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-07-02
+
 ### Added
 
 - Added Faster Happy Ghasts (`features.faster-happy-ghasts`) with configurable flying speed for newly spawned happy ghasts.
@@ -53,6 +55,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed the auto-generated `messages.yml` `codebase-string-catalog` section so `messages.yml` now contains only proper runtime message keys.
 - Centralized feature card/menu text into `messages.yml` under `feature-menus.*` and moved Infinite Restock/Netherite GUI title and control labels to message keys.
 - Updated docs to reflect runtime-only `messages.yml` keys and Ender Chest Item Limiter message keys.
+
+### Fixed
+
+- **MiniMessage Crash**: Fixed an `IllegalArgumentException` crash by renaming camelCase tags (`{configPath}`, `{maxLevel}`, `{customModelData}`, etc.) to `snake_case` in code and config.
+- **Menu Interaction Bug**: Fixed a bug where left-click and right-click actions on features failed in the main menu due to double-prefixing of the configuration path (e.g., `features.features.ritual`).
+- **Docs Styling**: Stripped emojis from the documentation and injected scalable React-style SVG icons via CSS masking in the Docusaurus frontend for a sleek, professional UI.
+- **Documentation**: Rewrote `README.md` to use human-friendly descriptions and fully documented missing features like Server Restarts, Mob Manager, Minimap Control, and ported AirCore features (TPA, Kits, Homes, Utility Commands, Social Systems).
 
 ## [1.4.1] - 2026-03-19
 

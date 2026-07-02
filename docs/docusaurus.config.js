@@ -6,7 +6,7 @@ const config = {
     tagline: 'The Ultimate SMP Management Plugin for Minecraft',
     favicon: 'img/logo.png',
 
-    url: 'https://vanillacore.tejaslamba.com',
+    url: 'https://tejaslamba2006.github.io/vanilla-core',
     baseUrl: '/',
 
     organizationName: 'TejasLamba2006',
