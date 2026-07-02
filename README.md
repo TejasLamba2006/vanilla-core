@@ -17,7 +17,7 @@ A Minecraft plugin for Vanilla servers focused on PvP balance, custom mechanics,
 
 SMP Watchdog is packed with over 25 meticulously designed features to give you total control over your Vanilla survival server. Below is a complete breakdown of what you can tweak and enforce!
 
-### ⚔️ Combat & PvP
+### Combat & PvP
 
 - **Item Limiter**: Keep the economy and PvP fair by limiting how many of specific items players can carry (e.g., God Apples, Totems, Ender Pearls).
 - **Ender Chest Limiter**: Extend item limits directly to Ender Chests, stopping players from stashing overpowered items.
@@ -26,13 +26,13 @@ SMP Watchdog is packed with over 25 meticulously designed features to give you t
 - **Netherite Disabler**: Want a classic diamond-tier server? Prevent players from upgrading gear to Netherite at the Smithing Table (configurable per item type).
 - **Shield Mechanics**: Rebalance shields by adding a configurable stun duration when blocking mace or axe attacks. Customize and toggle stun mechanics for each weapon independently.
 
-### ✨ Enchantments
+### Enchantments
 
 - **Custom Anvil Caps**: Stop players from combining enchantments beyond your server's limits using the anvil or enchanting table.
 - **Enchantment Replacement**: Automatically scan players' inventories and smoothly downgrade any over-leveled enchantments down to your configured max levels.
 - **Item Whitelist**: Have special admin items? Mark specific items as completely exempt from any enchantment scans or downgrades.
 
-### 🚫 Bans & Restrictions
+### Bans & Restrictions
 
 - **Item Bans**: Soft-ban items by completely preventing their usage. Works flawlessly for Maces, Respawn Anchors, End Crystals, Ender Pearls, and Netherite items.
 - **Potion Effect Bans**: Use our elegant GUI to ban specific potion effects (like Strength II) entirely, or restrict just tier 2 variants.
@@ -44,12 +44,12 @@ SMP Watchdog is packed with over 25 meticulously designed features to give you t
   - **Anchor Restriction**: Prevent Respawn Anchors from being charged outside of the Nether.
   - **Pearl Restriction**: Temporarily or permanently disable Ender Pearl teleportation.
 
-### 🌌 Dimensions & Environment
+### Dimensions & Environment
 
 - **Dimension Locks**: Take absolute control over progression by independently locking access to **The Nether** and **The End**.
 - **Mob Manager**: Fine-tune mob spawns dynamically per-world. Disable annoying natural spawns while preserving spawners, eggs, and specific spawn events (fully supports WorldGuard bypasses!).
 
-### ⚙️ Custom Mechanics & Quality of Life
+### Custom Mechanics & Quality of Life
 
 - **Ritual Events**: Start cinematic, timed server events (Rituals) using held items. Enjoy epic particle rings, global countdown bossbars, and dramatic lightning/firework finales.
 - **Item Cooldowns**: Add GUI-configurable cooldowns for spammy items like Ender Pearls, Wind Charges, and Golden Apples.
@@ -63,7 +63,7 @@ SMP Watchdog is packed with over 25 meticulously designed features to give you t
 - **Faster Happy Ghasts**: Speed up newly spawned "happy" ghasts to match specific server mechanics.
 - **Spectator On Death**: Give your hardcore or event server a twist by respawning dead players directly into spectator mode.
 
-### 🏡 Core & Essentials (AirCore Features)
+### Core & Essentials (AirCore Features)
 
 We've integrated the best features from AirCore directly into SMP Watchdog, completely eliminating the need for bulky third-party essentials plugins!
 
@@ -74,7 +74,7 @@ We've integrated the best features from AirCore directly into SMP Watchdog, comp
 - **Virtual Utilities**: Grant players access to a portable crafting table (`/workbench`), anvil (`/anvil`), or ender chest (`/ec`).
 - **Admin Tools**: Everything a moderator needs: `/fly`, `/god`, `/speed`, `/invsee`, `/clearinv`, `/repair`, and `/giveitem`.
 
-### 🖥️ GUI System
+### GUI System
 
 - **Main Menu**: Type `/smp` to open a gorgeous, paginated GUI showcasing every single feature.
 - **Dynamic Controls**: Left-click to instantly toggle features on or off. Right-click to dive into deep configuration menus.

@@ -18,6 +18,7 @@ const sidebars = {
                 {
                     type: 'category',
                     label: 'Items & Combat',
+                    className: 'sidebar-icon-combat',
                     items: [
                         'features/enchantment-limiter',
                         'features/item-limiter',
@@ -33,6 +34,7 @@ const sidebars = {
                 {
                     type: 'category',
                     label: 'World & Dimensions',
+                    className: 'sidebar-icon-world',
                     items: [
                         'features/dimension-locks',
                         'features/mob-manager',
@@ -42,6 +44,7 @@ const sidebars = {
                 {
                     type: 'category',
                     label: 'Player Systems',
+                    className: 'sidebar-icon-player',
                     items: [
                         'features/social-engine',
                         'features/teleport-stack',
@@ -52,6 +55,7 @@ const sidebars = {
                 {
                     type: 'category',
                     label: 'Miscellaneous',
+                    className: 'sidebar-icon-misc',
                     items: [
                         'features/ritual',
                         'features/infinite-restock',
