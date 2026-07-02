@@ -128,7 +128,7 @@ Using LuckPerms:
 ### Commands say "Unknown command"
 
 1. Check plugin is loaded: `/plugins`
-2. Ensure correct command: `/smp` not `/smpwatchdog`
+2. Ensure correct command: `/smp` not `/vanillacore`
 3. Check permissions
 
 ### GUI is empty or broken
