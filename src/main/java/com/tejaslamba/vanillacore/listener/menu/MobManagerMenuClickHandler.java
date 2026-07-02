@@ -199,3 +199,4 @@ public class MobManagerMenuClickHandler extends AbstractMenuClickHandler {
         return clickedType == Material.LIME_STAINED_GLASS_PANE || clickedType == Material.RED_STAINED_GLASS_PANE;
     }
 }
+

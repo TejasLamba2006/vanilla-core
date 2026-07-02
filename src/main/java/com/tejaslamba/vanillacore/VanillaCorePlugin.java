@@ -11,7 +11,15 @@ import com.tejaslamba.vanillacore.manager.CooldownManager;
 import com.tejaslamba.vanillacore.manager.ChatInputManager;
 import com.tejaslamba.vanillacore.manager.FeatureManager;
 import com.tejaslamba.vanillacore.manager.CDNManager;
+import com.tejaslamba.vanillacore.manager.KitManager;
+import com.tejaslamba.vanillacore.manager.TeleportDataManager;
+import com.tejaslamba.vanillacore.manager.TeleportManager;
+import com.tejaslamba.vanillacore.manager.UtilityManager;
+import com.tejaslamba.vanillacore.listener.KitJoinListener;
+import com.tejaslamba.vanillacore.listener.TeleportGuiListener;
+import com.tejaslamba.vanillacore.listener.TeleportListener;
 import com.tejaslamba.vanillacore.listener.UpdateNotificationListener;
+import com.tejaslamba.vanillacore.listener.UtilityListener;
 import com.tejaslamba.vanillacore.database.DatabaseManager;
 import com.tejaslamba.vanillacore.social.AnnouncementsManager;
 import com.tejaslamba.vanillacore.social.SocialListener;
@@ -33,6 +41,10 @@ public class VanillaCorePlugin extends JavaPlugin {
     private DatabaseManager databaseManager;
     private SocialManager socialManager;
     private AnnouncementsManager announcementsManager;
+    private TeleportDataManager teleportDataManager;
+    private TeleportManager teleportManager;
+    private KitManager kitManager;
+    private UtilityManager utilityManager;
     private boolean verboseLogging = false;
 
     @Override
@@ -49,6 +61,12 @@ public class VanillaCorePlugin extends JavaPlugin {
         databaseManager.initialize();
         socialManager = new SocialManager(this, databaseManager);
         announcementsManager = new AnnouncementsManager(this);
+        teleportDataManager = new TeleportDataManager(this);
+        teleportDataManager.load();
+        teleportManager = new TeleportManager(this, teleportDataManager);
+        utilityManager = new UtilityManager();
+        kitManager = new KitManager(this, teleportDataManager);
+        kitManager.reload();
         messageManager = new MessageManager(this);
         messageManager.load();
         menuConfigManager = new MenuConfigManager(this);
@@ -67,6 +85,11 @@ public class VanillaCorePlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new com.tejaslamba.vanillacore.listener.ChatInputListener(this),
                 this);
         getServer().getPluginManager().registerEvents(new SocialListener(this), this);
+        getServer().getPluginManager().registerEvents(new TeleportListener(this), this);
+        getServer().getPluginManager().registerEvents(new TeleportGuiListener(this), this);
+        getServer().getPluginManager().registerEvents(new KitJoinListener(this), this);
+        getServer().getPluginManager().registerEvents(new UtilityListener(this), this);
+        getServer().getScheduler().runTaskTimer(this, teleportManager::cleanupExpiredRequests, 40L, 40L);
 
         cdnManager = new CDNManager(this);
         cdnManager.initialize();
@@ -91,8 +114,20 @@ public class VanillaCorePlugin extends JavaPlugin {
         if (announcementsManager != null) {
             announcementsManager.stop();
         }
+        if (socialManager != null) {
+            socialManager.shutdown();
+        }
         if (databaseManager != null) {
             databaseManager.shutdown();
+        }
+        if (teleportDataManager != null) {
+            teleportDataManager.saveAll();
+        }
+        if (kitManager != null) {
+            kitManager.save();
+        }
+        if (utilityManager != null) {
+            utilityManager.clear();
         }
         getLogger().info("SMP Watchdog has been disabled!");
     }
@@ -159,6 +194,22 @@ public class VanillaCorePlugin extends JavaPlugin {
 
     public AnnouncementsManager getAnnouncementsManager() {
         return announcementsManager;
+    }
+
+    public TeleportDataManager getTeleportDataManager() {
+        return teleportDataManager;
+    }
+
+    public TeleportManager getTeleportManager() {
+        return teleportManager;
+    }
+
+    public KitManager getKitManager() {
+        return kitManager;
+    }
+
+    public UtilityManager getUtilityManager() {
+        return utilityManager;
     }
 
 }

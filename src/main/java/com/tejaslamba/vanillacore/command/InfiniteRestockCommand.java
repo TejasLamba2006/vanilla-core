@@ -50,3 +50,4 @@ public class InfiniteRestockCommand implements CommandExecutor, TabCompleter {
         return new ArrayList<>();
     }
 }
+

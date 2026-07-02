@@ -11,7 +11,7 @@ Complete configuration reference for SMP Watchdog.
 The main configuration file is located at:
 
 ```text
-plugins/SMP Watchdog/config.yml
+plugins/SMPWatchdog/config.yml
 ```
 
 All plugin settings are stored in this single file. The file is automatically created with default values on first server start.
@@ -21,7 +21,7 @@ All plugin settings are stored in this single file. The file is automatically cr
 All plugin message keys are stored in:
 
 ```text
-plugins/SMP Watchdog/messages.yml
+plugins/SMPWatchdog/messages.yml
 ```
 
 Notes:
@@ -365,7 +365,7 @@ Before making significant changes:
 ### Manual Backup
 
 ```bash
-cp plugins/SMP Watchdog/config.yml plugins/SMP Watchdog/config.yml.backup
+cp plugins/SMPWatchdog/config.yml plugins/SMPWatchdog/config.yml.backup
 ```
 
 ## Troubleshooting Config Issues

@@ -21,8 +21,8 @@ public class OnePlayerSleepFeature extends BaseFeature {
 
     @Override
     public void onEnable(VanillaCorePlugin plugin) {
-        super.onEnable(plugin);
         listener = new OnePlayerSleepListener(plugin);
+        super.onEnable(plugin);
         applySleepPercentage();
 
         if (plugin.isVerbose()) {
@@ -121,3 +121,4 @@ public class OnePlayerSleepFeature extends BaseFeature {
         player.sendMessage(plugin.getMessageManager().get("one-player-sleep.info.line-6"));
     }
 }
+

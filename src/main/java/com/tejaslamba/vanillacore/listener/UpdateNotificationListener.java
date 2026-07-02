@@ -139,3 +139,4 @@ public class UpdateNotificationListener implements Listener {
         notifiedPlayers.clear();
     }
 }
+

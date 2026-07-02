@@ -52,3 +52,4 @@ public class InvisibleKillsListener implements Listener {
         event.deathMessage(MessageManager.parse(formattedMessage));
     }
 }
+

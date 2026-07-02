@@ -20,7 +20,7 @@ general:
   player-only: "<red>This command can only be used by players!"
   remote-disabled: "<red>[SMP Watchdog] <gray><message>"
   maintenance: "<red>[SMP Watchdog] <gray><message>"
-  unknown-command: "<red>Unknown subcommand. Usage: /smp [menu|reload [module]|version|enchant|mace|netherite|infiniterestock|ritual|msg|reply|socialspy|togglechat|togglepm|togglementions|block|unblock|blocked|announcements]"
+  unknown-command: "<red>Unknown subcommand. Usage: /smp [menu|reload [module]|version|enchant|mace|netherite|infiniterestock|ritual|msg|reply|socialspy|togglechat|togglepm|togglementions|block|unblock|blocked|announcements] (or use /msg, /reply, /socialspy)"
   cancelled: "<red>Cancelled."
   invalid-number: "<red>Please enter a valid number!"
 
@@ -45,7 +45,7 @@ social:
     notified: "<yellow>You were mentioned by <white><player><yellow>."
   pm:
     no-permission: "<red>You don't have permission to use private messaging!"
-    usage: "<yellow>Usage: /smp msg <player> <message>"
+    usage: "<yellow>Usage: /msg <player> <message> (or /smp msg <player> <message>)"
     target-offline: "<red>That player is not online."
     target-disabled: "<red>That player has private messages disabled."
     self: "<red>You cannot message yourself."
@@ -54,7 +54,7 @@ social:
     toggled-off: "<yellow>Private messages are now disabled."
     spy: "<dark_gray>[Spy] <yellow><sender> <gray>-> <yellow><target><gray>: <white><message>"
   reply:
-    usage: "<yellow>Usage: /smp reply <message>"
+    usage: "<yellow>Usage: /reply <message> (or /smp reply <message>)"
     no-target: "<red>No one to reply to."
   socialspy:
     no-permission: "<red>You don't have permission to use social spy!"
@@ -71,6 +71,106 @@ social:
   unblock:
     usage: "<yellow>Usage: /smp unblock <player>"
     removed: "<green>You unblocked <yellow><player><green>."
+
+teleport:
+  no-permission: "<red>You don't have permission to use this teleport command."
+  player-not-found: "<red>Player not found or offline."
+  request:
+    usage: "<yellow>Usage: /tpa <player>"
+    self: "<red>You cannot send a teleport request to yourself."
+    sent: "<green>Teleport request sent to <yellow><player><green>."
+    received: "<yellow><player> <gray>wants to teleport to you. Use <yellow>/tpaccept <gray>or <yellow>/tpdeny"
+    accepted: "<green>You accepted <yellow><player><green>'s teleport request."
+    accepted-by: "<green>Your teleport request was accepted by <yellow><player><green>."
+    denied: "<red>Your teleport request was denied by <yellow><player><red>."
+    denied-self: "<yellow>You denied the teleport request."
+    none: "<red>You have no pending teleport request."
+    offline: "<red>The requester is no longer online."
+    expired: "<red>Your teleport request has expired."
+  request-here:
+    usage: "<yellow>Usage: /tpahere <player>"
+    sent: "<green>Teleport-here request sent to <yellow><player><green>."
+    received: "<yellow><player> <gray>wants you to teleport to them. Use <yellow>/tpaccept <gray>or <yellow>/tpdeny"
+    accepted: "<green>You accepted the teleport-here request from <yellow><player><green>."
+    accepted-by: "<green><yellow><player><green> accepted your teleport-here request."
+  spawn:
+    teleported: "<green>Teleported to spawn."
+    set: "<green>Spawn location set."
+  back:
+    none: "<red>No back location is available."
+  tp:
+    usage: "<yellow>Usage: /tp <player> [target]"
+    self-success: "<green>Teleported to <yellow><player><green>."
+    other-success: "<green>Teleported <yellow><source><green> to <yellow><target><green>."
+  tphere:
+    usage: "<yellow>Usage: /tphere <player>"
+    success: "<green>Teleported <yellow><player> <green>to your location."
+  homes:
+    gui:
+      title: "<gold><bold>Homes: <yellow><player>"
+      item: "<yellow><home>"
+      lore-world: "<gray>World: <white><world>"
+      lore-coords: "<gray>X:<white><x> <gray>Y:<white><y> <gray>Z:<white><z>"
+    sethome-usage: "<yellow>Usage: /sethome <name>"
+    delhome-usage: "<yellow>Usage: /delhome <name>"
+    limit: "<red>You reached your home limit: <yellow><max>"
+    set: "<green>Set home <yellow><home><green>."
+    deleted: "<green>Deleted home <yellow><home><green>."
+    not-found: "<red>Home not found: <yellow><home>"
+    teleported: "<green>Teleported to home <yellow><home><green>."
+  warps:
+    gui:
+      title: "<gold><bold>Warps"
+      item: "<aqua><warp>"
+      lore-world: "<gray>World: <white><world>"
+      lore-coords: "<gray>X:<white><x> <gray>Y:<white><y> <gray>Z:<white><z>"
+    setwarp-usage: "<yellow>Usage: /setwarp <name>"
+    delwarp-usage: "<yellow>Usage: /delwarp <name>"
+    set: "<green>Set warp <yellow><warp><green>."
+    deleted: "<green>Deleted warp <yellow><warp><green>."
+    not-found: "<red>Warp not found: <yellow><warp>"
+    teleported: "<green>Teleported to warp <yellow><warp><green>."
+
+kits:
+  usage: "<yellow>Usage: /kit <name>"
+  none: "<red>No kits are configured."
+  list: "<gray>Available kits: <yellow><kits>"
+  not-found: "<red>Kit not found: <yellow><kit>"
+  no-permission-global: "<red>You don't have permission to use kits."
+  no-permission: "<red>You don't have permission for kit <yellow><kit><red>."
+  cooldown: "<red>You can claim this kit again in <yellow><seconds>s<red>."
+  claimed: "<green>Claimed kit <yellow><kit><green>."
+  first-join-received: "<green>You received first join kit: <yellow><kit>"
+
+utility:
+  no-permission: "<red>You don't have permission for that command."
+  player-not-found: "<red>Player not found or offline."
+  fly:
+    enabled: "<green>Enabled flight for <yellow><player><green>."
+    disabled: "<yellow>Disabled flight for <yellow><player><yellow>."
+    enabled-self: "<green>Your flight has been enabled."
+    disabled-self: "<yellow>Your flight has been disabled."
+  god:
+    enabled: "<green>Enabled god mode for <yellow><player><green>."
+    disabled: "<yellow>Disabled god mode for <yellow><player><yellow>."
+    enabled-self: "<green>Your god mode has been enabled."
+    disabled-self: "<yellow>Your god mode has been disabled."
+  speed:
+    usage: "<yellow>Usage: /speed <1-10> [player]"
+    set: "<green>Set speed <yellow><speed><green> for <yellow><player><green>."
+  repair:
+    success: "<green>Item repaired."
+    all-success: "<green>Repaired all repairable inventory items."
+    no-item: "<red>You must hold an item."
+    invalid: "<red>That item cannot be repaired."
+  give:
+    usage: "<yellow>Usage: /giveitem <player> <material> [amount]"
+    invalid-item: "<red>Invalid material."
+    success: "<green>Gave <yellow><amount>x <item><green> to <yellow><player><green>."
+  invsee:
+    usage: "<yellow>Usage: /invsee <player>"
+  clearinv:
+    success: "<green>Cleared inventory of <yellow><player><green>."
 
 # Command messages
 commands:
@@ -147,9 +247,9 @@ commands:
     blocked: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Blocked enchantment: <white><enchant> <gray>(<option>)"
     no-permission: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <red>You don't have permission to use this command!"
     limit:
-      usage: "<red>Usage: /smp enchant limit <enchant> <maxLevel> [anvil|replacement|both]"
+      usage: "<red>Usage: /smp enchant limit <enchant> <max_level> [anvil|replacement|both]"
       max-level-min: "<red>Max level must be 0 or greater!"
-      set: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Set enchantment limit: <white><enchant> <gray>→ <yellow><maxLevel> <gray>(<option>)"
+      set: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Set enchantment limit: <white><enchant> <gray>→ <yellow><max_level> <gray>(<option>)"
     unlimit:
       usage: "<red>Usage: /smp enchant unlimit <enchant> [anvil|replacement|both]"
       no-anvil: "<red>No anvil limit set for: <enchant>"
@@ -176,7 +276,7 @@ commands:
       added: "<dark_gray>[<gold>SMP Watchdog<dark_gray>] <green>Whitelisted item from enchantment scans"
     help:
       title: "<gold><bold>=== Enchantment Commands ==="
-      limit: "<yellow>/smp enchant limit <enchant> <maxLevel> [option] <gray>- Set enchantment limit"
+      limit: "<yellow>/smp enchant limit <enchant> <max_level> [option] <gray>- Set enchantment limit"
       unlimit: "<yellow>/smp enchant unlimit <enchant> [option] <gray>- Remove enchantment limit"
       list: "<yellow>/smp enchant list <gray>- Show all limits"
       block: "<yellow>/smp enchant block <enchant> [option] <gray>- Block enchantment completely"
@@ -192,10 +292,10 @@ menu:
       title: "<red><bold>REMOTELY DISABLED"
       subtitle: "<gray>(Critical issue detected)"
     toggle-item:
-      config-line: "<!italic><dark_gray>Config: <gray>features.<configPath>.enabled"
+      config-line: "<!italic><dark_gray>Config: <gray>features.<config_path>.enabled"
       enabled: "<!italic><green>Enabled"
       disabled: "<!italic><red>Disabled"
-      max-level: "<!italic><gray>Max Level: <yellow><maxLevel>"
+      max-level: "<!italic><gray>Max Level: <yellow><max_level>"
       left-click-toggle: "<!italic><yellow>Left Click: Toggle On/Off"
       right-click-set-level: "<!italic><yellow>Right Click: Set Level"
       click-to-toggle: "<!italic><yellow>Click to toggle"
@@ -648,18 +748,18 @@ item-limiter:
       title: "§6Configured Item Limits"
       item:
         limit: "<gray>Limit: <yellow><limit>"
-        custom-model-data: "<gray>Custom Model Data: <aqua><customModelData>"
-        display-name: "<gray>Display Name: <white><displayName>"
-        potion-type: "<gray>Potion Type: <light_purple><potionType>"
+        custom-model-data: "<gray>Custom Model Data: <aqua><custom_model_data>"
+        display-name: "<gray>Display Name: <white><display_name>"
+        potion-type: "<gray>Potion Type: <light_purple><potion_type>"
         edit-hint: "<green>Left Click <gray>to edit limit"
         delete-hint: "<red>Shift + Left Click <gray>to delete"
     banned:
       title: "§cBanned Items"
       item:
         label: "<red><bold>BANNED"
-        custom-model-data: "<gray>Custom Model Data: <aqua><customModelData>"
-        display-name: "<gray>Display Name: <white><displayName>"
-        potion-type: "<gray>Potion Type: <light_purple><potionType>"
+        custom-model-data: "<gray>Custom Model Data: <aqua><custom_model_data>"
+        display-name: "<gray>Display Name: <white><display_name>"
+        potion-type: "<gray>Potion Type: <light_purple><potion_type>"
         unban-hint: "<green>Left Click <gray>to set a limit (unban)"
         delete-hint: "<red>Shift + Left Click <gray>to delete"
     add:
@@ -714,9 +814,9 @@ ender-chest-item-limiter:
       title: "&5Blocked Ender Chest Items"
       blocked-item:
         label: "<red><bold>BLOCKED IN ENDER CHEST"
-        custom-model-data: "<gray>Custom Model Data: <aqua><customModelData>"
-        display-name: "<gray>Display Name: <white><displayName>"
-        potion-type: "<gray>Potion Type: <light_purple><potionType>"
+        custom-model-data: "<gray>Custom Model Data: <aqua><custom_model_data>"
+        display-name: "<gray>Display Name: <white><display_name>"
+        potion-type: "<gray>Potion Type: <light_purple><potion_type>"
         remove-hint: "<red>Shift + Left Click <gray>to remove from blocklist"
     add:
       title: "&5Block Ender Chest Item"
@@ -903,3 +1003,4 @@ update-notification:
   disabled-features-message: "<gray><message>"
   maintenance-header: "<red><bold>[SMP Watchdog] <yellow>Warning: <gray>Plugin is in maintenance mode."
   maintenance-message: "<gray><message>"
+

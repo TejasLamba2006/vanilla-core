@@ -98,3 +98,4 @@ public class DimensionCommand implements CommandExecutor, TabCompleter {
                 .toList();
     }
 }
+

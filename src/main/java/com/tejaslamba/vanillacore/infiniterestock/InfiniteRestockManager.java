@@ -242,3 +242,4 @@ public class InfiniteRestockManager {
         plugin.getConfigManager().save();
     }
 }
+

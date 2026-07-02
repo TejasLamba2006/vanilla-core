@@ -45,7 +45,7 @@ public abstract class BaseMenu implements InventoryHolder {
                 lore.add(MessageManager.parse("<!italic>" + desc));
             }
             lore.add(Component.empty());
-            lore.add(plugin.getMessageManager().get("menu.base.toggle-item.config-line", "configPath", configPath));
+            lore.add(plugin.getMessageManager().get("menu.base.toggle-item.config-line", "config_path", configPath));
             lore.add(Component.empty());
             lore.add(plugin.getMessageManager()
                     .get(enabled ? "menu.base.toggle-item.enabled" : "menu.base.toggle-item.disabled"));
@@ -54,7 +54,7 @@ public abstract class BaseMenu implements InventoryHolder {
                 String configKey = configPath.equals("protection-limiter") ? "enchantment-limits.protection"
                         : "enchantment-limits.sharpness";
                 int maxLevel = plugin.getConfigManager().get().getInt(configKey + ".max-level", 4);
-                lore.add(plugin.getMessageManager().get("menu.base.toggle-item.max-level", "maxLevel", maxLevel));
+                lore.add(plugin.getMessageManager().get("menu.base.toggle-item.max-level", "max_level", maxLevel));
                 lore.add(Component.empty());
                 lore.add(plugin.getMessageManager().get("menu.base.toggle-item.left-click-toggle"));
                 lore.add(plugin.getMessageManager().get("menu.base.toggle-item.right-click-set-level"));
@@ -159,3 +159,4 @@ public abstract class BaseMenu implements InventoryHolder {
     }
 
 }
+

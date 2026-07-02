@@ -3,7 +3,7 @@
 [![Build Status](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/build.yml/badge.svg)](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/build.yml)
 [![CodeQL](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/codeql.yml/badge.svg)](https://github.com/TejasLamba2006/vanilla-core/actions/workflows/codeql.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Modrinth](https://img.shields.io/modrinth/dt/GH4H8ndx?logo=modrinth&label=downloads)](https://modrinth.com/plugin/vanillacorewastaken)
+[![Modrinth](https://img.shields.io/modrinth/dt/GH4H8ndx?logo=modrinth&label=downloads)](https://modrinth.com/plugin/smpwatchdog)
 [![Discord](https://img.shields.io/discord/1380092469613432912?logo=discord&label=discord)](https://discord.gg/7fQPG4Grwt)
 [![CodeFactor](https://www.codefactor.io/repository/github/tejaslamba2006/vanilla-core/badge)](https://www.codefactor.io/repository/github/tejaslamba2006/vanilla-core)
 
@@ -13,48 +13,72 @@ A Minecraft plugin for Vanilla servers focused on PvP balance, custom mechanics,
 
 ---
 
-## Features
+## 🌟 Features
 
-### Combat & PvP
+SMP Watchdog is packed with over 25 meticulously designed features to give you total control over your Vanilla survival server. Below is a complete breakdown of what you can tweak and enforce!
 
-- Item Limiter: Limit how many of specific items players can carry (gaps, totems, pearls, etc.)
-- Mace Limiter: Server-wide mace crafting limit with broadcast announcements
-- Netherite Disabler: Prevent use of netherite gear (configurable per item type)
-- Shield Mechanics: Add mace shield stun, customize axe stun duration, and toggle each separately
+### ⚔️ Combat & PvP
 
-### Enchantments
+- **Item Limiter**: Keep the economy and PvP fair by limiting how many of specific items players can carry (e.g., God Apples, Totems, Ender Pearls).
+- **Ender Chest Limiter**: Extend item limits directly to Ender Chests, stopping players from stashing overpowered items.
+- **Mace Limiter**: Server-wide limit on how many maces can be crafted, complete with epic title and chat broadcasts!
+- **Breach Swap Fix**: Put an end to the "breach swap" exploit. This completely prevents players from instantly swapping between a Breach-enchanted mace and another weapon to bypass combat mechanics.
+- **Netherite Disabler**: Want a classic diamond-tier server? Prevent players from upgrading gear to Netherite at the Smithing Table (configurable per item type).
+- **Shield Mechanics**: Rebalance shields by adding a configurable stun duration when blocking mace or axe attacks. Customize and toggle stun mechanics for each weapon independently.
 
-- Custom Anvil Caps: Prevent enchantments from exceeding set levels via anvil/enchanting table
-- Enchantment Replacement: Automatically scan and reduce overpowered enchantments on items
-- Item Whitelist: Mark specific items as exempt from enchantment scans
+### ✨ Enchantments
 
-### Bans
+- **Custom Anvil Caps**: Stop players from combining enchantments beyond your server's limits using the anvil or enchanting table.
+- **Enchantment Replacement**: Automatically scan players' inventories and smoothly downgrade any over-leveled enchantments down to your configured max levels.
+- **Item Whitelist**: Have special admin items? Mark specific items as completely exempt from any enchantment scans or downgrades.
 
-- Item Bans: Ban maces, anchors, crystals, pearls, netherite items
-- Potion Effect Bans: GUI-configurable all/effect/tier2 potion bans
-- Combat Restriction Features: Bed bombing ban, TNT minecart ban, villager killing ban, crystal PvP ban, anchor restriction, and pearl restriction
+### 🚫 Bans & Restrictions
 
-### Dimensions
+- **Item Bans**: Soft-ban items by completely preventing their usage. Works flawlessly for Maces, Respawn Anchors, End Crystals, Ender Pearls, and Netherite items.
+- **Potion Effect Bans**: Use our elegant GUI to ban specific potion effects (like Strength II) entirely, or restrict just tier 2 variants.
+- **Combat Restrictions**:
+  - **Bed Bombing Ban**: Disable explosive bed placements in the Nether and End.
+  - **Crystal PvP Ban**: Disable End Crystal placement and explosion damage.
+  - **TNT Minecart Ban**: Neutralize TNT Minecarts to stop instant explosion griefing.
+  - **Villager Killing Ban**: Stop players from accidentally (or intentionally!) killing villagers.
+  - **Anchor Restriction**: Prevent Respawn Anchors from being charged outside of the Nether.
+  - **Pearl Restriction**: Temporarily or permanently disable Ender Pearl teleportation.
 
-- Nether Lock: Toggle access to The Nether
-- End Lock: Toggle access to The End
+### 🌌 Dimensions & Environment
 
-### Custom Mechanics
+- **Dimension Locks**: Take absolute control over progression by independently locking access to **The Nether** and **The End**.
+- **Mob Manager**: Fine-tune mob spawns dynamically per-world. Disable annoying natural spawns while preserving spawners, eggs, and specific spawn events (fully supports WorldGuard bypasses!).
 
-- Ritual: Start timed ritual events using held items
-- Item Cooldowns: GUI-configurable cooldowns for pearls, gaps, egaps, wind charges, and more
-- Invisible Kills: Hide killer name in death messages when invisible
-- Item Explosion Immunity: Protect dropped items from explosions
-- Infinite Restock: Villagers never run out of trades
-- One Player Sleep: Only one player needs to sleep to skip night
-- Faster Happy Ghasts: Increase happy ghast flying speed
-- Spectator On Death: Respawn players directly into spectator mode
+### ⚙️ Custom Mechanics & Quality of Life
 
-### GUI System
+- **Ritual Events**: Start cinematic, timed server events (Rituals) using held items. Enjoy epic particle rings, global countdown bossbars, and dramatic lightning/firework finales.
+- **Item Cooldowns**: Add GUI-configurable cooldowns for spammy items like Ender Pearls, Wind Charges, and Golden Apples.
+- **Server Restarts**: Automate your server restarts with beautiful BossBars, ActionBars, and chat countdown warnings. Supports daily, weekly, or one-time schedules.
+- **Minimap Control**: Ensure competitive fairness! Seamlessly integrate with Xaero's Minimap to force disable cave maps, radar, or completely disable the mod for players on your server.
+- **Infinite Restock**: Tired of villagers locking their trades? Make villagers restock instantly and prevent prices from inflating due to high demand.
+- **Stop Item Despawn**: Don't let your players lose their hard-earned gear! Force items dropped upon death to remain on the ground permanently until retrieved.
+- **One Player Sleep**: Only one player needs to sleep to skip the night and bring on the morning.
+- **Invisible Kills**: Perfect for assassins—hide the killer's name in death messages if they drink an Invisibility potion.
+- **Item Explosion Immunity**: Protect all dropped items on the ground from being obliterated by creepers or TNT.
+- **Faster Happy Ghasts**: Speed up newly spawned "happy" ghasts to match specific server mechanics.
+- **Spectator On Death**: Give your hardcore or event server a twist by respawning dead players directly into spectator mode.
 
-- Main Menu: `/smp` opens a paginated GUI showing all features
-- Dynamic Feature Items: Toggle features with left-click, configure with right-click
-- Menu Pagination: Automatically handles many features across multiple pages
+### 🏡 Core & Essentials (AirCore Features)
+
+We've integrated the best features from AirCore directly into SMP Watchdog, completely eliminating the need for bulky third-party essentials plugins!
+
+- **Teleportation**: Comprehensive TPA system (`/tpa`, `/tpahere`, `/tpaccept`, `/tpdeny`), along with `/spawn`, `/setspawn`, and `/back`.
+- **Homes & Warps**: Let players set multiple homes (`/sethome`, `/home`, `/homes`) and admins set server-wide warps (`/setwarp`, `/warp`, `/warps`), complete with beautiful interactive GUIs!
+- **Chat & Social**: Private messaging (`/msg`, `/reply`), an elegant `/socialspy` for admins, and the ability to block/unblock players. We also support interactive @mentions and clickable URL formatting!
+- **Kits System**: GUI-based kits with configurable cooldowns (`/kit`, `/kits`)—perfect for starter gear or donor perks.
+- **Virtual Utilities**: Grant players access to a portable crafting table (`/workbench`), anvil (`/anvil`), or ender chest (`/ec`).
+- **Admin Tools**: Everything a moderator needs: `/fly`, `/god`, `/speed`, `/invsee`, `/clearinv`, `/repair`, and `/giveitem`.
+
+### 🖥️ GUI System
+
+- **Main Menu**: Type `/smp` to open a gorgeous, paginated GUI showcasing every single feature.
+- **Dynamic Controls**: Left-click to instantly toggle features on or off. Right-click to dive into deep configuration menus.
+- **Seamless Pagination**: With dozens of features, the menu automatically paginates so you never get lost.
 
 ---
 
@@ -87,7 +111,7 @@ A Minecraft plugin for Vanilla servers focused on PvP balance, custom mechanics,
 
 ### For Server Owners
 
-1. Download from [Modrinth](https://modrinth.com/plugin/vanillacorewastaken)
+1. Download from [Modrinth](https://modrinth.com/plugin/smpwatchdog)
 2. Place the JAR in your server's `plugins` folder
 3. Restart or reload your server
 4. Configure features in your plugin folder `config.yml`
@@ -228,3 +252,4 @@ Read the full [Contributing Guide](CONTRIBUTING.md) for detailed information.
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 You are free to use, modify, and distribute this software. See [docs/license.md](docs/docs/license.md) for more information.
+

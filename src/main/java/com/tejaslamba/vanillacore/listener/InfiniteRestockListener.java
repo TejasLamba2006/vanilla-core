@@ -112,3 +112,4 @@ public class InfiniteRestockListener implements Listener {
         manager.applyOnVillagerAcquireTrade(villager);
     }
 }
+

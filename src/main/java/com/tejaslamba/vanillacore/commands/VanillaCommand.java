@@ -21,6 +21,9 @@ import java.util.Locale;
 
 public class VanillaCommand implements CommandExecutor, TabCompleter {
 
+    private static final String COMMAND_MSG = "msg";
+    private static final String COMMAND_REPLY = "reply";
+    private static final String COMMAND_SOCIAL_SPY = "socialspy";
     private static final String SUBCOMMAND_RELOAD = "reload";
     private static final String SUBCOMMAND_VERSION = "version";
     private static final String PERMISSION_RELOAD = "smp.reload";
@@ -58,6 +61,16 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        String commandName = command.getName().toLowerCase(Locale.ROOT);
+        if (isDirectSocialCommand(commandName)) {
+            String[] socialArgs = toSocialArgs(commandName, args);
+            if (socialCommand.onCommand(sender, socialArgs)) {
+                return true;
+            }
+            msg().sendPrefixed(sender, "general.unknown-command");
+            return true;
+        }
+
         if (args.length == 0) {
             if (!(sender instanceof Player p)) {
                 msg().sendPrefixed(sender, "general.player-only");
@@ -163,6 +176,11 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        String commandName = command.getName().toLowerCase(Locale.ROOT);
+        if (isDirectSocialCommand(commandName)) {
+            return socialCommand.onTabComplete(toSocialArgs(commandName, args));
+        }
+
         if (args.length == 1) {
             List<String> completions = new ArrayList<>();
             if (sender.hasPermission("smp.menu")) {
@@ -190,13 +208,13 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
                 completions.add(SUBCOMMAND_VERSION);
             }
             if (sender.hasPermission("smp.msg")) {
-                completions.add("msg");
+                completions.add(COMMAND_MSG);
             }
             if (sender.hasPermission("smp.reply")) {
-                completions.add("reply");
+                completions.add(COMMAND_REPLY);
             }
             if (sender.hasPermission("smp.socialspy")) {
-                completions.add("socialspy");
+                completions.add(COMMAND_SOCIAL_SPY);
             }
             if (sender.hasPermission("smp.toggle.chat")) {
                 completions.add("togglechat");
@@ -272,6 +290,19 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
         return Collections.emptyList();
     }
 
+    private boolean isDirectSocialCommand(String commandName) {
+        return COMMAND_MSG.equals(commandName)
+                || COMMAND_REPLY.equals(commandName)
+                || COMMAND_SOCIAL_SPY.equals(commandName);
+    }
+
+    private String[] toSocialArgs(String commandName, String[] args) {
+        String[] socialArgs = new String[args.length + 1];
+        socialArgs[0] = commandName;
+        System.arraycopy(args, 0, socialArgs, 1, args.length);
+        return socialArgs;
+    }
+
     private void handleReload(CommandSender sender, String[] args) {
         String target = args.length > 1 ? args[1].toLowerCase(Locale.ROOT) : MODULE_ALL;
         if (!RELOAD_MODULES.contains(target)) {
@@ -326,6 +357,9 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
         runReloadModule(MODULE_CONFIG, successfulModules, failedModules, () -> {
             VanillaCorePlugin.getInstance().getConfigManager().load();
             VanillaCorePlugin.getInstance().refreshVerbose();
+            if (VanillaCorePlugin.getInstance().getKitManager() != null) {
+                VanillaCorePlugin.getInstance().getKitManager().reload();
+            }
         });
     }
 
@@ -380,3 +414,4 @@ public class VanillaCommand implements CommandExecutor, TabCompleter {
     }
 
 }
+

@@ -565,3 +565,4 @@ public class PotionBansFeature extends BaseFeature {
         }
     }
 }
+

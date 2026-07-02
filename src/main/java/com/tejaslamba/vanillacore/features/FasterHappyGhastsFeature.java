@@ -99,3 +99,4 @@ public class FasterHappyGhastsFeature extends BaseFeature {
         player.sendMessage(plugin.getMessageManager().get("faster-happy-ghasts.info.line-2"));
     }
 }
+

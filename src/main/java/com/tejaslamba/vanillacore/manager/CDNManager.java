@@ -20,7 +20,7 @@ public class CDNManager {
 
     private static final String CDN_BASE = "https://vanillacore.tejaslamba.com/cdn";
     private static final String MANIFEST_URL = CDN_BASE + "/manifest.json";
-    private static final String MODRINTH_PROJECT_SLUG = "vanillacorewastaken";
+    private static final String MODRINTH_PROJECT_SLUG = "smpwatchdog";
     private static final String MODRINTH_PROJECT_URL = "https://modrinth.com/plugin/" + MODRINTH_PROJECT_SLUG;
     private static final String MODRINTH_VERSIONS_URL = "https://api.modrinth.com/v2/project/"
             + MODRINTH_PROJECT_SLUG + "/version";
@@ -372,3 +372,5 @@ public class CDNManager {
         }
     }
 }
+
+

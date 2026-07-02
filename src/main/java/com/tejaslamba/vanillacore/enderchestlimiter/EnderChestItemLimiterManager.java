@@ -69,9 +69,9 @@ public class EnderChestItemLimiterManager {
 
     private void loadComplexBlockedItem(String key, ConfigurationSection itemSection) {
         String materialName = itemSection.getString("material", "").toUpperCase();
-        Integer customModelData = itemSection.isSet("customModelData") ? itemSection.getInt("customModelData") : null;
-        String displayName = itemSection.getString("displayName");
-        String potionTypeString = itemSection.getString("potionType");
+        Integer customModelData = itemSection.isSet("custom_model_data") ? itemSection.getInt("custom_model_data") : null;
+        String displayName = itemSection.getString("display_name");
+        String potionTypeString = itemSection.getString("potion_type");
 
         Material material = Material.getMaterial(materialName);
         if (material == null) {
@@ -285,3 +285,4 @@ public class EnderChestItemLimiterManager {
         }
     }
 }
+

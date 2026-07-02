@@ -242,3 +242,4 @@ public class NetheriteDisablerFeature extends BaseFeature {
         loadDisabledItems();
     }
 }
+

@@ -55,3 +55,4 @@ jobs:
           if grep -q "WARNING" target/*.log 2>/dev/null; then
             echo "::warning::Build completed with warnings"
           fi
+

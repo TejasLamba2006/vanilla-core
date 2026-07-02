@@ -41,6 +41,16 @@ const sidebars = {
                 },
                 {
                     type: 'category',
+                    label: 'Player Systems',
+                    items: [
+                        'features/social-engine',
+                        'features/teleport-stack',
+                        'features/homes-warps',
+                        'features/kits-utilities',
+                    ],
+                },
+                {
+                    type: 'category',
                     label: 'Miscellaneous',
                     items: [
                         'features/ritual',

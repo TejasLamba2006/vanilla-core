@@ -24,7 +24,9 @@ public abstract class BaseFeature implements Feature {
     public void onEnable(VanillaCorePlugin plugin) {
         this.plugin = plugin;
         this.enabled = plugin.getConfigManager().get().getBoolean(getConfigPath() + ".enabled", false);
-        registerListenerIfNeeded();
+        if (isEnabled()) {
+            registerListenerIfNeeded();
+        }
     }
 
     @Override
@@ -45,6 +47,12 @@ public abstract class BaseFeature implements Feature {
             plugin.getLogger().info("[VERBOSE] Reloading feature: " + getName());
             plugin.getLogger().info("[VERBOSE]   - Was Enabled: " + wasEnabled);
             plugin.getLogger().info("[VERBOSE]   - Now Enabled: " + enabled);
+        }
+
+        if (isEnabled()) {
+            registerListenerIfNeeded();
+        } else {
+            unregisterListener();
         }
     }
 
@@ -193,8 +201,8 @@ public abstract class BaseFeature implements Feature {
                 loreComponents.add(MessageManager.parse(line));
             }
             loreComponents.add(Component.empty());
-            loreComponents.add(plugin.getMessageManager().get("menu.base.toggle-item.config-line", "configPath",
-                    getConfigPath()));
+            loreComponents.add(plugin.getMessageManager().get("menu.base.toggle-item.config-line", "config_path",
+                    getConfigPath().replace("features.", "")));
 
             meta.lore(loreComponents);
             item.setItemMeta(meta);
@@ -202,3 +210,4 @@ public abstract class BaseFeature implements Feature {
         return item;
     }
 }
+

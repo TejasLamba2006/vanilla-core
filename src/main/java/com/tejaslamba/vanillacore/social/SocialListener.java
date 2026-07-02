@@ -62,6 +62,18 @@ public class SocialListener implements Listener {
             return;
         }
 
+        event.viewers().removeIf(viewer -> {
+            if (viewer instanceof Player playerViewer) {
+                if (!plugin.getSocialManager().isChatEnabled(playerViewer)) {
+                    return true;
+                }
+                if (plugin.getSocialManager().isBlockedEitherWay(sender.getUniqueId(), playerViewer.getUniqueId())) {
+                    return true;
+                }
+            }
+            return false;
+        });
+
         String plain = net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText()
                 .serialize(event.message());
 
@@ -70,3 +82,4 @@ public class SocialListener implements Listener {
                 (source, sourceDisplayName, message, viewer) -> plugin.getSocialManager().formatChat(sender, plain));
     }
 }
+

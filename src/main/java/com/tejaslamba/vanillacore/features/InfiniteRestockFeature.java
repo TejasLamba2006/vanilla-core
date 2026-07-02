@@ -16,6 +16,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.Registry;
 
 import java.util.*;
 
@@ -179,15 +180,16 @@ public class InfiniteRestockFeature extends BaseFeature {
                 plugin.getMessageManager().getRaw("infinite-restock.gui.blacklist.title"));
 
         int slot = 10;
-        for (Villager.Profession profession : Villager.Profession.values()) {
-            if (profession == Villager.Profession.NONE || profession == Villager.Profession.NITWIT) {
+        for (Villager.Profession profession : Registry.VILLAGER_PROFESSION) {
+            String keyName = profession.getKey().getKey().toUpperCase(Locale.ROOT);
+            if (keyName.equals("NONE") || keyName.equals("NITWIT")) {
                 continue;
             }
 
-            boolean isBlacklisted = manager.isProfessionBlacklisted(profession.name());
+            boolean isBlacklisted = manager.isProfessionBlacklisted(keyName);
             Material material = PROFESSION_MATERIALS.getOrDefault(profession, Material.PLAYER_HEAD);
 
-            String professionName = formatProfessionName(profession.name());
+            String professionName = formatProfessionName(keyName);
 
             ItemStack item = new ItemStack(isBlacklisted ? Material.BARRIER : material);
             ItemMeta meta = item.getItemMeta();
@@ -319,8 +321,9 @@ public class InfiniteRestockFeature extends BaseFeature {
         }
 
         List<Villager.Profession> professions = new ArrayList<>();
-        for (Villager.Profession profession : Villager.Profession.values()) {
-            if (profession != Villager.Profession.NONE && profession != Villager.Profession.NITWIT) {
+        for (Villager.Profession profession : Registry.VILLAGER_PROFESSION) {
+            String keyName = profession.getKey().getKey().toUpperCase(Locale.ROOT);
+            if (!keyName.equals("NONE") && !keyName.equals("NITWIT")) {
                 professions.add(profession);
             }
         }
@@ -330,7 +333,7 @@ public class InfiniteRestockFeature extends BaseFeature {
         }
 
         Villager.Profession profession = professions.get(index);
-        manager.toggleProfessionBlacklist(profession.name());
+        manager.toggleProfessionBlacklist(profession.getKey().getKey().toUpperCase(Locale.ROOT));
         Bukkit.getScheduler().runTask(plugin, () -> openBlacklistGUI(player));
     }
 
@@ -422,3 +425,4 @@ public class InfiniteRestockFeature extends BaseFeature {
         return manager;
     }
 }
+

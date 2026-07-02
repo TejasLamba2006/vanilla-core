@@ -4,7 +4,7 @@ import Link from '@docusaurus/Link';
 import styles from './downloads.module.css';
 
 const PROJECT_ID = 'GH4H8ndx';
-const PROJECT_SLUG = 'vanillacorewastaken';
+const PROJECT_SLUG = 'smpwatchdog';
 const API_BASE = 'https://api.modrinth.com/v2';
 
 function formatDate(dateString) {
@@ -23,10 +23,10 @@ function DownloadsPage() {
     useEffect(() => {
         Promise.all([
             fetch(`${API_BASE}/project/${PROJECT_ID}`, {
-                headers: { 'User-Agent': 'TejasLamba2006/vanilla-core-docs' }
+                headers: { 'User-Agent': 'TejasLamba2006/smp-watchdog-docs' }
             }).then(res => res.json()),
             fetch(`${API_BASE}/project/${PROJECT_ID}/version`, {
-                headers: { 'User-Agent': 'TejasLamba2006/vanilla-core-docs' }
+                headers: { 'User-Agent': 'TejasLamba2006/smp-watchdog-docs' }
             }).then(res => res.json())
         ])
             .then(([project, versionData]) => {
@@ -221,3 +221,5 @@ function DownloadsPage() {
 }
 
 export default DownloadsPage;
+
+

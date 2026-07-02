@@ -31,3 +31,4 @@ public class RitualListener implements Listener {
                 () -> feature.getRitualManager().addBossBarViewer(player), 20L);
     }
 }
+

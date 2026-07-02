@@ -121,3 +121,4 @@ public final class EnchantmentUtils {
         return highest;
     }
 }
+

@@ -1,4 +1,4 @@
-name: SMP Watchdog
+name: SMPWatchdog
 main: com.tejaslamba.vanillacore.VanillaCorePlugin
 version: ${project.version}
 api-version: ${minecraft.version}
@@ -7,6 +7,15 @@ commands:
   smp:
     description: SMP Watchdog command
     usage: /smp [menu|reload [all|config|messages|menus|features]|version|enchant|mace|netherite|infiniterestock|ritual|msg|reply|socialspy|togglechat|togglepm|togglementions|block|unblock|blocked|announcements reload]
+  msg:
+    description: Send a private message
+    usage: /msg <player> <message>
+  reply:
+    description: Reply to the last private message
+    usage: /reply <message>
+  socialspy:
+    description: Toggle social spy mode
+    usage: /socialspy
   ritual:
     description: Start and manage ritual events
     usage: /ritual [start [time] [color]|status|cancel]
@@ -16,6 +25,93 @@ commands:
   nether:
     description: Nether dimension lock commands
     usage: /nether [open|close|status]
+  tpa:
+    description: Request teleport to a player
+    usage: /tpa <player>
+  tpahere:
+    description: Request player teleport to you
+    usage: /tpahere <player>
+  tpaccept:
+    description: Accept teleport request
+    usage: /tpaccept
+  tpdeny:
+    description: Deny teleport request
+    usage: /tpdeny
+  spawn:
+    description: Teleport to spawn
+    usage: /spawn
+  setspawn:
+    description: Set server spawn
+    usage: /setspawn
+  back:
+    description: Teleport to previous location
+    usage: /back
+  tp:
+    description: Direct teleport command
+    usage: /tp <player> [target]
+  tphere:
+    description: Teleport player to you
+    usage: /tphere <player>
+  home:
+    description: Teleport to home or open homes GUI
+    usage: /home [name]
+  sethome:
+    description: Set a home
+    usage: /sethome <name>
+  delhome:
+    description: Delete a home
+    usage: /delhome <name>
+  homes:
+    description: Open homes GUI
+    usage: /homes [player]
+  warp:
+    description: Teleport to warp or open warps GUI
+    usage: /warp [name]
+  setwarp:
+    description: Set a warp
+    usage: /setwarp <name>
+  delwarp:
+    description: Delete a warp
+    usage: /delwarp <name>
+  warps:
+    description: Open warps GUI
+    usage: /warps
+  kit:
+    description: Claim a kit
+    usage: /kit <name>
+  kits:
+    description: List available kits
+    usage: /kits
+  fly:
+    description: Toggle flight
+    usage: /fly [player]
+  god:
+    description: Toggle god mode
+    usage: /god [player]
+  speed:
+    description: Set movement speed
+    usage: /speed <1-10> [player]
+  repair:
+    description: Repair held item or all inventory
+    usage: /repair [all]
+  giveitem:
+    description: Give an item to a player
+    usage: /giveitem <player> <material> [amount]
+  workbench:
+    description: Open crafting table
+    usage: /workbench
+  anvil:
+    description: Open anvil
+    usage: /anvil
+  ec:
+    description: Open ender chest
+    usage: /ec [player]
+  invsee:
+    description: View player inventory
+    usage: /invsee <player>
+  clearinv:
+    description: Clear player inventory
+    usage: /clearinv [player]
 permissions:
   smp.*:
     description: All SMP Watchdog permissions
@@ -50,6 +146,42 @@ permissions:
       smp.unblock: true
       smp.blocklist: true
       smp.announcements: true
+      smp.tpa: true
+      smp.tpahere: true
+      smp.tpaccept: true
+      smp.tpdeny: true
+      smp.spawn: true
+      smp.setspawn: true
+      smp.back: true
+      smp.tp: true
+      smp.tphere: true
+      smp.home: true
+      smp.sethome: true
+      smp.delhome: true
+      smp.homes: true
+      smp.homes.target: true
+      smp.warp: true
+      smp.setwarp: true
+      smp.delwarp: true
+      smp.warps: true
+      smp.kit: true
+      smp.kits: true
+      smp.fly: true
+      smp.fly.others: true
+      smp.god: true
+      smp.god.others: true
+      smp.speed: true
+      smp.speed.others: true
+      smp.repair: true
+      smp.repair.all: true
+      smp.giveitem: true
+      smp.workbench: true
+      smp.anvil: true
+      smp.ec: true
+      smp.ec.others: true
+      smp.invsee: true
+      smp.clearinv: true
+      smp.clearinv.others: true
   smp.admin:
     description: Full access to all SMP Watchdog features and GUI
     default: op
@@ -80,6 +212,42 @@ permissions:
       smp.unblock: true
       smp.blocklist: true
       smp.announcements: true
+      smp.tpa: true
+      smp.tpahere: true
+      smp.tpaccept: true
+      smp.tpdeny: true
+      smp.spawn: true
+      smp.setspawn: true
+      smp.back: true
+      smp.tp: true
+      smp.tphere: true
+      smp.home: true
+      smp.sethome: true
+      smp.delhome: true
+      smp.homes: true
+      smp.homes.target: true
+      smp.warp: true
+      smp.setwarp: true
+      smp.delwarp: true
+      smp.warps: true
+      smp.kit: true
+      smp.kits: true
+      smp.fly: true
+      smp.fly.others: true
+      smp.god: true
+      smp.god.others: true
+      smp.speed: true
+      smp.speed.others: true
+      smp.repair: true
+      smp.repair.all: true
+      smp.giveitem: true
+      smp.workbench: true
+      smp.anvil: true
+      smp.ec: true
+      smp.ec.others: true
+      smp.invsee: true
+      smp.clearinv: true
+      smp.clearinv.others: true
   smp.reload:
     description: Reload plugin configuration
     default: op
@@ -136,10 +304,10 @@ permissions:
     default: false
   smp.msg:
     description: Send private messages
-    default: op
+    default: true
   smp.reply:
     description: Reply to last private message
-    default: op
+    default: true
   smp.socialspy:
     description: View private messages between players
     default: op
@@ -164,3 +332,112 @@ permissions:
   smp.announcements:
     description: Manage announcements engine
     default: op
+  smp.tpa:
+    description: Request teleport to a player
+    default: true
+  smp.tpahere:
+    description: Request teleport of a player to you
+    default: true
+  smp.tpaccept:
+    description: Accept teleport requests
+    default: true
+  smp.tpdeny:
+    description: Deny teleport requests
+    default: true
+  smp.spawn:
+    description: Teleport to spawn
+    default: true
+  smp.setspawn:
+    description: Set spawn location
+    default: op
+  smp.back:
+    description: Teleport back to previous location
+    default: true
+  smp.tp:
+    description: Use direct teleport command
+    default: op
+  smp.tphere:
+    description: Teleport a player to your location
+    default: op
+  smp.home:
+    description: Teleport to homes
+    default: true
+  smp.sethome:
+    description: Set homes
+    default: true
+  smp.delhome:
+    description: Delete homes
+    default: true
+  smp.homes:
+    description: Open homes GUI
+    default: true
+  smp.homes.target:
+    description: View another player's homes GUI
+    default: op
+  smp.warp:
+    description: Teleport to warps
+    default: true
+  smp.setwarp:
+    description: Set warps
+    default: op
+  smp.delwarp:
+    description: Delete warps
+    default: op
+  smp.warps:
+    description: Open warps GUI
+    default: true
+  smp.kit:
+    description: Claim kits
+    default: true
+  smp.kits:
+    description: List available kits
+    default: true
+  smp.fly:
+    description: Toggle own flight
+    default: op
+  smp.fly.others:
+    description: Toggle flight for others
+    default: op
+  smp.god:
+    description: Toggle own god mode
+    default: op
+  smp.god.others:
+    description: Toggle god mode for others
+    default: op
+  smp.speed:
+    description: Set own speed
+    default: op
+  smp.speed.others:
+    description: Set speed for others
+    default: op
+  smp.repair:
+    description: Repair held item
+    default: op
+  smp.repair.all:
+    description: Repair all inventory items
+    default: op
+  smp.giveitem:
+    description: Give items via utility command
+    default: op
+  smp.workbench:
+    description: Open virtual workbench
+    default: true
+  smp.anvil:
+    description: Open virtual anvil
+    default: true
+  smp.ec:
+    description: Open own ender chest
+    default: op
+  smp.ec.others:
+    description: Open other players' ender chest
+    default: op
+  smp.invsee:
+    description: View player inventory
+    default: op
+  smp.clearinv:
+    description: Clear own inventory
+    default: op
+  smp.clearinv.others:
+    description: Clear other players' inventory
+    default: op
+

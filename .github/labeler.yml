@@ -44,3 +44,4 @@ build:
       - any-glob-to-any-file:
           - "pom.xml"
           - "proguard*"
+

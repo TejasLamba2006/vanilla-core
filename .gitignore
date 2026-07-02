@@ -29,7 +29,7 @@ Thumbs.db
 
 # Other plugins (for testing)
 other-plugins/
-
+paper-test-server/
 # GitHub Copilot
 .github/agents
 .github/copilot-instructions.md

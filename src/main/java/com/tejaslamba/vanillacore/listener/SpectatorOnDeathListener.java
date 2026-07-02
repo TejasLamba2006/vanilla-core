@@ -31,3 +31,4 @@ public class SpectatorOnDeathListener implements Listener {
         }, 1L);
     }
 }
+

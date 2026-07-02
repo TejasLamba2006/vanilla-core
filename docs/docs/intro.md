@@ -84,7 +84,7 @@ You need Java 21 or newer. If you're on an older version, upgrade before install
 
 ## Quick Start
 
-1. Download from [Modrinth](https://modrinth.com/plugin/vanillacorewastaken) or the [Downloads page](/downloads)
+1. Download from [Modrinth](https://modrinth.com/plugin/smpwatchdog) or the [Downloads page](/downloads)
 2. Drop the JAR in your `plugins` folder
 3. Restart the server
 4. Run `/smp` to open the settings GUI
@@ -95,8 +95,9 @@ Everything is off by default. Just enable what you need.
 
 SMP Watchdog is free to use. If it's helpful, consider [donating via PayPal](https://paypal.me/tejaslamba) to support development.
 
-Need help? [Join the Discord](https://discord.gg/7fQPG4Grwt?utm_source=vanillacore.tejaslamba.com).
+Need help? [Join the Discord](https://discord.gg/7fQPG4Grwt?utm_source=smpwatchdog).
 
 ---
 
 Ready to install? Head to the [Installation Guide](/docs/installation).
+

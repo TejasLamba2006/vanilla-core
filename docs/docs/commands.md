@@ -24,9 +24,9 @@ This page documents all commands available in SMP Watchdog.
 | `/smp netherite <subcommand>` | Netherite disabler management | `smp.netherite` |
 | `/smp infiniterestock` | Opens Infinite Restock GUI | `smp.infiniterestock` |
 | `/smp ritual <subcommand>` | Ritual management | `smp.ritual` |
-| `/smp msg <player> <message>` | Send private message | `smp.msg` |
-| `/smp reply <message>` | Reply to last private message | `smp.reply` |
-| `/smp socialspy` | Toggle social spy mode | `smp.socialspy` |
+| `/smp msg <player> <message>` or `/msg <player> <message>` | Send private message | `smp.msg` |
+| `/smp reply <message>` or `/reply <message>` | Reply to last private message | `smp.reply` |
+| `/smp socialspy` or `/socialspy` | Toggle social spy mode | `smp.socialspy` |
 | `/smp togglechat` | Toggle own chat visibility | `smp.toggle.chat` |
 | `/smp togglepm` | Toggle own private messages | `smp.toggle.pm` |
 | `/smp togglementions` | Toggle mention notifications | `smp.toggle.mentions` |
@@ -49,6 +49,55 @@ This page documents all commands available in SMP Watchdog.
 |---------|-------------|------------|
 | `/nether [open|close|status]` | Manage Nether lock state | `smp.dimension.nether` |
 | `/end [open|close|status]` | Manage End lock state | `smp.dimension.end` |
+
+## Teleport Stack
+
+| Command | Description | Permission |
+|---------|-------------|------------|
+| `/tpa <player>` | Request teleport to player | `smp.tpa` |
+| `/tpahere <player>` | Request player teleport to you | `smp.tpahere` |
+| `/tpaccept` | Accept teleport request | `smp.tpaccept` |
+| `/tpdeny` | Deny teleport request | `smp.tpdeny` |
+| `/spawn` | Teleport to spawn | `smp.spawn` |
+| `/setspawn` | Set global spawn | `smp.setspawn` |
+| `/back` | Teleport to previous location | `smp.back` |
+| `/tp <player> [target]` | Direct teleport command | `smp.tp` |
+| `/tphere <player>` | Teleport a player to your location | `smp.tphere` |
+
+## Homes And Warps
+
+| Command | Description | Permission |
+|---------|-------------|------------|
+| `/sethome <name>` | Set a home at your current location | `smp.sethome` |
+| `/home [name]` | Teleport to named home or open homes GUI | `smp.home` |
+| `/delhome <name>` | Delete a home | `smp.delhome` |
+| `/homes [player]` | Open your homes GUI or target player's homes GUI | `smp.homes` / `smp.homes.target` |
+| `/setwarp <name>` | Create or update a warp | `smp.setwarp` |
+| `/warp [name]` | Teleport to named warp or open warps GUI | `smp.warp` |
+| `/delwarp <name>` | Delete a warp | `smp.delwarp` |
+| `/warps` | Open warps GUI | `smp.warps` |
+
+## Kits
+
+| Command | Description | Permission |
+|---------|-------------|------------|
+| `/kit <name>` | Claim a configured kit | `smp.kit` |
+| `/kits` | List available kits | `smp.kits` |
+
+## Utility And Admin
+
+| Command | Description | Permission |
+|---------|-------------|------------|
+| `/fly [player]` | Toggle flight | `smp.fly` / `smp.fly.others` |
+| `/god [player]` | Toggle god mode | `smp.god` / `smp.god.others` |
+| `/speed <1-10> [player]` | Set move speed | `smp.speed` / `smp.speed.others` |
+| `/repair [all]` | Repair held item or all inventory items | `smp.repair` / `smp.repair.all` |
+| `/giveitem <player> <material> [amount]` | Give item utility command | `smp.giveitem` |
+| `/workbench` | Open virtual crafting table | `smp.workbench` |
+| `/anvil` | Open virtual anvil | `smp.anvil` |
+| `/ec [player]` | Open ender chest | `smp.ec` / `smp.ec.others` |
+| `/invsee <player>` | Open target inventory | `smp.invsee` |
+| `/clearinv [player]` | Clear inventory | `smp.clearinv` / `smp.clearinv.others` |
 
 ## Reload Behavior
 

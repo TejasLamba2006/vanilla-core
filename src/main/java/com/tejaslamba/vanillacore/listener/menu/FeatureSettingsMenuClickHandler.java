@@ -149,3 +149,4 @@ public class FeatureSettingsMenuClickHandler extends AbstractMenuClickHandler {
         feature.handleSettingsGUIClick(event.getRawSlot(), event.isShiftClick(), event.isRightClick(), player);
     }
 }
+

@@ -69,3 +69,4 @@ public class StopItemDespawnFeature extends BaseFeature {
         toggleDefault(player);
     }
 }
+

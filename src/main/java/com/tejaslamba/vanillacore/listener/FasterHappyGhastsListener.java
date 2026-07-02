@@ -58,12 +58,15 @@ public class FasterHappyGhastsListener implements Listener {
     }
 
     private Attribute resolveFlyingSpeedAttribute() {
-        for (Attribute attribute : Attribute.values()) {
-            String name = attribute.name();
-            if ("GENERIC_FLYING_SPEED".equals(name) || "FLYING_SPEED".equals(name)) {
-                return attribute;
+        try {
+            return Attribute.GENERIC_FLYING_SPEED;
+        } catch (NoSuchFieldError e) {
+            try {
+                return Attribute.valueOf("FLYING_SPEED");
+            } catch (IllegalArgumentException ex) {
+                return null;
             }
         }
-        return null;
     }
 }
+

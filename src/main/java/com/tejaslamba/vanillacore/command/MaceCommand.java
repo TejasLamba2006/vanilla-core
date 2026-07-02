@@ -166,3 +166,4 @@ public class MaceCommand implements CommandExecutor, TabCompleter {
                 .toList();
     }
 }
+

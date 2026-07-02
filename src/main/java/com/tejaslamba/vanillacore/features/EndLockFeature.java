@@ -10,3 +10,4 @@ public class EndLockFeature extends DimensionLockFeature {
         return 21;
     }
 }
+

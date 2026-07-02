@@ -2,6 +2,7 @@ package com.tejaslamba.vanillacore.enchantlimiter;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.HumanEntity;
@@ -92,7 +93,7 @@ public class EnchantmentLimiterManager {
 
     @SuppressWarnings("deprecation")
     private Enchantment findEnchantmentByExactName(String name) {
-        for (Enchantment enchant : Enchantment.values()) {
+        for (Enchantment enchant : Registry.ENCHANTMENT) {
             if (enchant.getKey().getKey().equalsIgnoreCase(name) ||
                     enchant.getName().equalsIgnoreCase(name)) {
                 return enchant;
@@ -260,3 +261,4 @@ public class EnchantmentLimiterManager {
         enchantmentCache.clear();
     }
 }
+

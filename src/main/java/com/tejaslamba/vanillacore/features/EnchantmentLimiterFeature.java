@@ -387,3 +387,4 @@ public class EnchantmentLimiterFeature extends BaseFeature {
         return new ArrayList<>(allEnchantments);
     }
 }
+

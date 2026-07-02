@@ -56,6 +56,14 @@ public abstract class DimensionLockFeature extends BaseFeature {
     }
 
     @Override
+    public void reload() {
+        this.enabled = plugin.getConfigManager().get().getBoolean(getConfigPath() + ".enabled", false);
+        if (plugin.isVerbose()) {
+            plugin.getLogger().info("[VERBOSE] Dimension Lock (" + dimension + ") - Reloaded: enabled=" + enabled);
+        }
+    }
+
+    @Override
     public Listener getListener() {
         return sharedListener;
     }
@@ -153,3 +161,4 @@ public abstract class DimensionLockFeature extends BaseFeature {
         return dimension;
     }
 }
+

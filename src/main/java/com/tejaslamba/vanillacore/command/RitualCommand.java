@@ -246,3 +246,4 @@ public class RitualCommand implements CommandExecutor, TabCompleter {
         return Collections.emptyList();
     }
 }
+

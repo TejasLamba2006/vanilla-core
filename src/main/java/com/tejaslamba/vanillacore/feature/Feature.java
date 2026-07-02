@@ -35,3 +35,4 @@ public interface Feature {
         return 100;
     }
 }
+

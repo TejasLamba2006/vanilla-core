@@ -74,6 +74,25 @@ social:
       enabled: true
       cooldown-seconds: 0
 
+teleport:
+  request-timeout-seconds: 60
+  safety:
+    enabled: true
+  homes:
+    max-homes: 3
+
+kits:
+  enabled: true
+  first-join-kit: "starter"
+  definitions:
+    starter:
+      permission: "smp.kit.starter"
+      cooldown-seconds: 0
+      items:
+        - "STONE_SWORD 1"
+        - "BREAD 16"
+        - "TORCH 16"
+
 # ============================================
 # Features
 # ============================================
@@ -600,3 +619,4 @@ features:
     # Vanilla-like base is around 0.05, Skript-style boosted value is 0.10
     flying-speed: 0.10
 # ============================================
+

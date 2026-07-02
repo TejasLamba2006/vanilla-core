@@ -175,17 +175,17 @@ public class EnderChestItemLimiterFeature extends BaseFeature {
                 if (blocked.getCustomModelData() != null) {
                     lore.add(plugin.getMessageManager().get(
                             "ender-chest-item-limiter.gui.view.blocked-item.custom-model-data",
-                            "customModelData", String.valueOf(blocked.getCustomModelData())));
+                            "custom_model_data", String.valueOf(blocked.getCustomModelData())));
                 }
                 if (blocked.getDisplayName() != null) {
                     lore.add(plugin.getMessageManager().get(
                             "ender-chest-item-limiter.gui.view.blocked-item.display-name",
-                            "displayName", blocked.getDisplayName()));
+                            "display_name", blocked.getDisplayName()));
                 }
                 if (blocked.getPotionType() != null) {
                     lore.add(
                             plugin.getMessageManager().get("ender-chest-item-limiter.gui.view.blocked-item.potion-type",
-                                    "potionType", blocked.getPotionType().name()));
+                                    "potion_type", blocked.getPotionType().name()));
                 }
 
                 lore.add(Component.empty());
@@ -452,3 +452,4 @@ public class EnderChestItemLimiterFeature extends BaseFeature {
         public ItemStack item;
     }
 }
+

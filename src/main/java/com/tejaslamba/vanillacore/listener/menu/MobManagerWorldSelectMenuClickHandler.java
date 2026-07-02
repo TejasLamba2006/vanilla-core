@@ -91,3 +91,4 @@ public class MobManagerWorldSelectMenuClickHandler extends AbstractMenuClickHand
                 || material == Material.STONE;
     }
 }
+

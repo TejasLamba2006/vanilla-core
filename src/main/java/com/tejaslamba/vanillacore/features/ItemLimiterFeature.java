@@ -215,15 +215,15 @@ public class ItemLimiterFeature extends BaseFeature {
 
                 if (limit.getCustomModelData() != null) {
                     lore.add(plugin.getMessageManager().get("item-limiter.gui.view.item.custom-model-data",
-                            "customModelData",
+                            "custom_model_data",
                             limit.getCustomModelData()));
                 }
                 if (limit.getDisplayName() != null) {
-                    lore.add(plugin.getMessageManager().get("item-limiter.gui.view.item.display-name", "displayName",
+                    lore.add(plugin.getMessageManager().get("item-limiter.gui.view.item.display-name", "display_name",
                             limit.getDisplayName()));
                 }
                 if (limit.getPotionType() != null) {
-                    lore.add(plugin.getMessageManager().get("item-limiter.gui.view.item.potion-type", "potionType",
+                    lore.add(plugin.getMessageManager().get("item-limiter.gui.view.item.potion-type", "potion_type",
                             limit.getPotionType().name()));
                 }
 
@@ -281,15 +281,15 @@ public class ItemLimiterFeature extends BaseFeature {
 
                 if (limit.getCustomModelData() != null) {
                     lore.add(plugin.getMessageManager().get("item-limiter.gui.banned.item.custom-model-data",
-                            "customModelData",
+                            "custom_model_data",
                             limit.getCustomModelData()));
                 }
                 if (limit.getDisplayName() != null) {
-                    lore.add(plugin.getMessageManager().get("item-limiter.gui.banned.item.display-name", "displayName",
+                    lore.add(plugin.getMessageManager().get("item-limiter.gui.banned.item.display-name", "display_name",
                             limit.getDisplayName()));
                 }
                 if (limit.getPotionType() != null) {
-                    lore.add(plugin.getMessageManager().get("item-limiter.gui.banned.item.potion-type", "potionType",
+                    lore.add(plugin.getMessageManager().get("item-limiter.gui.banned.item.potion-type", "potion_type",
                             limit.getPotionType().name()));
                 }
 
@@ -784,3 +784,4 @@ public class ItemLimiterFeature extends BaseFeature {
         public boolean banMode = false;
     }
 }
+

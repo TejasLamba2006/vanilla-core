@@ -55,12 +55,12 @@ const config = {
                         label: 'Documentation',
                     },
                     {
-                        href: 'https://modrinth.com/plugin/vanillacorewastaken',
+                        href: 'https://modrinth.com/plugin/smpwatchdog',
                         label: 'Modrinth',
                         position: 'right',
                     },
                     {
-                        href: 'https://discord.gg/7fQPG4Grwt?utm_source=vanillacore.tejaslamba.com',
+                        href: 'https://discord.gg/7fQPG4Grwt?utm_source=smpwatchdog',
                         label: 'Discord',
                         position: 'right',
                     },
@@ -91,7 +91,7 @@ const config = {
                         items: [
                             {
                                 label: 'Discord',
-                                href: 'https://discord.gg/7fQPG4Grwt?utm_source=vanillacore.tejaslamba.com',
+                                href: 'https://discord.gg/7fQPG4Grwt?utm_source=smpwatchdog',
                             },
                         ],
                     },
@@ -100,7 +100,7 @@ const config = {
                         items: [
                             {
                                 label: 'Modrinth',
-                                href: 'https://modrinth.com/plugin/vanillacorewastaken',
+                                href: 'https://modrinth.com/plugin/smpwatchdog',
                             },
                             {
                                 label: 'Downloads Page',
@@ -146,3 +146,4 @@ const config = {
 };
 
 export default config;
+

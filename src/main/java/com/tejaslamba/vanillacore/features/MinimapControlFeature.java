@@ -470,3 +470,4 @@ public class MinimapControlFeature extends BaseFeature {
         loadConfig();
     }
 }
+

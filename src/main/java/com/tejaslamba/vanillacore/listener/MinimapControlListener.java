@@ -145,3 +145,4 @@ public class MinimapControlListener implements Listener {
         }
     }
 }
+

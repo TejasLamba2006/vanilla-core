@@ -109,7 +109,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
                     "option", optionText));
         } else {
             sender.sendMessage(plugin.getMessageManager().get("commands.enchant.limit.set", "enchant", enchantKey,
-                    "maxLevel", maxLevel, "option", optionText));
+                    "max_level", maxLevel, "option", optionText));
         }
 
         return true;
@@ -384,3 +384,4 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
                 .toList();
     }
 }
+

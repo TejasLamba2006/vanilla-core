@@ -87,3 +87,4 @@ public class ItemExplosionImmunityFeature extends BaseFeature {
         player.sendMessage(plugin.getMessageManager().get("item-explosion-immunity.info.line-6"));
     }
 }
+

@@ -29,16 +29,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Folia-aware scheduler utility used for async/sync/repeating task safety.
 - Added social/communication engine under `/smp` including PM/reply, mentions with notifications, URL formatting, social spy, chat/PM/mention toggles, player block/unblock/list, and command-level toggles/cooldowns from config.
 - Added announcements engine with configurable interval and messages.
+- Added teleport stack: `/tpa`, `/tpahere`, `/tpaccept`, `/tpdeny`, `/spawn`, `/setspawn`, `/back`, `/tp`, and `/tphere`, with configurable safety checks.
+- Added persistent homes and warps systems with GUI navigation (`/home`, `/homes`, `/sethome`, `/delhome`, `/warp`, `/warps`, `/setwarp`, `/delwarp`).
+- Added kits system with `/kit`, `/kits`, cooldown persistence, and first-join starter kit support.
+- Added utility/admin command pack: `/fly`, `/god`, `/speed`, `/repair`, `/giveitem`, `/workbench`, `/anvil`, `/ec`, `/invsee`, and `/clearinv`.
 
 ### Changed
 
 - Bumped config version to `9` so new defaults and migrations are applied automatically.
-- Rebranded the plugin display name and user-facing branding from "Vanilla Core" to "SMP Watchdog" across `plugin.yml`, runtime messages, logs, and documentation.
+- Registered standalone social commands `/msg`, `/reply`, and `/socialspy` while keeping `/smp msg`, `/smp reply`, and `/smp socialspy` available.
+- Updated permission defaults so `smp.msg` and `smp.reply` now default to `true` (no OP required).
+- Rebranded the plugin display name and user-facing branding to "SMP Watchdog" across `plugin.yml`, runtime messages, logs, and documentation.
 - Switched the admin command to `/smp` only and removed the `/vanilla` alias.
 - Removed legacy `vanillacore.*` permission mapping and standardized permission checks on `smp.*` nodes.
 - Upgraded `/smp reload` to support module-scoped hot reload targets: `all`, `config`, `messages`, `menus`, and `features`, with elapsed-time feedback and per-module failure reporting.
 - Added `/smp version` with `smp.version` permission for quick in-game/admin version checks.
-- Update checks now fetch the latest release version directly from Modrinth (`vanillacorewastaken`) while keeping CDN-backed remote feature-control and maintenance messaging.
+- Update checks now fetch the latest release version directly from Modrinth (`smpwatchdog`) while keeping CDN-backed remote feature-control and maintenance messaging.
 - Split combat restrictions into separate features instead of one combined settings screen.
 - Extended `/ritual start` to support runtime overrides: `/ritual start [time] [color]` with durations like `30s`, `1m`, `1h`, `1d`, and `1h30m`, plus color tab completion.
 - Added a full Ritual settings GUI in `/smp menu` (right-click Ritual) for duration, radius, particle color, start sound toggle, and end-effect toggles.
@@ -64,7 +70,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - `VanillaCorePlugin`: removed duplicate `"vanillacore"` entries in the data-folder migration array (was listed three times)
-- `VanillaCorePlugin`: re-added `"SMPCore"` legacy alias to data-folder migration array so configs from that legacy folder name are migrated correctly
+- `VanillaCorePlugin`: re-added a legacy data-folder alias to the migration array so configs from historical folder names are migrated correctly
 - `ConfigManager`: corrected default config key `features.mace-limiter.mace-crafted` → `features.mace-limiter.maces-crafted` so config migration properly seeds the mace craft counter
 - `ConfigManager`: added explicit migration step to remove the old boolean `mace-crafted` key and convert its value to the new integer `maces-crafted` key in existing configs
 - `ConfigManager`: fixed migration log message reporting total defaults instead of actually-added entry count; also removed dead empty features array
@@ -182,8 +188,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **🎨 Complete Rebrand: SMP Core → Vanilla Core**
-  - **Plugin renamed** from "SMP Core" to "Vanilla Core" across all systems
+- **🎨 Complete Branding Overhaul and Data Migration**
+  - **Plugin naming and user-facing identity were updated** across all systems
   - **Command changed** from `/smp` to `/vanilla` (**‼️ BREAKING CHANGE**)
     - New aliases: `vc`, `vpt` (old `smp` alias removed)
     - All subcommands now use `/vanilla` prefix
@@ -193,15 +199,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Permission nodes** remain unchanged (`vanillacore.*`) for backward compatibility
   - **Documentation URLs updated**:
     - Docs: <https://vanillacore.tejaslamba.com>
-    - Modrinth: <https://modrinth.com/plugin/vanillacorewastaken>
+    - Modrinth: <https://modrinth.com/plugin/smpwatchdog>
     - GitHub: <https://github.com/TejasLamba2006/vanilla-core>
   - **Automatic data migration**: Existing plugin data automatically migrated from old folder names
-    - Supports migration from: `smp-core`, `SMP-Core`, `SMPCore`
-    - New folder: `Vanilla Core`
+    - Supports migration from multiple historical folder aliases
+    - New standardized plugin data folder naming
     - Migration runs automatically on first load after update
     - **No data loss**: All existing configurations, limits, and settings are preserved
   - **In-game branding**: All chat messages, GUIs, and prefixes updated
-    - Chat prefix: `§8[§6Vanilla Core§8]§r`
+    - Chat prefix and menu titles were updated
     - Menu titles updated throughout
     - Help messages and command usage updated
   - **Configuration files**: All comments and examples updated to reflect new branding
@@ -383,7 +389,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Set limit to 0 to completely ban an enchantment
 - **ProGuard Obfuscation**: Build-time code obfuscation for distribution protection
   - Run `mvn package -Pobfuscate` to create obfuscated JAR
-  - Produces `smp-core-x.x.x-obfuscated.jar` in target folder
+  - Produces an obfuscated distribution JAR in the `target` folder
   - Mapping file saved to `target/proguard_map.txt` for debugging
 - **Item Limiter GUI System**: Complete GUI-based item limit management
   - Main menu with view, add, banned items, and reload options
@@ -561,7 +567,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | Version | Release Date | Highlights |
 |---------|--------------|------------|
 | 1.3.1 | 2026-02-26 | Enchantment Limiter fixes, Infinite Restock discount fix, Modrinth auto-publish |
-| 1.3.0 | 2026-02-13 | Complete Rebrand: SMP Core → Vanilla Core, Data Migration |
+| 1.3.0 | 2026-02-13 | Complete branding overhaul and data migration |
 | 1.2.1 | 2026-01-13 | Open Source Migration, MIT License, CI/CD Workflows |
 | 1.2.0 | 2026-01-02 | Server Restart, Main Menu Redesign, CDN Integration |
 | 1.1.0 | 2024-12-27 | GUI overhaul, Mob Manager, Infinite Restock, Item Limiter rewrite |
@@ -576,3 +582,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.2.0]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/TejasLamba2006/vanilla-core/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/TejasLamba2006/vanilla-core/releases/tag/v1.0.0
+

@@ -537,3 +537,4 @@ public class RitualFeature extends BaseFeature {
         return value.toString().trim();
     }
 }
+

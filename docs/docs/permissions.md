@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Permissions
 
-SMP Watchdog uses a hierarchical permission system. All permissions default to OP only, meaning regular players cannot access any features without explicit permission grants.
+SMP Watchdog uses a hierarchical permission system. Most management and bypass permissions default to OP, while selected social/player-preference permissions default to true.
 
 Primary namespace:
 
@@ -15,7 +15,7 @@ Primary namespace:
 By default, SMP Watchdog uses these permission levels:
 
 - **OP Players** - Full access to all commands and bypass permissions
-- **Regular Players** - No access to any SMP Watchdog commands or bypasses
+- **Regular Players** - Access to permissions that default to `true` (for example `smp.msg`, `smp.reply`, and social toggle/block commands)
 
 To change this behavior, use a permissions plugin like LuckPerms.
 
@@ -36,10 +36,46 @@ These permissions control access to the main plugin functions:
 | `smp.infiniterestock` | Open/manage Infinite Restock | OP |
 | `smp.ritual` | Start/view ritual events | OP |
 | `smp.ritual.cancel` | Cancel active ritual events | OP |
-| `smp.msg` | Send private messages | OP |
-| `smp.reply` | Reply to private messages | OP |
+| `smp.msg` | Send private messages | true |
+| `smp.reply` | Reply to private messages | true |
 | `smp.socialspy` | Use social spy | OP |
 | `smp.announcements` | Manage announcements engine | OP |
+| `smp.tpa` | Request teleport to players | true |
+| `smp.tpahere` | Request players teleport to you | true |
+| `smp.tpaccept` | Accept teleport requests | true |
+| `smp.tpdeny` | Deny teleport requests | true |
+| `smp.spawn` | Teleport to spawn | true |
+| `smp.setspawn` | Set spawn location | OP |
+| `smp.back` | Teleport back to previous location | true |
+| `smp.tp` | Use direct teleport command | OP |
+| `smp.tphere` | Teleport player to your location | OP |
+| `smp.home` | Use home command | true |
+| `smp.sethome` | Set homes | true |
+| `smp.delhome` | Delete homes | true |
+| `smp.homes` | Open homes GUI | true |
+| `smp.homes.target` | Open another player's homes GUI | OP |
+| `smp.warp` | Use warp command | true |
+| `smp.setwarp` | Set warps | OP |
+| `smp.delwarp` | Delete warps | OP |
+| `smp.warps` | Open warps GUI | true |
+| `smp.kit` | Claim kits | true |
+| `smp.kits` | List kits | true |
+| `smp.fly` | Toggle own flight | OP |
+| `smp.fly.others` | Toggle others' flight | OP |
+| `smp.god` | Toggle own god mode | OP |
+| `smp.god.others` | Toggle others' god mode | OP |
+| `smp.speed` | Set own speed | OP |
+| `smp.speed.others` | Set others' speed | OP |
+| `smp.repair` | Repair held item | OP |
+| `smp.repair.all` | Repair all inventory items | OP |
+| `smp.giveitem` | Give item utility command | OP |
+| `smp.workbench` | Open virtual workbench | true |
+| `smp.anvil` | Open virtual anvil | true |
+| `smp.ec` | Open own ender chest | OP |
+| `smp.ec.others` | Open others' ender chest | OP |
+| `smp.invsee` | Open target inventory | OP |
+| `smp.clearinv` | Clear own inventory | OP |
+| `smp.clearinv.others` | Clear others' inventory | OP |
 
 ## Command Permissions
 
@@ -52,9 +88,9 @@ These permissions control access to the main plugin functions:
 | `smp.version` | Use `/smp version` | OP |
 | `smp.ritual` | Use `/ritual` and `/smp ritual` | OP |
 | `smp.ritual.cancel` | Cancel active ritual events | OP |
-| `smp.msg` | Use `/smp msg` | OP |
-| `smp.reply` | Use `/smp reply` | OP |
-| `smp.socialspy` | Use `/smp socialspy` | OP |
+| `smp.msg` | Use `/smp msg` or `/msg` | true |
+| `smp.reply` | Use `/smp reply` or `/reply` | true |
+| `smp.socialspy` | Use `/smp socialspy` or `/socialspy` | OP |
 | `smp.toggle.chat` | Use `/smp togglechat` | true |
 | `smp.toggle.pm` | Use `/smp togglepm` | true |
 | `smp.toggle.mentions` | Use `/smp togglementions` | true |
@@ -69,6 +105,57 @@ These permissions control access to the main plugin functions:
 |------------|-------------|---------|
 | `smp.dimension.nether` | Manage Nether lock status/open/close | OP |
 | `smp.dimension.end` | Manage End lock status/open/close | OP |
+
+### Teleport Commands
+
+| Permission | Description | Default |
+|------------|-------------|---------|
+| `smp.tpa` | Use `/tpa` | true |
+| `smp.tpahere` | Use `/tpahere` | true |
+| `smp.tpaccept` | Use `/tpaccept` | true |
+| `smp.tpdeny` | Use `/tpdeny` | true |
+| `smp.spawn` | Use `/spawn` | true |
+| `smp.setspawn` | Use `/setspawn` | OP |
+| `smp.back` | Use `/back` | true |
+| `smp.tp` | Use `/tp` | OP |
+| `smp.tphere` | Use `/tphere` | OP |
+
+### Homes And Warps
+
+| Permission | Description | Default |
+|------------|-------------|---------|
+| `smp.home` | Use `/home` | true |
+| `smp.sethome` | Use `/sethome` | true |
+| `smp.delhome` | Use `/delhome` | true |
+| `smp.homes` | Use `/homes` | true |
+| `smp.homes.target` | Use `/homes <player>` | OP |
+| `smp.warp` | Use `/warp` | true |
+| `smp.setwarp` | Use `/setwarp` | OP |
+| `smp.delwarp` | Use `/delwarp` | OP |
+| `smp.warps` | Use `/warps` | true |
+
+### Kits And Utility
+
+| Permission | Description | Default |
+|------------|-------------|---------|
+| `smp.kit` | Use `/kit` | true |
+| `smp.kits` | Use `/kits` | true |
+| `smp.fly` | Use `/fly` | OP |
+| `smp.fly.others` | Use `/fly <player>` | OP |
+| `smp.god` | Use `/god` | OP |
+| `smp.god.others` | Use `/god <player>` | OP |
+| `smp.speed` | Use `/speed` | OP |
+| `smp.speed.others` | Use `/speed <value> <player>` | OP |
+| `smp.repair` | Use `/repair` | OP |
+| `smp.repair.all` | Use `/repair all` | OP |
+| `smp.giveitem` | Use `/giveitem` | OP |
+| `smp.workbench` | Use `/workbench` | true |
+| `smp.anvil` | Use `/anvil` | true |
+| `smp.ec` | Use `/ec` | OP |
+| `smp.ec.others` | Use `/ec <player>` | OP |
+| `smp.invsee` | Use `/invsee` | OP |
+| `smp.clearinv` | Use `/clearinv` | OP |
+| `smp.clearinv.others` | Use `/clearinv <player>` | OP |
 
 ### Bypass and Exception Permissions
 

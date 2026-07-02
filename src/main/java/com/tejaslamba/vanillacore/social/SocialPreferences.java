@@ -65,3 +65,4 @@ public class SocialPreferences {
         this.lastReplyTarget = lastReplyTarget;
     }
 }
+

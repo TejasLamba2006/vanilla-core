@@ -26,7 +26,7 @@ Before installing SMP Watchdog, verify your server meets these requirements:
 
 Download the latest version of SMP Watchdog from one of these sources:
 
-- [Modrinth](https://modrinth.com/plugin/vanillacorewastaken) (Recommended)
+- [Modrinth](https://modrinth.com/plugin/smpwatchdog) (Recommended)
 
 Download the JAR file for the latest version.
 
@@ -101,7 +101,7 @@ Major version updates (like 1.x to 2.x) may include breaking changes. Always rea
 **Solutions:**
 
 1. Stop the server properly with `/stop` (don't kill the process)
-2. Check file permissions on `plugins/SMP Watchdog/`
+2. Check file permissions on `plugins/SMPWatchdog/`
 3. Verify disk space is available
 4. Look for write errors in the console during shutdown
 
@@ -130,4 +130,5 @@ If you experience conflicts, please [report them on GitHub](https://github.com/T
 ---
 
 Next: Learn about [Commands](./commands) and [Permissions](./permissions).
+
 

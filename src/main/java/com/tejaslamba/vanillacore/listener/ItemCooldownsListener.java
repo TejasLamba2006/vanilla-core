@@ -90,3 +90,4 @@ public class ItemCooldownsListener implements Listener {
         return plugin.getFeatureManager().getFeature(ItemCooldownsFeature.class);
     }
 }
+

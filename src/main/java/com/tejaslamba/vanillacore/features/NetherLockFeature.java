@@ -10,3 +10,4 @@ public class NetherLockFeature extends DimensionLockFeature {
         return 20;
     }
 }
+

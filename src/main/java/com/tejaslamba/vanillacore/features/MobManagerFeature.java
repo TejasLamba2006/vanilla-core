@@ -900,3 +900,4 @@ public class MobManagerFeature extends BaseFeature {
         player.openInventory(gui);
     }
 }
+

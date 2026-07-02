@@ -22,7 +22,7 @@ Yes! SMP Watchdog is completely free and open source.
 
 ### Where can I download it?
 
-- [Modrinth](https://modrinth.com/plugin/vanillacorewastaken) (Recommended)
+- [Modrinth](https://modrinth.com/plugin/smpwatchdog) (Recommended)
 
 ---
 
@@ -42,7 +42,7 @@ Check the following:
 The config is generated on first run. Ensure:
 
 1. The plugin loaded successfully
-2. Check `plugins/SMP Watchdog/` folder
+2. Check `plugins/SMPWatchdog/` folder
 3. Look for console errors during startup
 
 ### How do I update?
@@ -118,7 +118,7 @@ Check for these common issues:
 Using LuckPerms:
 
 ```
-/lp group staff permission set vanillacore.bypass.* true
+/lp group staff permission set smp.* true
 ```
 
 ---
@@ -158,7 +158,7 @@ Fork the repo, make your changes, and open a pull request.
 
 ### How do I report bugs?
 
-Open an issue on [Discord server](https://discord.gg/7fQPG4Grwts) with:
+Open an issue on [Discord server](https://discord.gg/7fQPG4Grwt) with:
 
 - Server version
 - Plugin version
@@ -172,3 +172,4 @@ Open an issue on [Discord server](https://discord.gg/7fQPG4Grwts) with:
 - Check the [Documentation](/docs)
 - [Report an Issue on GitHub](https://github.com/TejasLamba2006/vanilla-core/issues)
 - [Support Development via PayPal](https://paypal.me/tejaslamba) - Donors get priority support
+

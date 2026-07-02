@@ -93,3 +93,4 @@ public class InvisibleKillsFeature extends BaseFeature {
         player.sendMessage(plugin.getMessageManager().get("invisible-kills.info.config-hint"));
     }
 }
+

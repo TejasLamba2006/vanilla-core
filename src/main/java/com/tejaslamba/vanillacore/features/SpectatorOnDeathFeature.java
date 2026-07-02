@@ -62,3 +62,4 @@ public class SpectatorOnDeathFeature extends BaseFeature {
         toggleDefault(player);
     }
 }
+

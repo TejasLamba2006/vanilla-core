@@ -29,6 +29,7 @@ public class SocialManager {
     private final VanillaCorePlugin plugin;
     private final DatabaseManager databaseManager;
     private final Map<UUID, SocialPreferences> cache = new ConcurrentHashMap<>();
+    private final Map<UUID, Set<UUID>> blockCache = new ConcurrentHashMap<>();
     private final Map<String, Long> cooldowns = new ConcurrentHashMap<>();
     private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
@@ -39,6 +40,12 @@ public class SocialManager {
 
     public void preload(UUID uuid) {
         getPreferences(uuid);
+        Set<UUID> blocked = databaseManager.getBlockedPlayers(uuid);
+        Set<UUID> cachedBlocked = ConcurrentHashMap.newKeySet();
+        if (blocked != null) {
+            cachedBlocked.addAll(blocked);
+        }
+        blockCache.put(uuid, cachedBlocked);
     }
 
     public void unload(UUID uuid) {
@@ -46,6 +53,19 @@ public class SocialManager {
         if (prefs != null) {
             SchedulerUtil.runAsync(plugin, () -> databaseManager.savePreferences(prefs));
         }
+        blockCache.remove(uuid);
+    }
+
+    public void shutdown() {
+        for (SocialPreferences prefs : cache.values()) {
+            try {
+                databaseManager.savePreferences(prefs);
+            } catch (Exception e) {
+                plugin.getLogger().warning("Failed to save preferences on shutdown for " + prefs.getUuid() + ": " + e.getMessage());
+            }
+        }
+        cache.clear();
+        blockCache.clear();
     }
 
     public boolean isCommandEnabled(String key) {
@@ -110,17 +130,31 @@ public class SocialManager {
 
     public void block(Player blocker, Player blocked) {
         databaseManager.block(blocker.getUniqueId(), blocked.getUniqueId());
+        Set<UUID> blockedSet = blockCache.computeIfAbsent(blocker.getUniqueId(), k -> ConcurrentHashMap.newKeySet());
+        blockedSet.add(blocked.getUniqueId());
     }
 
     public void unblock(Player blocker, Player blocked) {
         databaseManager.unblock(blocker.getUniqueId(), blocked.getUniqueId());
+        Set<UUID> blockedSet = blockCache.get(blocker.getUniqueId());
+        if (blockedSet != null) {
+            blockedSet.remove(blocked.getUniqueId());
+        }
     }
 
     public boolean isBlockedEitherWay(UUID a, UUID b) {
-        return databaseManager.isBlocked(a, b) || databaseManager.isBlocked(b, a);
+        Set<UUID> blockedByA = blockCache.get(a);
+        Set<UUID> blockedByB = blockCache.get(b);
+        boolean aBlocksB = (blockedByA != null) ? blockedByA.contains(b) : databaseManager.isBlocked(a, b);
+        boolean bBlocksA = (blockedByB != null) ? blockedByB.contains(a) : databaseManager.isBlocked(b, a);
+        return aBlocksB || bBlocksA;
     }
 
     public Set<UUID> getBlockedPlayers(UUID blocker) {
+        Set<UUID> cached = blockCache.get(blocker);
+        if (cached != null) {
+            return new HashSet<>(cached);
+        }
         return databaseManager.getBlockedPlayers(blocker);
     }
 
@@ -155,10 +189,15 @@ public class SocialManager {
     public Component formatChat(Player sender, String plainMessage) {
         String enriched = enrichUrlsAndMentions(plainMessage);
         String format = resolveGroupFormat(sender);
+        String nameEscaped = MiniMessage.miniMessage().escapeTags(sender.getName());
+        String displayMM = MiniMessage.miniMessage().serialize(sender.displayName());
         String withValues = format
-                .replace("{name}", MiniMessage.miniMessage().escapeTags(sender.getName()))
-                .replace("{display}", MiniMessage.miniMessage().escapeTags(sender.displayName().toString()))
-                .replace("{message}", enriched);
+                .replace("{name}", nameEscaped)
+                .replace("<name>", nameEscaped)
+                .replace("{display}", displayMM)
+                .replace("<display>", displayMM)
+                .replace("{message}", enriched)
+                .replace("<message>", enriched);
         return miniMessage.deserialize(withValues);
     }
 
@@ -261,10 +300,16 @@ public class SocialManager {
     }
 
     private String buildPmFormat(String template, Player sender, Player target, String content) {
+        String senderEscaped = MiniMessage.miniMessage().escapeTags(sender.getName());
+        String targetEscaped = MiniMessage.miniMessage().escapeTags(target.getName());
+        String messageEnriched = enrichUrlsAndMentions(content);
         return template
-                .replace("{sender}", MiniMessage.miniMessage().escapeTags(sender.getName()))
-                .replace("{target}", MiniMessage.miniMessage().escapeTags(target.getName()))
-                .replace("{message}", enrichUrlsAndMentions(content));
+                .replace("{sender}", senderEscaped)
+                .replace("<sender>", senderEscaped)
+                .replace("{target}", targetEscaped)
+                .replace("<target>", targetEscaped)
+                .replace("{message}", messageEnriched)
+                .replace("<message>", messageEnriched);
     }
 
     private void broadcastSpy(Player sender, Player target, String content) {
@@ -294,3 +339,4 @@ public class SocialManager {
         SchedulerUtil.runAsync(plugin, () -> databaseManager.savePreferences(preferences));
     }
 }
+
