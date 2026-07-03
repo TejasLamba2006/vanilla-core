@@ -1,4 +1,4 @@
-package com.tejaslamba.vanillacore.commands;
+package com.tejaslamba.vanillacore.command;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import org.bukkit.Bukkit;

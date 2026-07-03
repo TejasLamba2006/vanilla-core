@@ -2,7 +2,6 @@ package com.tejaslamba.vanillacore.social;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import com.tejaslamba.vanillacore.database.DatabaseManager;
-import com.tejaslamba.vanillacore.util.SchedulerUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
@@ -51,7 +50,7 @@ public class SocialManager {
     public void unload(UUID uuid) {
         SocialPreferences prefs = cache.remove(uuid);
         if (prefs != null) {
-            SchedulerUtil.runAsync(plugin, () -> databaseManager.savePreferences(prefs));
+            Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> databaseManager.savePreferences(prefs));
         }
         blockCache.remove(uuid);
     }
@@ -219,7 +218,7 @@ public class SocialManager {
                 continue;
             }
             notified.add(online.getUniqueId());
-            SchedulerUtil.runSync(plugin, () -> {
+            Bukkit.getScheduler().runTask(plugin, () -> {
                 String soundName = plugin.getConfigManager().get().getString("social.chat.mentions.sound",
                         "ENTITY_EXPERIENCE_ORB_PICKUP");
                 try {
@@ -336,7 +335,7 @@ public class SocialManager {
     }
 
     private void saveAsync(SocialPreferences preferences) {
-        SchedulerUtil.runAsync(plugin, () -> databaseManager.savePreferences(preferences));
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> databaseManager.savePreferences(preferences));
     }
 }
 

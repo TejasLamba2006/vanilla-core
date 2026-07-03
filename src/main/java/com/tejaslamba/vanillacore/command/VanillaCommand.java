@@ -1,10 +1,6 @@
-package com.tejaslamba.vanillacore.commands;
+package com.tejaslamba.vanillacore.command;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
-import com.tejaslamba.vanillacore.command.EnchantCommand;
-import com.tejaslamba.vanillacore.command.MaceCommand;
-import com.tejaslamba.vanillacore.command.NetheriteCommand;
-import com.tejaslamba.vanillacore.command.RitualCommand;
 import com.tejaslamba.vanillacore.feature.Feature;
 import com.tejaslamba.vanillacore.manager.MessageManager;
 import org.bukkit.command.Command;

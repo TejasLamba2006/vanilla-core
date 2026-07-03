@@ -1,4 +1,4 @@
-package com.tejaslamba.vanillacore.utils;
+package com.tejaslamba.vanillacore.util;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;

@@ -3,13 +3,13 @@ package com.tejaslamba.vanillacore.manager;
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.tejaslamba.vanillacore.commands.VanillaCommand;
 import com.tejaslamba.vanillacore.command.DimensionCommand;
 import com.tejaslamba.vanillacore.command.HomeCommand;
 import com.tejaslamba.vanillacore.command.KitCommand;
 import com.tejaslamba.vanillacore.command.RitualCommand;
 import com.tejaslamba.vanillacore.command.TeleportCommand;
 import com.tejaslamba.vanillacore.command.UtilityCommand;
+import com.tejaslamba.vanillacore.command.VanillaCommand;
 import com.tejaslamba.vanillacore.command.WarpCommand;
 
 public class CommandManager {

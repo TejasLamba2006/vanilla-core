@@ -1,7 +1,7 @@
 package com.tejaslamba.vanillacore.command;
 
 import com.tejaslamba.vanillacore.VanillaCorePlugin;
-import com.tejaslamba.vanillacore.utils.EnchantmentUtils;
+import com.tejaslamba.vanillacore.util.EnchantmentUtils;
 import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.command.Command;
