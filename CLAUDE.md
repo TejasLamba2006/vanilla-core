@@ -4,13 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Vanilla Core is a Minecraft Paper/Spigot plugin (1.21.1+, Java 21+) for Vanilla survival servers, providing PvP balance tweaks, custom mechanics, and built-in essentials commands (teleport, homes, warps, kits, social) so servers don't need extra plugins. Modrinth slug: `smpwatchdog` (project ID `GH4H8ndx`).
+Vanilla Core is a Minecraft Paper/Spigot plugin (26.2+, Java 25+, no legacy version support) for Vanilla survival servers, providing PvP balance tweaks, custom mechanics, and built-in essentials commands (teleport, homes, warps, kits, social) so servers don't need extra plugins. Modrinth slug: `smpwatchdog` (project ID `GH4H8ndx`).
 
 ## Build & Run
 
+Requires **JDK 25** on `PATH`/`JAVA_HOME` — the compiler, shade plugin, and ProGuard all need it to read Paper 26.2's class files (major version 69). If the default JDK is older, override for the build:
+
 ```bash
-mvn clean package              # standard build -> target/vanilla-core-<version>.jar
-mvn clean package -Pobfuscate  # release build with ProGuard obfuscation (final jar has -final suffix)
+JAVA_HOME="/c/Program Files/Java/jdk-25.0.2" PATH="/c/Program Files/Java/jdk-25.0.2/bin:$PATH" mvn clean package              # standard build -> target/vanilla-core-<version>.jar
+JAVA_HOME="/c/Program Files/Java/jdk-25.0.2" PATH="/c/Program Files/Java/jdk-25.0.2/bin:$PATH" mvn clean package -Pobfuscate  # release build with ProGuard obfuscation (final jar has -final suffix)
 ```
 
 There are no automated tests in this repo (no `src/test` sources) — validation is done by loading the jar on a real Paper server. A `paper-test-server/` directory exists locally for manual testing.

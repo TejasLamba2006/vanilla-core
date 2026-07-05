@@ -151,6 +151,9 @@ features:
       chestplate: true
       leggings: true
       boots: true
+      horse_armor: true
+      spear: true
+      nautilus_armor: true
 
   # ------------------------------------------
   # Invisible Kills
@@ -305,7 +308,7 @@ features:
 | [Item Limiter](/docs/features/item-limiter) | `item-limiter` | Limit item quantities |
 | [Ender Chest Item Limiter](/docs/features/ender-chest-item-limiter) | `ender-chest-item-limiter` | Block selected items from ender chest storage |
 | [Mace Limiter](/docs/features/mace-limiter) | `mace-limiter` | Limit total maces craftable |
-| [Combat Restrictions](/docs/features/combat-restrictions) | `bed-bombing-ban`, `tnt-minecart-ban`, `villager-killing-ban`, `crystal-pvp-ban`, `anchor-restriction`, `pearl-restriction` | Separate toggles for each combat restriction |
+| [Combat Restrictions](/docs/features/combat-restrictions) | `bed-bombing-ban`, `tnt-minecart-ban`, `villager-killing-ban`, `crystal-pvp-ban`, `anchor-restriction`, `pearl-restriction`, `sulfur-cube-grief-ban` | Separate toggles for each combat restriction |
 | [Item Cooldowns](/docs/features/item-cooldowns) | `item-cooldowns` | Configurable cooldowns for pearls, apples, wind charges, and more |
 | [Potion Bans](/docs/features/potion-bans) | `potion-bans` | Per-effect Tier 1 and Tier 2 potion bans via `effect:tier1:tier2` |
 | [Netherite Disabler](/docs/features/netherite-disabler) | `netherite-disabler` | Block netherite item crafting |

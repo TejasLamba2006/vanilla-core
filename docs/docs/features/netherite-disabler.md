@@ -30,6 +30,9 @@ features:
       chestplate: true
       leggings: true
       boots: true
+      horse_armor: true
+      spear: true
+      nautilus_armor: true
 ```
 
 ### Configuration Options
@@ -54,6 +57,9 @@ Each item type can be individually toggled:
 | `chestplate` | Netherite Chestplate |
 | `leggings` | Netherite Leggings |
 | `boots` | Netherite Boots |
+| `horse_armor` | Netherite Horse Armor (Mounts of Mayhem) |
+| `spear` | Netherite Spear (Mounts of Mayhem) |
+| `nautilus_armor` | Netherite Nautilus Armor (Mounts of Mayhem) |
 
 Set to `true` to disable the item, `false` to allow it.
 

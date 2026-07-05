@@ -187,10 +187,6 @@ commands:
   version:
     no-permission: "<red>You don't have permission to view plugin version!"
     current: "<green>Vanilla Core version: <yellow><version>"
-  enchant:
-    no-permission: "<red>You don't have permission to use enchant commands!"
-  mace:
-    no-permission: "<red>You don't have permission to use mace commands!"
   netherite:
     no-permission: "<red>You don't have permission to use netherite commands!"
     player-only-gui: "<red>Only players can open the GUI!"
@@ -209,6 +205,7 @@ commands:
   ritual:
     no-permission: "<red>You don't have permission to use ritual commands!"
   mace:
+    no-permission: "<red>You don't have permission to use mace commands!"
     reset-no-permission: "<red>You don't have permission to reset the mace limiter!"
     must-hold-mace: "<red>You must be holding a Mace!"
     feature-not-found: "<red>Mace Limiter feature not found!"
@@ -387,10 +384,10 @@ feature-menus:
     right-click-open-settings: "<yellow>Right Click: <gray>Open Settings"
     right-click-open-gui: "<yellow>Right Click: <gray>Open GUI"
     right-click-info: "<yellow>Right Click: <gray>View Info"
-    on: "<green>ON"
-    off: "<red>OFF"
-    yes: "<green>Yes"
-    no: "<red>No"
+    "on": "<green>ON"
+    "off": "<red>OFF"
+    "yes": "<green>Yes"
+    "no": "<red>No"
     none: "<red>None"
     enabled-check: "<green>Enabled"
   anchor-restriction:
@@ -512,6 +509,9 @@ feature-menus:
     description: "<gray>Prevents dropped items from despawning naturally."
     lore-1: "<gray>Items stay on the ground"
     lore-2: "<gray>until picked up or removed manually."
+  sulfur-cube-grief-ban:
+    name: "<gold><bold>Sulfur Cube Grief Ban"
+    description: "<gray>Prevents Sulfur Cube explosions from destroying blocks."
   tnt-minecart-ban:
     name: "<red><bold>TNT Minecart Ban"
     description: "<gray>Disables TNT minecart placement and usage."
@@ -637,6 +637,95 @@ mob-manager:
   chunk-cleanup-disabled: "<gray>Chunk cleanup disabled."
   worldguard-bypass-enabled: "<green>WorldGuard bypass enabled! Mobs in protected regions can spawn."
   worldguard-bypass-disabled: "<gray>WorldGuard bypass disabled."
+  gui:
+    shared:
+      manage-action: "<!italic><yellow>Click to manage this world"
+      back-main: "<!italic><yellow>Back to Main Menu"
+      close: "<!italic><red>Close"
+      toggle-action: "<!italic><yellow>Click to toggle"
+    world-select:
+      title: "<!italic><green>Mob Manager - Select World"
+      world:
+        name: "<!italic><green><world>"
+        environment: "<!italic><gray>Environment: <yellow><environment>"
+        disabled-mobs: "<!italic><gray>Disabled Mobs: <yellow><count>"
+      all-worlds:
+        name: "<!italic><aqua><bold>All Worlds"
+        lore-1: "<!italic><gray>Manage mob spawning rules"
+        lore-2: "<!italic><gray>that apply across every world."
+      settings:
+        name: "<!italic><yellow>Global Settings"
+        chunk-cleanup-enabled: "<!italic><gray>Chunk Cleanup: <green>Enabled"
+        chunk-cleanup-disabled: "<!italic><gray>Chunk Cleanup: <red>Disabled"
+        worldguard-enabled: "<!italic><gray>WorldGuard Bypass: <green>Enabled"
+        worldguard-disabled: "<!italic><gray>WorldGuard Bypass: <red>Disabled"
+        action: "<!italic><yellow>Click to configure"
+    main:
+      title: "<!italic><green>Mobs - <world> (<page>/<total>)"
+      mob:
+        disabled-name: "<!italic><red><mob>"
+        enabled-name: "<!italic><green><mob>"
+        spawning-disabled: "<!italic><gray>Spawning: <red>Disabled"
+        spawning-enabled: "<!italic><gray>Spawning: <green>Enabled"
+        no-egg: "<!italic><gray>No spawn egg available for this mob"
+      navigation:
+        previous:
+          name: "<!italic><yellow>Previous Page"
+        next:
+          name: "<!italic><yellow>Next Page"
+        page: "<!italic><gray>Page <page>/<total>"
+        back: "<!italic><yellow>Back to World Select"
+        enable-all:
+          name: "<!italic><green><bold>Enable All"
+          lore-1: "<!italic><gray>Enable spawning for"
+          lore-2: "<!italic><gray>every mob in this world."
+        disable-all:
+          name: "<!italic><red><bold>Disable All"
+          lore-1: "<!italic><gray>Disable spawning for"
+          lore-2: "<!italic><gray>every mob in this world."
+        spawn-reasons:
+          name: "<!italic><aqua><bold>Spawn Reasons"
+          lore-1: "<!italic><gray>Restrict which spawn reasons"
+          lore-2: "<!italic><gray>are allowed to spawn mobs."
+          action: "<!italic><yellow>Click to configure"
+    spawn-reasons:
+      title: "<!italic><aqua>Mob Manager - Spawn Reasons"
+      back: "<!italic><yellow>Back to Mob Manager"
+      reason:
+        allowed-name: "<!italic><green><reason>"
+        blocked-name: "<!italic><red><reason>"
+        description: "<!italic><gray><description>"
+        allowed-status: "<!italic><gray>Status: <green>Allowed"
+        allowed-lore-1: "<!italic><gray>Mobs may spawn"
+        allowed-lore-2: "<!italic><gray>via this reason."
+        blocked-status: "<!italic><gray>Status: <red>Blocked"
+        blocked-lore-1: "<!italic><gray>Mobs may not spawn"
+        blocked-lore-2: "<!italic><gray>via this reason."
+      info:
+        name: "<!italic><aqua>Spawn Reasons Info"
+        lore-1: "<!italic><gray>Controls which spawn causes"
+        lore-2: "<!italic><gray>are allowed on this server."
+        example-1: "<!italic><yellow>Example:"
+        example-2: "<!italic><gray>NATURAL = random world spawns"
+        example-3: "<!italic><gray>SPAWNER = mob spawner blocks"
+    settings:
+      title: "<!italic><yellow>Mob Manager - Settings"
+      back: "<!italic><yellow>Back to World Select"
+      chunk-cleanup:
+        name: "<!italic><yellow>Chunk Cleanup"
+        status-enabled: "<!italic><gray>Status: <green>Enabled"
+        status-disabled: "<!italic><gray>Status: <red>Disabled"
+        lore-1: "<!italic><gray>Removes disabled mobs"
+        lore-2: "<!italic><gray>from loaded chunks."
+        warning-1: "<!italic><red>Warning:"
+        warning-2: "<!italic><red>This runs periodically and may impact performance."
+      worldguard:
+        name: "<!italic><yellow>WorldGuard Bypass"
+        status-enabled: "<!italic><gray>Status: <green>Enabled"
+        status-disabled: "<!italic><gray>Status: <red>Disabled"
+        lore-1: "<!italic><gray>When enabled, mob spawning rules"
+        lore-2: "<!italic><gray>bypass WorldGuard region checks"
+        lore-3: "<!italic><gray>and apply everywhere."
 
 # Infinite Restock
 infinite-restock:
@@ -872,6 +961,34 @@ shield-mechanics:
 # Potion Bans
 potion-bans:
   feature-disabled: "<red>Potion Bans is disabled! Enable it first."
+  gui:
+    title: "<!italic><dark_purple>Potion Bans - Settings"
+    back: "<!italic><yellow>Back to Main Menu"
+    shared:
+      status-enabled: "<!italic><gray>Status: <green>Enabled"
+      status-disabled: "<!italic><gray>Status: <red>Disabled"
+      toggle: "<!italic><yellow>Click to toggle"
+    all-potions:
+      name: "<!italic><red><bold>Ban All Potions"
+    click-guide:
+      name: "<!italic><aqua>Click Guide"
+      left-click: "<!italic><gray>Left Click: <yellow>Toggle Tier 2 (splash/lingering)"
+      right-click: "<!italic><gray>Right Click: <yellow>Toggle Tier 1 (base effect)"
+      config-format-label: "<!italic><gray>Config Format:"
+      config-format-value: "<!italic><yellow>effect:tier1:tier2"
+    effect:
+      name: "<!italic><yellow><effect>"
+      tier1-disabled: "<!italic><gray>Tier 1: <red>Blocked"
+      tier1-allowed: "<!italic><gray>Tier 1: <green>Allowed"
+      tier2-disabled: "<!italic><gray>Tier 2: <red>Blocked"
+      tier2-allowed: "<!italic><gray>Tier 2: <green>Allowed"
+      left-click: "<!italic><gray>Left Click: <yellow>Toggle Tier 2"
+      right-click: "<!italic><gray>Right Click: <yellow>Toggle Tier 1"
+    clear-effects:
+      name: "<!italic><aqua><bold>Clear All Bans"
+      tier1: "<!italic><gray>Tier 1 Bans: <yellow><count>"
+      tier2: "<!italic><gray>Tier 2 Bans: <yellow><count>"
+      action: "<!italic><yellow>Click to clear all bans"
 
 # Invisible Kills
 invisible-kills:

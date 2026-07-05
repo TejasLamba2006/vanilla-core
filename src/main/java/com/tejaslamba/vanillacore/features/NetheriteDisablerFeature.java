@@ -38,6 +38,9 @@ public class NetheriteDisablerFeature extends BaseFeature {
         slotMapping.put(21, Material.NETHERITE_CHESTPLATE);
         slotMapping.put(23, Material.NETHERITE_LEGGINGS);
         slotMapping.put(24, Material.NETHERITE_BOOTS);
+        slotMapping.put(30, Material.NETHERITE_HORSE_ARMOR);
+        slotMapping.put(31, Material.NETHERITE_SPEAR);
+        slotMapping.put(32, Material.NETHERITE_NAUTILUS_ARMOR);
     }
 
     @Override
@@ -48,7 +51,7 @@ public class NetheriteDisablerFeature extends BaseFeature {
 
         if (plugin.isVerbose()) {
             long disabledCount = disabledItems.values().stream().filter(b -> b).count();
-            plugin.getLogger().info("[VERBOSE] Netherite Disabler - Loaded " + disabledCount + "/9 items as disabled");
+            plugin.getLogger().info("[VERBOSE] Netherite Disabler - Loaded " + disabledCount + "/12 items as disabled");
         }
     }
 
@@ -120,7 +123,7 @@ public class NetheriteDisablerFeature extends BaseFeature {
             ItemStack item = new ItemStack(material);
             ItemMeta meta = item.getItemMeta();
             if (meta != null) {
-                String itemName = material.name().toLowerCase().replace("netherite_", "");
+                String itemName = material.name().toLowerCase().replace("netherite_", "").replace("_", " ");
                 itemName = itemName.substring(0, 1).toUpperCase() + itemName.substring(1);
 
                 meta.displayName(plugin.getMessageManager().get("netherite-disabler.gui.item.name", "item", itemName));
@@ -191,6 +194,14 @@ public class NetheriteDisablerFeature extends BaseFeature {
                         true));
         disabledItems.put(Material.NETHERITE_BOOTS,
                 plugin.getConfigManager().get().getBoolean("features.netherite-disabler.disabled-items.boots", true));
+        disabledItems.put(Material.NETHERITE_HORSE_ARMOR,
+                plugin.getConfigManager().get().getBoolean("features.netherite-disabler.disabled-items.horse_armor",
+                        true));
+        disabledItems.put(Material.NETHERITE_SPEAR,
+                plugin.getConfigManager().get().getBoolean("features.netherite-disabler.disabled-items.spear", true));
+        disabledItems.put(Material.NETHERITE_NAUTILUS_ARMOR,
+                plugin.getConfigManager().get().getBoolean("features.netherite-disabler.disabled-items.nautilus_armor",
+                        true));
     }
 
     private void saveDisabledItems() {
@@ -212,6 +223,12 @@ public class NetheriteDisablerFeature extends BaseFeature {
                 disabledItems.getOrDefault(Material.NETHERITE_LEGGINGS, true));
         plugin.getConfigManager().get().set("features.netherite-disabler.disabled-items.boots",
                 disabledItems.getOrDefault(Material.NETHERITE_BOOTS, true));
+        plugin.getConfigManager().get().set("features.netherite-disabler.disabled-items.horse_armor",
+                disabledItems.getOrDefault(Material.NETHERITE_HORSE_ARMOR, true));
+        plugin.getConfigManager().get().set("features.netherite-disabler.disabled-items.spear",
+                disabledItems.getOrDefault(Material.NETHERITE_SPEAR, true));
+        plugin.getConfigManager().get().set("features.netherite-disabler.disabled-items.nautilus_armor",
+                disabledItems.getOrDefault(Material.NETHERITE_NAUTILUS_ARMOR, true));
 
         plugin.getConfigManager().save();
     }

@@ -22,6 +22,8 @@ features:
     enabled: false
   pearl-restriction:
     enabled: false
+  sulfur-cube-grief-ban:
+    enabled: false
 ```
 
 ## Options
@@ -34,6 +36,7 @@ features:
 | Crystal PvP Ban | `features.crystal-pvp-ban.enabled` | Blocks crystal placement/damage/explosions |
 | Anchor Restriction | `features.anchor-restriction.enabled` | Restricts respawn anchor charging outside Nether |
 | Pearl Restriction | `features.pearl-restriction.enabled` | Blocks pearl usage and pearl teleporting |
+| Sulfur Cube Grief Ban | `features.sulfur-cube-grief-ban.enabled` | Clears block damage from Sulfur Cube (Chaos Cubed) explosions |
 
 ## In-Game Usage
 

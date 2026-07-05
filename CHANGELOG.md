@@ -5,7 +5,34 @@ All notable changes to Vanilla Core will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.5.1] - 2026-07-05
+
+### Added
+
+- Added Sulfur Cube Grief Ban (`features.sulfur-cube-grief-ban`) to strip block damage from Sulfur Cube (Chaos Cubed) explosions while leaving entity damage intact.
+- Extended Netherite Disabler (`features.netherite-disabler`) to cover the three new smithing-upgradable netherite items from Mounts of Mayhem: Netherite Horse Armor, Netherite Spear, and Netherite Nautilus Armor.
+- Extended Item Cooldowns (`features.item-cooldowns`) with GUI entries for all seven Spear tiers (Wooden through Netherite, plus Copper), reusing the existing generic material-cooldown system.
+
+### Changed
+
+- Bumped target Minecraft/Paper API from 1.21.1 to 26.2 (dropped legacy version support): `paper-api` -> `26.2.build.48-alpha`, Java 21 -> 25, `maven-compiler-plugin` -> 3.14.0, `maven-shade-plugin` -> 3.6.2, ProGuard -> 7.9.1/proguard-core 9.3.2 (all needed to read/process Java 25 class files).
+- `FasterHappyGhastsListener` now uses `Attribute.FLYING_SPEED` directly, removing the `GENERIC_FLYING_SPEED` reflection fallback for older API versions.
+- Merged the `utils` package into `util`, and the `commands` package into `command`, removing the duplicate package split.
+- Replaced the Folia-aware `SchedulerUtil` reflection wrapper with direct Bukkit scheduler calls in `AnnouncementsManager` and `SocialManager`, since it was only applied at 4 of the plugin's ~90 scheduler call sites and provided no real Folia safety.
+- Resized the Item Cooldowns settings GUI from a 5-row/45-slot layout to a 3-row/27-slot layout, keeping all seven Spear tier entries on one row.
+- Default `starter` kit now only grants 16 bread (removed the stone sword and torch).
+- CI workflows (`build.yml`, `codeql.yml`, `modrinth-publish.yml`) now build with JDK 25 instead of 21 to match the project's Java 25 requirement; `modrinth-publish.yml`'s published game version was updated from `>=1.21.1` to `26.2`, and `folia` was removed from its loaders list since Folia is not supported.
+- Updated documentation (`docs/docs/intro.md`, `installation.md`, `faq.md`) to reference Paper/Spigot 26.2 and Java 25 instead of stale 1.21.1/Java 21 references, and fixed a malformed admonition block in `installation.md`.
+
+### Fixed
+
+- Fixed Enchantment Limiter, Potion Bans, and Item Cooldowns menu lore showing literal unsubstituted placeholders (`<configured>`, `<available>`, `<tier1>`, `<tier2>`, `<entries>`) instead of their values, caused by mismatched `.replace()` placeholder names.
+- Fixed the Mob Manager and Potion Bans settings GUIs displaying raw, untranslated message keys (e.g. `mob-manager.gui.world-select.name`) for every title, lore line, and button — their `messages.yml` entries were missing entirely.
+
+### Removed
+
+- Removed the unused `junit-jupiter` test dependency (no test sources exist in the project).
+- Removed `rename.js` and `rename.py`, one-time slug-migration scripts that had already been run.
 
 ## [1.5.0] - 2026-07-02
 

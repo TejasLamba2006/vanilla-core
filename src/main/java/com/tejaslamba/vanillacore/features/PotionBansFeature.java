@@ -310,11 +310,9 @@ public class PotionBansFeature extends BaseFeature {
                 .replace("<state>", plugin.getMessageManager().getRaw(
                         isAllPotionsBanned() ? "feature-menus.shared.yes" : "feature-menus.shared.no")));
         lore.add(plugin.getMessageManager().getRaw("feature-menus.potion-bans.tier1")
-                .replace("<count>", String.valueOf(getTier1BlockedCount()))
-                .replace("<total>", String.valueOf(EFFECT_OPTIONS.size())));
+                .replace("<tier1>", String.valueOf(getTier1BlockedCount())));
         lore.add(plugin.getMessageManager().getRaw("feature-menus.potion-bans.tier2")
-                .replace("<count>", String.valueOf(getTier2BlockedCount()))
-                .replace("<total>", String.valueOf(EFFECT_OPTIONS.size())));
+                .replace("<tier2>", String.valueOf(getTier2BlockedCount())));
         lore.add("");
         lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
         lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.right-click-open-settings"));

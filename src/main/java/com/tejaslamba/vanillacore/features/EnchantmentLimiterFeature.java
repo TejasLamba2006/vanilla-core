@@ -120,9 +120,9 @@ public class EnchantmentLimiterFeature extends BaseFeature {
         lore.add("");
         int limitsCount = manager != null ? manager.getLimitsCount() : 0;
         lore.add(plugin.getMessageManager().getRaw("feature-menus.enchantment-limiter.configured-count")
-                .replace("<count>", String.valueOf(limitsCount)));
+                .replace("<configured>", String.valueOf(limitsCount)));
         lore.add(plugin.getMessageManager().getRaw("feature-menus.enchantment-limiter.available-count")
-                .replace("<count>", String.valueOf(allEnchantments.size())));
+                .replace("<available>", String.valueOf(allEnchantments.size())));
         lore.add("");
         lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
         lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.right-click-open-manager"));

@@ -10,7 +10,7 @@ Frequently asked questions about Vanilla Core.
 
 ### What versions does Vanilla Core support?
 
-Vanilla Core supports **Paper/Spigot 1.21.1+** with **Java 21+**.
+Vanilla Core supports **Paper/Spigot 26.2+** with **Java 25+**.
 
 ### Does it work with Spigot?
 
@@ -32,8 +32,8 @@ Yes! Vanilla Core is completely free and open source.
 
 Check the following:
 
-1. **Java version**: Must be 21+ (`java -version`)
-2. **Server version**: Must be 1.21.1+
+1. **Java version**: Must be 25+ (`java -version`)
+2. **Server version**: Must be 26.2+
 3. **Console errors**: Look for red error messages
 4. **File name**: Ensure it's `.jar` not `.jar.zip`
 

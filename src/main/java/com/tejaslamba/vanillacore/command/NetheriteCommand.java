@@ -31,6 +31,9 @@ public class NetheriteCommand implements CommandExecutor, TabCompleter {
         netheriteItems.put("chestplate", Material.NETHERITE_CHESTPLATE);
         netheriteItems.put("leggings", Material.NETHERITE_LEGGINGS);
         netheriteItems.put("boots", Material.NETHERITE_BOOTS);
+        netheriteItems.put("horse_armor", Material.NETHERITE_HORSE_ARMOR);
+        netheriteItems.put("spear", Material.NETHERITE_SPEAR);
+        netheriteItems.put("nautilus_armor", Material.NETHERITE_NAUTILUS_ARMOR);
     }
 
     @Override

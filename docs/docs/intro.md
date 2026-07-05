@@ -74,12 +74,12 @@ Use dimension locks to create progression for your server. Keep the Nether locke
 
 | Requirement | Version | Notes |
 |-------------|---------|-------|
-| Server | Paper 1.21.1+ | Spigot works but Paper is better |
-| Java | 21+ | Required for 1.21.1+ |
+| Server | Paper 26.2+ | Spigot works but Paper is better |
+| Java | 25+ | Required for 26.2+ |
 | WorldGuard | 7.0+ | Optional - for Mob Manager region bypass |
 
 :::warning Java Version
-You need Java 21 or newer. If you're on an older version, upgrade before installing.
+You need Java 25 or newer. If you're on an older version, upgrade before installing.
 :::
 
 ## Quick Start

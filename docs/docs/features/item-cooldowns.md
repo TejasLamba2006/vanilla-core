@@ -17,13 +17,20 @@ features:
       ENCHANTED_GOLDEN_APPLE: 0.0
       ENDER_PEARL: 0.0
       WIND_CHARGE: 0.5
+      WOODEN_SPEAR: 0.0
+      STONE_SPEAR: 0.0
+      IRON_SPEAR: 0.0
+      GOLDEN_SPEAR: 0.0
+      DIAMOND_SPEAR: 0.0
+      NETHERITE_SPEAR: 0.0
+      COPPER_SPEAR: 0.0
 ```
 
 ## Notes
 
 - Values are in seconds and support decimals.
 - You can add additional material keys under `cooldowns`.
-- The GUI gives quick controls for golden apples, enchanted golden apples, ender pearls, and wind charges.
+- The GUI gives quick controls for golden apples, enchanted golden apples, ender pearls, wind charges, and all seven Spear tiers (Wooden through Netherite, plus Copper) added in Mounts of Mayhem.
 
 ## In-Game Usage
 

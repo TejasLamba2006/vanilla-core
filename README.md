@@ -7,7 +7,7 @@
 [![Discord](https://img.shields.io/discord/1380092469613432912?logo=discord&label=discord)](https://discord.gg/7fQPG4Grwt)
 [![CodeFactor](https://www.codefactor.io/repository/github/tejaslamba2006/vanilla-core/badge)](https://www.codefactor.io/repository/github/tejaslamba2006/vanilla-core)
 
-A Minecraft plugin for Vanilla servers focused on PvP balance, custom mechanics, and server management. Built for Paper/Spigot 1.21.1+.
+A Minecraft plugin for Vanilla servers focused on PvP balance, custom mechanics, and server management. Built for Paper/Spigot 26.2+.
 
 > This project is now open source.
 
@@ -197,8 +197,8 @@ features:
 
 ## Requirements
 
-- Server: Paper or Spigot 1.21.1+
-- Java: 21 or higher
+- Server: Paper or Spigot 26.2+
+- Java: 25 or higher
 
 ---
 

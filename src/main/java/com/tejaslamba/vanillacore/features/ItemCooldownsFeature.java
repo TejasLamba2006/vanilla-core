@@ -28,6 +28,18 @@ public class ItemCooldownsFeature extends BaseFeature {
             Material.WIND_CHARGE
     };
 
+    private static final Material[] SPEAR_MATERIALS = {
+            Material.WOODEN_SPEAR,
+            Material.STONE_SPEAR,
+            Material.IRON_SPEAR,
+            Material.GOLDEN_SPEAR,
+            Material.DIAMOND_SPEAR,
+            Material.NETHERITE_SPEAR,
+            Material.COPPER_SPEAR
+    };
+
+    private static final int[] SPEAR_SLOTS = { 10, 11, 12, 13, 14, 15, 16 };
+
     private final Map<Material, Integer> cooldownTicks = new EnumMap<>(Material.class);
     private ItemCooldownsListener listener;
 
@@ -65,6 +77,9 @@ public class ItemCooldownsFeature extends BaseFeature {
         ensureDefaultEntry(Material.ENCHANTED_GOLDEN_APPLE, 0);
         ensureDefaultEntry(Material.ENDER_PEARL, 0);
         ensureDefaultEntry(Material.WIND_CHARGE, 10);
+        for (Material spear : SPEAR_MATERIALS) {
+            ensureDefaultEntry(spear, 0);
+        }
     }
 
     public int getCooldownTicks(Material material) {
@@ -108,7 +123,7 @@ public class ItemCooldownsFeature extends BaseFeature {
         lore.add(plugin.getMessageManager().getRaw(enabled ? "feature.enabled" : "feature.disabled"));
         lore.add("");
         lore.add(plugin.getMessageManager().getRaw("feature-menus.item-cooldowns.entries")
-                .replace("<count>", String.valueOf(cooldownTicks.size())));
+                .replace("<entries>", String.valueOf(cooldownTicks.size())));
         lore.add("");
         lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.left-click-toggle"));
         lore.add(plugin.getMessageManager().getRaw("feature-menus.shared.right-click-open-settings"));
@@ -126,33 +141,37 @@ public class ItemCooldownsFeature extends BaseFeature {
     }
 
     public void openSettingsGUI(Player player) {
-        Inventory gui = Bukkit.createInventory(new GuiHolder("item-cooldowns"), 45,
+        Inventory gui = Bukkit.createInventory(new GuiHolder("item-cooldowns"), 27,
                 plugin.getMessageManager().get("item-cooldowns.gui.title"));
-        fillFiller(gui, 45);
+        fillFiller(gui, 27);
 
-        gui.setItem(10, buildCooldownItem(Material.GOLDEN_APPLE));
-        gui.setItem(12, buildCooldownItem(Material.ENCHANTED_GOLDEN_APPLE));
-        gui.setItem(14, buildCooldownItem(Material.ENDER_PEARL));
-        gui.setItem(16, buildCooldownItem(Material.WIND_CHARGE));
+        gui.setItem(1, buildCooldownItem(Material.GOLDEN_APPLE));
+        gui.setItem(3, buildCooldownItem(Material.ENCHANTED_GOLDEN_APPLE));
+        gui.setItem(5, buildCooldownItem(Material.ENDER_PEARL));
+        gui.setItem(7, buildCooldownItem(Material.WIND_CHARGE));
 
-        gui.setItem(31, buildInfoItem());
-        gui.setItem(40, buildBackItem());
+        for (int i = 0; i < SPEAR_MATERIALS.length; i++) {
+            gui.setItem(SPEAR_SLOTS[i], buildCooldownItem(SPEAR_MATERIALS[i]));
+        }
+
+        gui.setItem(20, buildInfoItem());
+        gui.setItem(24, buildBackItem());
 
         player.openInventory(gui);
     }
 
     public void handleSettingsGUIClick(int slot, boolean isShiftClick, boolean isRightClick, Player player) {
-        if (slot == 40) {
+        if (slot == 24) {
             plugin.getServer().getScheduler().runTask(plugin, () -> plugin.getMenuManager().openMainMenu(player));
             return;
         }
 
         Material target = switch (slot) {
-            case 10 -> Material.GOLDEN_APPLE;
-            case 12 -> Material.ENCHANTED_GOLDEN_APPLE;
-            case 14 -> Material.ENDER_PEARL;
-            case 16 -> Material.WIND_CHARGE;
-            default -> null;
+            case 1 -> Material.GOLDEN_APPLE;
+            case 3 -> Material.ENCHANTED_GOLDEN_APPLE;
+            case 5 -> Material.ENDER_PEARL;
+            case 7 -> Material.WIND_CHARGE;
+            default -> spearMaterialForSlot(slot);
         };
 
         if (target == null) {
@@ -178,6 +197,15 @@ public class ItemCooldownsFeature extends BaseFeature {
         }
 
         plugin.getConfigManager().save();
+    }
+
+    private Material spearMaterialForSlot(int slot) {
+        for (int i = 0; i < SPEAR_SLOTS.length; i++) {
+            if (SPEAR_SLOTS[i] == slot) {
+                return SPEAR_MATERIALS[i];
+            }
+        }
+        return null;
     }
 
     private void ensureDefaultEntry(Material material, int ticks) {

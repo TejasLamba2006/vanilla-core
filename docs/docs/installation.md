@@ -12,8 +12,8 @@ Before installing Vanilla Core, verify your server meets these requirements:
 
 | Component | Minimum | Recommended | Notes |
 |-----------|---------|-------------|-------|
-| Server Software | Spigot 1.21.1 | Paper 1.21.1+ | Paper provides better performance and additional API features |
-| Java Version | Java 21 | Java 21+ | Minecraft 1.21.1 requires Java 21 |
+| Server Software | Spigot 26.2 | Paper 26.2+ | Paper provides better performance and additional API features |
+| Java Version | Java 25 | Java 25+ | Minecraft 26.2 requires Java 25 |
 | RAM | 2GB | 4GB+ | Vanilla Core itself uses minimal memory |
 | WorldGuard | 7.0 | 7.0.9+ | Optional - only needed for Mob Manager region features |
 | WorldEdit | 7.3 | 7.3+ | Required if using WorldGuard |
@@ -40,9 +40,13 @@ Before adding new plugins, always stop your server properly:
 
 :::warning Never Hot-Load Plugins
 Do not use plugin managers to load Vanilla Core while the server is running. Always stop the server, add the plugin, then start again. Hot-loading can cause memory leaks and unexpected behavior.
-tip WorldGuard Not Required
+:::
+
+:::tip WorldGuard Not Required
 The Mob Manager feature works without WorldGuard, but you can only control global mob spawning. Region-specific controls require WorldGuard.
-info Breaking Changes
+:::
+
+:::info Breaking Changes
 Major version updates (like 1.x to 2.x) may include breaking changes. Always read the changelog before updating major versions.
 :::
 
@@ -54,8 +58,8 @@ Major version updates (like 1.x to 2.x) may include breaking changes. Always rea
 
 **Solutions:**
 
-1. Check Java version: Must be 21 or newer
-2. Check server version: Must be 1.21.1 or newer
+1. Check Java version: Must be 25 or newer
+2. Check server version: Must be 26.2 or newer
 3. Check console for specific error messages
 4. Verify the JAR file isn't corrupted (re-download if needed)
 5. Ensure file permissions allow reading the JAR

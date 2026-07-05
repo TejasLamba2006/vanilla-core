@@ -14,11 +14,9 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 public class FasterHappyGhastsListener implements Listener {
 
     private final VanillaCorePlugin plugin;
-    private final Attribute flyingSpeedAttribute;
 
     public FasterHappyGhastsListener(VanillaCorePlugin plugin) {
         this.plugin = plugin;
-        this.flyingSpeedAttribute = resolveFlyingSpeedAttribute();
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -40,11 +38,11 @@ public class FasterHappyGhastsListener implements Listener {
     }
 
     private void applyFlyingSpeed(LivingEntity entity, FasterHappyGhastsFeature feature) {
-        if (!entity.isValid() || flyingSpeedAttribute == null) {
+        if (!entity.isValid()) {
             return;
         }
 
-        AttributeInstance attributeInstance = entity.getAttribute(flyingSpeedAttribute);
+        AttributeInstance attributeInstance = entity.getAttribute(Attribute.FLYING_SPEED);
         if (attributeInstance == null) {
             return;
         }
@@ -54,18 +52,6 @@ public class FasterHappyGhastsListener implements Listener {
         if (plugin.isVerbose()) {
             plugin.getLogger().info("[VERBOSE] Faster Happy Ghasts - Applied flying speed "
                     + feature.getFlyingSpeed() + " to entity " + entity.getUniqueId());
-        }
-    }
-
-    private Attribute resolveFlyingSpeedAttribute() {
-        try {
-            return Attribute.GENERIC_FLYING_SPEED;
-        } catch (NoSuchFieldError e) {
-            try {
-                return Attribute.valueOf("FLYING_SPEED");
-            } catch (IllegalArgumentException ex) {
-                return null;
-            }
         }
     }
 }

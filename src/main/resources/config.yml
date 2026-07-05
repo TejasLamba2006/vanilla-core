@@ -89,9 +89,7 @@ kits:
       permission: "smp.kit.starter"
       cooldown-seconds: 0
       items:
-        - "STONE_SWORD 1"
         - "BREAD 16"
-        - "TORCH 16"
 
 # ============================================
 # Features
@@ -203,6 +201,9 @@ features:
       chestplate: true
       leggings: true
       boots: true
+      horse_armor: true
+      spear: true
+      nautilus_armor: true
 
   # ------------------------------------------
   # Invisible Kills
@@ -551,6 +552,13 @@ features:
   # ------------------------------------------
   # Disable TNT minecart explosion damage and explosions.
   tnt-minecart-ban:
+    enabled: false
+
+  # ------------------------------------------
+  # Sulfur Cube Grief Ban
+  # ------------------------------------------
+  # Prevent Sulfur Cube (Chaos Cubed) explosive archetype from destroying blocks.
+  sulfur-cube-grief-ban:
     enabled: false
 
   # ------------------------------------------
